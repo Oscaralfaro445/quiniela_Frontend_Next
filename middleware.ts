@@ -1,9 +1,9 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 
 // Jose es una libreria similar a jwt con los mismos estandares
 
-export function middleware(request) {
+export async function middleware(request: NextRequest) {
   // Extraemos el token de las cookies
   const jwt = request.cookies.get("authToken")?.value;
   // console.log("Token", jwt);
@@ -15,7 +15,10 @@ export function middleware(request) {
 
   try {
     // Si el token es valido el middleware permite continuar
-    const { payload } = jwtVerify(jwt, new TextEncoder().encode("secret"));
+    const { payload } = await jwtVerify(
+      jwt,
+      new TextEncoder().encode("secret")
+    );
     console.log(payload);
     return NextResponse.next();
   } catch (error) {
