@@ -4,6 +4,8 @@ import { jwtVerify } from "jose";
 // Jose es una libreria similar a jwt con los mismos estandares
 
 export async function middleware(request: NextRequest) {
+  // const secret = process.env.JWT_SECRET | "secret";
+
   // Extraemos el token de las cookies
   const jwt = request.cookies.get("authToken")?.value;
   // console.log("Token", jwt);
@@ -29,5 +31,5 @@ export async function middleware(request: NextRequest) {
 
 // Arreglo de rutas protegidas
 export const config = {
-  matcher: ["/dashboard", "/admin/*"],
+  matcher: ["/dashboard", "/admin/:path*"],
 };

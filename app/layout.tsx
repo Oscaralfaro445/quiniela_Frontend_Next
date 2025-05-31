@@ -1,3 +1,6 @@
+import { ReactQueryProvider } from "@/components/shared/ReactQueryProvider/ReactQueryProvider";
+import { Header } from "@/components/shared/Header/Header";
+import { Footer } from "@/components/shared/Footer/Footer";
 import "./globals.css";
 
 export default function RootLayout({
@@ -7,7 +10,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={``}>{children}</body>
+      <head>{/*         <link rel="" href="" type="" /> */}</head>
+
+      <body className="">
+        <ReactQueryProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </ReactQueryProvider>
+      </body>
     </html>
   );
 }

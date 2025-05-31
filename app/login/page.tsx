@@ -27,7 +27,7 @@ export default function LoginPage() {
           withCredentials: true,
         }
       );
-      console.log(response);
+      // console.log(response);
       if (response.status === 200) router.push("/dashboard");
     } catch (error) {
       console.log(error);
