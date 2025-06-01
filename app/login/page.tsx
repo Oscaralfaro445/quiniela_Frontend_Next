@@ -3,17 +3,24 @@
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/shared/button/Button";
+import { Input } from "@/components/shared/input/Input";
 
 export default function LoginPage() {
   // Guardaremos la información del login
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const router = useRouter();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setCredentials({
       ...credentials,
       [event.target.name]: event.target.value,
     });
+    console.log("Input value", credentials);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -37,19 +44,17 @@ export default function LoginPage() {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input
+        <Input
+          type="switch"
+          label="Email"
+          description="Correo de inicio de sesion"
+          placeholder="Ingresa tu email"
           name="email"
-          type="email"
-          placeholder="email"
+          id="email"
           onChange={handleChange}
         />
-        <input
-          name="password"
-          type="password"
-          placeholder="password"
-          onChange={handleChange}
-        />
-        <button>Login</button>
+
+        <Button type="submit" title="Iniciar sesión" />
       </form>
     </div>
   );

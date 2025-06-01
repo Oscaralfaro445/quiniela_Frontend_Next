@@ -31,5 +31,5 @@ export async function middleware(request: NextRequest) {
 
 // Arreglo de rutas protegidas
 export const config = {
-  matcher: ["/dashboard", "/admin/:path*"],
+  matcher: ["/", "/admin/:path*"],
 };
