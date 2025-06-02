@@ -45,7 +45,7 @@ export default function LoginPage() {
     <div>
       <form onSubmit={handleSubmit}>
         <Input
-          type="switch"
+          type="email"
           label="Email"
           description="Correo de inicio de sesion"
           placeholder="Ingresa tu email"
@@ -53,7 +53,15 @@ export default function LoginPage() {
           id="email"
           onChange={handleChange}
         />
-
+        <Input
+          type="password"
+          label="Password"
+          description="Correo de inicio de sesion"
+          placeholder="Ingresa tu email"
+          name="password"
+          id="password"
+          onChange={handleChange}
+        />
         <Button type="submit" title="Iniciar sesión" />
       </form>
     </div>

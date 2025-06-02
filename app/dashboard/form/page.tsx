@@ -1,9 +1,22 @@
+"use client";
+
 import { Alert } from "@/components/alert/alert";
 import { SectionHeader } from "@/components/sectionHeader/SectionHeader";
 import { Button } from "@/components/shared/button/Button";
 import { Table } from "@/components/shared/table/Table";
+import useGetFormdata from "@/hooks/formdata/queries/useGetFormdata";
 
 export default function Form() {
+  const { isSuccess, isPending, isError, data, error } = useGetFormdata() as {
+    isSuccess: boolean;
+    isPending: boolean;
+    isError: boolean;
+    data: any;
+    error: Error;
+  };
+
+  console.log(isError, isPending, isSuccess, data, error);
+
   return (
     <div w-full>
       <SectionHeader>

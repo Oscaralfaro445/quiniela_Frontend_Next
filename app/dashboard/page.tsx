@@ -1,8 +1,9 @@
 "use client";
 
 import axios from "axios";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Button } from "@/components/shared/button/Button";
 
 const initialValues = {
   email: "",
@@ -44,12 +45,17 @@ export default function Dashboard() {
     }
   };
 
+  const handleForm = () => {
+    router.push("/dashboard/form");
+  };
+
   return (
     <div>
       <h1>Dashboard</h1>
       <pre>{JSON.stringify(user, null, 2)}</pre>
       <button onClick={() => getProfile()}>Get profile</button>
       <button onClick={() => logoutProfile()}>Logout</button>
+      <Button type="button" title="Form" onClick={handleForm} />
     </div>
   );
 }

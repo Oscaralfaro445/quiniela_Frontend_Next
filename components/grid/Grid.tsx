@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Spinner } from "../Spinner/Spinner";
-import { fetchGridData } from "../../Utils/grid";
+//import { Spinner } from "../Spinner/Spinner";
+//import { fetchGridData } from "../../Utils/grid";
 
 interface GridProps {
   config: {
@@ -71,7 +71,8 @@ export const Grid = ({
     return (
       <div className="w-full h-52 my-4 flex justify-center items-center">
         {" "}
-        <Spinner size="md" />
+        {/*         <Spinner size="md" />
+         */}{" "}
       </div>
     );
 

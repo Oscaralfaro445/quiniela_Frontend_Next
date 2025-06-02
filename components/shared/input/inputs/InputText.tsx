@@ -1,4 +1,4 @@
-import { InputProps } from "@/Models/input";
+import { InputProps } from "@/models/input";
 
 export const InputText = ({
   placeholder,

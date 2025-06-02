@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { InputType } from "@/Models/input";
-import { InputProps } from "@/Models/input";
+import { InputType } from "@/models/input";
+import { InputProps } from "@/models/input";
 import { InputText } from "./inputs/InputText";
 import { InputNumber } from "./inputs/InputNumber";
 import { InputDate } from "./inputs/InputDate";
@@ -8,6 +8,8 @@ import { InputArea } from "./inputs/InputArea";
 import { InputSwitch } from "./inputs/InputSwitch";
 import { Icon } from "../icon/icon";
 import { InputCombo } from "./inputs/InputCombo";
+import { InputEmail } from "./inputs/ImputEmail";
+import { InputPassword } from "./inputs/InputPassword";
 // import "./Input.css";
 
 export const Input = ({
@@ -45,24 +47,35 @@ export const Input = ({
     };
 
     switch (type) {
-      case InputType.TEXTO:
-      case "text":
-        return <InputText {...commonProps} />;
-      case InputType.NUMERO:
-      case "number":
-        return <InputNumber {...commonProps} />;
-      case InputType.FECHA:
-      case "date":
-        return <InputDate {...commonProps} />;
       case InputType.AREA:
       case "area":
         return <InputArea {...commonProps} />;
-      case InputType.SWITCH:
-      case "switch":
-        return <InputSwitch {...commonProps} />;
+
       case InputType.COMBO:
       case "combo":
         return <InputCombo {...commonProps} />;
+
+      case InputType.FECHA:
+      case "date":
+        return <InputDate {...commonProps} />;
+
+      case "email":
+        return <InputEmail {...commonProps} />;
+
+      case InputType.NUMERO:
+      case "number":
+        return <InputNumber {...commonProps} />;
+
+      case "password":
+        return <InputPassword {...commonProps} />;
+
+      case InputType.SWITCH:
+      case "switch":
+        return <InputSwitch {...commonProps} />;
+
+      case InputType.TEXTO:
+      case "text":
+        return <InputText {...commonProps} />;
     }
   };
 

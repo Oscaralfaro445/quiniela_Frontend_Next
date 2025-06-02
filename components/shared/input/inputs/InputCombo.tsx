@@ -1,4 +1,4 @@
-import { InputProps } from "@/Models/input";
+import { InputProps } from "@/models/input";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Icon } from "../../icon/icon";
 

@@ -2,7 +2,7 @@ import { IconCheck } from "./icons/IconCheck";
 import { IconChevronDown } from "./icons/IconChevronDown";
 import { IconExclamationMark } from "./icons/IconExclamationMark";
 import { IconQuestionMark } from "./icons/IconQuestionMark";
-import { IconProps } from "@/Models/icon";
+import { IconProps } from "@/models/icon";
 import { IconTrash } from "./icons/IconTrash";
 import { IconPlus } from "./icons/IconPlus";
 import { IconPencilSquare } from "./icons/IconPencilSquare";

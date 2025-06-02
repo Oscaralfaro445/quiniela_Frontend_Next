@@ -1,4 +1,4 @@
-import { IconProps } from "@/Models/icon";
+import { IconProps } from "@/models/icon";
 
 export const IconFilter = ({ className }: IconProps) => {
   return (
