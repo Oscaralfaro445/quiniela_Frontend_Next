@@ -80,17 +80,11 @@ export const Input = ({
   };
 
   return (
-    <div className="col-span-12 relative">
+    <div className="flex w-full relative">
       {field ? (
         <>
           {field.cveTipoCompon !== InputType.RELATION && (
             <div className="flex items-center">
-              <label
-                htmlFor={name}
-                className="block text-sm font-medium text-gray-600 mr-4"
-              >
-                {field.txEtiqueta}
-              </label>
               {field.txAyuda && (
                 <div
                   className="flex-col"
@@ -98,19 +92,21 @@ export const Input = ({
                   onMouseLeave={() => handleShow}
                 >
                   <Icon iconName="questionMark" />
-                  {showHelp && (
-                    <div className="absolute left-full top-1/2 ml-2 -translate-y-1/2 bg-gray-800 text-white text-xs rounded-md px-2 py-1 shadow-lg z-10 w-44">
-                      {field.txAyuda}
-                    </div>
-                  )}
+                  {showHelp && <div className="">{field.txAyuda}</div>}
                 </div>
               )}
+              <label
+                htmlFor={name}
+                className="block text-sm font-medium text-gray-600 mr-4"
+              >
+                {field.txEtiqueta}
+              </label>
             </div>
           )}
           {renderInput()}
         </>
       ) : (
-        <div className="flex items-center">
+        <div className="flex w-full items-center justify-between">
           <label
             htmlFor={name}
             className="block text-sm font-medium text-gray-600 mr-4"

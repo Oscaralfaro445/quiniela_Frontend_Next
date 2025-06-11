@@ -1,80 +1,80 @@
+import useGetGridData from "@/hooks/gridData/queries/useGetGridData";
 import { useEffect, useState } from "react";
-//import { Spinner } from "../Spinner/Spinner";
-//import { fetchGridData } from "../../Utils/grid";
 
 interface GridProps {
-  config: {
-    columnHeaders?: any[];
-    endpoint?: string;
-  };
-  query: any;
+  formData?: any;
+  gridData?: any;
+  rowsPerPage: number;
   currentPage: number;
-  selectedRow: number | null;
-  handleSelectedRow: (row: number | null, data: any) => void;
-  externalLoading: boolean;
 }
-
-type TableType = {
-  rows: any[];
-  columns: [];
-  loading: boolean;
-  error: null | string;
-};
 
 const initialState = {
   rows: [],
   columns: [],
-  loading: false,
-  error: null,
+  isSuccess: false,
+  isPending: false,
+  isError: false,
 };
 
 export const Grid = ({
-  config,
-  query,
+  formData,
+  gridData,
+  rowsPerPage,
   currentPage,
-  selectedRow,
-  handleSelectedRow,
-  externalLoading,
 }: GridProps) => {
-  const [table, setTable] = useState<TableType>(initialState);
+  const [table, setTable] = useState(initialState);
+  const [selectedRow, setSelectedRow] = useState<number | null>(null);
+  const { isSuccess, isPending, isError, data } = useGetGridData(
+    rowsPerPage,
+    currentPage
+  );
+  // console.log("Grid component data:", data);
 
-  const setTableData = async () => {
-    let rows: any = [];
-    let columns: any = [];
+  const setTableData = () => {
+    if (formData) {
+      // console.log("Data received in Grid component:", data);
 
-    setTable({
-      rows,
-      columns,
-      error: null,
-      loading: true,
-    });
+      const columns = (formData: any) => {
+        return formData.infComponente
+          .filter((field: any) => field.bGrid)
+          .map((field: any) => field.txEtiqueta);
+      };
 
-    if (!config.columnHeaders?.length || !config.endpoint) {
+      // console.log("Columns derived from formData:", columns(formData));
+
       setTable({
-        ...table,
-        error: "No hay información para construir la tabla",
+        columns: columns(formData),
+        rows: data,
+        isSuccess: isSuccess,
+        isPending: isPending,
+        isError: isError,
       });
-      return;
+    } else if (gridData) {
+      // console.log("GridData received in Grid component:", gridData);
+      setTable({
+        columns: gridData.columns,
+        rows: gridData.rows,
+        isSuccess: true,
+        isPending: false,
+        isError: false,
+      });
+    } else {
+      // console.log("No data or gridData received in Grid component");
+      setTable(initialState);
     }
-
-    columns = config.columnHeaders;
-    rows = await fetchGridData(config.endpoint, currentPage, query);
-    setTable({ rows, columns, loading: false, error: null });
   };
 
   useEffect(() => {
     setTableData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage, config, externalLoading, query]);
+  }, [isError, isPending, isSuccess, data]);
 
-  if (table.loading || externalLoading)
-    return (
-      <div className="w-full h-52 my-4 flex justify-center items-center">
-        {" "}
-        {/*         <Spinner size="md" />
-         */}{" "}
-      </div>
-    );
+  const handleSelectedRow = (row: number | null, data: any) => {
+    setSelectedRow(row);
+    console.log("Selected row:", row, "with data:", data);
+  };
+
+  console.log("Table state in Grid component:", table);
 
   return (
     <div className="p-4 align-middle inline-block min-w-full">

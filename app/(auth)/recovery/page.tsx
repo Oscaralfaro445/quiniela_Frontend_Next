@@ -5,8 +5,9 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/shared/button/Button";
 import { Input } from "@/components/shared/input/Input";
+import Link from "next/link";
 
-export default function LoginPage() {
+export default function RecoveryPage() {
   // Guardaremos la información del login
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const router = useRouter();
@@ -42,28 +43,33 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <Input
-          type="email"
-          label="Email"
-          description="Correo de inicio de sesion"
-          placeholder="Ingresa tu email"
-          name="email"
-          id="email"
-          onChange={handleChange}
-        />
-        <Input
-          type="password"
-          label="Password"
-          description="Correo de inicio de sesion"
-          placeholder="Ingresa tu email"
-          name="password"
-          id="password"
-          onChange={handleChange}
-        />
-        <Button type="submit" title="Iniciar sesión" />
-      </form>
+    <div className="flex flex-col w-full h-full px-36 items-center justify-center">
+      <div className="text-center">
+        <h1 className="p-2 text-3xl w-full ">¿Olvidate tu contraseña?</h1>
+      </div>
+      <div className="flex w-full justify-center p-2">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-y-4 items-center"
+        >
+          <p>
+            Correo electrónico para enviar instrucciones de restablecimiento
+          </p>
+          <Input
+            type="email"
+            label="Email"
+            description="Correo de inicio de sesion"
+            placeholder="Ingresa tu email"
+            name="email"
+            id="email"
+            onChange={handleChange}
+          />
+          <Link href="/recovery">
+            <p>¿Olvidaste tu contraseña?</p>
+          </Link>
+          <Button type="submit" title="Enviar" />
+        </form>
+      </div>
     </div>
   );
 }
