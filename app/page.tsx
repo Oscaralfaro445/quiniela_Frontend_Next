@@ -3,9 +3,9 @@ import { redirect } from "next/navigation";
 
 export default async function Home() {
   const cookieStore = await cookies();
-  const token = cookieStore.get("authToken");
+  const authToken = cookieStore.get("authToken");
 
-  if (token) {
+  if (authToken) {
     redirect("/dashboard");
   } else {
     redirect("/login");

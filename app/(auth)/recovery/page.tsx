@@ -64,10 +64,13 @@ export default function RecoveryPage() {
             id="email"
             onChange={handleChange}
           />
-          <Link href="/recovery">
-            <p>¿Olvidaste tu contraseña?</p>
-          </Link>
           <Button type="submit" title="Enviar" />
+          <div className="flex gap-2">
+            <p>¿Ya tienes una cuenta?</p>
+            <Link href="/login">
+              <p className="text-blue-500">Inicia sesion</p>
+            </Link>
+          </div>
         </form>
       </div>
     </div>

@@ -1,3 +1,5 @@
+import { IconName } from "@/models/icon";
+
 export interface MenuItemI {
   active?: boolean;
   aplicacion: string;
@@ -7,7 +9,7 @@ export interface MenuItemI {
   cveMenu: string;
   cveMenuP: string;
   descMenu: string;
-  icono: string;
+  icono: IconName;
   menuPadre: string;
   numNivel: string;
   urlMenu: string;

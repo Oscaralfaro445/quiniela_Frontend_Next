@@ -9,7 +9,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>{/*<link rel="" href="" type="" />*/}</head>
-      <body className="bg-white w-full h-screen">
+      <body>
         <ReactQueryProvider>
           <main>{children}</main>
         </ReactQueryProvider>

@@ -7,7 +7,7 @@ import { InputDate } from "./inputs/InputDate";
 import { InputArea } from "./inputs/InputArea";
 import { InputSwitch } from "./inputs/InputSwitch";
 import { Icon } from "../icon/icon";
-import { InputCombo } from "./inputs/InputCombo";
+// import { InputCombo } from "./inputs/InputCombo";
 import { InputEmail } from "./inputs/ImputEmail";
 import { InputPassword } from "./inputs/InputPassword";
 // import "./Input.css";
@@ -19,14 +19,15 @@ export const Input = ({
   description,
   placeholder,
   name,
-  value,
   id,
+  value,
   disabled,
   required,
   onChange,
+  onBlur,
 }: InputProps) => {
   const inputType = field ? field.cveTipoCompon : type;
-  console.log(inputType);
+  // console.log("InputType", inputType);
   const [showHelp, setShowHelp] = useState(false);
 
   const handleShow = () => {
@@ -44,16 +45,18 @@ export const Input = ({
       disabled,
       required,
       onChange,
+      onBlur,
     };
 
-    switch (type) {
+    // console.log("Input type:", inputType);
+    switch (inputType) {
       case InputType.AREA:
       case "area":
         return <InputArea {...commonProps} />;
 
-      case InputType.COMBO:
+      /* case InputType.COMBO:
       case "combo":
-        return <InputCombo {...commonProps} />;
+        return <InputCombo {...commonProps} />; */
 
       case InputType.FECHA:
       case "date":
@@ -87,7 +90,7 @@ export const Input = ({
             <div className="flex items-center">
               {field.txAyuda && (
                 <div
-                  className="flex-col"
+                  className="flex"
                   onMouseEnter={() => handleShow}
                   onMouseLeave={() => handleShow}
                 >

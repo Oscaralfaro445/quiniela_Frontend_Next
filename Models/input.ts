@@ -29,4 +29,5 @@ export interface InputProps {
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => void;
+  onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
 }

@@ -5,12 +5,12 @@ import { MenuItemI } from "@/models/menuItemI";
 import { MenuNode } from "@/components/menu/menuNode/MenuNode";
 
 interface MenuProps {
-  title: string;
+  title?: string;
   menu: MenuItemI;
   route: string;
 }
 
-export const Menu = ({ title = "Main Views", menu, route }: MenuProps) => {
+export const Menu = ({ title, menu, route }: MenuProps) => {
   const [tree, setTree] = useState(menu);
 
   const handleTreeState = (menuCve: string, treeMenu: MenuItemI) => {
@@ -39,10 +39,7 @@ export const Menu = ({ title = "Main Views", menu, route }: MenuProps) => {
 
   return (
     <div>
-      <div className="w-full flex items-center justify-between mb-4">
-        <h2 className="text-black text-md mr-4 font-bold w-max">{title}</h2>
-        <hr />
-      </div>
+      {title && <h1>{title}</h1>}
 
       <MenuNode
         route={route}

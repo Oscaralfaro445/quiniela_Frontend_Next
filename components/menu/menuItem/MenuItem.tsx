@@ -21,14 +21,16 @@ export const MenuItem = ({
 
   const handleClick = () => {
     handleSelect(item.cveMenu);
-    console.log(item.cveMenu);
+    // console.log(item.cveMenu);
     if (item.urlMenu && !item.children?.length) router.push(item.urlMenu);
   };
+
+  //console.log(itemLevel);
 
   return (
     <div
       className={`w-full h-9 mb-1 flex justify-between items-center px-2 rounded-md cursor-pointer ${
-        currentRoute === item.urlMenu ? "bg-gray-200" : ""
+        currentRoute === item.urlMenu ? "bg-blue-400" : ""
       }`}
       onClick={handleClick}
     >
@@ -36,15 +38,16 @@ export const MenuItem = ({
         className={`flex justify-items-start items-center pl-${itemLevel * 4}`}
       >
         <div className="w-8">
-          <Icon />
+          <Icon name={item.icono} size={16} />
         </div>
+
         <p className="text-black text-md font-semibold">{item.descMenu}</p>
       </div>
 
       <div className="flex items-center">
         {item.children?.length ? (
-          <div className="w-max text-center">
-            <Icon iconName="check" />
+          <div>
+            <Icon name="chevron-down" size={16} />
           </div>
         ) : null}
       </div>

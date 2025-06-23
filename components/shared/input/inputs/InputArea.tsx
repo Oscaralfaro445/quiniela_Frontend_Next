@@ -8,6 +8,7 @@ export const InputArea = ({
   disabled,
   required,
   onChange,
+  onBlur,
 }: InputProps) => {
   return (
     <textarea
@@ -18,6 +19,7 @@ export const InputArea = ({
       disabled={disabled}
       required={required}
       onChange={onChange}
+      onBlur={onBlur}
       className="mt-1 text-gray-700 block shadow-sm sm:text-sm focus:border-indigo-700 border-gray-300 rounded-md focus:ring-0"
     />
   );

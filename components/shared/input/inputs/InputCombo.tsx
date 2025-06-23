@@ -10,8 +10,8 @@ export const InputCombo = ({
   field,
   name,
   value,
-  onChange,
   disabled,
+  onChange,
 }: InputProps) => {
   const [options, setOptions] = useState<Option[]>([]);
   const [isOpen, setIsOpen] = useState(false);

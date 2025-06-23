@@ -6,6 +6,8 @@ interface GridProps {
   gridData?: any;
   rowsPerPage: number;
   currentPage: number;
+  selectedRow: number | null;
+  handleSelectedRow: (row: number | null, data: any) => void;
 }
 
 const initialState = {
@@ -21,9 +23,10 @@ export const Grid = ({
   gridData,
   rowsPerPage,
   currentPage,
+  selectedRow,
+  handleSelectedRow,
 }: GridProps) => {
   const [table, setTable] = useState(initialState);
-  const [selectedRow, setSelectedRow] = useState<number | null>(null);
   const { isSuccess, isPending, isError, data } = useGetGridData(
     rowsPerPage,
     currentPage
@@ -68,11 +71,6 @@ export const Grid = ({
     setTableData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError, isPending, isSuccess, data]);
-
-  const handleSelectedRow = (row: number | null, data: any) => {
-    setSelectedRow(row);
-    console.log("Selected row:", row, "with data:", data);
-  };
 
   console.log("Table state in Grid component:", table);
 

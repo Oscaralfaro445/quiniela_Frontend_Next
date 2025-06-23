@@ -8,6 +8,7 @@ export const InputText = ({
   disabled,
   required,
   onChange,
+  onBlur,
 }: InputProps) => {
   return (
     <input
@@ -19,6 +20,7 @@ export const InputText = ({
       disabled={disabled}
       required={required}
       onChange={onChange}
+      onBlur={onBlur}
       className="mt-1 text-gray-500 block shadow-sm sm:text-sm border-gray-300 focus:border-indigo-700 rounded-md focus:ring-0"
     />
   );

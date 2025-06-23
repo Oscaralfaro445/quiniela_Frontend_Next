@@ -5,13 +5,19 @@ import { Grid } from "@/components/grid/Grid";
 import { TableHeader } from "./tableHeader/TableHeader";
 import { Paginator } from "../paginator/paginator";
 
+interface TableProps {
+  formData?: any;
+  gridData?: any;
+  selectedRow: number | null;
+  handleSelectedRow: (row: number | null, data: any) => void;
+}
+
 export const Table = ({
   formData,
   gridData,
-}: {
-  formData?: any;
-  gridData?: any;
-}) => {
+  selectedRow,
+  handleSelectedRow,
+}: TableProps) => {
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -20,12 +26,16 @@ export const Table = ({
   return (
     <div className="flex flex-col py-4 px-6 gap-2 bg-white rounde-md shadow-sm">
       <TableHeader />
+
       <Grid
         formData={formData}
         gridData={gridData}
         rowsPerPage={rowsPerPage}
         currentPage={currentPage}
+        selectedRow={selectedRow}
+        handleSelectedRow={handleSelectedRow}
       />
+
       <Paginator
         currentPage={currentPage}
         onPageChange={setCurrentPage}
