@@ -50,17 +50,21 @@ export const Paginator = ({
 
       <div className="flex items-center">
         <div className="cursor-pointer" onClick={goToFirstPage}>
-          <Icon iconName="chevronDoubleLeft" className="size-5" />
+          <Icon name="chevrons-left" />
         </div>
+
         <div className="cursor-pointer" onClick={goToPreviousPage}>
-          <Icon iconName="chevronLeft" className="size-5" />
+          <Icon name="chevron-left" />
         </div>
+
         <p className="flex justify-center w-20">{currentPage} - 100</p>
+
         <div className="cursor-pointer" onClick={goToNextPage}>
-          <Icon iconName="chevronRight" className="size-5" />
+          <Icon name="chevron-right" />
         </div>
+
         <div className="cursor-pointer" onClick={goToLastPage}>
-          <Icon iconName="chevronDoubleRight" className="size-5" />
+          <Icon name="chevrons-right" />
         </div>
       </div>
     </div>

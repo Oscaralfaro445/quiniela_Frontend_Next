@@ -88,7 +88,7 @@ export const InputCombo = ({
             ? selectedOption[field.key]
             : "Seleccione una opción..."}
         </span>
-        <Icon iconName="chevronDown" />
+        <Icon name="chevron-down" />
       </div>
 
       {/* Lista de opciones */}
@@ -113,7 +113,7 @@ export const InputCombo = ({
                   onClick={() => handleSelect(option)}
                 >
                   {option[field.key]}
-                  {value === option[field.value] && <Icon iconName="check" />}
+                  {value === option[field.value] && <Icon name="check" />}
                 </li>
               ))}
             </ul>

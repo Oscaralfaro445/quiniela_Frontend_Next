@@ -1,11 +1,14 @@
-import useGetFormdata from "@/hooks/formdata/queries/useGetFormdata";
 import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import useGetFormdata from "@/hooks/formdata/queries/useGetFormdata";
 import { CrudAction } from "@/models/form";
 import { filterFields } from "@/utils/field";
 import { Form } from "@/components/form/Form";
 
 export const Window = ({ action }: { action: CrudAction }) => {
-  const { isSuccess, isPending, isError, data, error } = useGetFormdata();
+  const params = useParams();
+  const { cveForma } = params;
+  const { data } = useGetFormdata(cveForma);
   const [fields, setFields] = useState<any[]>([]);
 
   useEffect(() => {
@@ -15,11 +18,7 @@ export const Window = ({ action }: { action: CrudAction }) => {
 
   return (
     <div>
-      {isPending && <div>Loading...</div>}
-
-      {isError && <div>{error?.message}</div>}
-
-      {isSuccess && fields.length > 0 && (
+      {fields.length > 0 && (
         <div className="w-full bg-white">
           <Form fields={fields} />
         </div>

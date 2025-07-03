@@ -46,7 +46,7 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
         >
           <div className="flex items-center justify-between ">
             <h1>Quiniela</h1>
-            <button onClick={toggle} className="">
+            <button onClick={toggle} className="cursor-pointer">
               <Icon name="panel-left-close" />
             </button>
           </div>

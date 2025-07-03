@@ -1,10 +1,11 @@
+import { IconName } from "@/models/icon";
 import { Icon } from "../icon/icon";
 
 interface ButtonProps {
   type: "button" | "reset" | "submit";
   theme?: string;
   title?: string;
-  icon?: string;
+  icon?: IconName;
   flow?: string;
   loading?: boolean;
   disabled?: boolean;
@@ -46,7 +47,7 @@ export const Button = ({
           flow === "reverse" ? "flex-row-reverse" : ""
         }`}
       >
-        {icon && <Icon iconName={icon} className="" />}
+        {icon && <Icon name={icon} size={15} />}
         {title && (
           <span
             className={`${loading ? "ml-4" : ""} ${

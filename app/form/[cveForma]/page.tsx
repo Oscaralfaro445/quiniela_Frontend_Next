@@ -1,5 +1,6 @@
 "use client";
 
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import useGetFormdata from "@/hooks/formdata/queries/useGetFormdata";
 import { SectionHeader } from "@/components/sectionHeader/SectionHeader";
@@ -7,8 +8,12 @@ import { Button } from "@/components/shared/button/Button";
 import { Table } from "@/components/shared/table/Table";
 import { Modal } from "@/components/shared/modal/Modal";
 import { CrudAction } from "@/models/form";
+import { AlertState } from "@/models/alert";
 
 export default function Form() {
+  const params = useParams();
+  const { cveForma } = params;
+  // console.log("ID de la forma:", id);
   const [action, setAction] = useState<CrudAction>(CrudAction.CREATE);
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState<{
@@ -16,7 +21,7 @@ export default function Form() {
     data: any;
   }>({ row: null, data: {} });
   const { isSuccess, isPending, isError, data, error } =
-    useGetFormdata(); /* as {
+    useGetFormdata(cveForma); /* as {
     isSuccess: boolean;
     isPending: boolean;
     isError: boolean;
@@ -25,9 +30,9 @@ export default function Form() {
   }; */
 
   // console.log(isError, isPending, isSuccess, data, error);
-  /* console.log(data);
-  console.log(error);
-  console.log("Selected Row:", selectedRow); */
+  console.log("formData", data);
+  // console.log(error);
+  // console.log("Selected Row:", selectedRow);
 
   const handleCreate = (values: any) => {
     try {
@@ -35,9 +40,9 @@ export default function Form() {
       console.log("Valores del formulario", values);
       // Se hace la llamada a la API para crear el registro
       // metadata?.infoForma.fnAcepta ? : null;
-      /* setIsFetching(false);
+      // setIsFetching(false);
       setModalOpen(false);
-      setAlertState({
+      /* setAlertState({
         isOpen: true,
         description: "Se creo correctamente el registro",
         title: "Completado",
@@ -110,7 +115,7 @@ export default function Form() {
       )}
 
       {isSuccess && (
-        <div>
+        <div className="rounded">
           <SectionHeader>
             <SectionHeader.Details
               // title="Titulo de la forma"
@@ -126,7 +131,7 @@ export default function Form() {
                   type="button"
                   theme="danger"
                   title="Eliminar"
-                  icon="trash"
+                  icon="trash-2"
                   onClick={() => {}}
                 />
               )}

@@ -3,12 +3,13 @@
 import { useEffect } from "react";
 import { AlertState } from "@/models/alert";
 import { Icon } from "../shared/icon/icon";
+import "./Alert.css";
 
 interface AlertProps {
   type: AlertState;
   title: string;
   description: string;
-  isOpen: boolean;
+  isModalOpen: boolean;
   toggleAlert: () => void;
 }
 
@@ -16,25 +17,31 @@ export const Alert = ({
   type,
   title,
   description,
-  isOpen,
+  isModalOpen,
   toggleAlert,
 }: AlertProps) => {
   useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => {
+    if (isModalOpen) {
+      const timeout = setTimeout(() => {
         toggleAlert();
-      }, 2500);
+      }, 5000);
+      return () => clearTimeout(timeout);
     }
-  }, [isOpen, toggleAlert]);
+  }, [isModalOpen, toggleAlert]);
+
   return (
     <div
-      className={`flex items-start absolute p-4 w-96 rounded-lg z-50 top-4 right-2 shadow-lg border border-gray-100 bg-white alert ${
-        isOpen ? "active" : ""
+      className={`flex items-start p-4 w-96 rounded-lg absolute z-50 top-4 right-2 shadow-lg border border-gray-100 bg-white alert ${
+        isModalOpen ? "active" : ""
       }`}
     >
-      <div className="flex h-full">
-        {type === AlertState.SUCCESS && <Icon iconName="default" />}
-        {type === AlertState.ERROR && <Icon iconName="default" />}
+      <div className="flex h-full justify-center">
+        {type === AlertState.SUCCESS && (
+          <Icon name="circle-check" size={40} color="green" />
+        )}
+        {type === AlertState.ERROR && (
+          <Icon name="circle-x" size={40} color="red" />
+        )}
       </div>
 
       <div className="flex-auto flex flex-col px-6 ">
@@ -43,7 +50,7 @@ export const Alert = ({
       </div>
 
       <div className="flex h-full justify-center">
-        <Icon iconName="default" />
+        <Icon name="check" />
       </div>
     </div>
   );

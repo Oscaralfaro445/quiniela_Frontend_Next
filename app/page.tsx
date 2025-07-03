@@ -1,13 +1,31 @@
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 export default async function Home() {
   const cookieStore = await cookies();
   const authToken = cookieStore.get("authToken");
+  console.log(authToken);
 
-  if (authToken) {
-    redirect("/dashboard");
-  } else {
-    redirect("/login");
-  }
+  return (
+    <div>
+      <h1>Home</h1>
+      <p>Welcome to the home page!</p>
+    </div>
+  );
+}
+
+{
+  /* <Alert
+  type={alertState.type}
+  title={alertState.title}
+  description={alertState.description}
+  isModalOpen={alertState.isModalOpen}
+  toggleAlert={() => setAlertState((prev) => ({ ...prev, isModalOpen: false }))}
+/>;
+
+const [alertState, setAlertState] = useState({
+  type: AlertState.ERROR,
+  title: "",
+  description: "",
+  isModalOpen: false,
+}); */
 }

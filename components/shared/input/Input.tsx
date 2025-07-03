@@ -27,8 +27,8 @@ export const Input = ({
   onBlur,
 }: InputProps) => {
   const inputType = field ? field.cveTipoCompon : type;
-  // console.log("InputType", inputType);
   const [showHelp, setShowHelp] = useState(false);
+  // console.log("InputType", inputType);
 
   const handleShow = () => {
     setShowHelp(!showHelp);
@@ -88,25 +88,32 @@ export const Input = ({
         <>
           {field.cveTipoCompon !== InputType.RELATION && (
             <div className="flex items-center">
-              {field.txAyuda && (
-                <div
-                  className="flex"
-                  onMouseEnter={() => handleShow}
-                  onMouseLeave={() => handleShow}
-                >
-                  <Icon iconName="questionMark" />
-                  {showHelp && <div className="">{field.txAyuda}</div>}
-                </div>
-              )}
               <label
                 htmlFor={name}
                 className="block text-sm font-medium text-gray-600 mr-4"
               >
                 {field.txEtiqueta}
               </label>
+
+              {renderInput()}
+              {field.txAyuda && (
+                <div
+                  className="flex"
+                  onMouseEnter={() => handleShow}
+                  onMouseLeave={() => handleShow}
+                >
+                  <Icon name="message-circle-question-mark" />
+                  {showHelp && (
+                    <p className="absolute left-full top-1/2 ml-2 -translate-y-1/2 bg-gray-800 text-white text-xs rounded-md px-2 py-1 shadow-lg z-10 w-44">
+                      {field.txAyuda}
+                      {console.log("Ayuda", field.txAyuda)}
+                      {console.log("ShowHelp", showHelp)}
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
           )}
-          {renderInput()}
         </>
       ) : (
         <div className="flex w-full items-center justify-between">
@@ -116,13 +123,15 @@ export const Input = ({
           >
             {label}
           </label>
+
+          {renderInput()}
           {description && (
             <div
-              className="flex-col"
+              className="flex"
               onMouseEnter={handleShow}
               onMouseLeave={handleShow}
             >
-              <Icon iconName="questionMark" />
+              <Icon name="message-circle-question-mark" />
               {showHelp && (
                 <p className="absolute left-full top-1/2 ml-2 -translate-y-1/2 bg-gray-800 text-white text-xs rounded-md px-2 py-1 shadow-lg z-10 w-44">
                   {description}
@@ -130,7 +139,6 @@ export const Input = ({
               )}
             </div>
           )}
-          {renderInput()}
         </div>
       )}
     </div>

@@ -1,5 +1,6 @@
 import useGetGridData from "@/hooks/gridData/queries/useGetGridData";
 import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 
 interface GridProps {
   formData?: any;
@@ -26,12 +27,16 @@ export const Grid = ({
   selectedRow,
   handleSelectedRow,
 }: GridProps) => {
+  const params = useParams();
+  const { cveForma } = params;
   const [table, setTable] = useState(initialState);
   const { isSuccess, isPending, isError, data } = useGetGridData(
+    cveForma,
     rowsPerPage,
     currentPage
   );
-  // console.log("Grid component data:", data);
+
+  console.log("Grid component data:", data);
 
   const setTableData = () => {
     if (formData) {
