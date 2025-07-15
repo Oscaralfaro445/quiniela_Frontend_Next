@@ -7,6 +7,7 @@ import { SectionHeader } from "@/components/sectionHeader/SectionHeader";
 import { Button } from "@/components/shared/button/Button";
 import { Table } from "@/components/shared/table/Table";
 import { Modal } from "@/components/shared/modal/Modal";
+import { SlideOver } from "@/components/slideOver/SlideOver";
 import { CrudAction } from "@/models/form";
 import { AlertState } from "@/models/alert";
 
@@ -16,6 +17,7 @@ export default function Form() {
   // console.log("ID de la forma:", id);
   const [action, setAction] = useState<CrudAction>(CrudAction.CREATE);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isSlideOverOpen, setSlideOverOpen] = useState(true);
   const [selectedRow, setSelectedRow] = useState<{
     row: number | null;
     data: any;
@@ -115,7 +117,7 @@ export default function Form() {
       )}
 
       {isSuccess && (
-        <div className="rounded">
+        <div>
           <SectionHeader>
             <SectionHeader.Details
               // title="Titulo de la forma"
@@ -160,7 +162,7 @@ export default function Form() {
                 />
               )}
 
-              <div className="border-l border-gray-200 h-12 ml-1 mr-2 w-1 "></div>
+              <div className="border-l border-gray-400 h-12 ml-2 mr-2" />
 
               <Button
                 type="button"
@@ -184,6 +186,11 @@ export default function Form() {
             handleAccept={getCrudHandler}
             handleCancel={handleCancel}
             formInitialValues={selectedRow.data}
+          />
+
+          <SlideOver
+            isSlideOverOpen={isSlideOverOpen}
+            setSlideOverOpen={setSlideOverOpen}
           />
         </div>
       )}

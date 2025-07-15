@@ -20,31 +20,19 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
     error: Error;
   };
 
-  // console.log(isError, isPending, isSuccess, data, error);
-  // console.log(error);
+  console.log(isError, isPending, isSuccess, data, error);
+  console.log(error);
   // console.log(data);
 
   return (
     <div className="h-full w-full ">
-      {isPending && (
-        <div>
-          <h1>Cargando...</h1>
-        </div>
-      )}
-
-      {isError && (
-        <div>
-          <h1>Error</h1>{" "}
-        </div>
-      )}
-
       {isSuccess && (
         <aside
-          className={`flex flex-col h-screen bg-neutral-50 text-black p-4 justify-between ${
+          className={`flex flex-col h-screen bg-white text-black p-4 rounded-md shadow-md justify-between ${
             !isOpen && "hidden"
           }`}
         >
-          <div className="flex items-center justify-between ">
+          <div className="flex items-center justify-between h-16">
             <h1>Quiniela</h1>
             <button onClick={toggle} className="cursor-pointer">
               <Icon name="panel-left-close" />

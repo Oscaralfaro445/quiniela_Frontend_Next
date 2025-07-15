@@ -25,23 +25,31 @@ export const MenuItem = ({
     if (item.urlMenu && !item.children?.length) router.push(item.urlMenu);
   };
 
-  //console.log(itemLevel);
+  console.log(itemLevel);
 
   return (
     <div
-      className={`w-full h-9 mb-1 flex justify-between items-center px-2 rounded-md cursor-pointer ${
-        currentRoute === item.urlMenu ? "bg-blue-400" : ""
+      className={`flex w-full h-9 py-1 justify-between items-center px-2 rounded-md cursor-pointer ${
+        currentRoute === item.urlMenu ? "bg-blue-600 text-white" : ""
       }`}
       onClick={handleClick}
     >
       <div
-        className={`flex justify-items-start items-center pl-${itemLevel * 4}`}
+        className={`flex gap-4 justify-items-start items-center ml-${
+          itemLevel * 4
+        }`}
       >
-        <div className="w-8">
+        <div className="">
           <Icon name={item.icono} size={16} />
         </div>
 
-        <p className="text-black text-md font-semibold">{item.descMenu}</p>
+        <p
+          className={`text-black text-md font-semibold ${
+            currentRoute === item.urlMenu ? "text-white" : ""
+          }`}
+        >
+          {item.descMenu}
+        </p>
       </div>
 
       <div className="flex items-center">

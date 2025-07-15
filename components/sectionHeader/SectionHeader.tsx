@@ -5,7 +5,7 @@ interface DetailsProps {
 
 export function SectionHeader({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex justify-between items-center w-full h-20 mb-4 px-4 shadow-sm rounded-md bg-white">
+    <div className="flex justify-between items-center w-full h-20 px-4 shadow-sm rounded-md ">
       {children}
     </div>
   );

@@ -1,10 +1,4 @@
-import { cookies } from "next/headers";
-
-export default async function Home() {
-  const cookieStore = await cookies();
-  const authToken = cookieStore.get("authToken");
-  console.log(authToken);
-
+export default function Home() {
   return (
     <div>
       <h1>Home</h1>

@@ -19,7 +19,7 @@ export const InputSwitch = ({
       disabled={disabled}
       required={required}
       onChange={onChange}
-      className="mt-1 text-gray-500 block shadow-sm sm:text-sm border-gray-300 focus:border-indigo-700 rounded-md focus:ring-0"
+      className="text-gray-700 shadow-sm border border-gray-300 rounded-md px-2 py-1 hover:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition"
     />
   );
 };

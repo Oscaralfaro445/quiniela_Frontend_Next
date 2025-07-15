@@ -82,7 +82,7 @@ const MatchScoreInput = () => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col bg-white shadow-md rounded-lg overflow-hidden pb-4 pt-2 px-2 justify-center items-center">
+    <div className="w-full h-full flex flex-col bg-white  overflow-hidden pb-4 pt-2 px-2 justify-center items-center">
       {loading ? (
         <p>Cargando partidos...</p>
       ) : (

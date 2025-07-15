@@ -3,10 +3,11 @@ import { Input } from "../shared/input/Input";
 
 export const Form = ({ fields }: { fields: any[] }) => {
   const formik = useFormikContext<FormikValues>();
+
   return (
-    <div className="w-full bg-white p-4 ">
+    <div className="w-full bg-white">
       {fields.map((field: any) => (
-        <div key={field.nomComponente}>
+        <div className="pb-4" key={field.nomComponente}>
           <Input
             field={field}
             name={field.nomComponente}
@@ -19,7 +20,7 @@ export const Form = ({ fields }: { fields: any[] }) => {
 
           {formik.touched[field.nomComponente] &&
             formik.errors[field.nomComponente] && (
-              <div className="text-red-500 text-sm mt-1">
+              <div className="text-red-500 text-xs">
                 {String(formik.errors[field.nomComponente])}
               </div>
             )}

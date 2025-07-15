@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { InputType } from "@/models/input";
 import { InputProps } from "@/models/input";
@@ -87,39 +89,41 @@ export const Input = ({
       {field ? (
         <>
           {field.cveTipoCompon !== InputType.RELATION && (
-            <div className="flex items-center">
+            <div className="flex flex-col w-full items-start gap-2">
               <label
                 htmlFor={name}
-                className="block text-sm font-medium text-gray-600 mr-4"
+                className="block text-start text-sm font-medium text-gray-600"
               >
                 {field.txEtiqueta}
               </label>
 
-              {renderInput()}
-              {field.txAyuda && (
-                <div
-                  className="flex"
-                  onMouseEnter={() => handleShow}
-                  onMouseLeave={() => handleShow}
-                >
-                  <Icon name="message-circle-question-mark" />
-                  {showHelp && (
-                    <p className="absolute left-full top-1/2 ml-2 -translate-y-1/2 bg-gray-800 text-white text-xs rounded-md px-2 py-1 shadow-lg z-10 w-44">
-                      {field.txAyuda}
-                      {console.log("Ayuda", field.txAyuda)}
-                      {console.log("ShowHelp", showHelp)}
-                    </p>
-                  )}
-                </div>
-              )}
+              <div className="flex gap-2">
+                {renderInput()}
+                {field.txAyuda && (
+                  <div
+                    className="flex"
+                    onMouseEnter={() => handleShow}
+                    onMouseLeave={() => handleShow}
+                  >
+                    <Icon name="message-circle-question-mark" />
+                    {showHelp && (
+                      <p className="absolute left-full top-1/2 ml-2 -translate-y-1/2 bg-gray-800 text-white text-xs rounded-md px-2 py-1 shadow-lg z-10 w-44">
+                        {field.txAyuda}
+                        {console.log("Ayuda", field.txAyuda)}
+                        {console.log("ShowHelp", showHelp)}
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           )}
         </>
       ) : (
-        <div className="flex w-full items-center justify-between">
+        <div className="flex flex-col w-full items-center justify-start">
           <label
             htmlFor={name}
-            className="block text-sm font-medium text-gray-600 mr-4"
+            className="w-full text-start text-sm font-medium text-gray-600"
           >
             {label}
           </label>

@@ -8,8 +8,8 @@ export const InputArea = ({
   disabled,
   required,
   onChange,
-  onBlur,
-}: InputProps) => {
+}: // onBlur,
+InputProps) => {
   return (
     <textarea
       // placeholder={placeholder}
@@ -19,8 +19,8 @@ export const InputArea = ({
       disabled={disabled}
       required={required}
       onChange={onChange}
-      onBlur={onBlur}
-      className="mt-1 text-gray-700 block shadow-sm sm:text-sm focus:border-indigo-700 border-gray-300 rounded-md focus:ring-0"
+      // onBlur={onBlur}
+      className="text-gray-700 shadow-sm border border-gray-300 rounded-md px-2 py-1 hover:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition"
     />
   );
 };

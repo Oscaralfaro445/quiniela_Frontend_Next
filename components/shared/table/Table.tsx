@@ -24,7 +24,7 @@ export const Table = ({
   console.log("rowsPerPage:", rowsPerPage);
 
   return (
-    <div className="flex flex-col py-4 px-6 gap-2 bg-white rounded-lg shadow-md">
+    <div className="flex flex-col py-4 px-6 gap-2">
       <TableHeader />
 
       <Grid
