@@ -22,7 +22,8 @@ export type IconName =
   | "refresh-ccw"
   | "swords"
   | "table-properties"
-  | "trash-2";
+  | "trash-2"
+  | "user";
 
 export interface IconProps {
   name: IconName;

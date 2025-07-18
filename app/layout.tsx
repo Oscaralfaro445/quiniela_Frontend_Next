@@ -1,5 +1,6 @@
 import { ReactQueryProvider } from "@/components/shared/reactQueryProvider/ReactQueryProvider";
-import { LayoutShell } from "@/components/layout/LayoutShell";
+import { LayoutShell } from "@/components/home/layout/LayoutShell";
+import { AuthProvider } from "@/context/AuthContext";
 import "./globals.css";
 
 export default function RootLayout({
@@ -11,9 +12,11 @@ export default function RootLayout({
     <html lang="en">
       <head>{/*<link rel="" href="" type="" />*/}</head>
 
-      <body>
+      <body className="min-h-screen">
         <ReactQueryProvider>
-          <LayoutShell>{children}</LayoutShell>
+          <AuthProvider>
+            <LayoutShell>{children}</LayoutShell>
+          </AuthProvider>
         </ReactQueryProvider>
       </body>
     </html>

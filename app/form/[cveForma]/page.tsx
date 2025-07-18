@@ -17,7 +17,7 @@ export default function Form() {
   // console.log("ID de la forma:", id);
   const [action, setAction] = useState<CrudAction>(CrudAction.CREATE);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [isSlideOverOpen, setSlideOverOpen] = useState(true);
+  const [isSlideOverOpen, setSlideOverOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState<{
     row: number | null;
     data: any;
@@ -103,7 +103,7 @@ export default function Form() {
   };
 
   return (
-    <div className="w-full">
+    <div className="">
       {isPending && (
         <div>
           <h1>Cargando...</h1>
@@ -162,14 +162,16 @@ export default function Form() {
                 />
               )}
 
-              <div className="border-l border-gray-400 h-12 ml-2 mr-2" />
+              <div className="border-l border-gray-400 h-12 ml-4 mr-4" />
 
               <Button
                 type="button"
                 theme="primary"
                 title="Filtros"
                 icon="filter"
-                // onClick={() => {}}
+                onClick={() => {
+                  setSlideOverOpen(true);
+                }}
               />
             </SectionHeader.Buttons>
           </SectionHeader>

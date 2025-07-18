@@ -588,7 +588,7 @@ export default function SurvivorTable() {
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg overflow-x-auto py-32 px-2">
+    <div className="bg-white shadow-md rounded-lg overflow-x-auto px-2">
       <table className="w-full min-w-max">
         <thead>
           <tr className="bg-blue-600 text-white text-center text-md leading-normal">
@@ -612,7 +612,7 @@ export default function SurvivorTable() {
         </tbody>
       </table>
 
-      <div className="flex justify-center mt-10 space-x-10">
+      <div className="flex w-full justify-end mt-10 gap-4">
         <button
           onClick={inicioSemana}
           disabled={rango.inicio === 0}
@@ -622,6 +622,7 @@ export default function SurvivorTable() {
         >
           <Icon name="chevrons-left" />
         </button>
+
         <button
           onClick={retrocederSemana}
           disabled={rango.inicio === 0}
@@ -631,6 +632,7 @@ export default function SurvivorTable() {
         >
           <Icon name="chevron-left" />
         </button>
+
         <button
           onClick={avanzarSemana}
           disabled={rango.fin >= semanas.length}
@@ -640,6 +642,7 @@ export default function SurvivorTable() {
         >
           <Icon name="chevron-right" />
         </button>
+
         <button
           onClick={finalSemana}
           disabled={rango.fin >= semanas.length}

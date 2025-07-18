@@ -55,7 +55,7 @@ export const Modal = ({
           >
             <div className="fixed inset-0 bg-black/30 backdrop-blur-sm transition-opacity">
               <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
-                <DialogPanel className="max-w-lg space-y-4 p-6 border border-neutral-400 bg-white rounded-2xl shadow-lg">
+                <DialogPanel className="max-w-lg h-[80vh] p-6 border border-neutral-400 bg-white rounded-2xl shadow-lg overflow-y-auto">
                   <DialogTitle className="">
                     {data && data.infoForma.txTituloForma}
                   </DialogTitle>

@@ -25,7 +25,7 @@ export const MenuItem = ({
     if (item.urlMenu && !item.children?.length) router.push(item.urlMenu);
   };
 
-  console.log(itemLevel);
+  // console.log(itemLevel);
 
   return (
     <div

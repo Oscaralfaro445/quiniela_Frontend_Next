@@ -89,7 +89,7 @@ export const Input = ({
       {field ? (
         <>
           {field.cveTipoCompon !== InputType.RELATION && (
-            <div className="flex flex-col w-full items-start gap-2">
+            <div className="flex flex-col gap-2 w-full items-start">
               <label
                 htmlFor={name}
                 className="block text-start text-sm font-medium text-gray-600"
@@ -120,7 +120,7 @@ export const Input = ({
           )}
         </>
       ) : (
-        <div className="flex flex-col w-full items-center justify-start">
+        <div className="flex flex-col gap-2 w-full items-center justify-start">
           <label
             htmlFor={name}
             className="w-full text-start text-sm font-medium text-gray-600"

@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default function LoginPage() {
   const mutation = useLogin();
-  // Guardaremos la información del login
+
   const [credentials, setCredentials] = useState({
     cveUsuario: "",
     password: "",
@@ -32,15 +32,15 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex flex-col w-full h-full px-36 items-center justify-center">
-      <div className="text-center">
-        <p className="p-2 text-5xl font-extrabold">Iniciar Sesión</p>
-        <p className="p-2 text-lg font-semibold">
+    <div className="flex flex-col w-full h-full items-center justify-center px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48 2xl:px-64">
+      <div className="grid gap-2 text-center p-4">
+        <p className="text-5xl font-extrabold">Iniciar Sesión</p>
+        <p className="text-lg font-semibold">
           Ingresa tus credenciales para acceder a tu cuenta
         </p>
       </div>
 
-      <div className="flex w-full justify-center p-2">
+      <div className="w-full justify-center py-4 px-80">
         <form
           onSubmit={handleSubmit}
           className="flex flex-col gap-y-4 items-center"
@@ -53,6 +53,7 @@ export default function LoginPage() {
             id="cveUsuario"
             onChange={handleChange}
           />
+
           <Input
             type="password"
             label="Contraseña"
@@ -61,9 +62,27 @@ export default function LoginPage() {
             id="password"
             onChange={handleChange}
           />
-          <Link href="/recovery">
-            <p>¿Olvidaste tu contraseña?</p>
-          </Link>
+
+          <div className="flex w-full items-center justify-between px-2">
+            <div className="flex items-center gap-2">
+              <Input
+                type="switch"
+                name="rememberMe"
+                id="rememberMe"
+                value="false"
+                onChange={handleChange}
+              />
+
+              <p className="">Recordarme</p>
+            </div>
+
+            <Link href="/recovery">
+              <p className="text-blue-700 hover:underline">
+                ¿Olvidaste tu contraseña?
+              </p>
+            </Link>
+          </div>
+
           <Button type="submit" title="Iniciar sesión" />
         </form>
       </div>
