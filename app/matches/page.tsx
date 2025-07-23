@@ -4,7 +4,7 @@
 import { Grid } from "@/components/grid/Grid";
 // import { Table } from "@/components/shared/table/Table";
 
-export default function Matches() {
+export default function MatchesPage() {
   // const { data } = useGetPartidos();
   // console.log("Partidos data:", data);
 

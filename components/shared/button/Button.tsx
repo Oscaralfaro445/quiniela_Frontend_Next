@@ -24,7 +24,7 @@ export const Button = ({
 }: ButtonProps) => {
   const themes: { [key: string]: string } = {
     primary:
-      "inline-flex items-center px-3 py-2 border rounded-md shadow-sm text-xs font-medium text-white bg-blue-600",
+      "inline-flex items-center px-3 py-2 border rounded-md shadow-sm text-sm font-medium text-white bg-blue-600",
     secondary: "py-2 px-4 rounded-lg bg-indigo-200 text-indigo-700 font-medium",
     normal:
       "inline-flex items-center px-3 py-1 border rounded-md shadow-sm text-xs border-blue-800 font-medium text-blue-800 bg-white",

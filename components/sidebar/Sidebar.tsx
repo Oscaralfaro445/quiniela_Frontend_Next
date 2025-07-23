@@ -1,4 +1,4 @@
-import useGetMenu from "@/hooks/menu/queries/useGetMenu";
+import useGetMenu from "@/hooks/menu/mutations/useGetMenu";
 import { usePathname } from "next/navigation";
 import { MenuItemI } from "@/models/menuItemI";
 import { Menu } from "../menu/Menu";

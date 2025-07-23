@@ -74,15 +74,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return () => window.removeEventListener("storage", handleStorageChange); */
   }, []);
 
-  const login = (token: string, dataUsuario: DataUser, rememberMe: boolean) => {
+  const login = (token: string, dataUser: DataUser, rememberMe: boolean) => {
     try {
       const dataString = JSON.stringify({
-        cveIdioma: dataUsuario.cveIdioma,
-        cvePerfil: dataUsuario.cvePerfil,
-        nombre: dataUsuario.nombre,
-        idQuiniela: dataUsuario.idQuiniela,
-        idParticipante: dataUsuario.idParticipante,
-        idPeriodo: dataUsuario.idPeriodo,
+        cveIdioma: dataUser.cveIdioma,
+        cvePerfil: dataUser.cvePerfil,
+        nombre: dataUser.nombre,
+        idQuiniela: dataUser.idQuiniela,
+        idParticipante: dataUser.idParticipante,
+        idPeriodo: dataUser.idPeriodo,
       });
 
       if (rememberMe) {
@@ -93,7 +93,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         sessionStorage.setItem("authToken", token);
       }
 
-      setDataUser(dataUsuario);
+      setDataUser(dataUser);
       setToken(token);
       setIsLogged(true);
     } catch (error) {

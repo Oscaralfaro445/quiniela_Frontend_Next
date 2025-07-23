@@ -552,7 +552,7 @@ const survivor = [
 import { Icon } from "@/components/shared/icon/icon";
 import { useState } from "react";
 
-export default function SurvivorTable() {
+export default function SurvivorPage() {
   const semanas = Object.keys(survivor[0] || {})
     .filter((key) => key.startsWith("NOM_EQ_"))
     .map((key) => parseInt(key.split("_")[2]));

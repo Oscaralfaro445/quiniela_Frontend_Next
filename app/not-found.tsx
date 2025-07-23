@@ -15,7 +15,7 @@ export default function NotFound() {
         <p className=" text-center text-xl text-neutral-500 ">
           Si necesitas ayuda:{" "}
           <span className=" text-blue-600 cursor-pointer hover:text-green-700 ease-in-out duration-300">
-            <Link href={"/helpCenter"}>¡Da click aquí!</Link>
+            <Link href={"/dashboard"}>¡Da click aquí!</Link>
           </span>
         </p>
       </div>
