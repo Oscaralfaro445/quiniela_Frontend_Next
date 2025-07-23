@@ -1,4 +1,4 @@
-import useGetMenuData from "@/hooks/menudata/queries/useGetMenudata";
+import useGetMenu from "@/hooks/menu/queries/useGetMenu";
 import { usePathname } from "next/navigation";
 import { MenuItemI } from "@/models/menuItemI";
 import { Menu } from "../menu/Menu";
@@ -12,7 +12,7 @@ interface SidebarProps {
 export function Sidebar({ isOpen, toggle }: SidebarProps) {
   const currentRoute = usePathname();
   //console.log("currentRoute", currentRoute);
-  const { isSuccess, isPending, isError, data, error } = useGetMenuData() as {
+  const { isSuccess, isPending, isError, data, error } = useGetMenu() as {
     isSuccess: boolean;
     isPending: boolean;
     isError: boolean;

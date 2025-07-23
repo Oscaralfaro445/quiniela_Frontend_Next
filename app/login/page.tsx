@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useLogin } from "@/hooks/auth/mutations/useLogin";
+import { useLogin } from "@/hooks/login/mutations/useLogin";
 import { Button } from "@/components/shared/button/Button";
 import { Input } from "@/components/shared/input/Input";
 import Link from "next/link";
@@ -12,6 +12,7 @@ export default function LoginPage() {
   const [credentials, setCredentials] = useState({
     cveUsuario: "",
     password: "",
+    rememberMe: false,
   });
 
   const handleChange = (
@@ -19,11 +20,22 @@ export default function LoginPage() {
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
-    setCredentials({
-      ...credentials,
-      [event.target.name]: event.target.value,
-    });
-    // console.log("Input value", credentials);
+    const target = event.target;
+    const { name, value } = event.target;
+
+    if (target instanceof HTMLInputElement && target.type === "checkbox") {
+      setCredentials({
+        ...credentials,
+        [name]: target.checked,
+      });
+    } else {
+      setCredentials({
+        ...credentials,
+        [name]: value,
+      });
+    }
+
+    console.log("Input value", credentials);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -66,7 +78,7 @@ export default function LoginPage() {
           <div className="flex w-full items-center justify-between px-2">
             <div className="flex items-center gap-2">
               <Input
-                type="switch"
+                type="checkbox"
                 name="rememberMe"
                 id="rememberMe"
                 value="false"
@@ -77,7 +89,7 @@ export default function LoginPage() {
             </div>
 
             <Link href="/recovery">
-              <p className="text-blue-700 hover:underline">
+              <p className="text-blue-600 hover:underline hover:text-blue-700">
                 ¿Olvidaste tu contraseña?
               </p>
             </Link>

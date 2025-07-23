@@ -1,6 +1,6 @@
 import { InputProps } from "@/models/input";
 
-export const InputSwitch = ({
+export const InputCheckbox = ({
   // placeholder,
   name,
   id,
@@ -19,7 +19,7 @@ export const InputSwitch = ({
       disabled={disabled}
       required={required}
       onChange={onChange}
-      className="w-full text-gray-700 shadow-sm border border-gray-300 rounded-md px-2 py-2 hover:border-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 transition"
+      className="w-full text-gray-700 shadow-sm border border-gray-300 rounded-md px-2 py-2 hover:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
     />
   );
 };

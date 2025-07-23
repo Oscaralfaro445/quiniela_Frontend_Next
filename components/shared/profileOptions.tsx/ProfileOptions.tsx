@@ -1,15 +1,25 @@
 "use client";
-import { useState } from "react";
-import { ProfilePhoto } from "../profilePhoto/ProfilePhoto";
 import Link from "next/link";
+import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { ProfilePhoto } from "../profilePhoto/ProfilePhoto";
 import { Icon } from "../icon/icon";
+import { Button } from "@/components/shared/button/Button";
 
 interface ProfileOptionsProps {
-  data: any;
+  data: {
+    cveIdioma: string;
+    cvePerfil: string;
+    nombre: string;
+    idQuiniela: number;
+    idParticipante: number;
+    idPeriodo: string;
+  };
 }
 
 export const ProfileOptions = ({ data }: ProfileOptionsProps) => {
-  console.log("User data in ProfileOptions:", data);
+  const { logout } = useAuth();
+  //console.log("User data in ProfileOptions:", data);
   const [showOptions, setShowOptions] = useState(false);
 
   return (
@@ -55,7 +65,9 @@ export const ProfileOptions = ({ data }: ProfileOptionsProps) => {
               className=" border-neutral-300"
               onClick={() => setShowOptions(false)}
             >
-              {/* <LogOutButton /> */}
+              <Link href={"/"}>
+                <Button type="button" title="Cerrar sesión" onClick={logout} />
+              </Link>
             </div>
           </div>
         </div>

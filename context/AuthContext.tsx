@@ -8,16 +8,20 @@ import {
   ReactNode,
 } from "react";
 
-interface UserData {
-  token: string;
-  [key: string]: unknown; // Para permitir propiedades adicionales
+interface DataUser {
+  cveIdioma: string;
+  cvePerfil: string;
+  nombre: string;
+  idQuiniela: number;
+  idParticipante: number;
+  idPeriodo: string;
 }
 
 interface AuthContextProps {
   isLogged: boolean;
   token: string | null;
-  data: UserData | null;
-  login: (dataUsuario: UserData) => void;
+  dataUser: DataUser | null;
+  login: (token: string, dataUsuario: DataUser, rememberMe: boolean) => void;
   logout: () => void;
 }
 
@@ -25,16 +29,24 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
-  const [data, setData] = useState<UserData | null>(null);
+  const [dataUser, setDataUser] = useState<DataUser | null>(null);
   const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
     const checkToken = () => {
       try {
         if (typeof window !== "undefined") {
-          const token = localStorage.getItem("authToken");
-          if (token) {
+          let token = localStorage.getItem("authToken");
+          let data = localStorage.getItem("authData");
+
+          if (!token && !data) {
+            token = sessionStorage.getItem("authToken");
+            data = sessionStorage.getItem("authData");
+          }
+
+          if (token && data) {
             setToken(token);
+            setDataUser(JSON.parse(data));
             setIsLogged(true);
           }
         }
@@ -45,7 +57,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     checkToken();
 
-    const handleStorageChange = (e: StorageEvent) => {
+    /* const handleStorageChange = (e: StorageEvent) => {
       if (e.key === "authToken") {
         if (e.newValue) {
           setToken(e.newValue);
@@ -53,24 +65,37 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         } else {
           setToken(null);
           setIsLogged(false);
-          setData(null);
+          setDataUser(null);
         }
       }
     };
 
     window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange); */
   }, []);
 
-  const login = (dataUsuario: UserData) => {
+  const login = (token: string, dataUsuario: DataUser, rememberMe: boolean) => {
     try {
-      console.log("Datos recibidos en login:", dataUsuario);
-      localStorage.setItem("authToken", dataUsuario.token);
-      setData(dataUsuario);
-      // console.log("Informacion de usuario guardada: ", data);
-      setToken(dataUsuario.token);
+      const dataString = JSON.stringify({
+        cveIdioma: dataUsuario.cveIdioma,
+        cvePerfil: dataUsuario.cvePerfil,
+        nombre: dataUsuario.nombre,
+        idQuiniela: dataUsuario.idQuiniela,
+        idParticipante: dataUsuario.idParticipante,
+        idPeriodo: dataUsuario.idPeriodo,
+      });
+
+      if (rememberMe) {
+        localStorage.setItem("authData", dataString);
+        localStorage.setItem("authToken", token);
+      } else {
+        sessionStorage.setItem("authData", dataString);
+        sessionStorage.setItem("authToken", token);
+      }
+
+      setDataUser(dataUsuario);
+      setToken(token);
       setIsLogged(true);
-      // console.log("Token guardado:", dataUsuario.token);
     } catch (error) {
       console.error("Error al guardar token:", error);
     }
@@ -79,7 +104,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     try {
       localStorage.removeItem("authToken");
-      setData(null);
+      localStorage.removeItem("authData");
+      sessionStorage.removeItem("authToken");
+      sessionStorage.removeItem("authData");
+      setDataUser(null);
       setToken(null);
       setIsLogged(false);
     } catch (error) {
@@ -88,7 +116,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isLogged, token, data, login, logout }}>
+    <AuthContext.Provider value={{ isLogged, token, dataUser, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
@@ -96,9 +124,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
+
   if (context === undefined) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
+
   return context;
 };
 

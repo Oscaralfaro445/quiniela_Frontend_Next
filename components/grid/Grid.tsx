@@ -5,9 +5,9 @@ import { useParams } from "next/navigation";
 interface GridProps {
   formData?: any;
   gridData?: any;
-  rowsPerPage: number;
-  currentPage: number;
-  selectedRow: number | null;
+  rowsPerPage?: number;
+  currentPage?: number;
+  selectedRow?: number | null;
   handleSelectedRow: (row: number | null, data: any) => void;
 }
 
@@ -36,7 +36,7 @@ export const Grid = ({
     currentPage
   );
 
-  console.log("Grid component data:", data);
+  // console.log("Grid component data:", data);
 
   const setTableData = () => {
     if (formData) {
@@ -83,13 +83,13 @@ export const Grid = ({
     <div className="p-4 align-middle inline-block min-w-full">
       <div className="overflow-x-auto sm:rounded-lg">
         <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+          <thead className="bg-blue-600 text-white">
             <tr>
               {table.columns?.map((column) => (
                 <th
                   scope="col"
                   key={`col-${column}`}
-                  className="px-6 py-3 text-center text-xs font-medium text-gray-600 uppercase tracking-wider whitespace-nowrap"
+                  className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider whitespace-nowrap"
                 >
                   {column}
                 </th>

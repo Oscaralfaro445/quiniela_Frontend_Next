@@ -1,28 +1,29 @@
 "use client";
 
-import axiosInstance from "@/hooks/axios/axiosInstance";
+// import axiosInstance from "@/hooks/axios/axiosInstance";
 import { useAuth } from "@/context/AuthContext";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
-const fetchMenudata = async (token: string | null) => {
+const fetchMenu = async (token: string | null) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
-  const response = await axiosInstance.get("/menuData", config);
+  const response = await axios.get("http://localhost:3001/api/v1/Menu", config);
   return response.data.data;
 };
 
-const useGetMenuData = () => {
+const useGetMenu = () => {
   const { token } = useAuth();
 
   const { isSuccess, isPending, isError, data, error, ...values } = useQuery({
-    queryKey: ["getMenudata"],
-    queryFn: () => fetchMenudata(token),
+    queryKey: ["getMenu"],
+    queryFn: () => fetchMenu(token),
   });
 
   return { isSuccess, isPending, isError, data, error, ...values };
 };
 
-export default useGetMenuData;
+export default useGetMenu;

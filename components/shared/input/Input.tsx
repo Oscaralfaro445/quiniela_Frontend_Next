@@ -7,7 +7,7 @@ import { InputText } from "./inputs/InputText";
 import { InputNumber } from "./inputs/InputNumber";
 import { InputDate } from "./inputs/InputDate";
 import { InputArea } from "./inputs/InputArea";
-import { InputSwitch } from "./inputs/InputSwitch";
+import { InputCheckbox } from "./inputs/InputCheckbox";
 import { Icon } from "../icon/icon";
 // import { InputCombo } from "./inputs/InputCombo";
 import { InputEmail } from "./inputs/ImputEmail";
@@ -75,8 +75,8 @@ export const Input = ({
         return <InputPassword {...commonProps} />;
 
       case InputType.SWITCH:
-      case "switch":
-        return <InputSwitch {...commonProps} />;
+      case "checkbox":
+        return <InputCheckbox {...commonProps} />;
 
       case InputType.TEXTO:
       case "text":

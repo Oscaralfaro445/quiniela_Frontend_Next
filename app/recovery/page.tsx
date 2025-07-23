@@ -72,7 +72,7 @@ export default function RecoveryPage() {
           <div className="flex w-full items-center justify-between px-2">
             <p>¿Ya tienes una cuenta?</p>
             <Link href="/login">
-              <p className="text-blue-700 hover:underline">Inicia sesión</p>
+              <p className="text-blue-600 hover:underline">Inicia sesión</p>
             </Link>
           </div>
 

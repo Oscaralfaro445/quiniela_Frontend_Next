@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import clsx from "clsx";
 import Link from "next/link";
 import { Icon } from "../icon/icon";
@@ -14,12 +13,8 @@ interface HeaderProps {
 }
 
 export function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
-  const { isLogged, data } = useAuth();
-  // console.log("User data in Header:", data);
-
-  useEffect(() => {
-    console.log("Estado de autenticación cambiado:", isLogged);
-  }, [isLogged]);
+  const { isLogged, dataUser } = useAuth();
+  // console.log("User data in Header:", dataUser);
 
   return (
     <header className="flex items-center w-full gap-6 px-4 py-2 bg-white rounded-md shadow-md">
@@ -43,8 +38,8 @@ export function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
 
         <div className="flex items-center gap-2">
           <div className="border-l border-gray-400 h-10 my-2 ml-2 mr-2" />{" "}
-          {isLogged ? (
-            <ProfileOptions data={data} />
+          {isLogged && dataUser ? (
+            <ProfileOptions data={dataUser} />
           ) : (
             <Link href="/login">
               <Button type="button" theme="primary" title="Iniciar sesión" />

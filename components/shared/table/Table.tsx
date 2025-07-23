@@ -36,12 +36,14 @@ export const Table = ({
         handleSelectedRow={handleSelectedRow}
       />
 
-      <Paginator
-        currentPage={currentPage}
-        onPageChange={setCurrentPage}
-        rowsPerPage={rowsPerPage}
-        onRowsPerPageChange={setRowsPerPage}
-      />
+      {gridData && (
+        <Paginator
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={setRowsPerPage}
+        />
+      )}
     </div>
   );
 };

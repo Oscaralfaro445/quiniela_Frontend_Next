@@ -1,10 +1,7 @@
+import axiosInstance from "../../axios/axiosInstance";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "@/context/AuthContext";
-import axiosInstance from "../../axios/axiosInstance";
-
-const ID_PROCESO = 123;
-const CVE_APLICACION = "NFL";
 
 const postData = async (payload: {
   cveUsuario: string;
@@ -21,13 +18,20 @@ export const useLogin = () => {
   const { login } = useAuth();
 
   return useMutation({
-    mutationFn: (loginData: { cveUsuario: string; password: string }) =>
-      postData({
+    mutationFn: async (loginData: {
+      cveUsuario: string;
+      password: string;
+      rememberMe: boolean;
+    }) => {
+      const response = await postData({
+        idProceso: 1,
         cveUsuario: loginData.cveUsuario,
         password: loginData.password,
-        idProceso: ID_PROCESO,
-        cveAplicacion: CVE_APLICACION,
-      }),
+        cveAplicacion: "NFL",
+      });
+
+      return { ...response, rememberMe: loginData.rememberMe };
+    },
     onSuccess: (data) => {
       // console.log("Respuesta completa del servidor:", data);
       // console.log("Propiedades de data:", Object.keys(data));
@@ -35,7 +39,7 @@ export const useLogin = () => {
 
       if (data.data[0].token) {
         // Usar el contexto para manejar el login
-        login(data.data[0]);
+        login(data.data[0].token, data.data[0], data.rememberMe);
         router.push("/dashboard");
       } else {
         console.log("No se recibió token en la respuesta", data);
