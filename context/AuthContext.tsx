@@ -18,9 +18,10 @@ interface DataUser {
 }
 
 interface AuthContextProps {
-  isLogged: boolean;
   token: string | null;
   dataUser: DataUser | null;
+  isLogged: boolean;
+  isLoading: boolean;
   login: (token: string, dataUsuario: DataUser, rememberMe: boolean) => void;
   logout: () => void;
 }
@@ -31,27 +32,29 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
   const [dataUser, setDataUser] = useState<DataUser | null>(null);
   const [isLogged, setIsLogged] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const checkToken = () => {
       try {
         if (typeof window !== "undefined") {
-          let token = localStorage.getItem("authToken");
-          let data = localStorage.getItem("authData");
+          const storedToken =
+            localStorage.getItem("authToken") ||
+            sessionStorage.getItem("authToken");
+          const storedDataUser =
+            localStorage.getItem("authData") ||
+            sessionStorage.getItem("authData");
 
-          if (!token && !data) {
-            token = sessionStorage.getItem("authToken");
-            data = sessionStorage.getItem("authData");
-          }
-
-          if (token && data) {
-            setToken(token);
-            setDataUser(JSON.parse(data));
+          if (storedToken && storedDataUser) {
+            setToken(storedToken);
+            setDataUser(JSON.parse(storedDataUser));
             setIsLogged(true);
           }
         }
       } catch (error) {
         console.error("Error al verificar token:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -76,6 +79,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login = (token: string, dataUser: DataUser, rememberMe: boolean) => {
     try {
+      setDataUser(dataUser);
+      setToken(token);
+
       const dataString = JSON.stringify({
         cveIdioma: dataUser.cveIdioma,
         cvePerfil: dataUser.cvePerfil,
@@ -85,16 +91,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         idPeriodo: dataUser.idPeriodo,
       });
 
-      if (rememberMe) {
-        localStorage.setItem("authData", dataString);
-        localStorage.setItem("authToken", token);
-      } else {
-        sessionStorage.setItem("authData", dataString);
-        sessionStorage.setItem("authToken", token);
-      }
+      const storage = rememberMe ? localStorage : sessionStorage;
+      storage.setItem("authData", dataString);
+      storage.setItem("authToken", token);
 
-      setDataUser(dataUser);
-      setToken(token);
       setIsLogged(true);
     } catch (error) {
       console.error("Error al guardar token:", error);
@@ -103,12 +103,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = () => {
     try {
+      setDataUser(null);
+      setToken(null);
+
       localStorage.removeItem("authToken");
       localStorage.removeItem("authData");
       sessionStorage.removeItem("authToken");
       sessionStorage.removeItem("authData");
-      setDataUser(null);
-      setToken(null);
+
       setIsLogged(false);
     } catch (error) {
       console.error("Error al eliminar token:", error);
@@ -116,7 +118,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isLogged, token, dataUser, login, logout }}>
+    <AuthContext.Provider
+      value={{ token, dataUser, isLogged, isLoading, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

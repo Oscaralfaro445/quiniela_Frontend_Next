@@ -18,6 +18,7 @@ export const useLogin = () => {
   const { login } = useAuth();
 
   return useMutation({
+    mutationKey: ["login"],
     mutationFn: async (loginData: {
       cveUsuario: string;
       password: string;
@@ -32,6 +33,9 @@ export const useLogin = () => {
 
       return { ...response, rememberMe: loginData.rememberMe };
     },
+    onError: (error) => {
+      console.log("Error en la peticion", error);
+    },
     onSuccess: (data) => {
       // console.log("Respuesta completa del servidor:", data);
       // console.log("Propiedades de data:", Object.keys(data));
@@ -45,8 +49,6 @@ export const useLogin = () => {
         console.log("No se recibió token en la respuesta", data);
       }
     },
-    onError: (error) => {
-      console.log("Error en la peticion", error);
-    },
+    onSettled: () => {},
   });
 };

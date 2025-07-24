@@ -1,8 +1,7 @@
-import useGetMenu from "@/hooks/menu/mutations/useGetMenu";
+import usePostMenu from "@/hooks/menu/queries/usePostMenu";
 import { usePathname } from "next/navigation";
-import { MenuItemI } from "@/models/menuItemI";
-import { Menu } from "../menu/Menu";
-import { Icon } from "../shared/icon/icon";
+import { Menu } from "@/components/menu/Menu";
+import { Icon } from "@/components/shared/icon/icon";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -11,22 +10,12 @@ interface SidebarProps {
 
 export function Sidebar({ isOpen, toggle }: SidebarProps) {
   const currentRoute = usePathname();
-  //console.log("currentRoute", currentRoute);
-  const { isSuccess, isPending, isError, data, error } = useGetMenu() as {
-    isSuccess: boolean;
-    isPending: boolean;
-    isError: boolean;
-    data: MenuItemI;
-    error: Error;
-  };
-
-  console.log(isError, isPending, isSuccess, data, error);
-  // console.log(error);
-  // console.log(data);
+  const { isPending, isError, isSuccess, data, error } = usePostMenu();
+  console.log(isPending, isError, isSuccess, data, error);
 
   return (
     <div className="">
-      {isSuccess && (
+      {isSuccess && data && (
         <aside
           className={`flex flex-col bg-white text-black p-4 rounded-md shadow-md ${
             !isOpen && "hidden"
@@ -40,7 +29,7 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
           </div>
 
           <nav className="pt-4">
-            <Menu menu={data} route={currentRoute} />
+            <Menu menu={data.data} route={currentRoute} />
           </nav>
         </aside>
       )}
