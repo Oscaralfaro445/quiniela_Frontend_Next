@@ -7,15 +7,7 @@ import {
   useState,
   ReactNode,
 } from "react";
-
-interface DataUser {
-  cveIdioma: string;
-  cvePerfil: string;
-  nombre: string;
-  idQuiniela: number;
-  idParticipante: number;
-  idPeriodo: string;
-}
+import { DataUser } from "@/models/dataUser";
 
 interface AuthContextProps {
   token: string | null;

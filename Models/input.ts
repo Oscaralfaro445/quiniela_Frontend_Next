@@ -14,7 +14,7 @@ export enum InputType {
 }
 
 export interface InputProps {
-  field?: any;
+  // field?: any;
   type?: string;
   label?: string;
   description?: string;

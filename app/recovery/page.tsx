@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-// import axios from "axios";
-// import { useRouter } from "next/navigation";
 import { Button } from "@/components/shared/button/Button";
 import { Input } from "@/components/shared/input/Input";
 import Link from "next/link";
@@ -20,27 +18,10 @@ export default function RecoveryPage() {
       ...credentials,
       [event.target.name]: event.target.value,
     });
-    // console.log("Input value", credentials);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    /* try {
-      const response = await axios.post(
-        "http://localhost:3001/api/v1/auth/login",
-        credentials,
-        {
-          withCredentials: true,
-        }
-      );
-      // console.log(response);
-      if (response.status === 200) router.push("/dashboard");
-    } catch (error) {
-      console.log(error);
-    } */
-
-    // Aqui requerimos el hook con la mutación que mandará el correo de recueración
 
     console.log("Correo de recuperación: ", credentials);
   };
