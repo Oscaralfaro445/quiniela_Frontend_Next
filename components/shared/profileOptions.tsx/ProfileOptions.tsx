@@ -1,9 +1,9 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/authContext/AuthContext";
 import { ProfilePhoto } from "../profilePhoto/ProfilePhoto";
-import { Icon } from "../icon/icon";
+import { Icon } from "../icon/Icon";
 import { Button } from "@/components/shared/button/Button";
 
 interface ProfileOptionsProps {

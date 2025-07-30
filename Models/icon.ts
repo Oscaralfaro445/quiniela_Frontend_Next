@@ -1,4 +1,5 @@
 export type IconName =
+  | "calendar"
   | "check"
   | "chevron-down"
   | "chevron-left"
@@ -18,12 +19,17 @@ export type IconName =
   | "panel-left-close"
   | "panel-left-open"
   | "pencil"
+  | "play"
   | "plus"
   | "refresh-ccw"
   | "swords"
   | "table-properties"
   | "trash-2"
-  | "user";
+  | "trending-up"
+  | "trophy"
+  | "user"
+  | "users"
+  | "x";
 
 export interface IconProps {
   name: IconName;

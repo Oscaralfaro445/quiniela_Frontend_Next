@@ -1,6 +1,6 @@
 import axiosInstance from "@/hooks/axios/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/authContext/AuthContext";
 
 const postScores = async (
   token: string | null,

@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { MenuItemI } from "@/models/menuItemI";
-import { Icon } from "@/components/shared/icon/icon";
+import { Icon } from "@/components/shared/icon/Icon";
 
 type MenuItemProps = {
   item: MenuItemI;
@@ -29,7 +29,7 @@ export const MenuItem = ({
 
   return (
     <div
-      className={`flex w-full py-1 justify-between items-center px-2 rounded-md cursor-pointer hover:bg-blue-600 hover:text-white ${
+      className={`flex w-full py-1 justify-between items-center px-2 rounded-md cursor-pointer hover:bg-blue-500 hover:text-white ${
         currentRoute === item.urlMenu ? "bg-blue-600  text-white" : ""
       }`}
       onClick={handleClick}

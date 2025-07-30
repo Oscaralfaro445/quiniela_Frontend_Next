@@ -20,7 +20,7 @@ export const MenuNode = ({
   const [currentLevel] = useState(level + 1);
 
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       {items.map((item, idx) => {
         return (
           <div key={`${item.descMenu}-${idx}`}>

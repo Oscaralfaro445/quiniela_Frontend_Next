@@ -8,7 +8,7 @@ import { InputNumber } from "./inputs/InputNumber";
 import { InputDate } from "./inputs/InputDate";
 import { InputArea } from "./inputs/InputArea";
 import { InputCheckbox } from "./inputs/InputCheckbox";
-import { Icon } from "../icon/icon";
+import { Icon } from "../icon/Icon";
 // import { InputCombo } from "./inputs/InputCombo";
 import { InputEmail } from "./inputs/ImputEmail";
 import { InputPassword } from "./inputs/InputPassword";

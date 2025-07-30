@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Sidebar } from "@/components/sidebar/Sidebar";
+import { Sidebar } from "@/components/shared/ui/sidebar/Sidebar";
 import { Header } from "@/components/shared/header/Header";
 import { Footer } from "@/components/shared/footer/Footer";
 
@@ -20,11 +20,11 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
         </div>
       )}
 
-      <div className=" flex flex-col flex-1 gap-4">
+      <div className="flex flex-col flex-1 gap-4">
         <Header toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
-        <main className="flex-1 bg-white p-6 rounded-sm shadow-md">
-          {children}
-        </main>
+
+        <main className="flex-1 bg-white rounded-sm shadow-md">{children}</main>
+
         <Footer />
       </div>
     </div>

@@ -1,7 +1,7 @@
 import usePostMenu from "@/hooks/menu/queries/usePostMenu";
 import { usePathname } from "next/navigation";
-import { Menu } from "@/components/menu/Menu";
-import { Icon } from "@/components/shared/icon/icon";
+import { Menu } from "@/components/shared/ui/menu/Menu";
+import { Icon } from "@/components/shared/icon/Icon";
 
 interface SidebarProps {
   isOpen: boolean;

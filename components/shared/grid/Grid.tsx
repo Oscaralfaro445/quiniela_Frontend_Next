@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 interface GridProps {
+  children?: ReactNode;
   gridData: { [key: string]: string | number }[];
 }
 
@@ -9,7 +10,7 @@ const initialState = {
   rows: [] as { [key: string]: string | number }[],
 };
 
-export const Grid = ({ gridData }: GridProps) => {
+export const Grid = ({ children, gridData }: GridProps) => {
   const [table, setTable] = useState(initialState);
 
   useEffect(() => {
@@ -45,23 +46,27 @@ export const Grid = ({ gridData }: GridProps) => {
           </thead>
 
           <tbody className="bg-white divide-y divide-gray-200">
-            {table.rows?.map((row, index) => (
-              <tr
-                key={index}
-                /* className={`cursor-pointer ${
+            {children
+              ? children
+              : table.rows?.map((row, index) => (
+                  <tr
+                    key={index}
+                    /* className={`cursor-pointer ${
                   selectedRow === index ? "bg-indigo-50 text-white" : ""
                 } `}
                 onClick={() => {
                   handleSelectedRow(index, row);
                 }} */
-              >
-                {Object.values(row).map((value, i) => (
-                  <td key={i} className="px-6 py-3 text-center">
-                    <div className="text-xs text-gray-500">{String(value)}</div>
-                  </td>
+                  >
+                    {Object.values(row).map((value, i) => (
+                      <td key={i} className="px-6 py-3 text-center">
+                        <div className="text-xs text-gray-500">
+                          {String(value)}
+                        </div>
+                      </td>
+                    ))}
+                  </tr>
                 ))}
-              </tr>
-            ))}
           </tbody>
         </table>
       </div>

@@ -2,9 +2,9 @@
 
 import clsx from "clsx";
 import Link from "next/link";
-import { Icon } from "../icon/icon";
+import { Icon } from "../icon/Icon";
 import { Button } from "../button/Button";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/authContext/AuthContext";
 import { ProfileOptions } from "../profileOptions.tsx/ProfileOptions";
 
 interface HeaderProps {
@@ -12,7 +12,7 @@ interface HeaderProps {
   toggleSidebar: () => void;
 }
 
-export function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
+export const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
   const { isLogged, dataUser } = useAuth();
   // console.log("User data in Header:", dataUser);
 
@@ -49,4 +49,4 @@ export function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
       </div>
     </header>
   );
-}
+};

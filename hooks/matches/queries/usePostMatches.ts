@@ -1,6 +1,6 @@
 import axiosInstance from "@/hooks/axios/axiosInstance";
 import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/authContext/AuthContext";
 
 const postMatches = async (
   token: string,

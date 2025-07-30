@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Grid } from "@/components/grid/Grid";
+import { Grid } from "@/components/shared/grid/Grid";
 import { TableHeader } from "./tableHeader/TableHeader";
 import { Paginator } from "../paginator/paginator";
 

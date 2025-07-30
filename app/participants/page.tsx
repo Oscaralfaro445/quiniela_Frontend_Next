@@ -1,7 +1,7 @@
 "use client";
 
 import usePostParticipantPositions from "@/hooks/participantPositions/queries/usePostParticipantPositions";
-import { Grid } from "@/components/grid/Grid";
+import { Grid } from "@/components/shared/grid/Grid";
 
 export default function ParticipantsPage() {
   const participants = usePostParticipantPositions();

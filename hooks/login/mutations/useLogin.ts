@@ -1,7 +1,7 @@
 import axiosInstance from "../../axios/axiosInstance";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/authContext/AuthContext";
 
 const postData = async (payload: {
   cveUsuario: string;

@@ -1,6 +1,6 @@
 import axiosInstances from "@/hooks/axios/axiosInstance";
 import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/authContext/AuthContext";
 
 const postSurvivorTeams = async (
   token: string,

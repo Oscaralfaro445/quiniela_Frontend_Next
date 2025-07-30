@@ -1,6 +1,6 @@
 "use client";
 
-import { Icon } from "@/components/shared/icon/icon";
+import { Icon } from "@/components/shared/icon/Icon";
 import { useState } from "react";
 
 export default function SurvivorPage() {

@@ -3,7 +3,7 @@ import { Button } from "@/components/shared/button/Button";
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col h-full items-center justify-center gap-4">
+    <div className="flex flex-col h-full items-center justify-center overflow-x-hidden gap-4">
       <div>
         <p className="text-center text-9xl font-bold text-neutral-300">404</p>
 
