@@ -1,51 +1,39 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { Icon } from "../../icon/Icon";
 
-interface InputComboProps {
-  data: any;
-  name: string;
-  value: string | number;
-  disabled: boolean;
-  onchange: () => {};
+interface Option {
+  [key: string]: string | number;
 }
 
-interface Option {
-  [key: string]: string | number; // Opción genérica
+interface InputComboProps {
+  data: Option[];
+  name?: string;
+  value?: string | number;
+  disabled?: boolean;
+  onChange?: (event: ChangeEvent<HTMLSelectElement>) => void;
+  optionValueKey: string;
+  optionLabelKey: string | number;
 }
 
 export const InputCombo = ({
-  // field,
   data,
   name,
   value,
-  disabled,
-  onChange,
+  disabled = false,
+  onChange = () => {},
+  optionValueKey,
+  optionLabelKey,
 }: InputComboProps) => {
   const [options, setOptions] = useState<Option[]>([]);
   const [isOpen, setIsOpen] = useState(false);
-  // const [loading, setLoading] = useState(false);
 
-  // Cargar opciones al montar el componente
   useEffect(() => {
-    const fetchOptions = async () => {
-      // setLoading(true);
-      try {
-        setOptions(data);
-        console.log("Opciones del componente combo:", options);
-      } catch (error) {
-        console.error("Error fetching combo options:", error);
-        setOptions([]);
-      } finally {
-        // setLoading(false);
-      }
-    };
-
-    fetchOptions();
+    setOptions(data);
   }, [data]);
 
-  // Manejar selección
   const handleSelect = (option: Option) => {
-    const selectedValue = option[field.value];
+    const selectedValue = option[optionValueKey];
+
     const event = {
       target: {
         id: { name },
@@ -56,13 +44,12 @@ export const InputCombo = ({
     } as ChangeEvent<any>;
 
     onChange(event);
-
     setIsOpen(false);
   };
 
-  // Encontrar la opción seleccionada actualmente
-  // const selectedOption = options.find((opt) => opt[field.value] === value);
-  // console.log("selectedOption", selectedOption);
+  const selectedOption = options?.find(
+    (option) => option[optionValueKey] === value
+  );
 
   return (
     <div className="relative w-full">
@@ -71,24 +58,21 @@ export const InputCombo = ({
           disabled ? "bg-gray-100 cursor-not-allowed" : ""
         }`}
         onClick={() => !disabled && setIsOpen(!isOpen)}
-        // onBlur={onBlur}
         id={name}
         tabIndex={0}
       >
-        <span className="text-sm font-medium text-gray-700">
-          {/* {selectedOption
-            ? selectedOption[field.key]
-            : "Seleccione una opción..."} */}
+        <span className="text-sm font-medium text-neutral-700">
+          {selectedOption
+            ? selectedOption[optionLabelKey]
+            : "Seleccione una opción..."}
         </span>
+
         <Icon name="chevron-down" />
       </div>
 
-      {/* Lista de opciones */}
       {isOpen && (
-        <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
-          {false ? (
-            <div className="px-4 py-2 text-sm text-gray-500">Cargando...</div>
-          ) : options?.length === 0 ? (
+        <div className="absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
+          {options?.length === 0 ? (
             <div className="px-4 py-2 text-sm text-gray-500">
               No hay opciones disponibles
             </div>
@@ -98,11 +82,11 @@ export const InputCombo = ({
                 <li
                   key={index}
                   className={`px-4 py-2 text-sm cursor-pointer ${
-                    true ? "bg-blue-100 text-black" : "hover:bg-gray-100"
+                    true ? "bg-white text-black" : "hover:bg-gray-100"
                   }`}
                   onClick={() => handleSelect(option)}
                 >
-                  {option.value}
+                  {option.valor}
                 </li>
               ))}
             </ul>

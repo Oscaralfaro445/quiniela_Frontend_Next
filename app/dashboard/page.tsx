@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useAuth } from "@/context/authContext/AuthContext";
 import { Button } from "@/components/shared/button/Button";
 import { Card } from "@/components/shared/ui/card/Card";
 import { CardHeader } from "@/components/shared/ui/cardHeader/CardHeader";
@@ -8,8 +11,10 @@ import { Icon } from "@/components/shared/icon/Icon";
 import { CardDescription } from "@/components/shared/ui/cardDescription/CardDescription";
 
 export default function Dashboard() {
+  const { dataUser } = useAuth();
+
   // Datos de ejemplo
-  const currentWeek = 8;
+  const currentWeek = dataUser?.idPeriodo;
   const userStats = {
     correctPicks: 45,
     totalPicks: 70,
@@ -66,7 +71,7 @@ export default function Dashboard() {
               <CardTitle className="text-sm font-medium text-gray-600">
                 Precisión
               </CardTitle>
-              {/* <Target className="h-4 w-4 text-blue-700" /> */}
+              <Icon name="target" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-gray-900">
@@ -83,8 +88,7 @@ export default function Dashboard() {
               <CardTitle className="text-sm font-medium text-gray-600">
                 Ranking
               </CardTitle>
-              {/*               <TrendingUp className="h-4 w-4 text-blue-700" />
-               */}{" "}
+              <Icon name="trending-up" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-gray-900">
@@ -118,7 +122,6 @@ export default function Dashboard() {
                 Ligas Activas
               </CardTitle>
               <Icon name="users" />
-              {/* <Users className="h-4 w-4 text-blue-700" /> */}
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-gray-900">3</div>
@@ -136,22 +139,20 @@ export default function Dashboard() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <Link href="/picks/week/8">
+              <Link href="/quiniela">
                 <Button
                   type="button"
                   title={`Hacer Quiniela Semana ${currentWeek}`}
                 />
-                {/*                 <Play className="mr-2 h-4 w-4" />
-                 */}{" "}
                 <Icon name="play" />
               </Link>
 
               <div className="grid grid-cols-2 gap-4">
-                <Link href="/picks/week/8">
+                <Link href="/">
                   <Button type="button" title="Ver Ligas" theme="normal" />
                 </Link>
 
-                <Link href="/picks/week/8">
+                <Link href="/">
                   <Button type="button" title="Clasificación" theme="normal" />
                 </Link>
               </div>
@@ -250,7 +251,7 @@ export default function Dashboard() {
                   </div>
                 ))}
               </div>
-              <Link href="/picks/week/8">
+              <Link href="/">
                 <Button type="button" title="Hacer Predicciones" />
               </Link>
             </CardContent>

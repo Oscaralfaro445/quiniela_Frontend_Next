@@ -17,7 +17,7 @@ export const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
   // console.log("User data in Header:", dataUser);
 
   return (
-    <header className="flex items-center w-full gap-6 px-4 py-2 bg-white rounded-md shadow-md">
+    <header className="flex items-center w-full gap-6 py-2 px-4 sm:px-8 bg-white rounded-md shadow-md">
       {isLogged && (
         <div
           onClick={toggleSidebar}
@@ -37,6 +37,11 @@ export const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
         </div>
 
         <div className="flex items-center gap-2">
+          {isLogged && (
+            <span className="text-sm text-gray-600">
+              Semana {dataUser?.idPeriodo}
+            </span>
+          )}
           <div className="border-l border-gray-400 h-10 my-2 ml-2 mr-2" />{" "}
           {isLogged && dataUser ? (
             <ProfileOptions data={dataUser} />

@@ -96,7 +96,7 @@ export default function Home() {
             La temporada está en marcha. No te quedes fuera de la acción.
           </p>
           <Link href="/register">
-            <Button type="button" title="Únete Gratis Ahora" />
+            <Button type="button" title="Únete Gratis Ahora" theme="normal" />
           </Link>
         </div>
       </section>

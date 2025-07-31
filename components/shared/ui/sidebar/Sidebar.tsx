@@ -10,12 +10,11 @@ interface SidebarProps {
 
 export function Sidebar({ isOpen, toggle }: SidebarProps) {
   const currentRoute = usePathname();
-  const { isPending, isError, isSuccess, data, error } = usePostMenu();
-  console.log(isPending, isError, isSuccess, data, error);
+  const menu = usePostMenu();
 
   return (
     <div className="">
-      {isSuccess && data && (
+      {menu.isSuccess && menu.data && (
         <aside
           className={`flex flex-col bg-white text-black p-4 rounded-md shadow-md ${
             !isOpen && "hidden"
@@ -29,7 +28,7 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
           </div>
 
           <nav className="pt-4">
-            <Menu menu={data.data} route={currentRoute} />
+            <Menu menu={menu.data.data} route={currentRoute} />
           </nav>
         </aside>
       )}
