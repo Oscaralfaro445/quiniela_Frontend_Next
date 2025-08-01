@@ -1,0 +1,19 @@
+import clsx from "clsx";
+
+interface SectionGridProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export const SectionGrid = ({ children, className }: SectionGridProps) => {
+  return (
+    <section
+      className={clsx(
+        `grid w-full gap-4 py-24 justify-items-center content-center px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48`,
+        className
+      )}
+    >
+      {children}
+    </section>
+  );
+};

@@ -5,10 +5,10 @@ import Link from "next/link";
 import usePostMarkers from "@/hooks/markers/queries/usePostMarkers";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { Icon } from "@/components/shared/icon/Icon";
-import { Card } from "@/components/shared/ui/card/Card";
-import { CardHeader } from "@/components/shared/ui/cardHeader/CardHeader";
-import { CardTitle } from "@/components/shared/ui/cardTitle/CardTitle";
-import { CardContent } from "@/components/shared/ui/cardContent/CardContent";
+import { Card } from "@/components/shared/card/Card";
+import { CardHeader } from "@/components/shared/cardHeader/CardHeader";
+import { CardTitle } from "@/components/shared/cardTitle/CardTitle";
+import { CardContent } from "@/components/shared/cardContent/CardContent";
 import { Button } from "@/components/shared/button/Button";
 
 interface GameResult {

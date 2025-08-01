@@ -1,6 +1,6 @@
 import usePostMenu from "@/hooks/menu/queries/usePostMenu";
 import { usePathname } from "next/navigation";
-import { Menu } from "@/components/shared/ui/menu/Menu";
+import { Menu } from "@/components/shared/menu/Menu";
 import { Icon } from "@/components/shared/icon/Icon";
 
 interface SidebarProps {
@@ -16,15 +16,15 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
     <>
       {menu.isSuccess && (
         <aside
-          className={`flex flex-col p-4 gap-4 bg-white rounded-md shadow-md ${
+          className={`flex flex-col h-[800px] p-4 gap-4 bg-white rounded-md shadow-md ${
             !isOpen && "hidden"
           }`}
         >
-          <div className="flex items-center justify-between">
-            <p className="text-2xl font-bold py-2">Quiniela</p>
+          <div className="flex px-2 py-2 items-center justify-between">
+            <p className="text-2xl font-bold">Menu</p>
 
             <button onClick={toggle} className="cursor-pointer">
-              <Icon name="panel-left-close" />
+              <Icon name="x" />
             </button>
           </div>
 

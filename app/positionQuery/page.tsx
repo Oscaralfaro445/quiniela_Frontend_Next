@@ -3,11 +3,11 @@
 import Link from "next/link";
 import { useAuth } from "@/context/authContext/AuthContext";
 import usePostParticipantPositions from "@/hooks/participantPositions/queries/usePostParticipantPositions";
-import { Card } from "@/components/shared/ui/card/Card";
-import { CardHeader } from "@/components/shared/ui/cardHeader/CardHeader";
-import { CardTitle } from "@/components/shared/ui/cardTitle/CardTitle";
+import { Card } from "@/components/shared/card/Card";
+import { CardHeader } from "@/components/shared/cardHeader/CardHeader";
+import { CardTitle } from "@/components/shared/cardTitle/CardTitle";
 import { Icon } from "@/components/shared/icon/Icon";
-import { CardContent } from "@/components/shared/ui/cardContent/CardContent";
+import { CardContent } from "@/components/shared/cardContent/CardContent";
 import { Button } from "@/components/shared/button/Button";
 
 export default function PositionQueryPage() {

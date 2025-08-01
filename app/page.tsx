@@ -1,17 +1,18 @@
 import Link from "next/link";
 import { Button } from "@/components/shared/button/Button";
-import { Card } from "@/components/shared/ui/card/Card";
-import { CardHeader } from "@/components/shared/ui/cardHeader/CardHeader";
+import { Card } from "@/components/shared/card/Card";
+import { CardHeader } from "@/components/shared/cardHeader/CardHeader";
 import { Icon } from "@/components/shared/icon/Icon";
-import { CardTitle } from "@/components/shared/ui/cardTitle/CardTitle";
-import { CardContent } from "@/components/shared/ui/cardContent/CardContent";
-import { CardDescription } from "@/components/shared/ui/cardDescription/CardDescription";
+import { CardTitle } from "@/components/shared/cardTitle/CardTitle";
+import { CardContent } from "@/components/shared/cardContent/CardContent";
+import { CardDescription } from "@/components/shared/cardDescription/CardDescription";
+import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
+import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="py-20 px-4">
+    <MainContainer>
+      <SectionGrid>
         <div className="container mx-auto text-center">
           <h2 className="text-5xl font-bold text-gray-900 mb-6">
             Predice los Ganadores de la NFL
@@ -30,9 +31,13 @@ export default function Home() {
             </Link>
           </div>
         </div>
-      </section>
+      </SectionGrid>
 
-      <section className="py-16 px-4 bg-gray-50">
+      {/* <SectionGrid>
+        <></>
+      </SectionGrid> */}
+
+      <SectionGrid className="bg-gray-100">
         <div className="container mx-auto">
           <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">
             ¿Por qué elegir NFL Quiniela?
@@ -85,21 +90,21 @@ export default function Home() {
             </Card>
           </div>
         </div>
-      </section>
+      </SectionGrid>
 
-      <section className="py-16 px-4 bg-blue-700">
-        <div className="container mx-auto text-center">
-          <h3 className="text-3xl font-bold text-white mb-6">
-            ¿Listo para Demostrar tus Conocimientos?
-          </h3>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            La temporada está en marcha. No te quedes fuera de la acción.
-          </p>
-          <Link href="/register">
-            <Button type="button" title="Únete Gratis Ahora" theme="normal" />
-          </Link>
-        </div>
-      </section>
-    </div>
+      <SectionGrid className="bg-blue-700">
+        <p className="text-3xl font-bold text-white">
+          ¿Listo para Demostrar tus Conocimientos?
+        </p>
+
+        <p className="text-xl text-blue-100">
+          La temporada está en marcha. No te quedes fuera de la acción.
+        </p>
+
+        <Link href="/register">
+          <Button type="button" title="Únete Gratis Ahora" theme="normal" />
+        </Link>
+      </SectionGrid>
+    </MainContainer>
   );
 }

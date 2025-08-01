@@ -14,10 +14,9 @@ interface HeaderProps {
 
 export const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
   const { isLogged, dataUser } = useAuth();
-  // console.log("User data in Header:", dataUser);
 
   return (
-    <header className="flex items-center w-full gap-6 py-2 px-4 sm:px-8 bg-white rounded-md shadow-md">
+    <header className="flex items-center w-full gap-6 py-4 px-4 md:px-8 bg-white rounded-md shadow-md">
       {isLogged && (
         <div
           onClick={toggleSidebar}
@@ -25,29 +24,32 @@ export const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
             (clsx("cursor-pointer"), isSidebarOpen ? "hidden" : "block")
           }
         >
-          <Icon name="panel-left-open" />
+          <Icon name="menu" />
         </div>
       )}
 
       <div className="flex w-full justify-between items-center">
-        <div>
-          <Link href="/">
-            <h1 className="text-2xl font-medium">Quiniela</h1>
-          </Link>
-        </div>
+        <Link href="/">
+          <div className="flex gap-4 items-center">
+            <Icon name="trophy" size={30} color="blue" />
+            <p className="text-3xl font-bold">NFL Quiniela</p>
+          </div>
+        </Link>
 
         <div className="flex items-center gap-2">
           {isLogged && (
-            <span className="text-sm text-gray-600">
+            <span className="text-md text-gray-600">
               Semana {dataUser?.idPeriodo}
             </span>
           )}
-          <div className="border-l border-gray-400 h-10 my-2 ml-2 mr-2" />{" "}
+
+          <div className="border-l border-blue-600 h-10 my-2 ml-2 mr-2" />
+
           {isLogged && dataUser ? (
             <ProfileOptions data={dataUser} />
           ) : (
             <Link href="/login">
-              <Button type="button" theme="primary" title="Iniciar sesión" />
+              <Button type="button" title="Iniciar sesión" icon="log-in" />
             </Link>
           )}
         </div>

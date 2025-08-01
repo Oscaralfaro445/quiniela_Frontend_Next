@@ -13,7 +13,7 @@ export default function RootLayout({
     <html lang="en">
       <head>{/*<link rel="" href="" type="" />*/}</head>
 
-      <body className="min-h-screen overflow-x-hidden">
+      <body>
         <ReactQueryProvider>
           <AuthProvider>
             <AlertProvider>

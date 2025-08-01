@@ -3,12 +3,12 @@
 import Link from "next/link";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { Button } from "@/components/shared/button/Button";
-import { Card } from "@/components/shared/ui/card/Card";
-import { CardHeader } from "@/components/shared/ui/cardHeader/CardHeader";
-import { CardTitle } from "@/components/shared/ui/cardTitle/CardTitle";
-import { CardContent } from "@/components/shared/ui/cardContent/CardContent";
+import { Card } from "@/components/shared/card/Card";
+import { CardHeader } from "@/components/shared/cardHeader/CardHeader";
+import { CardTitle } from "@/components/shared/cardTitle/CardTitle";
+import { CardContent } from "@/components/shared/cardContent/CardContent";
 import { Icon } from "@/components/shared/icon/Icon";
-import { CardDescription } from "@/components/shared/ui/cardDescription/CardDescription";
+import { CardDescription } from "@/components/shared/cardDescription/CardDescription";
 
 export default function Dashboard() {
   const { dataUser } = useAuth();

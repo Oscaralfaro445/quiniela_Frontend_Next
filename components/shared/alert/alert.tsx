@@ -1,7 +1,7 @@
 "use client";
 
 import { AlertState } from "@/models/alert";
-import { Icon } from "../../icon/Icon";
+import { Icon } from "../icon/Icon";
 import "./Alert.css";
 
 interface AlertProps {
@@ -21,7 +21,7 @@ export const Alert = ({
 }: AlertProps) => {
   return (
     <div
-      className={`flex items-start p-4 w-96 rounded-lg absolute z-50 top-4 right-2 shadow-lg border border-gray-100 bg-white alert ${
+      className={`fixed flex justify-between items-start p-4 w-86 lg:w-96 rounded-lg z-50 top-4 right-4 shadow-lg border border-green-600 bg-white alert ${
         isModalOpen ? "active" : ""
       }`}
     >
@@ -34,13 +34,13 @@ export const Alert = ({
         )}
       </div>
 
-      <div className="flex flex-auto flex-col px-6 ">
+      <div className="flex flex-col">
         <h4 className="font-bold text-sm">{title}</h4>
         <p className="text-xs text-gray-400">{description}</p>
       </div>
 
       <div className="" onClick={toggleAlert}>
-        <Icon name="x" />
+        <Icon name="x" color="red" />
       </div>
     </div>
   );

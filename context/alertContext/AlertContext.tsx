@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState } from "react";
 import { AlertState } from "@/models/alert";
-import { Alert } from "@/components/shared/ui/alert/alert";
+import { Alert } from "@/components/shared/alert/alert";
 
 interface AlertContextProps {
   showAlert: (type: AlertState, title: string, description: string) => void;

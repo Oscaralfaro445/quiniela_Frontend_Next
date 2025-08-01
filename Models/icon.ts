@@ -16,6 +16,7 @@ export type IconName =
   | "gamepad-2"
   | "hand-coins"
   | "list-ordered"
+  | "log-in"
   | "map-pin"
   | "medal"
   | "menu"
