@@ -39,7 +39,7 @@ export const Menu = ({ title, menu, route }: MenuProps) => {
 
   return (
     <div>
-      {title && <h1>{title}</h1>}
+      {title && <p>{title}</p>}
 
       <MenuNode
         route={route}

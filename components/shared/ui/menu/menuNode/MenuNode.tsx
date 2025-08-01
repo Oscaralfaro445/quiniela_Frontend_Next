@@ -14,16 +14,16 @@ type MenuNodeProps = {
 export const MenuNode = ({
   items,
   route,
-  level = -1,
+  level = 0,
   handleClick,
 }: MenuNodeProps) => {
   const [currentLevel] = useState(level + 1);
 
   return (
     <div className="flex flex-col gap-2">
-      {items.map((item, idx) => {
+      {items.map((item, index) => {
         return (
-          <div key={`${item.descMenu}-${idx}`}>
+          <div key={index}>
             <MenuItem
               item={item}
               itemLevel={currentLevel}

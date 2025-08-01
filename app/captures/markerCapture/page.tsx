@@ -22,7 +22,7 @@ interface GameResult {
   marLocal: number;
 }
 
-export default function MarkersPage() {
+export default function MarkerCapturePage() {
   const { dataUser } = useAuth();
   const week = dataUser?.idPeriodo;
   const markers = usePostMarkers();
@@ -31,7 +31,7 @@ export default function MarkersPage() {
   const [gameResults, setGameResults] = useState<GameResult[]>([]);
 
   useEffect(() => {
-    if (markers.isSuccess && markers.data?.data) {
+    if (markers.isSuccess) {
       const gameResults = markers.data.data;
       const initialScores = markers.data.data.map((game: GameResult) => ({
         ID_PERIODO: dataUser?.idPeriodo,

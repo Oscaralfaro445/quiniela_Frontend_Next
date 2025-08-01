@@ -13,25 +13,28 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
   const menu = usePostMenu();
 
   return (
-    <div className="">
-      {menu.isSuccess && menu.data && (
+    <>
+      {menu.isSuccess && (
         <aside
-          className={`flex flex-col bg-white text-black p-4 rounded-md shadow-md ${
+          className={`flex flex-col p-4 gap-4 bg-white rounded-md shadow-md ${
             !isOpen && "hidden"
           }`}
         >
           <div className="flex items-center justify-between">
-            <p className="text-2xl font-bold px-2 py-2">Quiniela</p>
+            <p className="text-2xl font-bold py-2">Quiniela</p>
+
             <button onClick={toggle} className="cursor-pointer">
               <Icon name="panel-left-close" />
             </button>
           </div>
 
-          <nav className="pt-4">
+          <hr className="text-blue-600" />
+
+          <nav>
             <Menu menu={menu.data.data} route={currentRoute} />
           </nav>
         </aside>
       )}
-    </div>
+    </>
   );
 }

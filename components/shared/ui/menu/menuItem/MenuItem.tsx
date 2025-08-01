@@ -25,21 +25,17 @@ export const MenuItem = ({
     if (item.urlMenu && !item.children?.length) router.push(item.urlMenu);
   };
 
-  // console.log(itemLevel);
+  console.log(itemLevel);
 
   return (
     <div
-      className={`flex w-full py-1 justify-between items-center px-2 rounded-md cursor-pointer hover:bg-blue-500 hover:text-white ${
+      className={`flex w-full px-2 py-1 justify-between items-center rounded-md cursor-pointer hover:bg-blue-600 hover:text-white ${
         currentRoute === item.urlMenu ? "bg-blue-600  text-white" : ""
       }`}
       onClick={handleClick}
     >
-      <div
-        className={`flex gap-4 justify-items-start items-center ml-${
-          itemLevel * 4
-        }`}
-      >
-        <div className="">
+      <div className={`flex gap-4 justify-start items-center`}>
+        <div className={`ml-${itemLevel * 2}`}>
           <Icon name={item.icono} size={16} />
         </div>
 

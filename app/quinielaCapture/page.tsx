@@ -1,11 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import usePostSurvivorTeams from "@/hooks/survivor/queries/usePostSurvivorTeams";
 import usePostMatches from "@/hooks/matches/queries/usePostMatches";
-import usePostScores from "@/hooks/scores/mutations/usePostScores";
-import usePostSurvivorTeam from "@/hooks/survivor/mutations/usePostSurvivorTeam";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { Icon } from "@/components/shared/icon/Icon";
 import { Card } from "@/components/shared/ui/card/Card";
@@ -13,8 +10,11 @@ import { CardContent } from "@/components/shared/ui/cardContent/CardContent";
 import { CardHeader } from "@/components/shared/ui/cardHeader/CardHeader";
 import { Button } from "@/components/shared/button/Button";
 import { InputCombo } from "@/components/shared/input/inputs/InputCombo";
+import usePostSurvivorTeams from "@/hooks/survivor/queries/usePostSurvivorTeams";
+import usePostScores from "@/hooks/scores/mutations/usePostScores";
+import usePostSurvivorTeam from "@/hooks/survivor/mutations/usePostSurvivorTeam";
 
-export default function QuinielaPage() {
+export default function QuinielaCapturePage() {
   const { dataUser } = useAuth();
   const scores = usePostScores();
   const matches = usePostMatches();
@@ -22,19 +22,10 @@ export default function QuinielaPage() {
   const survivorTeam = usePostSurvivorTeam();
   const week = dataUser?.idPeriodo;
   const survivorTeams = survivor?.data?.data;
-  console.log("Survivor Teams:", survivorTeams);
 
   const [quinielaData, setQuinielaData] = useState({
     equipo: 0,
   });
-  const [games, setGames] = useState<any[]>([]);
-
-  console.log("games", games);
-
-  useEffect(() => {
-    const games = matches?.data?.data[0].quiniela;
-    setGames(games);
-  }, [matches.isSuccess]);
 
   const handleChange = (event: React.ChangeEvent<any>) => {
     const { name, value } = event.target;
@@ -54,6 +45,9 @@ export default function QuinielaPage() {
   // Estado para las predicciones
   const [picks, setPicks] = useState<Record<string, string>>({});
   // const [saved, setSaved] = useState(false);
+
+  const games = matches?.data?.data[0].quiniela;
+  console.log("Games data:", games);
 
   const handlePickChange = (gameId: string, team: string) => {
     setPicks((prev) => ({
@@ -86,8 +80,8 @@ export default function QuinielaPage() {
               </p>
             </div>
             {/* <Badge variant="outline" className="text-blue-700 border-blue-700">
-              NFL Temporada 2024
             </Badge> */}
+            NFL Temporada 2025
           </div>
 
           <Card className="border-gray-200">
@@ -106,23 +100,25 @@ export default function QuinielaPage() {
 
             <div className="flex w-full justify-center">
               <div className="w-1/3">
-                <InputCombo
-                  name="equipo"
-                  data={survivorTeams}
-                  value={quinielaData.equipo}
-                  onChange={handleChange}
-                  optionValueKey="llave"
-                  optionLabelKey="valor"
-                />
+                {dataUser?.bSurvivor && (
+                  <InputCombo
+                    name="equipo"
+                    data={survivorTeams}
+                    value={quinielaData.equipo}
+                    onChange={handleChange}
+                    optionValueKey="llave"
+                    optionLabelKey="valor"
+                  />
+                )}
               </div>
             </div>
           </Card>
         </div>
 
         <div className="grid">
-          {games?.map((game) => (
+          {games?.map((game: any) => (
             <Card
-              key={game.idPartido}
+              key={game.Partido}
               className="border-gray-200 hover:shadow-md transition-shadow"
             >
               <CardHeader>
@@ -130,12 +126,12 @@ export default function QuinielaPage() {
                   <div className="flex items-center space-x-4">
                     <Icon name="clock" />
                     <span className="text-sm font-medium text-gray-700">
-                      {game.F_PARTIDO}
+                      {game.Fecha}
                     </span>
 
                     <div className="flex items-center space-x-1 text-sm text-gray-500">
                       <Icon name="map-pin" />
-                      <span>{game.ESTADIO}</span>
+                      <span>{game.Estadio}</span>
                     </div>
                   </div>
                 </div>
@@ -145,17 +141,17 @@ export default function QuinielaPage() {
                 <div className="flex items-center gap-4 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
                   <input
                     type="radio"
-                    id={`game-${game.idEquipo1}`}
-                    name={`game-${game.idPartido}`}
-                    value={game.idEquipo1}
+                    id={game.IdV}
+                    name={`game-${game.Partido}`}
+                    value={game.IdV}
                   />
 
                   <div className="flex items-center justify-between">
                     <div className="flex w-full items-center justify-between">
                       <span className="text-xs font-bold text-gray-700">
-                        {game?.equipo1}
+                        {game?.EquipoV}
                       </span>
-                      {picks[game.id] === game.awayTeam && (
+                      {picks[game.Partido] === game.awayTeam && (
                         <Icon name="check" />
                       )}
                     </div>
@@ -165,17 +161,17 @@ export default function QuinielaPage() {
                 <div className="flex items-center gap-4 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
                   <input
                     type="radio"
-                    id={`game-${game.idEquipo2}`}
-                    name={`game-${game.idPartido}`}
-                    value={game.idEquipo2}
+                    id={game.IdL}
+                    name={`game-${game.Partido}`}
+                    value={game.IdL}
                   />
 
                   <div className="flex items-center justify-between">
                     <div className="flex w-full items-center justify-between">
                       <span className="text-xs font-bold text-gray-700">
-                        {game?.equipo2}
+                        {game.EquipoL}
                       </span>
-                      {picks[game.id] === game.awayTeam && (
+                      {picks[game.Partido] === game.awayTeam && (
                         <Icon name="check" />
                       )}
                     </div>

@@ -10,7 +10,7 @@ import { Icon } from "@/components/shared/icon/Icon";
 import { CardContent } from "@/components/shared/ui/cardContent/CardContent";
 import { Button } from "@/components/shared/button/Button";
 
-export default function Leaderboard() {
+export default function PositionQueryPage() {
   const { dataUser } = useAuth();
   const currentWeek = dataUser?.idPeriodo;
   const participants = usePostParticipantPositions();

@@ -81,6 +81,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         idQuiniela: dataUser.idQuiniela,
         idParticipante: dataUser.idParticipante,
         idPeriodo: dataUser.idPeriodo,
+        bResSurv: dataUser.bResSurv,
+        fLimite: dataUser.fLimite,
+        horaLimite: dataUser.horaLimite,
+        titQuiniela: dataUser.titQuiniela,
+        bSurvivor: dataUser.bSurvivor,
       });
 
       const storage = rememberMe ? localStorage : sessionStorage;
