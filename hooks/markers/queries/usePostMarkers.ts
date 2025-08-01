@@ -7,7 +7,7 @@ const postMarkers = async (
   payload: {
     idProceso: number;
     idQuery: string;
-    parmRemp: { $1: number };
+    parmRemp: { $1: string };
   }
 ) => {
   const response = await axiosInstance.post("/Query/Consulta", payload, {
@@ -28,7 +28,7 @@ const usePostMarkers = () => {
         idProceso: 5,
         idQuery: "6",
         parmRemp: {
-          $1: dataUser!.idQuiniela,
+          $1: dataUser!.idPeriodo,
         },
       }),
     enabled: !!token && !!dataUser?.idQuiniela,

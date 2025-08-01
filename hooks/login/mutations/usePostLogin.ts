@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "@/context/authContext/AuthContext";
 
-const postData = async (payload: {
+const postLogin = async (payload: {
   cveUsuario: string;
   password: string;
   idProceso: number;
@@ -13,7 +13,7 @@ const postData = async (payload: {
   return response.data;
 };
 
-export const useLogin = () => {
+const usePostLogin = () => {
   const router = useRouter();
   const { login } = useAuth();
 
@@ -24,7 +24,7 @@ export const useLogin = () => {
       password: string;
       rememberMe: boolean;
     }) => {
-      const response = await postData({
+      const response = await postLogin({
         idProceso: 1,
         cveUsuario: loginData.cveUsuario,
         password: loginData.password,
@@ -52,3 +52,5 @@ export const useLogin = () => {
     onSettled: () => {},
   });
 };
+
+export default usePostLogin;

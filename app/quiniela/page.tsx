@@ -1,8 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import usePostSurvivorTeams from "@/hooks/survivor/queries/usePostSurvivorTeams";
 import usePostMatches from "@/hooks/matches/queries/usePostMatches";
+import usePostScores from "@/hooks/scores/mutations/usePostScores";
+import usePostSurvivorTeam from "@/hooks/survivor/mutations/usePostSurvivorTeam";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { Icon } from "@/components/shared/icon/Icon";
 import { Card } from "@/components/shared/ui/card/Card";
@@ -10,9 +13,6 @@ import { CardContent } from "@/components/shared/ui/cardContent/CardContent";
 import { CardHeader } from "@/components/shared/ui/cardHeader/CardHeader";
 import { Button } from "@/components/shared/button/Button";
 import { InputCombo } from "@/components/shared/input/inputs/InputCombo";
-import usePostSurvivorTeams from "@/hooks/survivor/queries/usePostSurvivorTeams";
-import usePostScores from "@/hooks/scores/mutations/usePostScores";
-import usePostSurvivorTeam from "@/hooks/survivor/mutations/usePostSurvivorTeam";
 
 export default function QuinielaPage() {
   const { dataUser } = useAuth();
@@ -22,10 +22,19 @@ export default function QuinielaPage() {
   const survivorTeam = usePostSurvivorTeam();
   const week = dataUser?.idPeriodo;
   const survivorTeams = survivor?.data?.data;
+  console.log("Survivor Teams:", survivorTeams);
 
   const [quinielaData, setQuinielaData] = useState({
     equipo: 0,
   });
+  const [games, setGames] = useState<any[]>([]);
+
+  console.log("games", games);
+
+  useEffect(() => {
+    const games = matches?.data?.data[0].quiniela;
+    setGames(games);
+  }, [matches.isSuccess]);
 
   const handleChange = (event: React.ChangeEvent<any>) => {
     const { name, value } = event.target;
@@ -45,8 +54,6 @@ export default function QuinielaPage() {
   // Estado para las predicciones
   const [picks, setPicks] = useState<Record<string, string>>({});
   // const [saved, setSaved] = useState(false);
-
-  const games = matches?.data?.data[0].quiniela;
 
   const handlePickChange = (gameId: string, team: string) => {
     setPicks((prev) => ({

@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "@/context/authContext/AuthContext";
 
 const postScores = async (
-  token: string | null,
+  token: string,
   payload: { idProceso: number; idQuery: string; parmRemp: { $1: number } }
 ) => {
   const response = await axiosInstance.post("/Query/Consulta", payload, {
@@ -20,7 +20,7 @@ const usePostScores = () => {
   return useMutation({
     mutationKey: ["scores"],
     mutationFn: ({ idEquipo }: { idEquipo: number }) =>
-      postScores(token, {
+      postScores(token!, {
         idProceso: 2,
         idQuery: "3",
         parmRemp: { $1: idEquipo },

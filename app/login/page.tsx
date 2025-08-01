@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useLogin } from "@/hooks/login/mutations/useLogin";
+import usePostLogin from "@/hooks/login/mutations/usePostLogin";
 import { Button } from "@/components/shared/button/Button";
 import { Input } from "@/components/shared/input/Input";
 import { useAlert } from "@/context/alertContext/AlertContext";
@@ -10,7 +10,7 @@ import { AlertState } from "@/models/alert";
 
 export default function LoginPage() {
   const { showAlert } = useAlert();
-  const mutation = useLogin();
+  const login = usePostLogin();
 
   const [credentials, setCredentials] = useState({
     cveUsuario: "",
@@ -19,18 +19,18 @@ export default function LoginPage() {
   });
 
   useEffect(() => {
-    if (mutation.isSuccess) {
+    if (login.isSuccess) {
       showAlert(AlertState.SUCCESS, "Operación exitosa", "Todo salió bien");
     }
 
-    if (mutation.isError) {
+    if (login.isError) {
       showAlert(
         AlertState.ERROR,
         "Error de autenticación",
         "Usuario o contraseña incorrectos"
       );
     }
-  }, [mutation.isSuccess, mutation.isError]);
+  }, [login.isSuccess, login.isError, showAlert]);
 
   const handleChange = (
     event:
@@ -57,7 +57,7 @@ export default function LoginPage() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    mutation.mutate(credentials);
+    login.mutate(credentials);
   };
 
   return (
