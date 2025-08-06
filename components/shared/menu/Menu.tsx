@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MenuItemI } from "@/models/menuItemI";
+import { MenuItemI } from "@/types/menu/menuItemI";
 import { MenuNode } from "@/components/shared/menu/menuNode/MenuNode";
 
 interface MenuProps {
@@ -11,7 +11,7 @@ interface MenuProps {
 }
 
 export const Menu = ({ title, menu, route }: MenuProps) => {
-  const [tree, setTree] = useState(menu);
+  const [tree, setTree] = useState<MenuItemI[]>(menu);
 
   const handleTreeState = (menuCve: string, treeMenu: MenuItemI) => {
     if (!treeMenu.children) {
@@ -41,11 +41,13 @@ export const Menu = ({ title, menu, route }: MenuProps) => {
     <div>
       {title && <p>{title}</p>}
 
-      <MenuNode
-        route={route}
-        items={tree.children as MenuItemI[]}
-        handleClick={handleOptSelection}
-      />
+      {tree && (
+        <MenuNode
+          route={route}
+          items={tree.children as MenuItemI[]}
+          handleClick={handleOptSelection}
+        />
+      )}
     </div>
   );
 };

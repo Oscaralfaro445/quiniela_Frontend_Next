@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
-import { AlertState } from "@/models/alert";
+import { AlertState } from "@/types/alert";
 import { Alert } from "@/components/shared/alert/alert";
 
 interface AlertContextProps {

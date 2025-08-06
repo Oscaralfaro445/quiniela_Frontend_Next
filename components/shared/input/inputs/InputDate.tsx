@@ -1,4 +1,4 @@
-import { InputProps } from "@/models/input";
+import { InputProps } from "@/types/input";
 
 export const InputDate = ({
   placeholder,

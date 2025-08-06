@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MenuItemI } from "@/models/menuItemI";
+import { MenuItemI } from "@/types/menu/menuItemI";
 import { MenuItem } from "../menuItem/MenuItem";
 
 type MenuNodeProps = {

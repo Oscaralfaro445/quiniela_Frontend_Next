@@ -1,10 +1,8 @@
-import { InputProps } from "@/models/input";
+import { InputProps } from "@/types/input";
 
 export const InputArea = ({
   // placeholder,
   name,
-  id,
-  value,
   disabled,
   required,
   onChange,

@@ -1,4 +1,4 @@
-import { IconName } from "@/models/icon";
+import { IconName } from "@/types/icon";
 import { Icon } from "../icon/Icon";
 
 interface ButtonProps {

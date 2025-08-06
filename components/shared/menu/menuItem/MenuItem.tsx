@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { MenuItemI } from "@/models/menuItemI";
+import { MenuItemI } from "@/types/menu/menuItemI";
 import { Icon } from "@/components/shared/icon/Icon";
 
 type MenuItemProps = {

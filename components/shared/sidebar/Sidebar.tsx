@@ -1,4 +1,4 @@
-import usePostMenu from "@/hooks/menu/queries/usePostMenu";
+import useGetMenu from "@/hooks/menu/queries/useGetMenu";
 import { usePathname } from "next/navigation";
 import { Menu } from "@/components/shared/menu/Menu";
 import { Icon } from "@/components/shared/icon/Icon";
@@ -10,7 +10,8 @@ interface SidebarProps {
 
 export function Sidebar({ isOpen, toggle }: SidebarProps) {
   const currentRoute = usePathname();
-  const menu = usePostMenu();
+  const menu = useGetMenu();
+  console.log("Menu data: ", menu?.data?.data);
 
   return (
     <>
@@ -31,7 +32,7 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
           <hr className="text-blue-600" />
 
           <nav>
-            <Menu menu={menu.data.data} route={currentRoute} />
+            <Menu menu={menu.data.data[0]} route={currentRoute} />
           </nav>
         </aside>
       )}

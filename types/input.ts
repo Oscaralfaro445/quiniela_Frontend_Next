@@ -14,20 +14,10 @@ export enum InputType {
 }
 
 export interface InputProps {
-  field?: any;
-  type?: string;
-  label?: string;
-  description?: string;
-  placeholder?: string;
+  type: string;
   name: string;
-  id: string;
-  value?: string;
+  label?: string;
+  placeholder: string;
+  description?: string;
   disabled?: boolean;
-  required?: boolean;
-  onChange: (
-    event:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLTextAreaElement>
-  ) => void;
-  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }

@@ -1,5 +1,5 @@
 import { DynamicIcon } from "lucide-react/dynamic";
-import { IconProps } from "@/models/icon";
+import { IconProps } from "@/types/icon";
 
 export const Icon = ({
   name,
