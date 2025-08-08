@@ -5,12 +5,12 @@ import Link from "next/link";
 import usePostMarkers from "@/hooks/markers/queries/usePostMarkers";
 import usePostMarkersMutation from "@/hooks/markers/mutations/usePostMarkersMutation";
 import { useAuth } from "@/context/authContext/AuthContext";
-import { Icon } from "@/components/shared/icon/Icon";
 import { Card } from "@/components/shared/card/Card";
 import { CardHeader } from "@/components/shared/cardHeader/CardHeader";
 import { CardTitle } from "@/components/shared/cardTitle/CardTitle";
 import { CardContent } from "@/components/shared/cardContent/CardContent";
 import { Button } from "@/components/shared/button/Button";
+import { Icon } from "@/components/shared/icon/Icon";
 
 interface GameResult {
   partido: number;

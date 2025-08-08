@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import * as Yup from "yup";
 import usePostLogin from "@/hooks/login/mutations/usePostLogin";
 import { LoginFormValues } from "@/types/login/login";
@@ -7,7 +8,6 @@ import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
 import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
 import { Form } from "@/components/shared/form/Form";
 import { LoginForm } from "@/components/login/LoginForm";
-import Link from "next/link";
 
 const initialValues: LoginFormValues = {
   cveUsuario: "",

@@ -1,5 +1,5 @@
-import useGetMenu from "@/hooks/menu/queries/useGetMenu";
 import { usePathname } from "next/navigation";
+import useGetMenu from "@/hooks/menu/queries/useGetMenu";
 import { Menu } from "@/components/shared/menu/Menu";
 import { Icon } from "@/components/shared/icon/Icon";
 
