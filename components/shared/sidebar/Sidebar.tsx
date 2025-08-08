@@ -17,7 +17,7 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
     <>
       {menu.isSuccess && (
         <aside
-          className={`flex flex-col h-[800px] p-4 gap-4 bg-white rounded-md shadow-md ${
+          className={`flex flex-col h-[803px] p-4 gap-4 bg-white rounded-md shadow-md ${
             !isOpen && "hidden"
           }`}
         >

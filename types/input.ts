@@ -17,7 +17,7 @@ export interface InputProps {
   type: string;
   name: string;
   label?: string;
-  placeholder: string;
+  placeholder?: string;
   description?: string;
   disabled?: boolean;
 }

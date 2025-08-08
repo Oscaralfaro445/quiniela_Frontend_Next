@@ -9,17 +9,6 @@ export default function RecoveryPage() {
   const [credentials, setCredentials] = useState({ email: "" });
   // const router = useRouter();
 
-  const handleChange = (
-    event:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setCredentials({
-      ...credentials,
-      [event.target.name]: event.target.value,
-    });
-  };
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -46,8 +35,6 @@ export default function RecoveryPage() {
             label="Correo Electrónico"
             placeholder="Ingresa tu correo electrónico"
             name="email"
-            id="email"
-            onChange={handleChange}
           />
 
           <div className="flex w-full items-center justify-between px-2">

@@ -6,37 +6,42 @@ import { Button } from "../shared/button/Button";
 
 export const RegisterForm = () => {
   return (
-    <Form>
+    <Form className="flex flex-col w-full gap-4">
       <Input
-        type="text"
-        name="CVE_USUARIO"
+        type="email"
+        name="cveUsuario"
         label="Usuario"
         placeholder="Ingrese su usuario"
       />
+
       <Input
         type="text"
-        name="APELLIDO_PATERNO"
+        name="apellidoPaterno"
         label="Apellido Paterno"
         placeholder="Ingrese su apellido paterno"
       />
+
       <Input
         type="text"
-        name="APELLIDO_MATERNO"
+        name="apellidoMaterno"
         label="Apellido Materno"
         placeholder="Ingrese su apellido materno"
       />
+
       <Input
         type="text"
-        name="NOMBRE"
+        name="nombre"
         label="Nombre"
         placeholder="Ingrese su nombre"
       />
+
       <Input
-        type="text"
-        name="PASSWORD"
+        type="password"
+        name="password"
         label="Contraseña"
         placeholder="Ingrese su contraseña"
       />
+
       <Button type="submit" title="Terminar Registro" />
     </Form>
   );

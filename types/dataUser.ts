@@ -1,4 +1,5 @@
 export interface DataUser {
+  cveUsuario: string;
   cveIdioma: string;
   cvePerfil: string;
   nombre: string;

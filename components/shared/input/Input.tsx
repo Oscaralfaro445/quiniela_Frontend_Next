@@ -22,7 +22,6 @@ export const Input = ({
   disabled,
 }: InputProps) => {
   const [showHelp, setShowHelp] = useState(false);
-  // console.log("InputType", inputType);
 
   const handleShow = () => {
     setShowHelp(!showHelp);
@@ -40,7 +39,6 @@ export const Input = ({
       disabled,
     };
 
-    // console.log("Input type:", inputType);
     switch (type) {
       case InputType.AREA:
       case "area":

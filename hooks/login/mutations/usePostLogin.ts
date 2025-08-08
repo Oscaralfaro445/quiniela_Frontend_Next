@@ -2,6 +2,9 @@ import axiosInstance from "../../axios/axiosInstance";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "@/context/authContext/AuthContext";
+import { useAlert } from "@/context/alertContext/AlertContext";
+import { AlertState } from "@/types/alert";
+import { LoginFormValues } from "@/types/login/login";
 
 const postLogin = async (payload: {
   cveUsuario: string;
@@ -16,14 +19,11 @@ const postLogin = async (payload: {
 const usePostLogin = () => {
   const router = useRouter();
   const { login } = useAuth();
+  const { showAlert } = useAlert();
 
   return useMutation({
     mutationKey: ["login"],
-    mutationFn: async (loginData: {
-      cveUsuario: string;
-      password: string;
-      rememberMe: boolean;
-    }) => {
+    mutationFn: async (loginData: LoginFormValues) => {
       const response = await postLogin({
         idProceso: 1,
         cveUsuario: loginData.cveUsuario,
@@ -34,12 +34,24 @@ const usePostLogin = () => {
       return { ...response, rememberMe: loginData.rememberMe };
     },
     onError: (error) => {
+      showAlert(
+        AlertState.ERROR,
+        "Error de autenticación",
+        "Usuario o contraseña incorrectos"
+      );
+
       console.log("Error en la peticion", error);
     },
     onSuccess: (data) => {
       // console.log("Respuesta completa del servidor:", data);
       // console.log("Propiedades de data:", Object.keys(data));
       // console.log("Token de la respuesta:", data.data[0].token);
+
+      showAlert(
+        AlertState.SUCCESS,
+        "Operación exitosa",
+        "Inicio de sesión exitoso"
+      );
 
       if (data.data[0].token) {
         // Usar el contexto para manejar el login

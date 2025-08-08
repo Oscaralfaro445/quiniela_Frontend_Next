@@ -75,6 +75,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setToken(token);
 
       const dataString = JSON.stringify({
+        cveUSuario: dataUser.cveUsuario,
         cveIdioma: dataUser.cveIdioma,
         cvePerfil: dataUser.cvePerfil,
         nombre: dataUser.nombre,
