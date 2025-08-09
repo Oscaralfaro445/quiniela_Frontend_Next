@@ -17,10 +17,12 @@ export default function Home() {
           <h2 className="text-5xl font-bold text-gray-900 mb-6">
             Predice los Ganadores de la NFL
           </h2>
+
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
             Únete a la emoción de la temporada NFL. Haz tus predicciones,
             compite con amigos y demuestra que eres el mejor pronosticador.
           </p>
+
           <div className="space-x-4">
             <Link href="/register">
               <Button type="button" title="Comenzar Ahora" />

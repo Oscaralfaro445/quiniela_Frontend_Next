@@ -30,7 +30,7 @@ const usePostSurvivorTeam = () => {
 
   return useMutation({
     mutationKey: ["survivorTeam"],
-    mutationFn: ({ id_Equipo_Suv }: { id_Equipo_Suv: number }) =>
+    mutationFn: (idSurvivor: number) =>
       postSurvivorTeam(token!, {
         idProceso: 2,
         model: "Q_SURVIVOR",
@@ -38,7 +38,7 @@ const usePostSurvivorTeam = () => {
           ID_QUINIELA: dataUser!.idQuiniela,
           ID_PARTICIPANTE: dataUser!.idParticipante,
           ID_PERIODO: dataUser!.idPeriodo,
-          ID_EQUIPO_SUV: id_Equipo_Suv,
+          ID_EQUIPO_SUV: idSurvivor,
           SITUACION: "P",
           SITUACION_R: "",
         },

@@ -9,6 +9,8 @@ import { CardTitle } from "@/components/shared/cardTitle/CardTitle";
 import { CardContent } from "@/components/shared/cardContent/CardContent";
 import { Icon } from "@/components/shared/icon/Icon";
 import { CardDescription } from "@/components/shared/cardDescription/CardDescription";
+import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
+import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
 
 export default function Dashboard() {
   const { dataUser } = useAuth();
@@ -54,9 +56,9 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
+    <MainContainer>
+      <SectionGrid>
+        <div className="grid w-full gap-2 justify-items-start content-center">
           <h2 className="text-3xl font-bold text-gray-900 mb-2">
             ¡Bienvenido de vuelta!
           </h2>
@@ -64,8 +66,10 @@ export default function Dashboard() {
             Aquí tienes un resumen de tu rendimiento en la temporada.
           </p>
         </div>
+      </SectionGrid>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <SectionGrid>
+        <div className="grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <Card className="border-gray-200">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-gray-600">
@@ -73,10 +77,12 @@ export default function Dashboard() {
               </CardTitle>
               <Icon name="target" />
             </CardHeader>
+
             <CardContent>
               <div className="text-2xl font-bold text-gray-900">
                 {userStats.accuracy}%
               </div>
+
               <p className="text-xs text-gray-600">
                 {userStats.correctPicks}/{userStats.totalPicks} correctas
               </p>
@@ -129,8 +135,10 @@ export default function Dashboard() {
             </CardContent>
           </Card>
         </div>
+      </SectionGrid>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+      <SectionGrid>
+        <div className="grid w-full lg:grid-cols-2 gap-8">
           <Card className="border-gray-200">
             <CardHeader>
               <CardTitle className="text-gray-900">Acciones Rápidas</CardTitle>
@@ -138,8 +146,9 @@ export default function Dashboard() {
                 Gestiona tus quinielas de la semana
               </CardDescription>
             </CardHeader>
+
             <CardContent className="space-y-4">
-              <Link href="/quiniela">
+              <Link href="/quinielaCapture">
                 <Button
                   type="button"
                   title={`Hacer Quiniela Semana ${currentWeek}`}
@@ -187,9 +196,9 @@ export default function Dashboard() {
                         className={
                           game.correct ? "bg-green-100 text-green-800" : ""
                         }
-                      >
+                        >
                         {game.correct ? "Correcto" : "Incorrecto"}
-                      </Badge> */}
+                        </Badge> */}
                     </div>
                   </div>
                 ))}
@@ -257,7 +266,7 @@ export default function Dashboard() {
             </CardContent>
           </Card>
         </div>
-      </div>
-    </div>
+      </SectionGrid>
+    </MainContainer>
   );
 }

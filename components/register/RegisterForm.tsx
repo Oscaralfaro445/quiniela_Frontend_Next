@@ -10,7 +10,7 @@ export const RegisterForm = () => {
       <Input
         type="email"
         name="cveUsuario"
-        label="Usuario"
+        label="Usuario (clave de usuario)"
         placeholder="Ingrese su usuario"
       />
 
@@ -31,7 +31,7 @@ export const RegisterForm = () => {
       <Input
         type="text"
         name="nombre"
-        label="Nombre"
+        label="Nombre (s)"
         placeholder="Ingrese su nombre"
       />
 

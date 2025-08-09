@@ -11,7 +11,7 @@ interface SidebarProps {
 export function Sidebar({ isOpen, toggle }: SidebarProps) {
   const currentRoute = usePathname();
   const menu = useGetMenu();
-  console.log("Menu data: ", menu?.data?.data);
+  // console.log("Menu data: ", menu?.data?.data);
 
   return (
     <>

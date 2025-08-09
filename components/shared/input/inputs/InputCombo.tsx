@@ -2,13 +2,14 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { Icon } from "../../icon/Icon";
 
 interface Option {
-  [key: string]: string | number;
+  llave: number;
+  valor: string;
 }
 
 interface InputComboProps {
   data: Option[];
   name?: string;
-  value?: string | number;
+  value?: string;
   disabled?: boolean;
   onChange?: (event: ChangeEvent<HTMLSelectElement>) => void;
   optionValueKey: string;

@@ -43,7 +43,7 @@ export const Button = ({
       disabled={disabled}
     >
       <div
-        className={`flex gap-2 justify-center items-center ${
+        className={`flex w-full gap-2 justify-center items-center ${
           flow === "reverse" ? "flex-row-reverse" : ""
         }`}
       >

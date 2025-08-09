@@ -2,7 +2,7 @@ import axiosInstance from "@/hooks/axios/axiosInstance";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/context/authContext/AuthContext";
 
-const postMatches = async (
+const fetchMatches = async (
   token: string,
   payload: {
     idProceso: number;
@@ -18,13 +18,13 @@ const postMatches = async (
   return response.data;
 };
 
-const usePostMatches = () => {
+const useGetMatches = () => {
   const { token, dataUser } = useAuth();
 
   return useQuery({
     queryKey: ["matches"],
     queryFn: () =>
-      postMatches(token!, {
+      fetchMatches(token!, {
         idProceso: 2,
         idQuery: "1",
         parmRemp: {
@@ -41,4 +41,4 @@ const usePostMatches = () => {
   });
 };
 
-export default usePostMatches;
+export default useGetMatches;

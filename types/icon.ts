@@ -28,6 +28,7 @@ export type IconName =
   | "play"
   | "plus"
   | "refresh-ccw"
+  | "shield-check"
   | "swords"
   | "table-properties"
   | "target"

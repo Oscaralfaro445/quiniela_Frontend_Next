@@ -2,7 +2,7 @@ import axiosInstances from "@/hooks/axios/axiosInstance";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/context/authContext/AuthContext";
 
-const postSurvivorTeams = async (
+const fetchSurvivorTeams = async (
   token: string,
   payload: {
     idProceso: number;
@@ -21,13 +21,13 @@ const postSurvivorTeams = async (
   return response.data;
 };
 
-const usePostSurvivorTeams = () => {
+const useGetSurvivorTeams = () => {
   const { token, dataUser } = useAuth();
 
   return useQuery({
     queryKey: ["survivorTeams"],
     queryFn: () =>
-      postSurvivorTeams(token!, {
+      fetchSurvivorTeams(token!, {
         idProceso: 2,
         idQuery: "2",
         parmRemp: {
@@ -39,4 +39,4 @@ const usePostSurvivorTeams = () => {
   });
 };
 
-export default usePostSurvivorTeams;
+export default useGetSurvivorTeams;
