@@ -7,7 +7,7 @@ interface WeeklyHeadlineProps {
 
 export const WeeklyHeadline = ({ week }: WeeklyHeadlineProps) => {
   return (
-    <div className="flex w-full justify-between items-center">
+    <div className="grid md:flex w-full gap-4 justify-center md:justify-between items-center">
       <div className="grid gap-2">
         <Title title={`Semana ${week} - Quiniela`} />
         <TextBody text="Selecciona el ganador de cada juego" />

@@ -10,6 +10,10 @@ import { CardTitle } from "@/components/shared/cardTitle/CardTitle";
 import { Icon } from "@/components/shared/icon/Icon";
 import { CardContent } from "@/components/shared/cardContent/CardContent";
 import { Button } from "@/components/shared/button/Button";
+import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
+import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
+import { Title } from "@/components/shared/text/Title";
+import { TextBody } from "@/components/shared/text/TextBody";
 
 interface Player {
   Secuencia: number;
@@ -67,19 +71,19 @@ export default function PositionQueryPage() {
   }; */
 
   return (
-    <div className="bg-white">
-      <div className="px-4 py-8">
-        <div className="">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            Clasificación
-          </h2>
-          <p className="text-gray-600">
-            Consulta las posiciones semanales y globales de todos los
-            participantes
-          </p>
+    <MainContainer>
+      <SectionGrid>
+        <div className="grid gap-2">
+          <Title title="Clasificación" />
+          <TextBody
+            text="Consulta las posiciones semanales y globales de todos los
+          participantes"
+          />
         </div>
+      </SectionGrid>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <SectionGrid>
+        <div className="grid md:flex gap-4">
           <Card className="border-gray-200">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-gray-600">
@@ -119,9 +123,10 @@ export default function PositionQueryPage() {
             </CardContent>
           </Card>
         </div>
+      </SectionGrid>
 
-        {/* Tabs Navigation */}
-        <div className="mb-8">
+      <SectionGrid>
+        <div className="">
           <div className="border-b border-gray-200">
             <nav className="flex space-x-8" aria-label="Tabs">
               <button
@@ -153,8 +158,9 @@ export default function PositionQueryPage() {
             </nav>
           </div>
         </div>
+      </SectionGrid>
 
-        {/* Tab Content */}
+      <SectionGrid>
         <div className="transition-all duration-300 ease-in-out">
           {activeTab === "weekly" && (
             <div className="animate-fadeIn">
@@ -171,7 +177,7 @@ export default function PositionQueryPage() {
                   </p>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-4">
+                  <div className="w-full space-y-4">
                     {weeklyLeaderboard?.map((player: Player) => (
                       <div
                         key={player.Secuencia}
@@ -300,18 +306,19 @@ export default function PositionQueryPage() {
             </div>
           )}
         </div>
+      </SectionGrid>
 
-        <div className="mt-8 flex justify-center space-x-4">
+      <SectionGrid>
+        <div className="grid sm:flex w-full gap-4 justify-center items-center">
           <Link href="/dashboard">
             <Button type="button" title="Volver al Dashboard" theme="normal" />
           </Link>
-
-          <Link href="/dashboard">
-            <Button type="button" title="Hacer Quiniela" theme="normal" />
+          <Link href="/quinielaCapture">
+            <Button type="button" title="Hacer Quiniela" />
           </Link>
         </div>
-      </div>
-    </div>
+      </SectionGrid>
+    </MainContainer>
   );
 }
 

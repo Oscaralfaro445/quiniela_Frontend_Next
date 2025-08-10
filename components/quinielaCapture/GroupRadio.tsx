@@ -8,6 +8,10 @@ interface GroupRadioProps {
   handleChangeQuiniela: (idGame: number, team: string) => void;
 }
 
+const getTeamAbbr = (teamName: string) => {
+  return teamName.split(" ").pop()?.substring(0, 3).toUpperCase() || "TBD";
+};
+
 export const GroupRadio = ({
   game,
   quinielaData,
@@ -38,7 +42,13 @@ export const GroupRadio = ({
               )}
               onChange={() => handleChangeQuiniela(game.Partido, game.EquipoV)}
             />
-            Circulo de equipo
+
+            <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+              <span className="text-xs font-bold text-gray-700">
+                {getTeamAbbr(game.EquipoV)}
+              </span>
+            </div>
+
             <label htmlFor={`game-${game.Partido}`} className="text-sm">
               {game.EquipoV}
             </label>
@@ -70,7 +80,13 @@ export const GroupRadio = ({
               )}
               onChange={() => handleChangeQuiniela(game.Partido, game.EquipoL)}
             />
-            Circulo de equipo
+
+            <div className="w-8 h-8 bg-blue-700 rounded-full flex items-center justify-center">
+              <span className="text-xs font-bold text-white">
+                {getTeamAbbr(game.EquipoL)}
+              </span>
+            </div>
+
             <label htmlFor={`game-${game.Partido}`} className="text-sm">
               {game.EquipoL}
             </label>

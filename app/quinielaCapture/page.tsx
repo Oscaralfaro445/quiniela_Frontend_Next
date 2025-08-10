@@ -166,7 +166,7 @@ export default function QuinielaCapturePage() {
       )}
 
       <SectionGrid>
-        <div className="flex w-full gap-4 justify-center items-center">
+        <div className="grid sm:flex w-full gap-4 justify-center items-center">
           <Link href="/dashboard">
             <Button type="button" title="Volver al Dashboard" theme="normal" />
           </Link>

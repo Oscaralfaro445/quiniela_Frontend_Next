@@ -58,10 +58,11 @@ export default function Dashboard() {
   return (
     <MainContainer>
       <SectionGrid>
-        <div className="grid w-full gap-2 justify-items-start content-center">
+        <div className="grid w-full gap-2 justify-items-center content-center">
           <h2 className="text-3xl font-bold text-gray-900 mb-2">
             ¡Bienvenido de vuelta!
           </h2>
+
           <p className="text-gray-600">
             Aquí tienes un resumen de tu rendimiento en la temporada.
           </p>
