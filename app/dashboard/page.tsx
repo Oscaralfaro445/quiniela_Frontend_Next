@@ -7,10 +7,10 @@ import { Card } from "@/components/shared/card/Card";
 import { CardHeader } from "@/components/shared/cardHeader/CardHeader";
 import { CardTitle } from "@/components/shared/cardTitle/CardTitle";
 import { CardContent } from "@/components/shared/cardContent/CardContent";
-import { Icon } from "@/components/shared/icon/Icon";
 import { CardDescription } from "@/components/shared/cardDescription/CardDescription";
 import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
 import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
+import { Icon } from "@/components/shared/icon/Icon";
 
 export default function Dashboard() {
   const { dataUser } = useAuth();

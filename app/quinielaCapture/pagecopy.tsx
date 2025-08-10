@@ -464,3 +464,25 @@ Fecha límite: ${dataUser?.fLimite} ${dataUser?.horaLimite}`);
     </MainContainer>
   );
 }
+/* useEffect(() => {
+    if (!dataUser?.fLimite || !dataUser?.horaLimite) return;
+
+    const fechaLimite = new Date(`${dataUser.fLimite}T${dataUser.horaLimite}`);
+
+    const updateTimer = () => {
+      const diferencia = fechaLimite.getTime() - Date.now();
+      setTimeRemaining(Math.max(0, diferencia));
+    };
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000);
+    return () => clearInterval(interval);
+  }, [dataUser?.fLimite, dataUser?.horaLimite]);
+
+  useEffect(() => {
+    console.log("Timer updated:", timeRemaining);
+  }, [timeRemaining]); */
+
+/* const isWithinTimeLimit = (): boolean => {
+    return timeRemaining > 0;
+  }; */

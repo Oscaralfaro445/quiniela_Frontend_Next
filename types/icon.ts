@@ -6,6 +6,7 @@ export type IconName =
   | "chevron-right"
   | "chevrons-left"
   | "chevrons-right"
+  | "circle-alert"
   | "circle-check"
   | "circle-check-big"
   | "circle-x"

@@ -5,16 +5,19 @@ import Link from "next/link";
 import useGetMatches from "@/hooks/matches/queries/useGetMatches";
 import useGetSurvivorTeams from "@/hooks/survivor/queries/useGetSurvivorTeams";
 import { useAuth } from "@/context/authContext/AuthContext";
+import { useAlert } from "@/context/alertContext/AlertContext";
+import { AlertState } from "@/types/alert";
 import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
 import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
 import { WeeklyHeadline } from "@/components/quinielaCapture/WeeklyHeadline";
 import { Survivor } from "@/components/quinielaCapture/Survivor";
 import { Card } from "@/components/shared/card/Card";
-import { Icon } from "@/components/shared/icon/Icon";
 import { Button } from "@/components/shared/button/Button";
 import { ByeWeek } from "@/components/quinielaCapture/ByeWeek";
+import { Timer } from "@/components/shared/timer/Timer";
+import { GroupRadio } from "@/components/quinielaCapture/GroupRadio";
 
-interface QuinielaItem {
+export interface QuinielaItem {
   ID_QUINIELA: number | undefined;
   ID_PARTICIPANTE: number | undefined;
   ID_PERIODO: string | undefined;
@@ -27,7 +30,7 @@ export interface ByeWeekTeam {
   NomEquipo: string;
 }
 
-interface QuinielaWeekTeam {
+export interface QuinielaWeekTeam {
   Partido: number;
   IdL: number;
   EquipoL: string;
@@ -45,16 +48,18 @@ export interface SurvivorTeam {
 
 export default function QuinielaCapturePage() {
   const { dataUser } = useAuth();
+  const { showAlert } = useAlert();
   const matches = useGetMatches();
   const survivor = useGetSurvivorTeams();
   const week = dataUser?.idPeriodo;
   const gamesData: QuinielaWeekTeam[] = matches?.data?.data[0].quiniela;
   const byeData: ByeWeekTeam[] = matches?.data?.data[0].bye;
   const survivorData: SurvivorTeam[] = survivor?.data?.data;
-  const totalGames = gamesData.length;
+  const totalGames = gamesData?.length;
 
   const [selectedSurvivor, setSelectedSurvivor] = useState(0);
   const [quinielaData, setQuinielaData] = useState<QuinielaItem[]>([]);
+  const completedPicks = quinielaData.length;
 
   const handleChangeSurvivor = (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -81,15 +86,41 @@ export default function QuinielaCapturePage() {
       return updated;
     });
 
-    console.log("Quiniela Data:", quinielaData);
+    // console.log("Quiniela Data:", quinielaData);
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    const fechaActual = new Date();
+    const fechaLimite = new Date(
+      `${dataUser?.fLimite}T${dataUser?.horaLimite}`
+    );
+
+    if (selectedSurvivor < 1 || quinielaData.length !== totalGames) {
+      showAlert(
+        AlertState.WARNING,
+        "Campos incompletos",
+        "Por favor, completa todos los campos requeridos"
+      );
+
+      return;
+    }
+
+    if (fechaActual > fechaLimite) {
+      showAlert(
+        AlertState.ERROR,
+        "Fecha límite alcanzada",
+        "El tiempo para enviar tu quiniela ha expirado."
+      );
+      return;
+    }
+
+    // Ejecutar mutaciones.
+  };
 
   return (
     <MainContainer>
       <SectionGrid>
-        <>Timer</>
+        <Timer />
       </SectionGrid>
 
       <SectionGrid>
@@ -100,7 +131,7 @@ export default function QuinielaCapturePage() {
         <Card>
           <div className="flex w-full justify-between items-center">
             <p className="text-lg font-semibold">Progreso</p>
-            <p className="text-sm">{"0/6 juegos"}</p>
+            <p className="text-sm">{`${completedPicks}/${totalGames} juegos`}</p>
           </div>
         </Card>
       </SectionGrid>
@@ -124,69 +155,12 @@ export default function QuinielaCapturePage() {
       {gamesData && (
         <SectionGrid>
           {gamesData.map((game: QuinielaWeekTeam) => (
-            <Card
-              className="hover:shadow-md transition-shadow"
+            <GroupRadio
               key={game.Partido}
-            >
-              <div className="flex w-full gap-4 justify-start items-center">
-                <Icon name="clock" size={18} />
-                <p className="text-sm">{game.Fecha}</p>
-                <Icon name="map-pin" size={18} />
-                <p className="text-sm">{game.Estadio}</p>
-              </div>
-
-              <Card>
-                <div className="flex w-full justify-between items-center">
-                  <div className="flex w-full justify-start items-center gap-2">
-                    <input
-                      type="radio"
-                      name={`game-${game.Partido}`}
-                      id={`game-${game.Partido}`}
-                      value={game.IdV}
-                      disabled={false}
-                      checked={quinielaData.some(
-                        (item) =>
-                          item.ID_PARTIDO === game.Partido &&
-                          item.CVE_GANADOR === game.EquipoV
-                      )}
-                      onChange={() =>
-                        handleChangeQuiniela(game.Partido, game.EquipoV)
-                      }
-                    />
-                    Circulo de equipo
-                    <label htmlFor={`game-${game.Partido}`} className="text-sm">
-                      {game.EquipoV}
-                    </label>
-                  </div>
-
-                  {quinielaData.some(
-                    (item) =>
-                      item.ID_PARTIDO === game.Partido &&
-                      item.CVE_GANADOR === game.EquipoV && (
-                        <Icon name="check" size={12} />
-                      )
-                  )}
-                </div>
-              </Card>
-
-              <Card>
-                <input
-                  type="radio"
-                  name={`game-${game.Partido}`}
-                  id={`game-${game.Partido}`}
-                  value={game.IdL}
-                  disabled={false}
-                  checked={quinielaData.some(
-                    (item) =>
-                      item.ID_PARTIDO === game.Partido &&
-                      item.CVE_GANADOR === game.EquipoL
-                  )}
-                  onChange={() =>
-                    handleChangeQuiniela(game.Partido, game.EquipoL)
-                  }
-                />
-              </Card>
-            </Card>
+              game={game}
+              quinielaData={quinielaData}
+              handleChangeQuiniela={handleChangeQuiniela}
+            />
           ))}
         </SectionGrid>
       )}
@@ -199,23 +173,9 @@ export default function QuinielaCapturePage() {
 
           <Button
             type="submit"
-            // title={isTimeExpired ? "Tiempo Agotado" : "Enviar Quiniela"}
-            // theme={isTimeExpired ? "danger" : "primary"}
+            title="Enviar Quiniela"
             onClick={handleSubmit}
-            disabled={
-              isTimeExpired ||
-              selectedSurvivor < 1 ||
-              quinielaData.length !== totalGames
-            }
           />
-        </div>
-
-        <div className="flex w-full justify-center items-center">
-          {/* {isTimeExpired && (
-            <p className="text-sm text-red-600 ml-2">
-              El tiempo límite ha expirado. No se puede enviar la quiniela.
-            </p>
-          )} */}
         </div>
       </SectionGrid>
     </MainContainer>

@@ -1,8 +1,8 @@
 "use client";
 
 import { AlertState } from "@/types/alert";
-import { Icon } from "../icon/Icon";
 import "./Alert.css";
+import { Icon } from "../icon/Icon";
 
 interface AlertProps {
   type: AlertState;
@@ -32,6 +32,9 @@ export const Alert = ({
         {type === AlertState.ERROR && (
           <Icon name="circle-x" size={40} color="red" />
         )}
+        {type === AlertState.WARNING && (
+          <Icon name="circle-alert" size={40} color="#fbbf24" />
+        )}
       </div>
 
       <div className="flex flex-col">
@@ -39,8 +42,8 @@ export const Alert = ({
         <p className="text-xs text-gray-400">{description}</p>
       </div>
 
-      <div className="" onClick={toggleAlert}>
-        <Icon name="x" color="red" />
+      <div className="hover:text-red-500" onClick={toggleAlert}>
+        <Icon name="x" />
       </div>
     </div>
   );
