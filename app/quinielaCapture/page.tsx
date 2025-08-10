@@ -51,6 +51,7 @@ export default function QuinielaCapturePage() {
   const gamesData: QuinielaWeekTeam[] = matches?.data?.data[0].quiniela;
   const byeData: ByeWeekTeam[] = matches?.data?.data[0].bye;
   const survivorData: SurvivorTeam[] = survivor?.data?.data;
+  const totalGames = gamesData.length;
 
   const [selectedSurvivor, setSelectedSurvivor] = useState(0);
   const [quinielaData, setQuinielaData] = useState<QuinielaItem[]>([]);
@@ -191,23 +192,25 @@ export default function QuinielaCapturePage() {
       )}
 
       <SectionGrid>
-        <div className="flex w-full gap-4 items-center justify-center">
+        <div className="flex w-full gap-4 justify-center items-center">
           <Link href="/dashboard">
             <Button type="button" title="Volver al Dashboard" theme="normal" />
           </Link>
 
           <Button
             type="submit"
-            /*  title={isTimeExpired ? "Tiempo Agotado" : "Enviar Quiniela"}
-            theme={isTimeExpired ? "danger" : "primary"}
+            // title={isTimeExpired ? "Tiempo Agotado" : "Enviar Quiniela"}
+            // theme={isTimeExpired ? "danger" : "primary"}
             onClick={handleSubmit}
             disabled={
               isTimeExpired ||
               selectedSurvivor < 1 ||
               quinielaData.length !== totalGames
-            } */
+            }
           />
+        </div>
 
+        <div className="flex w-full justify-center items-center">
           {/* {isTimeExpired && (
             <p className="text-sm text-red-600 ml-2">
               El tiempo límite ha expirado. No se puede enviar la quiniela.
