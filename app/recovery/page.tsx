@@ -1,3 +1,11 @@
+export default function RecoveryPage() {
+  return (
+    <>
+      <></>
+    </>
+  );
+}
+
 /* "use client";
 
 import Link from "next/link";
