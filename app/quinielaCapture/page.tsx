@@ -4,9 +4,14 @@ import { useState } from "react";
 import Link from "next/link";
 import useGetMatches from "@/hooks/matches/queries/useGetMatches";
 import useGetSurvivorTeams from "@/hooks/survivor/queries/useGetSurvivorTeams";
+import usePostSurvivorTeam from "@/hooks/survivor/mutations/usePostSurvivorTeam";
+import { SurvivorTeam } from "@/types/survivor/survivorTeam";
+import { QuinielaWeekTeam } from "@/types/quiniela/quinielaWeekTeam";
+import { ByeWeekTeam } from "@/types/quiniela/byeWeekTeam";
+import { QuinielaItem } from "@/types/quiniela/uinielaItem";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { useAlert } from "@/context/alertContext/AlertContext";
-import { AlertState } from "@/types/alert";
+import { AlertState } from "@/types/alert/alert";
 import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
 import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
 import { WeeklyHeadline } from "@/components/quinielaCapture/WeeklyHeadline";
@@ -17,40 +22,12 @@ import { ByeWeek } from "@/components/quinielaCapture/ByeWeek";
 import { Timer } from "@/components/shared/timer/Timer";
 import { GroupRadio } from "@/components/quinielaCapture/GroupRadio";
 
-export interface QuinielaItem {
-  ID_QUINIELA: number | undefined;
-  ID_PARTICIPANTE: number | undefined;
-  ID_PERIODO: string | undefined;
-  ID_PARTIDO: number;
-  CVE_GANADOR: string;
-}
-
-export interface ByeWeekTeam {
-  IdEquipo: number;
-  NomEquipo: string;
-}
-
-export interface QuinielaWeekTeam {
-  Partido: number;
-  IdL: number;
-  EquipoL: string;
-  IdV: number;
-  EquipoV: string;
-  Fecha: string;
-  HoraPartido: string;
-  Estadio: string;
-}
-
-export interface SurvivorTeam {
-  llave: number;
-  valor: string;
-}
-
 export default function QuinielaCapturePage() {
   const { dataUser } = useAuth();
   const { showAlert } = useAlert();
   const matches = useGetMatches();
   const survivor = useGetSurvivorTeams();
+  const survivorAlta = usePostSurvivorTeam();
   const week = dataUser?.idPeriodo;
   const gamesData: QuinielaWeekTeam[] = matches?.data?.data[0].quiniela;
   const byeData: ByeWeekTeam[] = matches?.data?.data[0].bye;
@@ -114,7 +91,7 @@ export default function QuinielaCapturePage() {
       return;
     }
 
-    // Ejecutar mutaciones.
+    survivorAlta.mutate(selectedSurvivor);
   };
 
   return (
@@ -127,20 +104,11 @@ export default function QuinielaCapturePage() {
         <WeeklyHeadline week={week} />
       </SectionGrid>
 
-      <SectionGrid>
-        <Card>
-          <div className="flex w-full justify-between items-center">
-            <p className="text-lg font-semibold">Progreso</p>
-            <p className="text-sm">{`${completedPicks}/${totalGames} juegos`}</p>
-          </div>
-        </Card>
-      </SectionGrid>
-
       {dataUser?.bSurvivor && survivorData && (
         <SectionGrid>
           <Survivor
             survivorData={survivorData}
-            selectedSurvivor={survivorData[selectedSurvivor].valor}
+            selectedSurvivor={selectedSurvivor}
             handleChangeSurvivor={handleChangeSurvivor}
           />
         </SectionGrid>
@@ -151,6 +119,15 @@ export default function QuinielaCapturePage() {
           <ByeWeek byeData={byeData} />
         </SectionGrid>
       )}
+
+      <SectionGrid>
+        <Card>
+          <div className="flex w-full justify-between items-center">
+            <p className="text-lg font-semibold">Progreso</p>
+            <p className="text-sm">{`${completedPicks}/${totalGames} juegos`}</p>
+          </div>
+        </Card>
+      </SectionGrid>
 
       {gamesData && (
         <SectionGrid>

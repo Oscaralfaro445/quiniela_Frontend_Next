@@ -1,25 +1,31 @@
-import { InputProps } from "@/types/input";
+import { FormikValues, useFormikContext } from "formik";
+import { InputProps } from "@/types/input/input";
 
 export const InputCheckbox = ({
-  // placeholder,
+  // type
   name,
-  id,
-  value,
+  // placeholder,
   disabled,
-  required,
-  onChange,
 }: InputProps) => {
+  const { values, touched, errors, handleChange, handleBlur } =
+    useFormikContext<FormikValues>();
+  const error = touched[name] && errors[name];
+
   return (
-    <input
-      type="checkbox"
-      // placeholder={placeholder}
-      name={name}
-      id={id}
-      value={value}
-      disabled={disabled}
-      required={required}
-      onChange={onChange}
-      className="w-full text-gray-700 shadow-sm border border-gray-300 rounded-md px-2 py-2 hover:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
-    />
+    <div>
+      <input
+        type="checkbox"
+        name={name}
+        // id={name}
+        value={values[name]}
+        disabled={disabled}
+        // placeholder={placeholder}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        className="text-gray-700 shadow-sm rounded-md border border-gray-300 hover:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+      />
+
+      {error && <p className="text-red-500 text-sm">{error as string}</p>}
+    </div>
   );
 };

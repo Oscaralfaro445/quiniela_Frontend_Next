@@ -1,9 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/shared/button/Button";
 import { Input } from "@/components/shared/input/Input";
-import Link from "next/link";
 
 export default function RecoveryPage() {
   const [credentials, setCredentials] = useState({ email: "" });

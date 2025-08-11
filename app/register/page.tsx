@@ -7,6 +7,7 @@ import { RegisterForm } from "@/components/register/RegisterForm";
 import { Form } from "@/components/shared/form/Form";
 import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
 import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
+import Link from "next/link";
 
 const initialValues: RegisterFormValues = {
   cveUsuario: "",
@@ -48,6 +49,14 @@ export default function RegisterPage() {
         >
           <RegisterForm />
         </Form>
+
+        <div className="flex w-full gap-4 items-center justify-center">
+          <p>¿Ya tienes una cuenta?</p>
+
+          <Link href="/login">
+            <p className="text-blue-600 hover:underline">Inicia sesión</p>
+          </Link>
+        </div>
       </SectionGrid>
     </MainContainer>
   );

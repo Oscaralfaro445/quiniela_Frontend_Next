@@ -1,10 +1,10 @@
 import axiosInstance from "../../axios/axiosInstance";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
+import { LoginFormValues } from "@/types/login/login";
+import { AlertState } from "@/types/alert/alert";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { useAlert } from "@/context/alertContext/AlertContext";
-import { AlertState } from "@/types/alert";
-import { LoginFormValues } from "@/types/login/login";
 
 const postLogin = async (payload: {
   cveUsuario: string;
@@ -33,14 +33,14 @@ const usePostLogin = () => {
 
       return { ...response, rememberMe: loginData.rememberMe };
     },
-    onError: (error) => {
+    onError: () => {
       showAlert(
         AlertState.ERROR,
         "Error de autenticación",
         "Usuario o contraseña incorrectos"
       );
 
-      console.log("Error en la peticion", error);
+      // console.log("Error en la peticion", error);
     },
     onSuccess: (data) => {
       // console.log("Respuesta completa del servidor:", data);

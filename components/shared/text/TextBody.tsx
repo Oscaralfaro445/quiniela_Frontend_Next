@@ -11,7 +11,7 @@ interface TextBodyProps {
 export const TextBody = ({
   text,
   className,
-  size = "md",
+  size = "lg",
   color = "secondary",
   weight = "normal",
 }: TextBodyProps) => {

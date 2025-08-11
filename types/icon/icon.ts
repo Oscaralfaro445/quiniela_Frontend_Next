@@ -12,6 +12,7 @@ export type IconName =
   | "circle-x"
   | "clock"
   | "crown"
+  | "dollar-sign"
   | "file-question-mark"
   | "filter"
   | "gamepad-2"
@@ -42,6 +43,7 @@ export type IconName =
   | "x";
 
 export interface IconProps {
+  className?: string;
   name: IconName;
   size?: number;
   color?: string;

@@ -1,6 +1,8 @@
 import axiosInstance from "@/hooks/axios/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
+import { AlertState } from "@/types/alert/alert";
 import { useAuth } from "@/context/authContext/AuthContext";
+import { useAlert } from "@/context/alertContext/AlertContext";
 
 const postSurvivorTeam = async (
   token: string,
@@ -27,6 +29,7 @@ const postSurvivorTeam = async (
 
 const usePostSurvivorTeam = () => {
   const { token, dataUser } = useAuth();
+  const { showAlert } = useAlert();
 
   return useMutation({
     mutationKey: ["survivorTeam"],
@@ -43,8 +46,20 @@ const usePostSurvivorTeam = () => {
           SITUACION_R: "",
         },
       }),
-    onError: () => {},
-    onSuccess: () => {},
+    onError: () => {
+      showAlert(
+        AlertState.ERROR,
+        "Error de autenticación",
+        "Usuario o contraseña incorrectos"
+      );
+    },
+    onSuccess: () => {
+      showAlert(
+        AlertState.SUCCESS,
+        "Operación exitosa",
+        "Quiniela almacenada con éxito"
+      );
+    },
     onSettled: () => {},
   });
 };

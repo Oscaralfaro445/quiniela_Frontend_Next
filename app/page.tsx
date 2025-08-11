@@ -8,42 +8,38 @@ import { CardContent } from "@/components/shared/cardContent/CardContent";
 import { CardDescription } from "@/components/shared/cardDescription/CardDescription";
 import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
 import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
+import { Title } from "@/components/shared/text/Title";
+import { TextBody } from "@/components/shared/text/TextBody";
 
 export default function Home() {
   return (
     <MainContainer>
       <SectionGrid>
-        <div className="">
-          <h2 className="text-5xl font-bold text-gray-900 ">
-            Predice los Ganadores de la NFL
-          </h2>
+        <div className="grid gap-2 justify-items-center items-center">
+          <Title title="Predice los Ganadores de la NFL" />
+          <TextBody
+            text="Únete a la emoción de la temporada NFL. Haz tus predicciones,
+            compite con amigos y demuestra que eres el mejor pronosticador."
+          />
+        </div>
 
-          <p className="text-xl text-gray-600">
-            Únete a la emoción de la temporada NFL. Haz tus predicciones,
-            compite con amigos y demuestra que eres el mejor pronosticador.
-          </p>
+        <div className="flex gap-4 justify-center items-center">
+          <Link href="/register">
+            <Button type="button" title="Comenzar Ahora" />
+          </Link>
 
-          <div className="">
-            <Link href="/register">
-              <Button type="button" title="Comenzar Ahora" />
-            </Link>
-
-            <Link href="/register">
-              <Button type="button" title="Como Funciona" theme="normal" />
-            </Link>
-          </div>
+          <Link href="/register">
+            <Button type="button" title="Como Funciona" theme="normal" />
+          </Link>
         </div>
       </SectionGrid>
 
-      {/* <SectionGrid>
-        <></>
-      </SectionGrid> */}
-
       <SectionGrid className="bg-gray-100">
-        <div className="container mx-auto">
-          <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">
+        <div className="grid gap-4 justify-center items-center">
+          <h3 className="text-3xl font-bold text-center text-gray-900">
             ¿Por qué elegir NFL Quiniela?
           </h3>
+
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="border-gray-200">
               <CardHeader className="text-center">
@@ -95,17 +91,22 @@ export default function Home() {
       </SectionGrid>
 
       <SectionGrid className="bg-blue-700">
-        <p className="text-3xl font-bold text-white">
-          ¿Listo para Demostrar tus Conocimientos?
-        </p>
+        <div className="grid gap-2 justify-items-center items-center">
+          <Title
+            className="text-white"
+            title="¿Listo para Demostrar tus Conocimientos?"
+          />
+          <TextBody
+            className="text-white"
+            text="La temporada está en marcha. No te quedes fuera de la acción"
+          />
+        </div>
 
-        <p className="text-xl text-blue-100">
-          La temporada está en marcha. No te quedes fuera de la acción.
-        </p>
-
-        <Link href="/register">
-          <Button type="button" title="Únete Gratis Ahora" theme="normal" />
-        </Link>
+        <div className="flex justify-center items-center">
+          <Link href="/register">
+            <Button type="button" title="Únete Gratis Ahora" theme="normal" />
+          </Link>
+        </div>
       </SectionGrid>
     </MainContainer>
   );

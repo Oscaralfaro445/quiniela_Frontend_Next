@@ -1,11 +1,11 @@
-import { SurvivorTeam } from "@/app/quinielaCapture/page";
+import { SurvivorTeam } from "@/types/survivor/survivorTeam";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";
 import { InputCombo } from "../shared/input/inputs/InputCombo";
 
 interface SurvivorProps {
   survivorData: SurvivorTeam[];
-  selectedSurvivor: string;
+  selectedSurvivor: number;
   handleChangeSurvivor: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
@@ -14,7 +14,7 @@ export const Survivor = ({
   selectedSurvivor,
   handleChangeSurvivor,
 }: SurvivorProps) => {
-  console.log("Survivor Data:", selectedSurvivor);
+  // console.log("Survivor Data:", selectedSurvivor);
   return (
     <Card>
       <div className="flex w-full items-center justify-between">

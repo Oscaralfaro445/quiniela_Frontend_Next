@@ -7,7 +7,7 @@ import {
   useState,
   ReactNode,
 } from "react";
-import { DataUser } from "@/types/dataUser";
+import { DataUser } from "@/types/user/dataUser";
 
 interface AuthContextProps {
   token: string | null;

@@ -1,4 +1,5 @@
-import { QuinielaItem, QuinielaWeekTeam } from "@/app/quinielaCapture/page";
+import { QuinielaWeekTeam } from "@/types/quiniela/quinielaWeekTeam";
+import { QuinielaItem } from "@/types/quiniela/uinielaItem";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";
 

@@ -1,4 +1,4 @@
-import { IconName } from "@/types/icon";
+import { IconName } from "@/types/icon/icon";
 
 export interface MenuItemI {
   active: boolean;

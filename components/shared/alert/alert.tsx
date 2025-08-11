@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertState } from "@/types/alert";
+import { AlertState } from "@/types/alert/alert";
 import "./Alert.css";
 import { Icon } from "../icon/Icon";
 

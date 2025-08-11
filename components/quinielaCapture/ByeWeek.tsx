@@ -1,4 +1,4 @@
-import { ByeWeekTeam } from "@/app/quinielaCapture/page";
+import { ByeWeekTeam } from "@/types/quiniela/byeWeekTeam";
 import { Card } from "../shared/card/Card";
 
 interface ByeWeekProps {
