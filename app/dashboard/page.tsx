@@ -7,10 +7,10 @@ import { Card } from "@/components/shared/card/Card";
 import { CardHeader } from "@/components/shared/cardHeader/CardHeader";
 import { CardTitle } from "@/components/shared/cardTitle/CardTitle";
 import { CardContent } from "@/components/shared/cardContent/CardContent";
-import { Icon } from "@/components/shared/icon/Icon";
 import { CardDescription } from "@/components/shared/cardDescription/CardDescription";
 import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
 import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
+import { Icon } from "@/components/shared/icon/Icon";
 
 export default function Dashboard() {
   const { dataUser } = useAuth();
@@ -58,10 +58,11 @@ export default function Dashboard() {
   return (
     <MainContainer>
       <SectionGrid>
-        <div className="grid w-full gap-2 justify-items-start content-center">
+        <div className="grid w-full gap-2 justify-items-center content-center">
           <h2 className="text-3xl font-bold text-gray-900 mb-2">
             ¡Bienvenido de vuelta!
           </h2>
+
           <p className="text-gray-600">
             Aquí tienes un resumen de tu rendimiento en la temporada.
           </p>

@@ -6,11 +6,13 @@ export type IconName =
   | "chevron-right"
   | "chevrons-left"
   | "chevrons-right"
+  | "circle-alert"
   | "circle-check"
   | "circle-check-big"
   | "circle-x"
   | "clock"
   | "crown"
+  | "dollar-sign"
   | "file-question-mark"
   | "filter"
   | "gamepad-2"
@@ -41,6 +43,7 @@ export type IconName =
   | "x";
 
 export interface IconProps {
+  className?: string;
   name: IconName;
   size?: number;
   color?: string;

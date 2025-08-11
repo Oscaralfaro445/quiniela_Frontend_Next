@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { InputType } from "@/types/input";
-import { InputProps } from "@/types/input";
+import { InputType } from "@/types/input/input";
+import { InputProps } from "@/types/input/input";
 import { InputText } from "./inputs/InputText";
 import { InputNumber } from "./inputs/InputNumber";
 import { InputDate } from "./inputs/InputDate";
@@ -74,12 +74,14 @@ export const Input = ({
 
   return (
     <div className="relative flex flex-col w-full gap-2 items-center justify-start">
-      <label
-        htmlFor={name}
-        className="w-full text-start text-sm font-medium text-gray-600"
-      >
-        {label}
-      </label>
+      {label && (
+        <label
+          className="w-full text-start text-sm font-medium text-gray-600"
+          htmlFor={name}
+        >
+          {label}
+        </label>
+      )}
 
       {renderInput()}
 

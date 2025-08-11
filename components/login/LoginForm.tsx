@@ -20,14 +20,13 @@ export const LoginForm = () => {
         name="password"
       />
 
-      <div className="flex w-full items-center justify-between px-2">
-        <div className="flex items-center gap-2">
+      <div className="flex w-full items-center justify-between">
+        <div className="flex gap-2 items-center">
           <Input type="checkbox" name="rememberMe" />
-
           <p className="">Recordarme</p>
         </div>
 
-        <Link href="/recovery">
+        <Link href="/">
           <p className="text-blue-600 hover:underline hover:text-blue-700">
             ¿Olvidaste tu contraseña?
           </p>

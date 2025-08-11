@@ -31,7 +31,7 @@ export default function LoginPage() {
   return (
     <MainContainer>
       <SectionGrid>
-        <div className="grid w-full gap-4 justify-items-center content-center">
+        <div className="grid w-full gap-4 justify-items-center items-center">
           <p className="text-5xl font-extrabold">Iniciar Sesión</p>
           <p className="text-lg font-semibold">
             Ingresa tus credenciales para acceder a tu cuenta
@@ -47,12 +47,10 @@ export default function LoginPage() {
         </Form>
 
         <div className="flex w-full gap-4 items-center justify-center">
-          <span>¿No tienes una cuenta?</span>
+          <p>¿No tienes una cuenta?</p>
 
           <Link href="/register">
-            <span className="text-blue-600 hover:underline">
-              Regístrate ahora
-            </span>
+            <p className="text-blue-600 hover:underline">Regístrate ahora</p>
           </Link>
         </div>
       </SectionGrid>

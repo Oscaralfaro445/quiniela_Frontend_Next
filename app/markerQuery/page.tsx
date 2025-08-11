@@ -27,6 +27,7 @@ export default function MarkerQueryPage() {
   const markers = usePostMarkers();
 
   const [gameResults, setGameResults] = useState<GameResult[]>([]);
+  const totalGames = gameResults.length;
 
   useEffect(() => {
     if (markers.isSuccess) {
@@ -61,10 +62,8 @@ export default function MarkerQueryPage() {
     return teamName.split(" ").pop()?.substring(0, 3).toUpperCase() || "TBD";
   };
 
-  const totalGames = gameResults.length;
-
   const completedGames = gameResults.filter(
-    (game) => game.marcVisita === 0 && game.marLocal === 0
+    (game) => game.marcVisita !== 0 && game.marLocal !== 0
   ).length;
 
   const highestScoringGame = gameResults.length

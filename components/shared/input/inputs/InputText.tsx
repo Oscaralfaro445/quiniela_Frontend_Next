@@ -1,5 +1,5 @@
 import { FormikValues, useFormikContext } from "formik";
-import { InputProps } from "@/types/input";
+import { InputProps } from "@/types/input/input";
 
 export const InputText = ({
   // type,

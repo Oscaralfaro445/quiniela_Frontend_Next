@@ -1,8 +1,8 @@
 import clsx from "clsx";
 
 interface TitleProps {
-  title: string;
   className?: string;
+  title: string;
   size?: "sm" | "md" | "lg" | "xl";
   color?: "primary" | "secondary" | "danger" | "success";
 }
