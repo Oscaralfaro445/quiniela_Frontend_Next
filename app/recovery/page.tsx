@@ -10,6 +10,7 @@ export default function RecoveryPage() {
   // const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    setCredentials({ email: "" });
     event.preventDefault();
 
     console.log("Correo de recuperación: ", credentials);

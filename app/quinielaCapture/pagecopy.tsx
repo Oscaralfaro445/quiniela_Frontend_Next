@@ -6,12 +6,11 @@ import usePostMatches from "@/hooks/matches/queries/useGetMatches";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { Icon } from "@/components/shared/icon/Icon";
 import { Card } from "@/components/shared/card/Card";
-import { CardContent } from "@/components/shared/cardContent/CardContent";
-import { CardHeader } from "@/components/shared/cardHeader/CardHeader";
+
 import { Button } from "@/components/shared/button/Button";
 import { InputCombo } from "@/components/shared/input/inputs/InputCombo";
 import usePostSurvivorTeams from "@/hooks/survivor/queries/useGetSurvivorTeams";
-import usePostScores from "@/hooks/scores/mutations/usePostScores";
+// import usePostScores from "@/hooks/scores/mutations/usePostScores";
 import usePostSurvivorTeam from "@/hooks/survivor/mutations/usePostSurvivorTeam";
 import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
 import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
@@ -46,7 +45,7 @@ interface TimeRemaining {
 
 export default function QuinielaCapturePage() {
   const { dataUser } = useAuth();
-  const scores = usePostScores();
+  // const scores = usePostScores();
   const matches = usePostMatches();
   const survivor = usePostSurvivorTeams();
   const survivorTeam = usePostSurvivorTeam();
@@ -197,7 +196,7 @@ Fecha límite: ${dataUser?.fLimite} ${dataUser?.horaLimite}`);
       <SectionGrid>
         <div className="flex w-full justify-between items-center">
           <Card className="min-w-[200px]">
-            <CardContent className="p-4">
+            <div className="p-4">
               <div className="flex flex-col gap-3">
                 <div className="flex gap-4 items-center justify-between">
                   <p className="text-sm font-medium text-gray-700">Progreso</p>
@@ -254,7 +253,7 @@ Fecha límite: ${dataUser?.fLimite} ${dataUser?.horaLimite}`);
                   </div>
                 </div>
               </div>
-            </CardContent>
+            </div>
           </Card>
 
           {/* Información del tiempo límite */}
@@ -265,7 +264,7 @@ Fecha límite: ${dataUser?.fLimite} ${dataUser?.horaLimite}`);
                 : "border-green-500 bg-green-50"
             } min-w-[280px]`}
           >
-            <CardContent className="p-4">
+            <div className="p-4">
               <div className="flex flex-col items-center space-y-2">
                 <div className="flex items-center gap-2">
                   <Icon name={isTimeExpired ? "check" : "clock"} />
@@ -330,7 +329,7 @@ Fecha límite: ${dataUser?.fLimite} ${dataUser?.horaLimite}`);
                   Límite: {dataUser?.fLimite} {dataUser?.horaLimite}
                 </p>
               </div>
-            </CardContent>
+            </div>
           </Card>
 
           <div className="">
@@ -356,7 +355,7 @@ Fecha límite: ${dataUser?.fLimite} ${dataUser?.horaLimite}`);
               key={game.Partido}
               className="border-gray-200 hover:shadow-md transition-shadow"
             >
-              <CardHeader>
+              <div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
                     <Icon name="clock" />
@@ -370,9 +369,9 @@ Fecha límite: ${dataUser?.fLimite} ${dataUser?.horaLimite}`);
                     </div>
                   </div>
                 </div>
-              </CardHeader>
+              </div>
 
-              <CardContent>
+              <div>
                 <div className="flex items-center gap-4 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
                   <input
                     type="radio"
@@ -430,7 +429,7 @@ Fecha límite: ${dataUser?.fLimite} ${dataUser?.horaLimite}`);
                     </div>
                   </div>
                 </div>
-              </CardContent>
+              </div>
             </Card>
           ))}
         </div>
