@@ -1,5 +1,5 @@
 import { QuinielaWeekTeam } from "@/types/quiniela/quinielaWeekTeam";
-import { QuinielaItem } from "@/types/quiniela/uinielaItem";
+import { QuinielaItem } from "@/types/quiniela/quinielaItem";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";
 
