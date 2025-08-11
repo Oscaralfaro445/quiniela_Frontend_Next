@@ -8,7 +8,7 @@ export default function SurvivorPage() {
     {
       ID_PARTICIPANTE: 11,
       NOM_PARTICIPANTE: "PEDRO CANEDO",
-      NUM_SUVIVORS: 12,
+      NUM_SURVIVORS: 12,
       NUM_ACIERTOS: 11,
       IMP_INVERSION: 0,
       NOM_EQ_1: "Texans ",
@@ -32,7 +32,7 @@ export default function SurvivorPage() {
     {
       ID_PARTICIPANTE: 2,
       NOM_PARTICIPANTE: "LUIS O. ALVAREZ",
-      NUM_SUVIVORS: 12,
+      NUM_SURVIVORS: 12,
       NUM_ACIERTOS: 10,
       IMP_INVERSION: 250,
       NOM_EQ_1: "Chiefs ",
@@ -56,7 +56,7 @@ export default function SurvivorPage() {
     {
       ID_PARTICIPANTE: 8,
       NOM_PARTICIPANTE: "MARIO LOPEZ",
-      NUM_SUVIVORS: 12,
+      NUM_SURVIVORS: 12,
       NUM_ACIERTOS: 8,
       IMP_INVERSION: 550,
       NOM_EQ_1: "49ers ",
@@ -80,7 +80,7 @@ export default function SurvivorPage() {
     {
       ID_PARTICIPANTE: 1,
       NOM_PARTICIPANTE: "EFREN AVILA",
-      NUM_SUVIVORS: 12,
+      NUM_SURVIVORS: 12,
       NUM_ACIERTOS: 8,
       IMP_INVERSION: 550,
       NOM_EQ_1: "Texans ",
@@ -104,7 +104,7 @@ export default function SurvivorPage() {
     {
       ID_PARTICIPANTE: 10,
       NOM_PARTICIPANTE: "ALEJANDRO ORTEGA",
-      NUM_SUVIVORS: 12,
+      NUM_SURVIVORS: 12,
       NUM_ACIERTOS: 7,
       IMP_INVERSION: 950,
       NOM_EQ_1: "Dolphins ",
@@ -128,7 +128,7 @@ export default function SurvivorPage() {
     {
       ID_PARTICIPANTE: 5,
       NOM_PARTICIPANTE: "GUSTAVO SOLIS",
-      NUM_SUVIVORS: 12,
+      NUM_SURVIVORS: 12,
       NUM_ACIERTOS: 7,
       IMP_INVERSION: 950,
       NOM_EQ_1: "Bengals(X)",
@@ -152,7 +152,7 @@ export default function SurvivorPage() {
     {
       ID_PARTICIPANTE: 14,
       NOM_PARTICIPANTE: "HUMBERTO LOPEZ",
-      NUM_SUVIVORS: 10,
+      NUM_SURVIVORS: 10,
       NUM_ACIERTOS: 5,
       IMP_INVERSION: 850,
       NOM_EQ_1: "Bears ",
@@ -176,7 +176,7 @@ export default function SurvivorPage() {
     {
       ID_PARTICIPANTE: 3,
       NOM_PARTICIPANTE: "DUSTIN CRUZ",
-      NUM_SUVIVORS: 9,
+      NUM_SURVIVORS: 9,
       NUM_ACIERTOS: 6,
       IMP_INVERSION: 400,
       NOM_EQ_1: "Steelers ",
@@ -200,7 +200,7 @@ export default function SurvivorPage() {
     {
       ID_PARTICIPANTE: 12,
       NOM_PARTICIPANTE: "DIEGO OJEDA",
-      NUM_SUVIVORS: 5,
+      NUM_SURVIVORS: 5,
       NUM_ACIERTOS: 4,
       IMP_INVERSION: 0,
       NOM_EQ_1: "Lions ",
@@ -224,7 +224,7 @@ export default function SurvivorPage() {
     {
       ID_PARTICIPANTE: 13,
       NOM_PARTICIPANTE: "DAVID ALVARADO",
-      NUM_SUVIVORS: 3,
+      NUM_SURVIVORS: 3,
       NUM_ACIERTOS: 2,
       IMP_INVERSION: 0,
       NOM_EQ_1: "Lions ",
@@ -248,7 +248,7 @@ export default function SurvivorPage() {
     {
       ID_PARTICIPANTE: 6,
       NOM_PARTICIPANTE: "HECTOR ALVAREZ",
-      NUM_SUVIVORS: 3,
+      NUM_SURVIVORS: 3,
       NUM_ACIERTOS: 1,
       IMP_INVERSION: 150,
       NOM_EQ_1: "Ravens(X)",
@@ -272,7 +272,7 @@ export default function SurvivorPage() {
     {
       ID_PARTICIPANTE: 7,
       NOM_PARTICIPANTE: "JONATAN PARRA",
-      NUM_SUVIVORS: 3,
+      NUM_SURVIVORS: 3,
       NUM_ACIERTOS: 1,
       IMP_INVERSION: 150,
       NOM_EQ_1: "49ers ",
@@ -296,7 +296,7 @@ export default function SurvivorPage() {
     {
       ID_PARTICIPANTE: 4,
       NOM_PARTICIPANTE: "KAREN PEREZ",
-      NUM_SUVIVORS: 2,
+      NUM_SURVIVORS: 2,
       NUM_ACIERTOS: 1,
       IMP_INVERSION: 0,
       NOM_EQ_1: "Buccaneers ",
@@ -320,7 +320,7 @@ export default function SurvivorPage() {
     {
       ID_PARTICIPANTE: 9,
       NOM_PARTICIPANTE: "NATALIA CASTILLO",
-      NUM_SUVIVORS: 1,
+      NUM_SURVIVORS: 1,
       NUM_ACIERTOS: 0,
       IMP_INVERSION: 0,
       NOM_EQ_1: "Bengals(X)",
