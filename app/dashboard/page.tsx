@@ -4,10 +4,6 @@ import Link from "next/link";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { Button } from "@/components/shared/button/Button";
 import { Card } from "@/components/shared/card/Card";
-import { CardHeader } from "@/components/shared/cardHeader/CardHeader";
-import { CardTitle } from "@/components/shared/cardTitle/CardTitle";
-import { CardContent } from "@/components/shared/cardContent/CardContent";
-import { CardDescription } from "@/components/shared/cardDescription/CardDescription";
 import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
 import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
 import { Icon } from "@/components/shared/icon/Icon";
@@ -72,14 +68,12 @@ export default function Dashboard() {
       <SectionGrid>
         <div className="grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <Card className="border-gray-200">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">
-                Precisión
-              </CardTitle>
+            <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <div className="text-sm font-medium text-gray-600">Precisión</div>
               <Icon name="target" />
-            </CardHeader>
+            </div>
 
-            <CardContent>
+            <div>
               <div className="text-2xl font-bold text-gray-900">
                 {userStats.accuracy}%
               </div>
@@ -87,53 +81,51 @@ export default function Dashboard() {
               <p className="text-xs text-gray-600">
                 {userStats.correctPicks}/{userStats.totalPicks} correctas
               </p>
-            </CardContent>
+            </div>
           </Card>
 
           <Card className="border-gray-200">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">
-                Ranking
-              </CardTitle>
+            <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <div className="text-sm font-medium text-gray-600">Ranking</div>
               <Icon name="trending-up" />
-            </CardHeader>
-            <CardContent>
+            </div>
+            <div>
               <div className="text-2xl font-bold text-gray-900">
                 #{userStats.rank}
               </div>
               <p className="text-xs text-gray-600">
                 de {userStats.totalUsers.toLocaleString()} usuarios
               </p>
-            </CardContent>
+            </div>
           </Card>
 
           <Card className="border-gray-200">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">
+            <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <div className="text-sm font-medium text-gray-600">
                 Semana Actual
-              </CardTitle>
+              </div>
               <Icon name="calendar" />
               {/* <Calendar className="h-4 w-4 text-blue-700" /> */}
-            </CardHeader>
-            <CardContent>
+            </div>
+            <div>
               <div className="text-2xl font-bold text-gray-900">
                 Semana {currentWeek}
               </div>
               <p className="text-xs text-gray-600">3 juegos pendientes</p>
-            </CardContent>
+            </div>
           </Card>
 
           <Card className="border-gray-200">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">
+            <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <div className="text-sm font-medium text-gray-600">
                 Ligas Activas
-              </CardTitle>
+              </div>
               <Icon name="users" />
-            </CardHeader>
-            <CardContent>
+            </div>
+            <div>
               <div className="text-2xl font-bold text-gray-900">3</div>
               <p className="text-xs text-gray-600">2 públicas, 1 privada</p>
-            </CardContent>
+            </div>
           </Card>
         </div>
       </SectionGrid>
@@ -141,14 +133,12 @@ export default function Dashboard() {
       <SectionGrid>
         <div className="grid w-full lg:grid-cols-2 gap-8">
           <Card className="border-gray-200">
-            <CardHeader>
-              <CardTitle className="text-gray-900">Acciones Rápidas</CardTitle>
-              <CardDescription>
-                Gestiona tus quinielas de la semana
-              </CardDescription>
-            </CardHeader>
+            <div>
+              <div className="text-gray-900">Acciones Rápidas</div>
+              <div>Gestiona tus quinielas de la semana</div>
+            </div>
 
-            <CardContent className="space-y-4">
+            <div className="space-y-4">
               <Link href="/quinielaCapture">
                 <Button
                   type="button"
@@ -166,17 +156,15 @@ export default function Dashboard() {
                   <Button type="button" title="Clasificación" theme="normal" />
                 </Link>
               </div>
-            </CardContent>
+            </div>
           </Card>
 
           <Card className="border-gray-200">
-            <CardHeader>
-              <CardTitle className="text-gray-900">
-                Rendimiento Reciente
-              </CardTitle>
-              <CardDescription>Tus últimas predicciones</CardDescription>
-            </CardHeader>
-            <CardContent>
+            <div>
+              <div className="text-gray-900">Rendimiento Reciente</div>
+              <div>Tus últimas predicciones</div>
+            </div>
+            <div>
               <div className="space-y-3">
                 {recentGames.map((game, index) => (
                   <div
@@ -204,17 +192,15 @@ export default function Dashboard() {
                   </div>
                 ))}
               </div>
-            </CardContent>
+            </div>
           </Card>
 
           <Card className="border-gray-200">
-            <CardHeader>
-              <CardTitle className="text-gray-900">
-                Progreso de la Temporada
-              </CardTitle>
-              <CardDescription>Tu rendimiento general</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
+            <div>
+              <div className="text-gray-900">Progreso de la Temporada</div>
+              <div>Tu rendimiento general</div>
+            </div>
+            <div className="space-y-4">
               <div>
                 <div className="flex justify-between text-sm mb-2">
                   <span className="text-gray-600">Precisión General</span>
@@ -237,17 +223,15 @@ export default function Dashboard() {
                   className="h-2"
                 /> */}
               </div>
-            </CardContent>
+            </div>
           </Card>
 
           <Card className="border-gray-200">
-            <CardHeader>
-              <CardTitle className="text-gray-900">Próximos Juegos</CardTitle>
-              <CardDescription>
-                Semana {currentWeek} - Pendientes por predecir
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
+            <div>
+              <div className="text-gray-900">Próximos Juegos</div>
+              <div>Semana {currentWeek} - Pendientes por predecir</div>
+            </div>
+            <div>
               <div className="space-y-3">
                 {upcomingGames.map((game, index) => (
                   <div
@@ -264,7 +248,7 @@ export default function Dashboard() {
               <Link href="/">
                 <Button type="button" title="Hacer Predicciones" />
               </Link>
-            </CardContent>
+            </div>
           </Card>
         </div>
       </SectionGrid>

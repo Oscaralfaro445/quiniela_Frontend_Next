@@ -6,9 +6,6 @@ import usePostMarkers from "@/hooks/markers/queries/usePostMarkers";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { Icon } from "@/components/shared/icon/Icon";
 import { Card } from "@/components/shared/card/Card";
-import { CardHeader } from "@/components/shared/cardHeader/CardHeader";
-import { CardTitle } from "@/components/shared/cardTitle/CardTitle";
-import { CardContent } from "@/components/shared/cardContent/CardContent";
 import { Button } from "@/components/shared/button/Button";
 
 interface GameResult {
@@ -98,29 +95,29 @@ export default function MarkerQueryPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <Card className="border-gray-200">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium text-gray-600">
+                <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <div className="text-sm font-medium text-gray-600">
                     Juegos Completados
-                  </CardTitle>
+                  </div>
                   <Icon name="calendar" />
-                </CardHeader>
+                </div>
 
-                <CardContent>
+                <div>
                   <div className="text-2xl font-bold text-gray-900">
                     {completedGames}/{totalGames}
                   </div>
                   <p className="text-xs text-gray-600">Semana {week}</p>
-                </CardContent>
+                </div>
               </Card>
 
               <Card className="border-gray-200">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium text-gray-600">
+                <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <div className="text-sm font-medium text-gray-600">
                     Mayor Anotación
-                  </CardTitle>
+                  </div>
                   <Icon name="trophy" />
-                </CardHeader>
-                <CardContent>
+                </div>
+                <div>
                   <></>
                   <div className="text-2xl font-bold text-gray-900">
                     {highestScoringGame
@@ -135,17 +132,17 @@ export default function MarkerQueryPage() {
                         )} vs ${getTeamAbbr(highestScoringGame.nomEquipo2)}`
                       : ""}
                   </p>
-                </CardContent>
+                </div>
               </Card>
 
               <Card className="border-gray-200">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium text-gray-600">
+                <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <div className="text-sm font-medium text-gray-600">
                     Promedio de Puntos
-                  </CardTitle>
+                  </div>
                   <Icon name="clock" />
-                </CardHeader>
-                <CardContent>
+                </div>
+                <div>
                   <div className="text-2xl font-bold text-gray-900">
                     {Math.round(
                       gameResults.reduce(
@@ -155,7 +152,7 @@ export default function MarkerQueryPage() {
                     )}
                   </div>
                   <p className="text-xs text-gray-600">Por juego</p>
-                </CardContent>
+                </div>
               </Card>
             </div>
 
@@ -173,7 +170,7 @@ export default function MarkerQueryPage() {
                       key={game.partido}
                       className="border-gray-200 hover:shadow-md transition-shadow"
                     >
-                      <CardContent className="p-6">
+                      <div className="p-6">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-4">
                             <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
@@ -290,7 +287,7 @@ export default function MarkerQueryPage() {
                             {Math.abs(game.marcVisita - game.marLocal)} pts
                           </div>
                         </div>
-                      </CardContent>
+                      </div>
                     </Card>
                   );
                 })}

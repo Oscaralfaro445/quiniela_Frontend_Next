@@ -5,10 +5,7 @@ import Link from "next/link";
 import { useAuth } from "@/context/authContext/AuthContext";
 import usePostParticipantPositions from "@/hooks/participantPositions/queries/usePostParticipantPositions";
 import { Card } from "@/components/shared/card/Card";
-import { CardHeader } from "@/components/shared/cardHeader/CardHeader";
-import { CardTitle } from "@/components/shared/cardTitle/CardTitle";
 import { Icon } from "@/components/shared/icon/Icon";
-import { CardContent } from "@/components/shared/cardContent/CardContent";
 import { Button } from "@/components/shared/button/Button";
 import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
 import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
@@ -85,42 +82,42 @@ export default function PositionQueryPage() {
       <SectionGrid>
         <div className="grid md:flex gap-4">
           <Card className="border-gray-200">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">
+            <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <div className="text-sm font-medium text-gray-600">
                 Total Participantes
-              </CardTitle>
+              </div>
               <Icon name="trophy" />
-            </CardHeader>
-            <CardContent>
+            </div>
+            <div>
               <div className="text-2xl font-bold text-gray-900">2,847</div>
               <p className="text-xs text-gray-600">+127 esta semana</p>
-            </CardContent>
+            </div>
           </Card>
 
           <Card className="border-gray-200">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">
+            <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <div className="text-sm font-medium text-gray-600">
                 Precisión Promedio
-              </CardTitle>
+              </div>
               <Icon name="target" />
-            </CardHeader>
-            <CardContent>
+            </div>
+            <div>
               <div className="text-2xl font-bold text-gray-900">64.2%</div>
               <p className="text-xs text-gray-600">Semana {currentWeek}</p>
-            </CardContent>
+            </div>
           </Card>
 
           <Card className="border-gray-200">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">
+            <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <div className="text-sm font-medium text-gray-600">
                 Tu Posición
-              </CardTitle>
+              </div>
               <Icon name="medal" />
-            </CardHeader>
-            <CardContent>
+            </div>
+            <div>
               <div className="text-2xl font-bold text-gray-900">#156</div>
               <p className="text-xs text-gray-600">↑ 23 posiciones</p>
-            </CardContent>
+            </div>
           </Card>
         </div>
       </SectionGrid>
@@ -165,18 +162,18 @@ export default function PositionQueryPage() {
           {activeTab === "weekly" && (
             <div className="animate-fadeIn">
               <Card className="border-gray-200">
-                <CardHeader>
+                <div>
                   <div className="flex items-center space-x-2">
                     <Icon name="calendar" />
-                    <CardTitle className="text-gray-900">
+                    <div className="text-gray-900">
                       Clasificación Semana {currentWeek}
-                    </CardTitle>
+                    </div>
                   </div>
                   <p className="text-sm text-gray-600">
                     Basada en los aciertos de esta semana
                   </p>
-                </CardHeader>
-                <CardContent>
+                </div>
+                <div>
                   <div className="w-full space-y-4">
                     {weeklyLeaderboard?.map((player: Player) => (
                       <div
@@ -230,7 +227,7 @@ export default function PositionQueryPage() {
                       </div>
                     ))}
                   </div>
-                </CardContent>
+                </div>
               </Card>
             </div>
           )}
@@ -238,18 +235,16 @@ export default function PositionQueryPage() {
           {activeTab === "global" && (
             <div className="animate-fadeIn">
               <Card className="border-gray-200">
-                <CardHeader>
+                <div>
                   <div className="flex items-center space-x-2">
                     <Icon name="trophy" />
-                    <CardTitle className="text-gray-900">
-                      Clasificación Global
-                    </CardTitle>
+                    <div className="text-gray-900">Clasificación Global</div>
                   </div>
                   <p className="text-sm text-gray-600">
                     Basada en el rendimiento de toda la temporada
                   </p>
-                </CardHeader>
-                <CardContent>
+                </div>
+                <div>
                   <div className="space-y-4">
                     {globalLeaderboard?.map((player: Player) => (
                       <div
@@ -301,7 +296,7 @@ export default function PositionQueryPage() {
                       </div>
                     ))}
                   </div>
-                </CardContent>
+                </div>
               </Card>
             </div>
           )}
