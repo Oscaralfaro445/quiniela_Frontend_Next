@@ -1,11 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/shared/button/Button";
 import { Card } from "@/components/shared/card/Card";
-import { CardHeader } from "@/components/shared/cardHeader/CardHeader";
 import { Icon } from "@/components/shared/icon/Icon";
-import { CardTitle } from "@/components/shared/cardTitle/CardTitle";
-import { CardContent } from "@/components/shared/cardContent/CardContent";
-import { CardDescription } from "@/components/shared/cardDescription/CardDescription";
 import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
 import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
 import { Title } from "@/components/shared/text/Title";
@@ -42,49 +38,45 @@ export default function Home() {
 
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="border-gray-200">
-              <CardHeader className="text-center">
+              <div className="text-center">
                 <Icon name="trophy" />
-                <CardTitle className="text-gray-900">
-                  Competencias Semanales
-                </CardTitle>
-              </CardHeader>
+                <div className="text-gray-900">Competencias Semanales</div>
+              </div>
 
-              <CardContent>
-                <CardDescription className="text-center">
+              <div>
+                <div className="text-center">
                   Participa en quinielas semanales y compite por los primeros
                   lugares con otros fanáticos del NFL.
-                </CardDescription>
-              </CardContent>
+                </div>
+              </div>
             </Card>
 
             <Card className="border-gray-200">
-              <CardHeader className="text-center">
+              <div className="text-center">
                 <Icon name="users" />
-                <CardTitle className="text-gray-900">Ligas Privadas</CardTitle>
-              </CardHeader>
+                <div className="text-gray-900">Ligas Privadas</div>
+              </div>
 
-              <CardContent>
-                <CardDescription className="text-center">
+              <div>
+                <div className="text-center">
                   Crea ligas privadas con tus amigos y familiares para hacer la
                   experiencia más personal y divertida.
-                </CardDescription>
-              </CardContent>
+                </div>
+              </div>
             </Card>
 
             <Card className="border-gray-200">
-              <CardHeader className="text-center">
+              <div className="text-center">
                 <Icon name="trending-up" />
-                <CardTitle className="text-gray-900">
-                  Estadísticas Detalladas
-                </CardTitle>
-              </CardHeader>
+                <div className="text-gray-900">Estadísticas Detalladas</div>
+              </div>
 
-              <CardContent>
-                <CardDescription className="text-center">
+              <div>
+                <div className="text-center">
                   Accede a estadísticas detalladas de tu rendimiento y mejora
                   tus predicciones semana tras semana.
-                </CardDescription>
-              </CardContent>
+                </div>
+              </div>
             </Card>
           </div>
         </div>
