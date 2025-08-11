@@ -8,7 +8,7 @@ import usePostSurvivorTeam from "@/hooks/survivor/mutations/usePostSurvivorTeam"
 import { SurvivorTeam } from "@/types/survivor/survivorTeam";
 import { QuinielaWeekTeam } from "@/types/quiniela/quinielaWeekTeam";
 import { ByeWeekTeam } from "@/types/quiniela/byeWeekTeam";
-import { QuinielaItem } from "@/types/quiniela/uinielaItem";
+import { QuinielaItem } from "@/types/quiniela/quinielaItem";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { useAlert } from "@/context/alertContext/AlertContext";
 import { AlertState } from "@/types/alert/alert";

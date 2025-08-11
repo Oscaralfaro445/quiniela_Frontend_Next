@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Sidebar } from "@/components/shared/sidebar/Sidebar";
-import { Header } from "@/components/shared/header/Header";
+import { Header } from "@/components/shared/header/header";
 import { Footer } from "@/components/shared/footer/Footer";
 
 export function LayoutShell({ children }: { children: React.ReactNode }) {
