@@ -4,9 +4,7 @@ import { useState } from "react";
 import { InputType } from "@/types/input/input";
 import { InputProps } from "@/types/input/input";
 import { InputText } from "./inputs/InputText";
-import { InputNumber } from "./inputs/InputNumber";
-import { InputDate } from "./inputs/InputDate";
-import { InputArea } from "./inputs/InputArea";
+
 import { InputCheckbox } from "./inputs/InputCheckbox";
 import { Icon } from "../icon/Icon";
 // import { InputCombo } from "./inputs/InputCombo";
@@ -42,7 +40,7 @@ export const Input = ({
     switch (type) {
       case InputType.AREA:
       case "area":
-        return <InputArea {...commonProps} />;
+      // return <InputArea {...commonProps} />;
 
       /* case InputType.COMBO:
       case "combo":
@@ -50,14 +48,14 @@ export const Input = ({
 
       case InputType.FECHA:
       case "date":
-        return <InputDate {...commonProps} />;
+      // return <InputDate {...commonProps} />;
 
       case "email":
         return <InputEmail {...commonProps} />;
 
       case InputType.NUMERO:
       case "number":
-        return <InputNumber {...commonProps} />;
+      // return <InputNumber {...commonProps} />;
 
       case "password":
         return <InputPassword {...commonProps} />;

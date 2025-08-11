@@ -11,7 +11,7 @@ interface MenuProps {
 }
 
 export const Menu = ({ title, menu, route }: MenuProps) => {
-  const [tree, setTree] = useState<MenuItemI[]>(menu);
+  const [tree, setTree] = useState<MenuItemI>(menu);
 
   const handleTreeState = (menuCve: string, treeMenu: MenuItemI) => {
     if (!treeMenu.children) {
