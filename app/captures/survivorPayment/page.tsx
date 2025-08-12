@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import useGetSurvivorPayment from "@/hooks/survivorPayment/queries/useGetSurvivorPayment";
+import usePostSurvivorPayment from "@/hooks/survivorPayment/mutations/usePostSurvivorPayment";
 import { Participant } from "@/types/participant/participant";
 import { Card } from "@/components/shared/card/Card";
 import { Icon } from "@/components/shared/icon/Icon";
@@ -12,6 +13,7 @@ import { Button } from "@/components/shared/button/Button";
 
 export default function SurvivorPaymentPage() {
   const survivorPayment = useGetSurvivorPayment();
+  const survivor = usePostSurvivorPayment();
 
   const [participantsData, setParticipantsData] = useState<Participant[]>([]);
   const totalParticipants = participantsData.length;
@@ -35,7 +37,9 @@ export default function SurvivorPaymentPage() {
     );
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    survivor.mutate({ participants: participantsData });
+  };
 
   return (
     <MainContainer>

@@ -27,7 +27,7 @@ const useGetSurvivorPayment = () => {
   const { token, dataUser } = useAuth();
 
   return useQuery({
-    queryKey: ["survivorPayment", dataUser?.idQuiniela, dataUser?.idPeriodo],
+    queryKey: ["survivorPayment"],
     queryFn: () => {
       /* if (!token) {
         throw new Error("Authentication token is required");

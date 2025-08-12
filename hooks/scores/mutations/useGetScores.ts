@@ -2,7 +2,7 @@ import axiosInstance from "@/hooks/axios/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "@/context/authContext/AuthContext";
 
-const postScores = async (
+const fetchScores = async (
   token: string,
   payload: { idProceso: number; idQuery: string; parmRemp: { $1: number } }
 ) => {
@@ -14,13 +14,13 @@ const postScores = async (
   return response.data;
 };
 
-const usePostScores = () => {
+const useGetScores = () => {
   const { token } = useAuth();
 
   return useMutation({
     mutationKey: ["scores"],
     mutationFn: ({ idEquipo }: { idEquipo: number }) =>
-      postScores(token!, {
+      fetchScores(token!, {
         idProceso: 2,
         idQuery: "3",
         parmRemp: { $1: idEquipo },
@@ -31,4 +31,4 @@ const usePostScores = () => {
   });
 };
 
-export default usePostScores;
+export default useGetScores;
