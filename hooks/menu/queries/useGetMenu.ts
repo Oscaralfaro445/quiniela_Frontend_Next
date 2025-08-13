@@ -11,7 +11,7 @@ const fetchMenu = async (
       $1: string;
     };
   }
-): Promise<any> => {
+) => {
   const response = await axiosInstance.post("/Query/Procedure", payload, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -22,6 +22,7 @@ const fetchMenu = async (
 
 const useGetMenu = () => {
   const { token, dataUser } = useAuth();
+  console.log("hook useGetMenu", { token, dataUser });
 
   return useQuery({
     queryKey: ["menu"],
@@ -30,10 +31,10 @@ const useGetMenu = () => {
         idProceso: 12,
         idProcedure: 7,
         parmRemp: {
-          $1: dataUser!.idPeriodo,
+          $1: dataUser!.cveUsuario,
         },
       }),
-    enabled: !!token && !!dataUser?.idPeriodo,
+    enabled: !!token && !!dataUser?.cveUsuario,
   });
 };
 

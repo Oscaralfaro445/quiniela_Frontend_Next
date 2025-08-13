@@ -1,4 +1,6 @@
 export type IconName =
+  | "alert-triangle"
+  | "database"
   | "calendar"
   | "check"
   | "chevron-down"
@@ -18,6 +20,7 @@ export type IconName =
   | "gamepad-2"
   | "hand-coins"
   | "list-ordered"
+  | "loader"
   | "log-in"
   | "map-pin"
   | "medal"
@@ -30,6 +33,8 @@ export type IconName =
   | "play"
   | "plus"
   | "refresh-ccw"
+  | "settings"
+  | "shield"
   | "shield-check"
   | "swords"
   | "table-properties"

@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useAuth } from "@/context/authContext/AuthContext";
 import { Sidebar } from "@/components/shared/sidebar/Sidebar";
 import { Header } from "@/components/shared/header/Header";
 import { Footer } from "@/components/shared/footer/Footer";
 
 export function LayoutShell({ children }: { children: React.ReactNode }) {
+  const { token } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -14,7 +16,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex min-h-screen gap-4 p-4 bg-neutral-100">
-      {isSidebarOpen && (
+      {isSidebarOpen && token && (
         <div className="hidden lg:block w-2/11">
           <Sidebar isOpen={isSidebarOpen} toggle={toggleSidebar} />
         </div>
