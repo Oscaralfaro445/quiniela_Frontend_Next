@@ -1,4 +1,5 @@
 export type IconName =
+  | "award"
   | "alert-triangle"
   | "database"
   | "calendar"

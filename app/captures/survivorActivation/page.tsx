@@ -15,7 +15,6 @@ export default function SurvivorActivationPage() {
   const survivorStatus = useGetSurvivorStatus();
   const survivorActivation = usePostSurvivorActivation();
   const survivorData = survivorStatus?.data?.data[0];
-  // console.log(survivorData);
 
   const handleSurvivorActivation = () => {
     survivorActivation.mutate({
@@ -27,11 +26,9 @@ export default function SurvivorActivationPage() {
   return (
     <MainContainer>
       <SectionGrid>
-        <div className="grid md:flex w-full gap-4 justify-center md:justify-between items-center">
-          <div className="grid gap-2">
-            <Title title="Gestión de Activación de Survivor" />
-            <TextBody text="Aquí podrás darle una segunda oportunidad a tu survivor" />
-          </div>
+        <div className="grid gap-2">
+          <Title title="Gestión de Activación de Survivor" />
+          <TextBody text="Aquí podrás darle una segunda oportunidad a tu survivor" />
         </div>
       </SectionGrid>
 
@@ -41,11 +38,11 @@ export default function SurvivorActivationPage() {
             <div>
               <div className="flex items-center space-x-2">
                 <Icon name="check" />
-                <span>Equipos Disponibles para Resurrección</span>
+                <span>Equipo Disponible para Resurrección</span>
               </div>
               <div>
-                Gestiona el estado de activación de cada equipo y sus costos
-                asociados.
+                Gestiona el estado de activación de cada equipo y su costo
+                asociado
               </div>
             </div>
             <div>

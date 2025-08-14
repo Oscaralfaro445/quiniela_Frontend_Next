@@ -11,6 +11,15 @@ import { Card } from "@/components/shared/card/Card";
 import Link from "next/link";
 import { Button } from "@/components/shared/button/Button";
 
+interface Participant {
+  ID_PARTICIPANTE: number;
+  NOM_PARTICIPANTE: string;
+  NUM_SURVIVORS: number;
+  NUM_ACIERTOS: number;
+  IMP_INVERSION: number;
+  [key: `NOM_EQ_${number}`]: string;
+}
+
 export default function SurvivorPage() {
   const survivor = useGetSurvivorReport();
   const survivorData = survivor?.data?.data;
@@ -93,7 +102,7 @@ export default function SurvivorPage() {
             {survivorData && (
               <tbody className="text-center text-gray-700 text-sm">
                 {survivorData?.map(
-                  (participante: any) => (
+                  (participante: Participant) => (
                     console.log("Participante:", participante),
                     (
                       <SurvivorTableRow
@@ -179,7 +188,7 @@ type SurvivorTableRowProps = {
     NUM_ACIERTOS: number;
     IMP_INVERSION: number;
     [key: `NOM_EQ_${number}`]: string;
-    [key: `RES_EQ_${number}`]: string; // Para incluir dinámicamente las semanas
+    //[key: `RES_EQ_${number}`]: string; // Para incluir dinámicamente las semanas
   };
   semanasVisibles: number[]; // Las semanas a mostrar
 };
@@ -205,13 +214,13 @@ const SurvivorTableRow = ({
       {semanasVisibles.map((semana) => (
         <td
           key={`row-${participante.ID_PARTICIPANTE}-semana-${semana}`}
-          className={`py-1 border border-gray-300 ${
+          /* className={`py-1 border border-gray-300 ${
             participante[`RES_EQ_${semana}`] === "A"
               ? "bg-green-500"
               : participante[`RES_EQ_${semana}`] === "P"
               ? "bg-red-500"
               : ""
-          }`}
+          }`} */
         >
           {participante[`NOM_EQ_${semana}`]}
         </td>

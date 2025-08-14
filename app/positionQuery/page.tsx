@@ -12,60 +12,40 @@ import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
 import { Title } from "@/components/shared/text/Title";
 import { TextBody } from "@/components/shared/text/TextBody";
 
-interface Player {
-  Secuencia: number;
-  Nombre: string;
-  username?: string;
-  correctPicks?: number;
-  totalPicks?: number;
-  accuracy?: number;
-  rank?: number;
-  previousRank?: number;
-  change?: string;
-  weeklyRank?: number;
-  streak?: number;
-}
-
 type TabType = "weekly" | "global";
 
+interface ParticipantData {
+  Secuencia: number;
+  ID_QUINIELA: number;
+  ID_PARTICIPANTE: number;
+  periodo: string;
+  Nombre: string;
+  Puntos: number;
+}
+
 export default function PositionQueryPage() {
-  const [activeTab, setActiveTab] = useState<TabType>("weekly");
   const { dataUser } = useAuth();
-  const currentWeek = dataUser?.idPeriodo;
   const participants = usePostParticipantPositions();
   const data = participants.data?.data[0];
-  const weeklyLeaderboard = data?.puntosPeriodo;
-  const globalLeaderboard = data?.puntosTotal;
+  const currentWeek = dataUser?.idPeriodo;
+  const weeklyLeaderboard: ParticipantData[] = data?.puntosPeriodo;
+  const globalLeaderboard: ParticipantData[] = data?.puntosTotal;
+  const [activeTab, setActiveTab] = useState<TabType>("weekly");
 
   const getRankIcon = (rank: number) => {
     switch (rank) {
       case 1:
-        return <Icon name="crown" />;
+        return <Icon name="crown" className="text-yellow-500" />;
       case 2:
-        return <Icon name="crown" />;
+        return <Icon name="medal" className="text-gray-500" />;
       case 3:
-        return <Icon name="crown" />;
+        return <Icon name="award" className="text-orange-500" />;
       default:
-        return <span className="text-lg font-bold text-gray-600">#{rank}</span>;
+        return (
+          <span className="text-lg font-bold text-gray-600"># {rank}</span>
+        );
     }
   };
-
-  const getChangeIcon = (change: string) => {
-    switch (change) {
-      case "up":
-        return <Icon name="trending-up" />;
-      case "down":
-        return <Icon name="trending-down" />;
-      default:
-        return <Icon name="minus" />;
-    }
-  };
-
-  /* const getAccuracyColor = (accuracy: number) => {
-    if (accuracy >= 70) return "text-green-600 bg-green-50";
-    if (accuracy >= 60) return "text-yellow-600 bg-yellow-50";
-    return "text-red-600 bg-red-50";
-  }; */
 
   return (
     <MainContainer>
@@ -123,37 +103,26 @@ export default function PositionQueryPage() {
       </SectionGrid>
 
       <SectionGrid>
-        <div className="">
-          <div className="border-b border-gray-200">
-            <nav className="flex space-x-8" aria-label="Tabs">
-              <button
-                onClick={() => setActiveTab("weekly")}
-                className={`py-2 px-1 border-b-2 font-medium text-sm transition-colors duration-200 ${
-                  activeTab === "weekly"
-                    ? "border-blue-500 text-blue-600"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                }`}
-              >
-                <div className="flex items-center space-x-2">
-                  <Icon name="calendar" />
-                  <span>Semana {currentWeek}</span>
-                </div>
-              </button>
-              <button
-                onClick={() => setActiveTab("global")}
-                className={`py-2 px-1 border-b-2 font-medium text-sm transition-colors duration-200 ${
-                  activeTab === "global"
-                    ? "border-blue-500 text-blue-600"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                }`}
-              >
-                <div className="flex items-center space-x-2">
-                  <Icon name="trophy" />
-                  <span>Global</span>
-                </div>
-              </button>
-            </nav>
-          </div>
+        <div className="flex w-96 h-12 p-1 rounded-md bg-neutral-100">
+          <button
+            className={`w-1/2 p-1 rounded-md transition-colors duration-100 ${
+              activeTab === "weekly" ? "bg-white" : ""
+            }`}
+            type="button"
+            onClick={() => setActiveTab("weekly")}
+          >
+            Semana {currentWeek}
+          </button>
+
+          <button
+            className={`w-1/2 p-1 rounded-lg ${
+              activeTab === "global" ? "bg-white" : ""
+            }`}
+            type="button"
+            onClick={() => setActiveTab("global")}
+          >
+            Global
+          </button>
         </div>
       </SectionGrid>
 
@@ -161,10 +130,9 @@ export default function PositionQueryPage() {
         <div className="transition-all duration-300 ease-in-out">
           {activeTab === "weekly" && (
             <div className="animate-fadeIn">
-              <Card className="border-gray-200">
+              <Card>
                 <div>
                   <div className="flex items-center space-x-2">
-                    <Icon name="calendar" />
                     <div className="text-gray-900">
                       Clasificación Semana {currentWeek}
                     </div>
@@ -173,60 +141,34 @@ export default function PositionQueryPage() {
                     Basada en los aciertos de esta semana
                   </p>
                 </div>
-                <div>
-                  <div className="w-full space-y-4">
-                    {weeklyLeaderboard?.map((player: Player) => (
-                      <div
-                        key={player.Secuencia}
-                        className={`flex items-center justify-between p-4 rounded-lg border transition-all duration-200 hover:bg-gray-50 hover:shadow-sm ${
-                          player.Secuencia <= 3
-                            ? "bg-blue-50 border-blue-200"
-                            : "border-gray-200"
-                        }`}
-                      >
-                        <div className="flex items-center space-x-4">
-                          <div className="flex items-center justify-center w-10 h-10">
-                            {getRankIcon(player.Secuencia)}
-                          </div>
-                          <div>
-                            <div className="font-medium text-gray-900">
-                              {player.Nombre}
-                            </div>
-                            <div className="text-sm text-gray-500">
-                              {player.username}
-                            </div>
-                          </div>
+
+                <div className="grid w-full gap-2">
+                  {weeklyLeaderboard?.map((player: ParticipantData) => (
+                    <div
+                      key={player.Secuencia}
+                      className={`flex p-4 items-center justify-between rounded-lg border transition-all duration-200 hover:bg-gray-50 hover:shadow-sm ${
+                        player.Secuencia <= 3
+                          ? "bg-blue-50 border-blue-200"
+                          : "border-gray-200"
+                      }`}
+                    >
+                      <div className="flex items-center">
+                        <div className="flex items-center justify-center w-10 h-10">
+                          {getRankIcon(player.Secuencia)}
                         </div>
 
-                        <div className="flex items-center space-x-6">
-                          <div className="text-center">
-                            <div className="text-sm font-medium text-gray-900">
-                              0/10
-                            </div>
-                            <div className="text-xs text-gray-500">
-                              Aciertos
-                            </div>
-                          </div>
-
-                          <div className="text-center">
-                            {/* Badge placeholder */}
-                          </div>
-
-                          <div className="flex items-center space-x-1">
-                            {getChangeIcon(player.change || "same")}
-                            {player.change !== "same" && (
-                              <span className="text-xs text-gray-500">
-                                {Math.abs(
-                                  (player.rank || 0) -
-                                    (player.previousRank || 0)
-                                )}
-                              </span>
-                            )}
-                          </div>
+                        <div className="font-medium text-gray-900">
+                          {player.Nombre}
                         </div>
                       </div>
-                    ))}
-                  </div>
+
+                      <div className="flex items-center">
+                        <span className="text-xs text-gray-500">
+                          {player.Puntos} puntos
+                        </span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </Card>
             </div>
@@ -236,66 +178,41 @@ export default function PositionQueryPage() {
             <div className="animate-fadeIn">
               <Card className="border-gray-200">
                 <div>
-                  <div className="flex items-center space-x-2">
-                    <Icon name="trophy" />
-                    <div className="text-gray-900">Clasificación Global</div>
-                  </div>
+                  <div className="text-gray-900">Clasificación Global</div>
                   <p className="text-sm text-gray-600">
                     Basada en el rendimiento de toda la temporada
                   </p>
                 </div>
-                <div>
-                  <div className="space-y-4">
-                    {globalLeaderboard?.map((player: Player) => (
-                      <div
-                        key={player.Secuencia}
-                        className={`flex items-center justify-between p-4 rounded-lg border transition-all duration-200 hover:bg-gray-50 hover:shadow-sm ${
-                          player.Secuencia <= 3
-                            ? "bg-blue-50 border-blue-200"
-                            : "border-gray-200"
-                        }`}
-                      >
-                        <div className="flex items-center space-x-4">
-                          <div className="flex items-center justify-center w-10 h-10">
-                            {getRankIcon(player.Secuencia)}
-                          </div>
-                          <div>
-                            <div className="font-medium text-gray-900">
-                              {player.Nombre}
-                            </div>
-                          </div>
+
+                <div className="grid w-full gap-2">
+                  {globalLeaderboard?.map((player: ParticipantData) => (
+                    <div
+                      key={player.Secuencia}
+                      className={`flex p-4 items-center justify-between rounded-lg border transition-all duration-200 hover:bg-gray-50 hover:shadow-sm ${
+                        player.Secuencia <= 3
+                          ? "bg-blue-50 border-blue-200"
+                          : "border-gray-200"
+                      }`}
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="flex items-center justify-center w-10 h-10">
+                          {getRankIcon(player.Secuencia)}
                         </div>
 
-                        <div className="flex items-center space-x-6">
-                          <div className="text-center">
-                            <div className="text-sm font-medium text-gray-900">
-                              {player.correctPicks}/{player.totalPicks}
-                            </div>
-                            <div className="text-xs text-gray-500">Total</div>
-                          </div>
-                          <div className="text-center">
-                            {/* Badge placeholder */}
-                          </div>
-                          <div className="text-center">
-                            <div className="text-sm font-medium text-gray-900">
-                              #{player.weeklyRank}
-                            </div>
-                            <div className="text-xs text-gray-500">
-                              Esta semana
-                            </div>
-                          </div>
-                          <div className="text-center">
-                            <div className="text-sm font-medium text-gray-900">
-                              {(player.streak || 0) > 0
-                                ? `🔥 ${player.streak}`
-                                : "-"}
-                            </div>
-                            <div className="text-xs text-gray-500">Racha</div>
-                          </div>
+                        <div className="font-medium text-gray-900">
+                          {player.Nombre}
                         </div>
                       </div>
-                    ))}
-                  </div>
+
+                      <div className="flex items-center space-x-6">
+                        <div className="flex items-center">
+                          <span className="text-xs text-gray-500">
+                            {player.Puntos} puntos
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </Card>
             </div>
@@ -318,25 +235,35 @@ export default function PositionQueryPage() {
   );
 }
 
-/* "use client";
-
-import usePostParticipantPositions from "@/hooks/participantPositions/queries/usePostParticipantPositions";
-import { Grid } from "@/components/shared/grid/Grid";
-
-export default function ParticipantsPage() {
-  const participants = usePostParticipantPositions();
-  const data = participants.data?.data[0];
-
-  return (
-    <div className="p-4 align-middle inline-block min-w-full">
-      <div className="sm:rounded-lg">
-        <Grid gridData={data?.puntosPeriodo} />
-      </div>
-
-      <div className="overflow-x-auto sm:rounded-lg">
-        <Grid gridData={data?.puntosTotal} />
-      </div>
-    </div>
-  );
+{
+  /* <div className="border-b border-gray-200">
+          <nav className="flex space-x-8" aria-label="Tabs">
+            <button
+              onClick={() => setActiveTab("weekly")}
+              className={`py-2 px-1 border-b-2 font-medium text-sm transition-colors duration-200 ${
+                activeTab === "weekly"
+                  ? "border-blue-500 text-blue-600"
+                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <Icon name="calendar" />
+                <span>Semana {currentWeek}</span>
+              </div>
+            </button>
+            <button
+              onClick={() => setActiveTab("global")}
+              className={`py-2 px-1 border-b-2 font-medium text-sm transition-colors duration-200 ${
+                activeTab === "global"
+                  ? "border-blue-500 text-blue-600"
+                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+              }`}
+            >
+              <div className="flex items-center space-x-2">
+                <Icon name="trophy" />
+                <span>Global</span>
+              </div>
+            </button>
+          </nav>
+        </div> */
 }
- */

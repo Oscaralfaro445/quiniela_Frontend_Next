@@ -22,7 +22,7 @@ const fetchMenu = async (
 
 const useGetMenu = () => {
   const { token, dataUser } = useAuth();
-  console.log("hook useGetMenu", { token, dataUser });
+  // console.log("hook useGetMenu", { token, dataUser });
 
   return useQuery({
     queryKey: ["menu"],

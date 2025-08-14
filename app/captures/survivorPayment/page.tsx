@@ -44,6 +44,7 @@ export default function SurvivorPaymentPage() {
   return (
     <MainContainer>
       <SectionGrid>Consulta de Pagos</SectionGrid>
+
       <SectionGrid>
         <Card>
           <div className="flex w-full items-center justify-between">
@@ -149,6 +150,7 @@ export default function SurvivorPaymentPage() {
           )}
         </Card>
       </SectionGrid>
+
       <SectionGrid>
         <div className="grid sm:flex w-full gap-4 justify-center items-center">
           <Link href="/dashboard">

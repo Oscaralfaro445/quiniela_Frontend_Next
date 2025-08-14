@@ -1,18 +1,20 @@
 "use client";
 
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { Button } from "@/components/shared/button/Button";
 import { Card } from "@/components/shared/card/Card";
 import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
 import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
 import { Icon } from "@/components/shared/icon/Icon";
+import { Title } from "@/components/shared/text/Title";
+import { TextBody } from "@/components/shared/text/TextBody";
 
 export default function Dashboard() {
+  const router = useRouter();
   const { dataUser } = useAuth();
-
-  // Datos de ejemplo
   const currentWeek = dataUser?.idPeriodo;
+
   const userStats = {
     correctPicks: 45,
     totalPicks: 70,
@@ -54,26 +56,29 @@ export default function Dashboard() {
   return (
     <MainContainer>
       <SectionGrid>
-        <div className="grid w-full gap-2 justify-items-center content-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            ¡Bienvenido de vuelta!
-          </h2>
+        <div className="grid md:flex w-full gap-4 justify-center md:justify-between items-center">
+          <div className="grid gap-2">
+            <Title title={`¡Bienvenido de vuelta!`} />
+            <TextBody text="Aquí tienes un resumen de tu rendimiento en la temporada." />
+          </div>
 
-          <p className="text-gray-600">
-            Aquí tienes un resumen de tu rendimiento en la temporada.
-          </p>
+          <div className="flex justify-center items-center border-2 border-blue-600 rounded-2xl">
+            <p className="px-2 py-1 text-sm font-semibold text-blue-700">
+              NFL temporada 2025
+            </p>
+          </div>
         </div>
       </SectionGrid>
 
       <SectionGrid>
-        <div className="grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card className="border-gray-200">
-            <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <div className="grid lg:flex w-full gap-4">
+          <Card>
+            <div className="flex items-center justify-between">
               <div className="text-sm font-medium text-gray-600">Precisión</div>
               <Icon name="target" />
             </div>
 
-            <div>
+            <div className="grid gap-1">
               <div className="text-2xl font-bold text-gray-900">
                 {userStats.accuracy}%
               </div>
@@ -84,86 +89,96 @@ export default function Dashboard() {
             </div>
           </Card>
 
-          <Card className="border-gray-200">
-            <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <Card>
+            <div className="flex items-center justify-between">
               <div className="text-sm font-medium text-gray-600">Ranking</div>
               <Icon name="trending-up" />
             </div>
-            <div>
+
+            <div className="grid gap-1">
               <div className="text-2xl font-bold text-gray-900">
                 #{userStats.rank}
               </div>
+
               <p className="text-xs text-gray-600">
                 de {userStats.totalUsers.toLocaleString()} usuarios
               </p>
             </div>
           </Card>
 
-          <Card className="border-gray-200">
-            <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <Card>
+            <div className="flex items-center justify-between">
               <div className="text-sm font-medium text-gray-600">
                 Semana Actual
               </div>
               <Icon name="calendar" />
-              {/* <Calendar className="h-4 w-4 text-blue-700" /> */}
             </div>
-            <div>
+
+            <div className="grid gap-1">
               <div className="text-2xl font-bold text-gray-900">
                 Semana {currentWeek}
               </div>
-              <p className="text-xs text-gray-600">3 juegos pendientes</p>
-            </div>
-          </Card>
 
-          <Card className="border-gray-200">
-            <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <div className="text-sm font-medium text-gray-600">
-                Ligas Activas
-              </div>
-              <Icon name="users" />
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-gray-900">3</div>
-              <p className="text-xs text-gray-600">2 públicas, 1 privada</p>
+              <p className="text-xs text-gray-600">3 juegos pendientes</p>
             </div>
           </Card>
         </div>
       </SectionGrid>
 
       <SectionGrid>
-        <div className="grid w-full lg:grid-cols-2 gap-8">
-          <Card className="border-gray-200">
-            <div>
-              <div className="text-gray-900">Acciones Rápidas</div>
-              <div>Gestiona tus quinielas de la semana</div>
+        <div className="grid w-full lg:grid-cols-2 gap-4">
+          <Card>
+            <div className="grid w-full">
+              <span className="text-gray-900">Acciones Rápidas</span>
+              <span>Gestiona tus quinielas de la semana</span>
             </div>
 
-            <div className="space-y-4">
-              <Link href="/quinielaCapture">
+            <Button
+              type="button"
+              title={`Hacer Quiniela Semana ${currentWeek}`}
+              icon="play"
+              onClick={() => router.push("/quinielaCapture")}
+            />
+
+            <div className="grid lg:grid-cols-2 gap-4">
+              <div className="grid w-full gap-4">
                 <Button
                   type="button"
-                  title={`Hacer Quiniela Semana ${currentWeek}`}
+                  title="Clasificación"
+                  theme="normal"
+                  onClick={() => router.push("/positionQuery")}
                 />
-                <Icon name="play" />
-              </Link>
+                <Button
+                  type="button"
+                  title={`Resultados Semana ${currentWeek}`}
+                  theme="normal"
+                  onClick={() => router.push("/markerQuery")}
+                />
+              </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <Link href="/">
-                  <Button type="button" title="Ver Ligas" theme="normal" />
-                </Link>
-
-                <Link href="/">
-                  <Button type="button" title="Clasificación" theme="normal" />
-                </Link>
+              <div className="grid gap-4">
+                <Button
+                  type="button"
+                  title="Survivor"
+                  theme="normal"
+                  onClick={() => router.push("/survivorQuery")}
+                />
+                <Button
+                  type="button"
+                  title="Activar Survivor"
+                  theme="normal"
+                  onClick={() => router.push("/captures/survivorActivation")}
+                />
               </div>
             </div>
           </Card>
 
-          <Card className="border-gray-200">
+          <Card>
             <div>
               <div className="text-gray-900">Rendimiento Reciente</div>
               <div>Tus últimas predicciones</div>
             </div>
+
             <div>
               <div className="space-y-3">
                 {recentGames.map((game, index) => (
@@ -231,7 +246,8 @@ export default function Dashboard() {
               <div className="text-gray-900">Próximos Juegos</div>
               <div>Semana {currentWeek} - Pendientes por predecir</div>
             </div>
-            <div>
+
+            <div className="grid w-full gap-4">
               <div className="space-y-3">
                 {upcomingGames.map((game, index) => (
                   <div
@@ -245,9 +261,12 @@ export default function Dashboard() {
                   </div>
                 ))}
               </div>
-              <Link href="/">
-                <Button type="button" title="Hacer Predicciones" />
-              </Link>
+
+              <Button
+                type="button"
+                title="Hacer Predicciones"
+                onClick={() => router.push("/quinielaCapture")}
+              />
             </div>
           </Card>
         </div>

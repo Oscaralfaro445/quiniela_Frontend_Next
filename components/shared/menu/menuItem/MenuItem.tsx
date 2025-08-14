@@ -31,7 +31,7 @@ export const MenuItem = ({
     <>
       {item && item.icono && (
         <div
-          className={`flex w-full px-2 py-1 justify-between items-center rounded-md cursor-pointer hover:bg-blue-600 hover:text-white ${
+          className={`flex w-full px-2 py-1 justify-between items-center rounded-md cursor-pointer hover:bg-neutral-200 ${
             currentRoute === item.urlMenu ? "bg-blue-600  text-white" : ""
           }`}
           onClick={handleClick}
@@ -41,9 +41,7 @@ export const MenuItem = ({
               <Icon name={item.icono} size={16} />
             </div>
 
-            <p className="text-md font-semibold hover:text-white">
-              {item.descMenu}
-            </p>
+            <p className="text-md font-semibold">{item.descMenu}</p>
           </div>
 
           <div className="flex items-center">

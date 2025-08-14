@@ -28,7 +28,7 @@ export default function QuinielaCapturePage() {
   const matches = useGetMatches();
   const survivor = useGetSurvivorTeams();
   const survivorAlta = usePostSurvivorTeam();
-  const week = dataUser?.idPeriodo;
+  const currentWeek = dataUser?.idPeriodo;
   const gamesData: QuinielaWeekTeam[] = matches?.data?.data[0].quiniela;
   const byeData: ByeWeekTeam[] = matches?.data?.data[0].bye;
   const survivorData: SurvivorTeam[] = survivor?.data?.data;
@@ -101,7 +101,7 @@ export default function QuinielaCapturePage() {
       </SectionGrid>
 
       <SectionGrid>
-        <WeeklyHeadline week={week} />
+        <WeeklyHeadline week={currentWeek} />
       </SectionGrid>
 
       {dataUser?.bSurvivor && survivorData && (

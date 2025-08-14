@@ -25,12 +25,15 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
         <p className="text-2xl font-bold">Menu</p>
 
         <button onClick={toggle} className="cursor-pointer">
-          <Icon name="x" />
+          <Icon
+            className="hover:text-red-500 transition duration-300"
+            name="x"
+          />
         </button>
       </div>
 
-      <hr className="text-blue-600" />
-
+      {/*       <hr className="text-blue-600" />
+       */}
       {menuData && (
         <nav>
           <Menu menu={menuData} route={currentRoute} />

@@ -2,7 +2,7 @@ import axiosInstance from "@/hooks/axios/axiosInstance";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/context/authContext/AuthContext";
 
-const postMarkers = async (
+const fetchMarkers = async (
   token: string,
   payload: {
     idProceso: number;
@@ -18,13 +18,13 @@ const postMarkers = async (
   return response.data;
 };
 
-const usePostMarkers = () => {
+const useGetMarkers = () => {
   const { token, dataUser } = useAuth();
 
   return useQuery({
     queryKey: ["markers"],
     queryFn: () =>
-      postMarkers(token!, {
+      fetchMarkers(token!, {
         idProceso: 5,
         idQuery: "6",
         parmRemp: {
@@ -35,4 +35,4 @@ const usePostMarkers = () => {
   });
 };
 
-export default usePostMarkers;
+export default useGetMarkers;

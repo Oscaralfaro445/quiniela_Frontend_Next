@@ -10,36 +10,36 @@ export const RegisterForm = () => {
       <Input
         type="email"
         name="cveUsuario"
-        label="Usuario (clave de usuario)"
-        placeholder="Ingrese su usuario"
+        label="Clave de usuario"
+        placeholder="Clave de usuario"
       />
 
       <Input
         type="text"
         name="apellidoPaterno"
         label="Apellido Paterno"
-        placeholder="Ingrese su apellido paterno"
+        placeholder="Apellido paterno"
       />
 
       <Input
         type="text"
         name="apellidoMaterno"
         label="Apellido Materno"
-        placeholder="Ingrese su apellido materno"
+        placeholder="Apellido materno"
       />
 
       <Input
         type="text"
         name="nombre"
-        label="Nombre (s)"
-        placeholder="Ingrese su nombre"
+        label="Nombre(s)"
+        placeholder="Nombre(s)"
       />
 
       <Input
         type="password"
         name="password"
         label="Contraseña"
-        placeholder="Ingrese su contraseña"
+        placeholder="Contraseña"
       />
 
       <Button type="submit" title="Terminar Registro" />

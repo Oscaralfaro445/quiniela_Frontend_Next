@@ -16,7 +16,7 @@ export const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
   const { isLogged, dataUser } = useAuth();
 
   return (
-    <header className="flex items-center w-full gap-6 py-4 px-4 md:px-8 bg-white rounded-md shadow-md">
+    <header className="flex items-center w-full gap-6 py-4 px-4 sm:px-8 md:px-16 bg-white rounded-md shadow-md">
       {isLogged && (
         <div
           onClick={toggleSidebar}
