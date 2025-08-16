@@ -11,7 +11,7 @@ interface AlertContextProps {
 const AlertContext = createContext<AlertContextProps | undefined>(undefined);
 
 export const AlertProvider = ({ children }: { children: React.ReactNode }) => {
-  const [isAlertOpen, setIsAlertOpen] = useState<boolean>(true);
+  const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
   const [type, setType] = useState<AlertState>(AlertState.SUCCESS);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");

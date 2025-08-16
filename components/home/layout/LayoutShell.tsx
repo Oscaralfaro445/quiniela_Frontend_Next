@@ -17,7 +17,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen gap-4 p-4 bg-neutral-100">
       {isSidebarOpen && token && (
-        <div className="hidden lg:block w-2/11">
+        <div className="h-full w-2/11">
           <Sidebar isOpen={isSidebarOpen} toggle={toggleSidebar} />
         </div>
       )}
@@ -25,7 +25,9 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
       <div className="flex flex-col w-full gap-4">
         <Header toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
 
-        <main className="bg-white h-full rounded-sm shadow-md">{children}</main>
+        <main className="bg-white min-h-[800px] rounded-sm shadow-md">
+          {children}
+        </main>
 
         <Footer />
       </div>

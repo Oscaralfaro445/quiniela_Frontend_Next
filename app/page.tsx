@@ -14,6 +14,7 @@ export default function Home() {
         <div className="grid gap-2 justify-items-center items-center">
           <Title title="Predice los Ganadores de la NFL" />
           <TextBody
+            className="text-center"
             text="Únete a la emoción de la temporada NFL. Haz tus predicciones,
             compite con amigos y demuestra que eres el mejor pronosticador."
           />
@@ -21,26 +22,28 @@ export default function Home() {
 
         <div className="flex gap-4 justify-center items-center">
           <Link href="/register">
-            <Button type="button" title="Comenzar Ahora" />
+            <Button type="button" title="Comenzar Ahora" theme="normal" />
           </Link>
 
-          <Link href="/register">
-            <Button type="button" title="Como Funciona" theme="normal" />
+          <Link href="/login">
+            <Button type="button" title="Iniciar Sesión" />
           </Link>
         </div>
       </SectionGrid>
 
       <SectionGrid className="bg-gray-100">
-        <div className="grid gap-4 justify-center items-center">
+        <div className="grid gap-4 justify-items-center items-center">
           <h3 className="text-3xl font-bold text-center text-gray-900">
             ¿Por qué elegir NFL Quiniela?
           </h3>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-gray-200">
-              <div className="text-center">
-                <Icon name="trophy" />
-                <div className="text-gray-900">Competencias Semanales</div>
+            <Card>
+              <div className="flex flex-col w-full gap-2 justify-center items-center">
+                <Icon name="trophy" className="text-blue-700" />
+                <div className="text-center text-lg font-semibold text-gray-900">
+                  Competencias Semanales
+                </div>
               </div>
 
               <div>
@@ -51,30 +54,34 @@ export default function Home() {
               </div>
             </Card>
 
-            <Card className="border-gray-200">
-              <div className="text-center">
-                <Icon name="users" />
-                <div className="text-gray-900">Ligas Privadas</div>
-              </div>
-
-              <div>
-                <div className="text-center">
-                  Crea ligas privadas con tus amigos y familiares para hacer la
-                  experiencia más personal y divertida.
+            <Card>
+              <div className="flex flex-col w-full gap-2 justify-center items-center">
+                <Icon name="trophy" className="text-blue-700" />
+                <div className="text-center text-lg font-semibold text-gray-900">
+                  Estadísticas Detalladas
                 </div>
-              </div>
-            </Card>
-
-            <Card className="border-gray-200">
-              <div className="text-center">
-                <Icon name="trending-up" />
-                <div className="text-gray-900">Estadísticas Detalladas</div>
               </div>
 
               <div>
                 <div className="text-center">
                   Accede a estadísticas detalladas de tu rendimiento y mejora
-                  tus predicciones semana tras semana.
+                  tus predicciones semana tras semana
+                </div>
+              </div>
+            </Card>
+
+            <Card>
+              <div className="flex flex-col w-full gap-2 justify-center items-center">
+                <Icon name="trophy" className="text-blue-700" />
+                <div className="text-center text-lg font-semibold text-gray-900">
+                  Ligas Privadas
+                </div>
+              </div>
+
+              <div>
+                <div className="text-center">
+                  Crea ligas privadas con tus amigos y familiares para hacer la
+                  experiencia más personal y divertida
                 </div>
               </div>
             </Card>
@@ -85,11 +92,11 @@ export default function Home() {
       <SectionGrid className="bg-blue-700">
         <div className="grid gap-2 justify-items-center items-center">
           <Title
-            className="text-white"
+            className="text-center text-white"
             title="¿Listo para Demostrar tus Conocimientos?"
           />
           <TextBody
-            className="text-white"
+            className="text-center text-white"
             text="La temporada está en marcha. No te quedes fuera de la acción"
           />
         </div>

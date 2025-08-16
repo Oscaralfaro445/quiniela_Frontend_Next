@@ -21,6 +21,8 @@ import { Button } from "@/components/shared/button/Button";
 import { ByeWeek } from "@/components/quinielaCapture/ByeWeek";
 import { Timer } from "@/components/shared/timer/Timer";
 import { GroupRadio } from "@/components/quinielaCapture/GroupRadio";
+import { Title } from "@/components/shared/text/Title";
+import { TextBody } from "@/components/shared/text/TextBody";
 
 export default function QuinielaCapturePage() {
   const { dataUser } = useAuth();
@@ -97,10 +99,6 @@ export default function QuinielaCapturePage() {
   return (
     <MainContainer>
       <SectionGrid>
-        <Timer />
-      </SectionGrid>
-
-      <SectionGrid>
         <WeeklyHeadline week={currentWeek} />
       </SectionGrid>
 
@@ -121,6 +119,10 @@ export default function QuinielaCapturePage() {
       )}
 
       <SectionGrid>
+        <Timer />
+      </SectionGrid>
+
+      <SectionGrid>
         <Card>
           <div className="flex w-full justify-between items-center">
             <p className="text-lg font-semibold">Progreso</p>
@@ -131,14 +133,22 @@ export default function QuinielaCapturePage() {
 
       {gamesData && (
         <SectionGrid>
-          {gamesData.map((game: QuinielaWeekTeam) => (
-            <GroupRadio
-              key={game.Partido}
-              game={game}
-              quinielaData={quinielaData}
-              handleChangeQuiniela={handleChangeQuiniela}
-            />
-          ))}
+          <Card className="h-[900px] overflow-y-auto">
+            <div className="grid md:flex w-full gap-4 justify-center md:justify-between items-center">
+              <div className="grid gap-2">
+                <Title title="Quiniela" />
+                <TextBody text="Selecciona el ganador de cada juego" />
+              </div>
+            </div>
+            {gamesData.map((game: QuinielaWeekTeam) => (
+              <GroupRadio
+                key={game.Partido}
+                game={game}
+                quinielaData={quinielaData}
+                handleChangeQuiniela={handleChangeQuiniela}
+              />
+            ))}
+          </Card>
         </SectionGrid>
       )}
 

@@ -4,7 +4,7 @@ interface MainContainerProps {
 
 export const MainContainer = ({ children }: MainContainerProps) => {
   return (
-    <div className="grid h-full w-full py-6 justify-items-center content-center">
+    <div className="grid h-full w-full justify-items-center content-center">
       {children}
     </div>
   );

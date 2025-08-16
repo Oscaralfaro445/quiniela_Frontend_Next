@@ -36,7 +36,7 @@ export const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
           </div>
         </Link>
 
-        <div className="flex items-center gap-2">
+        <div className="hidden lg:flex items-center gap-2 ">
           {isLogged && (
             <span className="text-md text-gray-600">
               Semana {dataUser?.idPeriodo}

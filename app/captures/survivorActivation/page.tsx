@@ -10,6 +10,7 @@ import { Button } from "@/components/shared/button/Button";
 import { Card } from "@/components/shared/card/Card";
 import { Icon } from "@/components/shared/icon/Icon";
 import Link from "next/link";
+import { TeamLogo } from "@/components/shared/teamLogo/TeamLogo";
 
 export default function SurvivorActivationPage() {
   const survivorStatus = useGetSurvivorStatus();
@@ -50,16 +51,7 @@ export default function SurvivorActivationPage() {
                 <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
                   <div className="flex items-center space-x-4">
                     <div className="relative">
-                      {/*  <Image
-                          src={`/placeholder.svg?height=40&width=40&text=${team.nomEquipo
-                          .split(" ")
-                            .map((word) => word[0])
-                            .join("")}`}
-                          alt={`${team.nomEquipo} logo`}
-                          width={40}
-                          height={40}
-                          className="rounded-full border-2 border-gray-200"
-                        /> */}
+                      <TeamLogo teamName={survivorData.nomEquipo} />
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900">

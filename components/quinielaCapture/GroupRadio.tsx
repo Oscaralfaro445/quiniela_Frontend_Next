@@ -2,6 +2,7 @@ import { QuinielaWeekTeam } from "@/types/quiniela/quinielaWeekTeam";
 import { QuinielaItem } from "@/types/quiniela/quinielaItem";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";
+import { TeamLogo } from "../shared/teamLogo/TeamLogo";
 
 interface GroupRadioProps {
   game: QuinielaWeekTeam;
@@ -9,9 +10,9 @@ interface GroupRadioProps {
   handleChangeQuiniela: (idGame: number, team: string) => void;
 }
 
-const getTeamAbbr = (teamName: string) => {
+/* const getTeamAbbr = (teamName: string) => {
   return teamName.split(" ").pop()?.substring(0, 3).toUpperCase() || "TBD";
-};
+}; */
 
 export const GroupRadio = ({
   game,
@@ -44,11 +45,13 @@ export const GroupRadio = ({
               onChange={() => handleChangeQuiniela(game.Partido, game.EquipoV)}
             />
 
-            <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+            {/* <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
               <span className="text-xs font-bold text-gray-700">
                 {getTeamAbbr(game.EquipoV)}
               </span>
-            </div>
+            </div> */}
+
+            <TeamLogo teamName={game.EquipoV} />
 
             <label htmlFor={`game-${game.Partido}`} className="text-sm">
               {game.EquipoV}
@@ -82,11 +85,13 @@ export const GroupRadio = ({
               onChange={() => handleChangeQuiniela(game.Partido, game.EquipoL)}
             />
 
-            <div className="w-8 h-8 bg-blue-700 rounded-full flex items-center justify-center">
+            {/* <div className="w-8 h-8 bg-blue-700 rounded-full flex items-center justify-center">
               <span className="text-xs font-bold text-white">
                 {getTeamAbbr(game.EquipoL)}
               </span>
-            </div>
+            </div> */}
+
+            <TeamLogo teamName={game.EquipoL} />
 
             <label htmlFor={`game-${game.Partido}`} className="text-sm">
               {game.EquipoL}

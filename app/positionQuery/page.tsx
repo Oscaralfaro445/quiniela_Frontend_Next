@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/authContext/AuthContext";
 import usePostParticipantPositions from "@/hooks/participantPositions/queries/usePostParticipantPositions";
 import { Card } from "@/components/shared/card/Card";
@@ -24,6 +25,7 @@ interface ParticipantData {
 }
 
 export default function PositionQueryPage() {
+  const router = useRouter();
   const { dataUser } = useAuth();
   const participants = usePostParticipantPositions();
   const data = participants.data?.data[0];
@@ -42,9 +44,13 @@ export default function PositionQueryPage() {
         return <Icon name="award" className="text-orange-500" />;
       default:
         return (
-          <span className="text-lg font-bold text-gray-600"># {rank}</span>
+          <span className="text-lg font-semibold text-gray-700">#{rank}</span>
         );
     }
+  };
+
+  const getNameAbbr = (teamName: string) => {
+    return teamName.split(" ").map((word) => word.charAt(0).toUpperCase());
   };
 
   return (
@@ -66,7 +72,7 @@ export default function PositionQueryPage() {
               <div className="text-sm font-medium text-gray-600">
                 Total Participantes
               </div>
-              <Icon name="trophy" />
+              <Icon name="trophy" className="text-blue-700" />
             </div>
             <div>
               <div className="text-2xl font-bold text-gray-900">2,847</div>
@@ -79,7 +85,7 @@ export default function PositionQueryPage() {
               <div className="text-sm font-medium text-gray-600">
                 Precisión Promedio
               </div>
-              <Icon name="target" />
+              <Icon name="target" className="text-blue-700" />
             </div>
             <div>
               <div className="text-2xl font-bold text-gray-900">64.2%</div>
@@ -92,7 +98,7 @@ export default function PositionQueryPage() {
               <div className="text-sm font-medium text-gray-600">
                 Tu Posición
               </div>
-              <Icon name="medal" />
+              <Icon name="medal" className="text-blue-700" />
             </div>
             <div>
               <div className="text-2xl font-bold text-gray-900">#156</div>
@@ -103,9 +109,9 @@ export default function PositionQueryPage() {
       </SectionGrid>
 
       <SectionGrid>
-        <div className="flex w-96 h-12 p-1 rounded-md bg-neutral-100">
+        <div className="flex lg:w-96 h-12 p-1 rounded-md bg-neutral-100">
           <button
-            className={`w-1/2 p-1 rounded-md transition-colors duration-100 ${
+            className={`w-1/2 p-1 rounded-md transition-colors duration-100 cursor-pointer ${
               activeTab === "weekly" ? "bg-white" : ""
             }`}
             type="button"
@@ -115,7 +121,7 @@ export default function PositionQueryPage() {
           </button>
 
           <button
-            className={`w-1/2 p-1 rounded-lg ${
+            className={`w-1/2 p-1 rounded-lg transition-colors duration-100 cursor-pointer ${
               activeTab === "global" ? "bg-white" : ""
             }`}
             type="button"
@@ -152,9 +158,15 @@ export default function PositionQueryPage() {
                           : "border-gray-200"
                       }`}
                     >
-                      <div className="flex items-center">
+                      <div className="flex items-center gap-4">
                         <div className="flex items-center justify-center w-10 h-10">
                           {getRankIcon(player.Secuencia)}
+                        </div>
+
+                        <div className="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center">
+                          <span className="text-sm font-bold text-white">
+                            {getNameAbbr(player.Nombre)}
+                          </span>
                         </div>
 
                         <div className="font-medium text-gray-900">
@@ -199,7 +211,13 @@ export default function PositionQueryPage() {
                           {getRankIcon(player.Secuencia)}
                         </div>
 
-                        <div className="font-medium text-gray-900">
+                        <div className="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center">
+                          <span className="text-sm font-bold text-white">
+                            {getNameAbbr(player.Nombre)}
+                          </span>
+                        </div>
+
+                        <div className="font-medium text-gray-700">
                           {player.Nombre}
                         </div>
                       </div>
@@ -221,14 +239,16 @@ export default function PositionQueryPage() {
       </SectionGrid>
 
       <SectionGrid>
-        <div className="grid sm:flex w-full gap-4 justify-center items-center">
+        <div className="grid lg:flex w-full gap-4 justify-center items-center">
           <Link href="/dashboard">
             <Button type="button" title="Volver al Dashboard" theme="normal" />
           </Link>
 
-          <Link href="/quinielaCapture">
-            <Button type="button" title="Hacer Quiniela" />
-          </Link>
+          <Button
+            type="button"
+            title="Hacer Quiniela"
+            onClick={() => router.push("/quinielaCapture")}
+          />
         </div>
       </SectionGrid>
     </MainContainer>

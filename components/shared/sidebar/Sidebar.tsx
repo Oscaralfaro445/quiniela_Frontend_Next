@@ -16,29 +16,33 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
   const menuData = menu?.data?.data[0];
 
   return (
-    <aside
-      className={`flex flex-col h-[803px] p-4 gap-4 bg-white rounded-md shadow-md ${
-        !isOpen && "hidden"
-      }`}
+    <div
+      className={`
+        bg-white rounded-md shadow-md p-4 gap-4 items-start grid
+        transition-transform duration-300
+        fixed inset-y-4 left-4 w-64 z-50
+        transform ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        md:static md:translate-x-0 md:w-64 h-screen
+        `}
     >
-      <div className="flex px-2 py-2 items-center justify-between">
-        <p className="text-2xl font-bold">Menu</p>
+      <aside>
+        <div className="flex px-2 py-2 items-center justify-between">
+          <p className="text-2xl font-bold">Menu</p>
 
-        <button onClick={toggle} className="cursor-pointer">
-          <Icon
-            className="hover:text-red-500 transition duration-300"
-            name="x"
-          />
-        </button>
-      </div>
+          <button onClick={toggle} className="cursor-pointer">
+            <Icon
+              className="hover:text-red-500 transition duration-300"
+              name="x"
+            />
+          </button>
+        </div>
 
-      {/*       <hr className="text-blue-600" />
-       */}
-      {menuData && (
-        <nav>
-          <Menu menu={menuData} route={currentRoute} />
-        </nav>
-      )}
-    </aside>
+        {menuData && (
+          <nav>
+            <Menu menu={menuData} route={currentRoute} />
+          </nav>
+        )}
+      </aside>
+    </div>
   );
 }

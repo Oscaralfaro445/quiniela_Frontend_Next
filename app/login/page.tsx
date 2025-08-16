@@ -57,3 +57,55 @@ export default function LoginPage() {
     </MainContainer>
   );
 }
+
+{
+  /* <MainContainer>
+  <SectionGrid>
+    <div className="grid lg:flex w-full gap-4 justify-center lg:justify-between">
+      <div className="relative w-full h-80 lg:hidden">
+        <Image
+          src="/images/28.png"
+          alt="Imagen de ejemplo"
+          fill
+          style={{ objectFit: "cover", objectPosition: "top" }}
+          priority
+        />
+      </div>
+
+      <div className="relative hidden lg:block lg:w-1/3 justify-center">
+        <Image
+          src={"/images/28.png"}
+          width={400}
+          height={400}
+          alt="Jugador con balón"
+        />
+      </div>
+
+      <div className="grid w-full gap-4 justify-center items-center">
+        <div className="grid w-full gap-4 justify-items-center items-center">
+          <p className="text-5xl font-bold text-centers">Iniciar Sesión</p>
+          <p className="text-lg font-semibold">
+            Ingresa tus credenciales para acceder a tu cuenta
+          </p>
+        </div>
+
+        <Form
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          validationSchema={validationSchema}
+        >
+          <LoginForm />
+        </Form>
+
+        <div className="flex w-full gap-4 items-center justify-center">
+          <p>¿No tienes una cuenta?</p>
+
+          <Link href="/register">
+            <p className="text-blue-600 hover:underline">Regístrate ahora</p>
+          </Link>
+        </div>
+      </div>
+    </div>
+  </SectionGrid>
+</MainContainer>; */
+}
