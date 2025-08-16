@@ -6,6 +6,7 @@ import { Card } from "@/components/shared/card/Card";
 import { Button } from "@/components/shared/button/Button";
 import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
 import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
+import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
 
 export default function PeriodClosingPage() {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -60,77 +61,78 @@ export default function PeriodClosingPage() {
   }; */
 
   return (
-    <MainContainer>
-      <SectionGrid>
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">
-          Proceso de Carga de Información
-        </h2>
-        <p className="text-gray-600">
-          Gestiona la carga y procesamiento de datos de participantes y
-          quinielas.
-        </p>
-      </SectionGrid>
+    <ProtectedRoute>
+      <MainContainer>
+        <SectionGrid>
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">
+            Proceso de Carga de Información
+          </h2>
+          <p className="text-gray-600">
+            Gestiona la carga y procesamiento de datos de participantes y
+            quinielas.
+          </p>
+        </SectionGrid>
 
-      <SectionGrid>
-        <Card>
-          <div>
-            <div className="flex items-center space-x-2">
-              <Icon name="database" className="h-5 w-5 text-blue-700" />
-              <span>Estado del Proceso</span>
-            </div>
-            <div>
-              Ejecuta el proceso de carga para actualizar la información de
-              participantes
-            </div>
-          </div>
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
-                <Button
-                  type="button"
-                  title={isProcessing ? "Detener Proceso" : "Iniciar Proceso"}
-                  icon={isProcessing ? "loader" : "play"}
-                  onClick={handleExecuteProcess}
-                  disabled={isProcessing}
-                />
-
-                {processStatus === "completed" && (
-                  <div className="text-green-700 border-green-700">
-                    <Icon name="check" />
-                    Completado
-                  </div>
-                )}
-              </div>
-
-              <div className="text-right">
-                <div className="text-2xl font-bold text-red-600">
-                  Participantes procesados: {processedCount}
-                </div>
-                <div className="text-sm text-gray-500">
-                  Última actualización: {new Date().toLocaleString()}
-                </div>
-              </div>
-            </div>
-          </div>
-        </Card>
-
-        {errors.length > 0 && (
+        <SectionGrid>
           <Card>
             <div>
               <div className="flex items-center space-x-2">
-                <Icon
-                  name="alert-triangle"
-                  className="h-5 w-5 text-yellow-600"
-                />
-                <span>Mensajes del Sistema</span>
+                <Icon name="database" className="h-5 w-5 text-blue-700" />
+                <span>Estado del Proceso</span>
               </div>
               <div>
-                En caso de existir errores de negocio se mostrarían de la
-                siguiente manera
+                Ejecuta el proceso de carga para actualizar la información de
+                participantes
               </div>
             </div>
-            <div className="space-y-3">
-              {/* {errors.map((error, index) => (
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <Button
+                    type="button"
+                    title={isProcessing ? "Detener Proceso" : "Iniciar Proceso"}
+                    icon={isProcessing ? "loader" : "play"}
+                    onClick={handleExecuteProcess}
+                    disabled={isProcessing}
+                  />
+
+                  {processStatus === "completed" && (
+                    <div className="text-green-700 border-green-700">
+                      <Icon name="check" />
+                      Completado
+                    </div>
+                  )}
+                </div>
+
+                <div className="text-right">
+                  <div className="text-2xl font-bold text-red-600">
+                    Participantes procesados: {processedCount}
+                  </div>
+                  <div className="text-sm text-gray-500">
+                    Última actualización: {new Date().toLocaleString()}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Card>
+
+          {errors.length > 0 && (
+            <Card>
+              <div>
+                <div className="flex items-center space-x-2">
+                  <Icon
+                    name="alert-triangle"
+                    className="h-5 w-5 text-yellow-600"
+                  />
+                  <span>Mensajes del Sistema</span>
+                </div>
+                <div>
+                  En caso de existir errores de negocio se mostrarían de la
+                  siguiente manera
+                </div>
+              </div>
+              <div className="space-y-3">
+                {/* {errors.map((error, index) => (
                   <Alert
                   key={index}
                   variant={getErrorVariant(error.type) as any}
@@ -143,30 +145,33 @@ export default function PeriodClosingPage() {
                     </div>
                   </Alert>
                 ))} */}
-            </div>
-          </Card>
-        )}
+              </div>
+            </Card>
+          )}
 
-        <Card>
-          <div>
-            <div className="flex items-center space-x-2">
-              <Icon name="settings" className="h-5 w-5 text-blue-700" />
-              <span>Proceso Secundario</span>
-            </div>
-            <div>Proceso adicional de validación y sincronización de datos</div>
-          </div>
-          <div>
-            <div className="flex items-center justify-between">
-              <Button type="button" title="EJECUTAR" icon="play" />
-
-              <div className="text-sm text-gray-500">
-                Finalmente, si existe un error de sistema se mostrará el mensaje
-                correspondiente
+          <Card>
+            <div>
+              <div className="flex items-center space-x-2">
+                <Icon name="settings" className="h-5 w-5 text-blue-700" />
+                <span>Proceso Secundario</span>
+              </div>
+              <div>
+                Proceso adicional de validación y sincronización de datos
               </div>
             </div>
-          </div>
-        </Card>
-      </SectionGrid>
-    </MainContainer>
+            <div>
+              <div className="flex items-center justify-between">
+                <Button type="button" title="EJECUTAR" icon="play" />
+
+                <div className="text-sm text-gray-500">
+                  Finalmente, si existe un error de sistema se mostrará el
+                  mensaje correspondiente
+                </div>
+              </div>
+            </div>
+          </Card>
+        </SectionGrid>
+      </MainContainer>
+    </ProtectedRoute>
   );
 }

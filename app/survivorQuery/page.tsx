@@ -10,6 +10,7 @@ import { Title } from "@/components/shared/text/Title";
 import { Card } from "@/components/shared/card/Card";
 import Link from "next/link";
 import { Button } from "@/components/shared/button/Button";
+import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
 
 interface Participant {
   ID_PARTICIPANTE: number;
@@ -73,110 +74,116 @@ export default function SurvivorPage() {
   };
 
   return (
-    <MainContainer>
-      <SectionGrid>
-        <div className="grid md:flex w-full gap-4 justify-center md:justify-between items-center">
-          <div className="grid gap-2">
-            <Title title="Reporte de Survivor" />
-            <TextBody text="Vista general de las selecciones de los participantes por semana." />
+    <ProtectedRoute>
+      <MainContainer>
+        <SectionGrid>
+          <div className="grid md:flex w-full gap-4 justify-center md:justify-between items-center">
+            <div className="grid gap-2">
+              <Title title="Reporte de Survivor" />
+              <TextBody text="Vista general de las selecciones de los participantes por semana." />
+            </div>
           </div>
-        </div>
-      </SectionGrid>
+        </SectionGrid>
 
-      <SectionGrid>
-        <Card>
-          <p>Progeso de participantes</p>
+        <SectionGrid>
+          <Card>
+            <p>Progeso de participantes</p>
 
-          <table className="w-full min-w-max">
-            <thead>
-              <tr className="bg-blue-600 text-white text-center text-md leading-normal">
-                <th className="">Participante</th>
-                <th>SUV</th>
-                <th>Aciertos</th>
-                <th>Inv($)</th>
-                {semanasVisibles.map((semana) => (
-                  <th key={`header-${semana}`}>Semana {semana}</th>
-                ))}
-              </tr>
-            </thead>
-            {survivorData && (
-              <tbody className="text-center text-gray-700 text-sm">
-                {survivorData?.map(
-                  (participante: Participant) => (
-                    console.log("Participante:", participante),
-                    (
-                      <SurvivorTableRow
-                        key={participante.ID_PARTICIPANTE}
-                        participante={participante}
-                        semanasVisibles={semanasVisibles}
-                      />
+            <table className="w-full min-w-max">
+              <thead>
+                <tr className="bg-blue-600 text-white text-center text-md leading-normal">
+                  <th className="">Participante</th>
+                  <th>SUV</th>
+                  <th>Aciertos</th>
+                  <th>Inv($)</th>
+                  {semanasVisibles.map((semana) => (
+                    <th key={`header-${semana}`}>Semana {semana}</th>
+                  ))}
+                </tr>
+              </thead>
+              {survivorData && (
+                <tbody className="text-center text-gray-700 text-sm">
+                  {survivorData?.map(
+                    (participante: Participant) => (
+                      console.log("Participante:", participante),
+                      (
+                        <SurvivorTableRow
+                          key={participante.ID_PARTICIPANTE}
+                          participante={participante}
+                          semanasVisibles={semanasVisibles}
+                        />
+                      )
                     )
-                  )
-                )}
-              </tbody>
-            )}
-          </table>
+                  )}
+                </tbody>
+              )}
+            </table>
 
-          <div className="flex w-full justify-end mt-10 gap-4">
-            <button
-              onClick={inicioSemana}
-              disabled={rango.inicio === 0}
-              className={`px-4 py-2 bg-blue-600 text-white rounded ${
-                rango.inicio === 0 ? "opacity-50 cursor-not-allowed" : ""
-              }`}
-            >
-              <Icon name="chevrons-left" />
-            </button>
+            <div className="flex w-full justify-end mt-10 gap-4">
+              <button
+                onClick={inicioSemana}
+                disabled={rango.inicio === 0}
+                className={`px-4 py-2 bg-blue-600 text-white rounded ${
+                  rango.inicio === 0 ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+              >
+                <Icon name="chevrons-left" />
+              </button>
 
-            <button
-              onClick={retrocederSemana}
-              disabled={rango.inicio === 0}
-              className={`px-4 py-2 bg-blue-600 text-white rounded ${
-                rango.inicio === 0 ? "opacity-50 cursor-not-allowed" : ""
-              }`}
-            >
-              <Icon name="chevron-left" />
-            </button>
+              <button
+                onClick={retrocederSemana}
+                disabled={rango.inicio === 0}
+                className={`px-4 py-2 bg-blue-600 text-white rounded ${
+                  rango.inicio === 0 ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+              >
+                <Icon name="chevron-left" />
+              </button>
 
-            <button
-              onClick={avanzarSemana}
-              disabled={rango.fin >= semanas.length}
-              className={`px-4 py-2 bg-blue-600 text-white rounded ${
-                rango.fin >= semanas.length
-                  ? "opacity-50 cursor-not-allowed"
-                  : ""
-              }`}
-            >
-              <Icon name="chevron-right" />
-            </button>
+              <button
+                onClick={avanzarSemana}
+                disabled={rango.fin >= semanas.length}
+                className={`px-4 py-2 bg-blue-600 text-white rounded ${
+                  rango.fin >= semanas.length
+                    ? "opacity-50 cursor-not-allowed"
+                    : ""
+                }`}
+              >
+                <Icon name="chevron-right" />
+              </button>
 
-            <button
-              onClick={finalSemana}
-              disabled={rango.fin >= semanas.length}
-              className={`px-4 py-2 bg-blue-600 text-white rounded ${
-                rango.fin >= semanas.length
-                  ? "opacity-50 cursor-not-allowed"
-                  : ""
-              }`}
-            >
-              <Icon name="chevron-right" />
-            </button>
+              <button
+                onClick={finalSemana}
+                disabled={rango.fin >= semanas.length}
+                className={`px-4 py-2 bg-blue-600 text-white rounded ${
+                  rango.fin >= semanas.length
+                    ? "opacity-50 cursor-not-allowed"
+                    : ""
+                }`}
+              >
+                <Icon name="chevron-right" />
+              </button>
+            </div>
+          </Card>
+        </SectionGrid>
+
+        <SectionGrid>
+          <div className="grid sm:flex w-full gap-4 justify-center items-center">
+            <Link href="/dashboard">
+              <Button
+                type="button"
+                title="Volver al Dashboard"
+                theme="normal"
+              />
+            </Link>
+
+            <Link href="/positionQuery">
+              <Button type="button" title="Ver Clasificación" />
+            </Link>
           </div>
-        </Card>
-      </SectionGrid>
-
-      <SectionGrid>
-        <div className="grid sm:flex w-full gap-4 justify-center items-center">
-          <Link href="/dashboard">
-            <Button type="button" title="Volver al Dashboard" theme="normal" />
-          </Link>
-
-          <Link href="/positionQuery">
-            <Button type="button" title="Ver Clasificación" />
-          </Link>
-        </div>
-      </SectionGrid>
-    </MainContainer>
+        </SectionGrid>
+      </MainContainer>
+    </ProtectedRoute>
   );
 }
 

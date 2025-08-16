@@ -23,6 +23,7 @@ import { Timer } from "@/components/shared/timer/Timer";
 import { GroupRadio } from "@/components/quinielaCapture/GroupRadio";
 import { Title } from "@/components/shared/text/Title";
 import { TextBody } from "@/components/shared/text/TextBody";
+import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
 
 export default function QuinielaCapturePage() {
   const { dataUser } = useAuth();
@@ -108,76 +109,82 @@ export default function QuinielaCapturePage() {
   };
 
   return (
-    <MainContainer>
-      <SectionGrid>
-        <WeeklyHeadline week={currentWeek} />
-      </SectionGrid>
-
-      {dataUser?.bSurvivor && survivorData && (
+    <ProtectedRoute>
+      <MainContainer>
         <SectionGrid>
-          <Survivor
-            disabled={!isQuinielaEnabled}
-            survivorData={survivorData}
-            selectedSurvivor={selectedSurvivor}
-            handleChangeSurvivor={handleChangeSurvivor}
-          />
+          <WeeklyHeadline week={currentWeek} />
         </SectionGrid>
-      )}
 
-      {byeData && (
+        {dataUser?.bSurvivor && survivorData && (
+          <SectionGrid>
+            <Survivor
+              disabled={!isQuinielaEnabled}
+              survivorData={survivorData}
+              selectedSurvivor={selectedSurvivor}
+              handleChangeSurvivor={handleChangeSurvivor}
+            />
+          </SectionGrid>
+        )}
+
+        {byeData && (
+          <SectionGrid>
+            <ByeWeek byeData={byeData} />
+          </SectionGrid>
+        )}
+
         <SectionGrid>
-          <ByeWeek byeData={byeData} />
+          <Timer />
         </SectionGrid>
-      )}
 
-      <SectionGrid>
-        <Timer />
-      </SectionGrid>
-
-      <SectionGrid>
-        <Card>
-          <div className="flex w-full justify-between items-center">
-            <p className="text-lg font-semibold">Progreso</p>
-            <p className="text-sm">{`${completedPicks}/${totalGames} juegos`}</p>
-          </div>
-        </Card>
-      </SectionGrid>
-
-      {gamesData && (
         <SectionGrid>
-          <Card className="h-[900px] overflow-y-auto">
-            <div className="grid md:flex w-full gap-4 justify-center md:justify-between items-center">
-              <div className="grid gap-2">
-                <Title title="Quiniela" />
-                <TextBody text="Selecciona el ganador de cada juego" />
-              </div>
+          <Card>
+            <div className="flex w-full justify-between items-center">
+              <p className="text-lg font-semibold">Progreso</p>
+              <p className="text-sm">{`${completedPicks}/${totalGames} juegos`}</p>
             </div>
-            {gamesData.map((game: QuinielaWeekTeam) => (
-              <GroupRadio
-                key={game.Partido}
-                disabled={!isQuinielaEnabled}
-                game={game}
-                quinielaData={quinielaData}
-                handleChangeQuiniela={handleChangeQuiniela}
-              />
-            ))}
           </Card>
         </SectionGrid>
-      )}
 
-      <SectionGrid>
-        <div className="grid sm:flex w-full gap-4 justify-center items-center">
-          <Link href="/dashboard">
-            <Button type="button" title="Volver al Dashboard" theme="normal" />
-          </Link>
+        {gamesData && (
+          <SectionGrid>
+            <Card className="h-[900px] overflow-y-auto">
+              <div className="grid md:flex w-full gap-4 justify-center md:justify-between items-center">
+                <div className="grid gap-2">
+                  <Title title="Quiniela" />
+                  <TextBody text="Selecciona el ganador de cada juego" />
+                </div>
+              </div>
+              {gamesData.map((game: QuinielaWeekTeam) => (
+                <GroupRadio
+                  key={game.Partido}
+                  disabled={!isQuinielaEnabled}
+                  game={game}
+                  quinielaData={quinielaData}
+                  handleChangeQuiniela={handleChangeQuiniela}
+                />
+              ))}
+            </Card>
+          </SectionGrid>
+        )}
 
-          <Button
-            type="submit"
-            title="Enviar Quiniela"
-            onClick={handleSubmit}
-          />
-        </div>
-      </SectionGrid>
-    </MainContainer>
+        <SectionGrid>
+          <div className="grid sm:flex w-full gap-4 justify-center items-center">
+            <Link href="/dashboard">
+              <Button
+                type="button"
+                title="Volver al Dashboard"
+                theme="normal"
+              />
+            </Link>
+
+            <Button
+              type="submit"
+              title="Enviar Quiniela"
+              onClick={handleSubmit}
+            />
+          </div>
+        </SectionGrid>
+      </MainContainer>
+    </ProtectedRoute>
   );
 }

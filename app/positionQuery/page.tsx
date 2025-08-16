@@ -12,6 +12,7 @@ import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
 import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
 import { Title } from "@/components/shared/text/Title";
 import { TextBody } from "@/components/shared/text/TextBody";
+import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
 
 type TabType = "weekly" | "global";
 
@@ -54,204 +55,210 @@ export default function PositionQueryPage() {
   };
 
   return (
-    <MainContainer>
-      <SectionGrid>
-        <div className="grid gap-2">
-          <Title title="Clasificación" />
-          <TextBody
-            text="Consulta las posiciones semanales y globales de todos los
+    <ProtectedRoute>
+      <MainContainer>
+        <SectionGrid>
+          <div className="grid gap-2">
+            <Title title="Clasificación" />
+            <TextBody
+              text="Consulta las posiciones semanales y globales de todos los
           participantes"
-          />
-        </div>
-      </SectionGrid>
+            />
+          </div>
+        </SectionGrid>
 
-      <SectionGrid>
-        <div className="grid md:flex gap-4">
-          <Card className="border-gray-200">
-            <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <div className="text-sm font-medium text-gray-600">
-                Total Participantes
+        <SectionGrid>
+          <div className="grid md:flex gap-4">
+            <Card className="border-gray-200">
+              <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <div className="text-sm font-medium text-gray-600">
+                  Total Participantes
+                </div>
+                <Icon name="trophy" className="text-blue-700" />
               </div>
-              <Icon name="trophy" className="text-blue-700" />
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-gray-900">2,847</div>
-              <p className="text-xs text-gray-600">+127 esta semana</p>
-            </div>
-          </Card>
-
-          <Card className="border-gray-200">
-            <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <div className="text-sm font-medium text-gray-600">
-                Precisión Promedio
+              <div>
+                <div className="text-2xl font-bold text-gray-900">2,847</div>
+                <p className="text-xs text-gray-600">+127 esta semana</p>
               </div>
-              <Icon name="target" className="text-blue-700" />
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-gray-900">64.2%</div>
-              <p className="text-xs text-gray-600">Semana {currentWeek}</p>
-            </div>
-          </Card>
+            </Card>
 
-          <Card className="border-gray-200">
-            <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <div className="text-sm font-medium text-gray-600">
-                Tu Posición
+            <Card className="border-gray-200">
+              <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <div className="text-sm font-medium text-gray-600">
+                  Precisión Promedio
+                </div>
+                <Icon name="target" className="text-blue-700" />
               </div>
-              <Icon name="medal" className="text-blue-700" />
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-gray-900">#156</div>
-              <p className="text-xs text-gray-600">↑ 23 posiciones</p>
-            </div>
-          </Card>
-        </div>
-      </SectionGrid>
+              <div>
+                <div className="text-2xl font-bold text-gray-900">64.2%</div>
+                <p className="text-xs text-gray-600">Semana {currentWeek}</p>
+              </div>
+            </Card>
 
-      <SectionGrid>
-        <div className="flex lg:w-96 h-12 p-1 rounded-md bg-neutral-100">
-          <button
-            className={`w-1/2 p-1 rounded-md transition-colors duration-100 cursor-pointer ${
-              activeTab === "weekly" ? "bg-white" : ""
-            }`}
-            type="button"
-            onClick={() => setActiveTab("weekly")}
-          >
-            Semana {currentWeek}
-          </button>
+            <Card className="border-gray-200">
+              <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <div className="text-sm font-medium text-gray-600">
+                  Tu Posición
+                </div>
+                <Icon name="medal" className="text-blue-700" />
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-gray-900">#156</div>
+                <p className="text-xs text-gray-600">↑ 23 posiciones</p>
+              </div>
+            </Card>
+          </div>
+        </SectionGrid>
 
-          <button
-            className={`w-1/2 p-1 rounded-lg transition-colors duration-100 cursor-pointer ${
-              activeTab === "global" ? "bg-white" : ""
-            }`}
-            type="button"
-            onClick={() => setActiveTab("global")}
-          >
-            Global
-          </button>
-        </div>
-      </SectionGrid>
+        <SectionGrid>
+          <div className="flex lg:w-96 h-12 p-1 rounded-md bg-neutral-100">
+            <button
+              className={`w-1/2 p-1 rounded-md transition-colors duration-100 cursor-pointer ${
+                activeTab === "weekly" ? "bg-white" : ""
+              }`}
+              type="button"
+              onClick={() => setActiveTab("weekly")}
+            >
+              Semana {currentWeek}
+            </button>
 
-      <SectionGrid>
-        <div className="transition-all duration-300 ease-in-out">
-          {activeTab === "weekly" && (
-            <div className="animate-fadeIn">
-              <Card>
-                <div>
-                  <div className="flex items-center space-x-2">
-                    <div className="text-gray-900">
-                      Clasificación Semana {currentWeek}
+            <button
+              className={`w-1/2 p-1 rounded-lg transition-colors duration-100 cursor-pointer ${
+                activeTab === "global" ? "bg-white" : ""
+              }`}
+              type="button"
+              onClick={() => setActiveTab("global")}
+            >
+              Global
+            </button>
+          </div>
+        </SectionGrid>
+
+        <SectionGrid>
+          <div className="transition-all duration-300 ease-in-out">
+            {activeTab === "weekly" && (
+              <div className="animate-fadeIn">
+                <Card>
+                  <div>
+                    <div className="flex items-center space-x-2">
+                      <div className="text-gray-900">
+                        Clasificación Semana {currentWeek}
+                      </div>
                     </div>
+                    <p className="text-sm text-gray-600">
+                      Basada en los aciertos de esta semana
+                    </p>
                   </div>
-                  <p className="text-sm text-gray-600">
-                    Basada en los aciertos de esta semana
-                  </p>
-                </div>
 
-                <div className="grid w-full gap-2">
-                  {weeklyLeaderboard?.map((player: ParticipantData) => (
-                    <div
-                      key={player.Secuencia}
-                      className={`flex p-4 items-center justify-between rounded-lg border transition-all duration-200 hover:bg-gray-50 hover:shadow-sm ${
-                        player.Secuencia <= 3
-                          ? "bg-blue-50 border-blue-200"
-                          : "border-gray-200"
-                      }`}
-                    >
-                      <div className="flex items-center gap-4">
-                        <div className="flex items-center justify-center w-10 h-10">
-                          {getRankIcon(player.Secuencia)}
+                  <div className="grid w-full gap-2">
+                    {weeklyLeaderboard?.map((player: ParticipantData) => (
+                      <div
+                        key={player.Secuencia}
+                        className={`flex p-4 items-center justify-between rounded-lg border transition-all duration-200 hover:bg-gray-50 hover:shadow-sm ${
+                          player.Secuencia <= 3
+                            ? "bg-blue-50 border-blue-200"
+                            : "border-gray-200"
+                        }`}
+                      >
+                        <div className="flex items-center gap-4">
+                          <div className="flex items-center justify-center w-10 h-10">
+                            {getRankIcon(player.Secuencia)}
+                          </div>
+
+                          <div className="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center">
+                            <span className="text-sm font-bold text-white">
+                              {getNameAbbr(player.Nombre)}
+                            </span>
+                          </div>
+
+                          <div className="font-medium text-gray-900">
+                            {player.Nombre}
+                          </div>
                         </div>
 
-                        <div className="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center">
-                          <span className="text-sm font-bold text-white">
-                            {getNameAbbr(player.Nombre)}
-                          </span>
-                        </div>
-
-                        <div className="font-medium text-gray-900">
-                          {player.Nombre}
-                        </div>
-                      </div>
-
-                      <div className="flex items-center">
-                        <span className="text-xs text-gray-500">
-                          {player.Puntos} puntos
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </Card>
-            </div>
-          )}
-
-          {activeTab === "global" && (
-            <div className="animate-fadeIn">
-              <Card className="border-gray-200">
-                <div>
-                  <div className="text-gray-900">Clasificación Global</div>
-                  <p className="text-sm text-gray-600">
-                    Basada en el rendimiento de toda la temporada
-                  </p>
-                </div>
-
-                <div className="grid w-full gap-2">
-                  {globalLeaderboard?.map((player: ParticipantData) => (
-                    <div
-                      key={player.Secuencia}
-                      className={`flex p-4 items-center justify-between rounded-lg border transition-all duration-200 hover:bg-gray-50 hover:shadow-sm ${
-                        player.Secuencia <= 3
-                          ? "bg-blue-50 border-blue-200"
-                          : "border-gray-200"
-                      }`}
-                    >
-                      <div className="flex items-center gap-4">
-                        <div className="flex items-center justify-center w-10 h-10">
-                          {getRankIcon(player.Secuencia)}
-                        </div>
-
-                        <div className="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center">
-                          <span className="text-sm font-bold text-white">
-                            {getNameAbbr(player.Nombre)}
-                          </span>
-                        </div>
-
-                        <div className="font-medium text-gray-700">
-                          {player.Nombre}
-                        </div>
-                      </div>
-
-                      <div className="flex items-center space-x-6">
                         <div className="flex items-center">
                           <span className="text-xs text-gray-500">
                             {player.Puntos} puntos
                           </span>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </Card>
-            </div>
-          )}
-        </div>
-      </SectionGrid>
+                    ))}
+                  </div>
+                </Card>
+              </div>
+            )}
 
-      <SectionGrid>
-        <div className="grid lg:flex w-full gap-4 justify-center items-center">
-          <Link href="/dashboard">
-            <Button type="button" title="Volver al Dashboard" theme="normal" />
-          </Link>
+            {activeTab === "global" && (
+              <div className="animate-fadeIn">
+                <Card className="border-gray-200">
+                  <div>
+                    <div className="text-gray-900">Clasificación Global</div>
+                    <p className="text-sm text-gray-600">
+                      Basada en el rendimiento de toda la temporada
+                    </p>
+                  </div>
 
-          <Button
-            type="button"
-            title="Hacer Quiniela"
-            onClick={() => router.push("/quinielaCapture")}
-          />
-        </div>
-      </SectionGrid>
-    </MainContainer>
+                  <div className="grid w-full gap-2">
+                    {globalLeaderboard?.map((player: ParticipantData) => (
+                      <div
+                        key={player.Secuencia}
+                        className={`flex p-4 items-center justify-between rounded-lg border transition-all duration-200 hover:bg-gray-50 hover:shadow-sm ${
+                          player.Secuencia <= 3
+                            ? "bg-blue-50 border-blue-200"
+                            : "border-gray-200"
+                        }`}
+                      >
+                        <div className="flex items-center gap-4">
+                          <div className="flex items-center justify-center w-10 h-10">
+                            {getRankIcon(player.Secuencia)}
+                          </div>
+
+                          <div className="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center">
+                            <span className="text-sm font-bold text-white">
+                              {getNameAbbr(player.Nombre)}
+                            </span>
+                          </div>
+
+                          <div className="font-medium text-gray-700">
+                            {player.Nombre}
+                          </div>
+                        </div>
+
+                        <div className="flex items-center space-x-6">
+                          <div className="flex items-center">
+                            <span className="text-xs text-gray-500">
+                              {player.Puntos} puntos
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+              </div>
+            )}
+          </div>
+        </SectionGrid>
+
+        <SectionGrid>
+          <div className="grid lg:flex w-full gap-4 justify-center items-center">
+            <Link href="/dashboard">
+              <Button
+                type="button"
+                title="Volver al Dashboard"
+                theme="normal"
+              />
+            </Link>
+
+            <Button
+              type="button"
+              title="Hacer Quiniela"
+              onClick={() => router.push("/quinielaCapture")}
+            />
+          </div>
+        </SectionGrid>
+      </MainContainer>
+    </ProtectedRoute>
   );
 }
 
