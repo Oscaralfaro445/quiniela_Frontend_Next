@@ -31,10 +31,13 @@ export default function QuinielaCapturePage() {
   const survivor = useGetSurvivorTeams();
   const survivorAlta = usePostSurvivorTeam();
   const currentWeek = dataUser?.idPeriodo;
-  const gamesData: QuinielaWeekTeam[] = matches?.data?.data[0].quiniela;
-  const byeData: ByeWeekTeam[] = matches?.data?.data[0].bye;
+  const gamesData: QuinielaWeekTeam[] = matches?.data?.data?.quiniela;
+  const byeData: ByeWeekTeam[] = matches?.data?.data?.bye;
   const survivorData: SurvivorTeam[] = survivor?.data?.data;
-  const totalGames = gamesData?.length;
+  const totalGames = gamesData?.length || 0;
+  const isQuinielaEnabled =
+    matches?.data?.data?.existeQuin?.bQuiniela === 1 ? false : true;
+  console.log("isQuinielaEnabled:", isQuinielaEnabled);
 
   const [selectedSurvivor, setSelectedSurvivor] = useState(0);
   const [quinielaData, setQuinielaData] = useState<QuinielaItem[]>([]);
@@ -64,8 +67,6 @@ export default function QuinielaCapturePage() {
           ];
       return updated;
     });
-
-    // console.log("Quiniela Data:", quinielaData);
   };
 
   const handleSubmit = () => {
@@ -73,6 +74,16 @@ export default function QuinielaCapturePage() {
     const fechaLimite = new Date(
       `${dataUser?.fLimite}T${dataUser?.horaLimite}`
     );
+
+    if (!isQuinielaEnabled) {
+      showAlert(
+        AlertState.WARNING,
+        "Error de envio",
+        "Quiniela previamente enviada, solo se puede enviar una vez"
+      );
+
+      return;
+    }
 
     if (selectedSurvivor < 1 || quinielaData.length !== totalGames) {
       showAlert(
@@ -105,6 +116,7 @@ export default function QuinielaCapturePage() {
       {dataUser?.bSurvivor && survivorData && (
         <SectionGrid>
           <Survivor
+            disabled={!isQuinielaEnabled}
             survivorData={survivorData}
             selectedSurvivor={selectedSurvivor}
             handleChangeSurvivor={handleChangeSurvivor}
@@ -143,6 +155,7 @@ export default function QuinielaCapturePage() {
             {gamesData.map((game: QuinielaWeekTeam) => (
               <GroupRadio
                 key={game.Partido}
+                disabled={!isQuinielaEnabled}
                 game={game}
                 quinielaData={quinielaData}
                 handleChangeQuiniela={handleChangeQuiniela}

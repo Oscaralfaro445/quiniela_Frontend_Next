@@ -25,7 +25,7 @@ export const Alert = ({
         isModalOpen ? "active" : ""
       }`}
     >
-      <div className="flex w-full gap-4 justify-start items-center">
+      <div className="flex w-full gap-4 pr-8 justify-start items-center">
         {type === AlertState.SUCCESS && (
           <Icon name="circle-check" size={40} color="green" />
         )}

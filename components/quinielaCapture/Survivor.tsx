@@ -4,17 +4,18 @@ import { Icon } from "../shared/icon/Icon";
 import { InputCombo } from "../shared/input/inputs/InputCombo";
 
 interface SurvivorProps {
+  disabled: boolean;
   survivorData: SurvivorTeam[];
   selectedSurvivor: number;
   handleChangeSurvivor: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 export const Survivor = ({
+  disabled,
   survivorData,
   selectedSurvivor,
   handleChangeSurvivor,
 }: SurvivorProps) => {
-  // console.log("Survivor Data:", selectedSurvivor);
   return (
     <Card>
       <div className="flex w-full items-center justify-between">
@@ -34,10 +35,10 @@ export const Survivor = ({
           name="survivor"
           data={survivorData || []}
           value={selectedSurvivor}
+          disabled={disabled}
           onChange={handleChangeSurvivor}
           optionValueKey="llave"
           optionLabelKey="valor"
-          // disabled={isTimeExpired}
         />
       </div>
     </Card>

@@ -2,9 +2,10 @@ import { QuinielaWeekTeam } from "@/types/quiniela/quinielaWeekTeam";
 import { QuinielaItem } from "@/types/quiniela/quinielaItem";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";
-import { TeamLogo } from "../shared/teamLogo/TeamLogo";
+import { CardScores } from "./CardScores";
 
 interface GroupRadioProps {
+  disabled: boolean;
   game: QuinielaWeekTeam;
   quinielaData: QuinielaItem[];
   handleChangeQuiniela: (idGame: number, team: string) => void;
@@ -15,6 +16,7 @@ interface GroupRadioProps {
 }; */
 
 export const GroupRadio = ({
+  disabled,
   game,
   quinielaData,
   handleChangeQuiniela,
@@ -34,9 +36,9 @@ export const GroupRadio = ({
             <input
               type="radio"
               name={`game-${game.Partido}`}
-              id={`game-${game.Partido}`}
-              value={game.IdV}
-              disabled={false}
+              // id={`game-${game.Partido}`}
+              // value={game.IdV}
+              disabled={disabled}
               checked={quinielaData.some(
                 (item) =>
                   item.ID_PARTIDO === game.Partido &&
@@ -45,13 +47,7 @@ export const GroupRadio = ({
               onChange={() => handleChangeQuiniela(game.Partido, game.EquipoV)}
             />
 
-            {/* <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-              <span className="text-xs font-bold text-gray-700">
-                {getTeamAbbr(game.EquipoV)}
-              </span>
-            </div> */}
-
-            <TeamLogo teamName={game.EquipoV} />
+            <CardScores teamId={game.IdV} teamName={game.EquipoV} />
 
             <label htmlFor={`game-${game.Partido}`} className="text-sm">
               {game.EquipoV}
@@ -74,9 +70,9 @@ export const GroupRadio = ({
             <input
               type="radio"
               name={`game-${game.Partido}`}
-              id={`game-${game.Partido}`}
-              value={game.IdL}
-              disabled={false}
+              // id={`game-${game.Partido}`}
+              // value={game.IdL}
+              disabled={disabled}
               checked={quinielaData.some(
                 (item) =>
                   item.ID_PARTIDO === game.Partido &&
@@ -85,13 +81,7 @@ export const GroupRadio = ({
               onChange={() => handleChangeQuiniela(game.Partido, game.EquipoL)}
             />
 
-            {/* <div className="w-8 h-8 bg-blue-700 rounded-full flex items-center justify-center">
-              <span className="text-xs font-bold text-white">
-                {getTeamAbbr(game.EquipoL)}
-              </span>
-            </div> */}
-
-            <TeamLogo teamName={game.EquipoL} />
+            <CardScores teamId={game.IdL} teamName={game.EquipoL} />
 
             <label htmlFor={`game-${game.Partido}`} className="text-sm">
               {game.EquipoL}

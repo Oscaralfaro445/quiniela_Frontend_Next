@@ -20,7 +20,7 @@ export const InputCombo = <T extends keyof Option>({
   data,
   name,
   value,
-  disabled = false,
+  disabled,
   onChange = () => {},
   optionValueKey,
   optionLabelKey,
