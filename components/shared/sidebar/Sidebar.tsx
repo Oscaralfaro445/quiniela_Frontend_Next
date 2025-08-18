@@ -3,46 +3,30 @@
 import { usePathname } from "next/navigation";
 import useGetMenu from "@/hooks/menu/queries/useGetMenu";
 import { Menu } from "@/components/shared/menu/Menu";
-import { Icon } from "../icon/Icon";
 
 interface SidebarProps {
-  isOpen: boolean;
-  toggle: () => void;
+  toggleSidebar: () => void;
 }
 
-export function Sidebar({ isOpen, toggle }: SidebarProps) {
+export const Sidebar = ({ toggleSidebar }: SidebarProps) => {
   const currentRoute = usePathname();
   const menu = useGetMenu();
   const menuData = menu?.data?.data[0];
+  // console.log("menuData", menuData);
 
   return (
-    <div
-      className={`
-        bg-white rounded-md shadow-md p-4 gap-4 items-start grid
-        transition-transform duration-300
-        fixed inset-y-4 left-4 w-64 z-50
-        transform ${isOpen ? "translate-x-0" : "-translate-x-full"}
-        md:static md:translate-x-0 md:w-64 h-screen
-        `}
-    >
-      <aside>
-        <div className="flex px-2 py-2 items-center justify-between">
-          <p className="text-2xl font-bold">Menu</p>
-
-          <button onClick={toggle} className="cursor-pointer">
-            <Icon
-              className="hover:text-red-500 transition duration-300"
-              name="x"
-            />
-          </button>
-        </div>
-
+    <div className="fixed z-50 top-18 w-full bg-white border-y border-neutral-400">
+      <aside className="max-w-[1280px] mx-auto p-6">
         {menuData && (
           <nav>
-            <Menu menu={menuData} route={currentRoute} />
+            <Menu
+              menu={menuData}
+              route={currentRoute}
+              toggleSidebar={toggleSidebar}
+            />
           </nav>
         )}
       </aside>
     </div>
   );
-}
+};

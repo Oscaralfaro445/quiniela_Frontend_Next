@@ -8,7 +8,7 @@ type MenuNodeProps = {
   items: MenuItemI[];
   route: string;
   level?: number;
-  handleClick: (cve: string, tree?: string) => void;
+  handleClick: (cve: string) => void;
 };
 
 export const MenuNode = ({

@@ -1,59 +1,63 @@
 "use client";
 
-import clsx from "clsx";
 import Link from "next/link";
+import { useState } from "react";
+import { useAuth } from "@/context/authContext/AuthContext";
 import { Icon } from "../icon/Icon";
 import { Button } from "../button/Button";
-import { useAuth } from "@/context/authContext/AuthContext";
 import { ProfileOptions } from "../profileOptions.tsx/ProfileOptions";
+import { Sidebar } from "../sidebar/Sidebar";
 
-interface HeaderProps {
-  isSidebarOpen: boolean;
-  toggleSidebar: () => void;
-}
-
-export const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
+export const Header = () => {
   const { isLogged, dataUser } = useAuth();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
+  };
 
   return (
-    <header className="flex items-center w-full gap-6 py-4 px-4 sm:px-8 md:px-16 bg-white rounded-md shadow-md">
-      {isLogged && (
-        <div
-          onClick={toggleSidebar}
-          className={
-            (clsx("cursor-pointer"), isSidebarOpen ? "hidden" : "block")
-          }
-        >
-          <Icon name="menu" />
-        </div>
-      )}
+    <>
+      <header className="fixed top-0 z-40 w-full px-6 py-4 bg-white border-b border-neutral-400">
+        <nav className="flex max-w-[1280px] mx-auto justify-between items-center">
+          <Link href={isLogged ? "/dashboard" : "/"}>
+            <div className="flex gap-2 items-center">
+              <Icon name="trophy" size={30} className="text-blue-600" />
+              <p className="hidden sm:block text-3xl font-bold">NFL Quiniela</p>
+            </div>
+          </Link>
 
-      <div className="flex w-full justify-between items-center">
-        <Link href="/">
-          <div className="flex gap-4 items-center">
-            <Icon name="trophy" size={30} color="blue" />
-            <p className="text-3xl font-bold">NFL Quiniela</p>
-          </div>
-        </Link>
+          {isLogged ? (
+            dataUser && (
+              <div className="flex gap-2 items-center">
+                <ProfileOptions data={dataUser} />
 
-        <div className="hidden lg:flex items-center gap-2 ">
-          {isLogged && (
-            <span className="text-md text-gray-600">
-              Semana {dataUser?.idPeriodo}
-            </span>
-          )}
+                <div className="h-10 mx-2 border-l border-neutral-400" />
 
-          <div className="border-l border-blue-600 h-10 my-2 ml-2 mr-2" />
-
-          {isLogged && dataUser ? (
-            <ProfileOptions data={dataUser} />
+                <div onClick={toggleSidebar}>
+                  {isSidebarOpen ? (
+                    <Icon name="x" size={30} />
+                  ) : (
+                    <Icon name="menu" size={30} />
+                  )}
+                </div>
+              </div>
+            )
           ) : (
-            <Link href="/login">
-              <Button type="button" title="Iniciar sesión" icon="log-in" />
-            </Link>
+            <div className="flex gap-2">
+              <Link href="/register">
+                <Button type="button" title="Registrarse" theme="normal" />
+              </Link>
+
+              <Link href="/login">
+                <Button type="button" title="Iniciar sesión" />
+              </Link>
+            </div>
           )}
-        </div>
-      </div>
-    </header>
+        </nav>
+      </header>
+
+      {isLogged && isSidebarOpen && <Sidebar toggleSidebar={toggleSidebar} />}
+    </>
   );
 };

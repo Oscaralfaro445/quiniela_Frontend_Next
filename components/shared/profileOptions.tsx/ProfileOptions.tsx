@@ -19,14 +19,13 @@ interface ProfileOptionsProps {
 
 export const ProfileOptions = ({ data }: ProfileOptionsProps) => {
   const { logout } = useAuth();
-  //console.log("User data in ProfileOptions:", data);
   const [showOptions, setShowOptions] = useState(false);
 
   return (
     <div className="relative">
       <ProfilePhoto
         onClick={() => setShowOptions(!showOptions)}
-        className="w-14 h-14"
+        className="w-10 h-10"
       />
 
       {showOptions ? (

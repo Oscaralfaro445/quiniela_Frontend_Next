@@ -1,7 +1,8 @@
 import { ReactQueryProvider } from "@/components/shared/reactQueryProvider/ReactQueryProvider";
-import { LayoutShell } from "@/components/home/layout/LayoutShell";
 import { AuthProvider } from "@/context/authContext/AuthContext";
-import AlertProvider from "@/context/alertContext/AlertContext";
+import { AlertProvider } from "@/context/alertContext/AlertContext";
+import { Header } from "@/components/shared/header/Header";
+import { Footer } from "@/components/shared/footer/Footer";
 import "./globals.css";
 
 export default function RootLayout({
@@ -17,7 +18,9 @@ export default function RootLayout({
         <ReactQueryProvider>
           <AuthProvider>
             <AlertProvider>
-              <LayoutShell>{children}</LayoutShell>
+              <Header />
+              <main className="min-h-screen pt-18">{children}</main>
+              <Footer />
             </AlertProvider>
           </AuthProvider>
         </ReactQueryProvider>

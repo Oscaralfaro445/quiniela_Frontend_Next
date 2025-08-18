@@ -12,7 +12,7 @@ export const ProfilePhoto = ({ className, onClick }: ProfilePhotoProps) => {
       className={clsx("relative cursor-pointer", className)}
       onClick={onClick}
     >
-      <div className=" w-full h-full rounded-full p-4 bg-neutral-200 dark:bg-neutral-300"></div>
+      <div className="w-full h-full rounded-full p-4 bg-neutral-200 dark:bg-neutral-300"></div>
 
       {/* <img
         src={data.imagen_usuario}

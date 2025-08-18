@@ -21,11 +21,8 @@ export const MenuItem = ({
 
   const handleClick = () => {
     handleSelect(item.cveMenu);
-    // console.log(item.cveMenu);
     if (item.urlMenu && !item.children?.length) router.push(item.urlMenu);
   };
-
-  // console.log(itemLevel);
 
   return (
     <>

@@ -9,7 +9,7 @@ export const SectionGrid = ({ children, className }: SectionGridProps) => {
   return (
     <section
       className={clsx(
-        `grid w-full gap-4 py-4 px-4 sm:px-8 md:px-16`,
+        `grid max-w-[1280px] py-20 lg:py-32 mx-auto gap-4`,
         className
       )}
     >

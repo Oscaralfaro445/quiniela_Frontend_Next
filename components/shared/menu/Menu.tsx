@@ -5,15 +5,15 @@ import { MenuItemI } from "@/types/menu/menuItemI";
 import { MenuNode } from "@/components/shared/menu/menuNode/MenuNode";
 
 interface MenuProps {
-  title?: string;
   menu: MenuItemI;
   route: string;
+  toggleSidebar: () => void;
 }
 
-export const Menu = ({ title, menu, route }: MenuProps) => {
+export const Menu = ({ menu, route, toggleSidebar }: MenuProps) => {
   const [tree, setTree] = useState<MenuItemI>(menu);
 
-  const handleTreeState = (menuCve: string, treeMenu: MenuItemI) => {
+  const handleTreeState = (menuCve: string, treeMenu: MenuItemI): boolean => {
     if (!treeMenu.children) {
       return false;
     }
@@ -22,13 +22,16 @@ export const Menu = ({ title, menu, route }: MenuProps) => {
 
     treeMenu.children.forEach((opt: MenuItemI) => {
       const currentState = opt.active;
-      opt.active = handleTreeState(menuCve, opt);
+      // opt.active = handleTreeState(menuCve, opt);
 
       if (opt.cveMenu === menuCve) {
         found = true;
         opt.active = !currentState;
       }
+
+      if (opt.children === null) toggleSidebar();
     });
+
     return found;
   };
 
@@ -38,9 +41,7 @@ export const Menu = ({ title, menu, route }: MenuProps) => {
   };
 
   return (
-    <div>
-      {title && <p>{title}</p>}
-
+    <>
       {tree && (
         <MenuNode
           route={route}
@@ -48,6 +49,6 @@ export const Menu = ({ title, menu, route }: MenuProps) => {
           handleClick={handleOptSelection}
         />
       )}
-    </div>
+    </>
   );
 };
