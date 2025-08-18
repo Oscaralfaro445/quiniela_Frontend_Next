@@ -1,13 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import * as Yup from "yup";
 import usePostUser from "@/hooks/register/mutations/usePostUser";
 import { RegisterFormValues } from "@/types/register/register";
 import { RegisterForm } from "@/components/register/RegisterForm";
 import { Form } from "@/components/shared/form/Form";
-import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
-import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
-import Link from "next/link";
+import { Title } from "@/components/shared/text/Title";
+import { TextBody } from "@/components/shared/text/TextBody";
 
 const initialValues: RegisterFormValues = {
   cveUsuario: "",
@@ -30,34 +30,38 @@ export default function RegisterPage() {
 
   const handleSubmit = (values: RegisterFormValues) => {
     register.mutate(values);
+    console.log("Values:", values);
   };
 
   return (
-    <MainContainer>
-      <SectionGrid>
-        <div className="grid w-full gap-4 justify-items-center content-center">
-          <p className="text-5xl font-extrabold">Crear Cuenta</p>
-          <p className="text-lg font-semibold">
-            Ingresa tus credenciales para crear una cuenta nueva
-          </p>
+    <>
+      <section className="flex w-full h-full items-center py-20 lg:py-32">
+        <div className="grid w-full max-w-[1280px] mx-auto px-10 gap-4">
+          <div className="grid gap-2 justify-items-center items-center">
+            <Title className="text-center" title="Crear Cuenta" />
+            <TextBody
+              className="text-center"
+              text="Ingresa tus credenciales para crear una cuenta nueva."
+            />
+          </div>
+
+          <Form
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
+            validationSchema={validationSchema}
+          >
+            <RegisterForm />
+          </Form>
+
+          <div className="flex w-full gap-4 items-center justify-center">
+            <p>¿Ya tienes una cuenta?</p>
+
+            <Link href="/login">
+              <p className="text-blue-600 hover:underline">Inicia sesión</p>
+            </Link>
+          </div>
         </div>
-
-        <Form
-          initialValues={initialValues}
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}
-        >
-          <RegisterForm />
-        </Form>
-
-        <div className="flex w-full gap-4 items-center justify-center">
-          <p>¿Ya tienes una cuenta?</p>
-
-          <Link href="/login">
-            <p className="text-blue-600 hover:underline">Inicia sesión</p>
-          </Link>
-        </div>
-      </SectionGrid>
-    </MainContainer>
+      </section>
+    </>
   );
 }

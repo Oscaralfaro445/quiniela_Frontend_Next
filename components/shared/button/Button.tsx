@@ -37,7 +37,7 @@ export const Button = ({
 
   return (
     <button
-      className={`flex gap-2 h-10 justify-between ${themes[theme]} cursor-pointer`}
+      className={`flex h-10 gap-2 justify-between ${themes[theme]} cursor-pointer`}
       type={type}
       onClick={onClick}
       disabled={disabled}
