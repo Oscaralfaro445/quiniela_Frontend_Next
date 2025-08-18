@@ -4,10 +4,10 @@ import Link from "next/link";
 import * as Yup from "yup";
 import usePostLogin from "@/hooks/login/mutations/usePostLogin";
 import { LoginFormValues } from "@/types/login/login";
-import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
-import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
 import { Form } from "@/components/shared/form/Form";
 import { LoginForm } from "@/components/login/LoginForm";
+import { Title } from "@/components/shared/text/Title";
+import { TextBody } from "@/components/shared/text/TextBody";
 
 const initialValues: LoginFormValues = {
   cveUsuario: "",
@@ -29,32 +29,35 @@ export default function LoginPage() {
   };
 
   return (
-    <MainContainer>
-      <SectionGrid>
-        <div className="grid w-full gap-4 justify-items-center items-center">
-          <p className="text-5xl font-extrabold">Iniciar Sesión</p>
-          <p className="text-lg font-semibold">
-            Ingresa tus credenciales para acceder a tu cuenta
-          </p>
+    <>
+      <section className="flex w-full h-screen pt-18 items-center">
+        <div className="grid w-full max-w-[1280px] mx-auto px-10 py-20 lg:py-32 gap-4">
+          <div className="grid gap-2 justify-items-center items-center">
+            <Title className="text-center" title="Iniciar Sesión" />
+            <TextBody
+              className="text-center"
+              text="Ingresa tus credenciales para acceder a tu cuenta."
+            />
+          </div>
+
+          <Form
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
+            validationSchema={validationSchema}
+          >
+            <LoginForm />
+          </Form>
+
+          <div className="flex w-full gap-4 items-center justify-center">
+            <p>¿No tienes una cuenta?</p>
+
+            <Link href="/register">
+              <p className="text-blue-600 hover:underline">Regístrate ahora</p>
+            </Link>
+          </div>
         </div>
-
-        <Form
-          initialValues={initialValues}
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}
-        >
-          <LoginForm />
-        </Form>
-
-        <div className="flex w-full gap-4 items-center justify-center">
-          <p>¿No tienes una cuenta?</p>
-
-          <Link href="/register">
-            <p className="text-blue-600 hover:underline">Regístrate ahora</p>
-          </Link>
-        </div>
-      </SectionGrid>
-    </MainContainer>
+      </section>
+    </>
   );
 }
 

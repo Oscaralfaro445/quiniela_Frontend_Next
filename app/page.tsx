@@ -8,8 +8,8 @@ import { TextBody } from "@/components/shared/text/TextBody";
 export default function Home() {
   return (
     <>
-      <section className="w-full py-20 lg:py-32 bg-blue-700">
-        <div className="grid max-w-[1280px] mx-auto px-10 gap-4">
+      <section className="w-full pt-18 bg-blue-700">
+        <div className="grid max-w-[1280px] mx-auto px-10 py-10 lg:py-32 gap-4">
           <div className="grid gap-2 justify-items-center items-center">
             <Title
               className="text-center text-white"
@@ -34,8 +34,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="w-full py-20 lg:py-32">
-        <div className="grid max-w-[1280px] mx-auto px-10 gap-4">
+      <section className="w-full">
+        <div className="grid max-w-[1280px] mx-auto px-10 py-20 lg:py-32 gap-4">
           <div className="grid gap-2 justify-items-center items-center">
             <Title
               className="text-center"
@@ -99,8 +99,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="w-full py-20 lg:py-32 bg-neutral-50">
-        <div className="grid max-w-[1280px] mx-auto px-10 gap-4">
+      <section className="w-full bg-neutral-50">
+        <div className="grid max-w-[1280px] mx-auto px-10 py-20 lg:py-32 gap-4">
           <div className="grid gap-2 justify-items-center items-center">
             <Title
               className="text-center"
