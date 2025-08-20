@@ -20,7 +20,7 @@ export const CardScores = ({ teamId, teamName }: CardScoresProps) => {
 
   const handleScores = (teamId: number) => {
     mutation.mutate({ idEquipo: teamId });
-    console.log(mutation.data);
+    // console.log(mutation.data);
     setScoresIsOpen((prev) => !prev);
   };
 

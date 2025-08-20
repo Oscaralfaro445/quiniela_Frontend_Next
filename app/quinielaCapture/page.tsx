@@ -5,15 +5,13 @@ import Link from "next/link";
 import useGetMatches from "@/hooks/matches/queries/useGetMatches";
 import useGetSurvivorTeams from "@/hooks/survivor/queries/useGetSurvivorTeams";
 import usePostSurvivorTeam from "@/hooks/survivor/mutations/usePostSurvivorTeam";
+import { AlertState } from "@/types/alert/alert";
 import { SurvivorTeam } from "@/types/survivor/survivorTeam";
 import { QuinielaWeekTeam } from "@/types/quiniela/quinielaWeekTeam";
 import { ByeWeekTeam } from "@/types/quiniela/byeWeekTeam";
 import { QuinielaItem } from "@/types/quiniela/quinielaItem";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { useAlert } from "@/context/alertContext/AlertContext";
-import { AlertState } from "@/types/alert/alert";
-import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
-import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
 import { WeeklyHeadline } from "@/components/quinielaCapture/WeeklyHeadline";
 import { Survivor } from "@/components/quinielaCapture/Survivor";
 import { Card } from "@/components/shared/card/Card";
@@ -32,8 +30,8 @@ export default function QuinielaCapturePage() {
   const survivor = useGetSurvivorTeams();
   const survivorAlta = usePostSurvivorTeam();
   const currentWeek = dataUser?.idPeriodo;
-  const gamesData: QuinielaWeekTeam[] = matches?.data?.data?.quiniela;
-  const byeData: ByeWeekTeam[] = matches?.data?.data?.bye;
+  const gamesData: QuinielaWeekTeam[] = matches?.data?.data[0]?.quiniela;
+  const byeData: ByeWeekTeam[] = matches?.data?.data[0]?.bye;
   const survivorData: SurvivorTeam[] = survivor?.data?.data;
   const totalGames = gamesData?.length || 0;
   const isQuinielaEnabled =
@@ -110,81 +108,88 @@ export default function QuinielaCapturePage() {
 
   return (
     <ProtectedRoute>
-      <MainContainer>
-        <SectionGrid>
+      <section className="pt-18">
+        <div className="max-w-[1280px] mx-auto px-10 py-8">
           <WeeklyHeadline week={currentWeek} />
-        </SectionGrid>
+        </div>
+      </section>
 
-        {dataUser?.bSurvivor && survivorData && (
-          <SectionGrid>
+      {dataUser?.bSurvivor && survivorData && (
+        <section>
+          <div className="max-w-[1280px] mx-auto px-10 py-8">
             <Survivor
               disabled={!isQuinielaEnabled}
               survivorData={survivorData}
               selectedSurvivor={selectedSurvivor}
               handleChangeSurvivor={handleChangeSurvivor}
             />
-          </SectionGrid>
-        )}
+          </div>
+        </section>
+      )}
 
-        {byeData && (
-          <SectionGrid>
+      {byeData && (
+        <section>
+          <div className="max-w-[1280px] mx-auto px-10 py-8">
             <ByeWeek byeData={byeData} />
-          </SectionGrid>
-        )}
+          </div>
+        </section>
+      )}
 
-        <SectionGrid>
+      <section>
+        <div className="max-w-[1280px] mx-auto px-10 py-8">
           <Timer />
-        </SectionGrid>
+        </div>
+      </section>
 
-        <SectionGrid>
+      <section>
+        <div className="max-w-[1280px] mx-auto px-10 py-8">
           <Card>
             <div className="flex w-full justify-between items-center">
               <p className="text-lg font-semibold">Progreso</p>
               <p className="text-sm">{`${completedPicks}/${totalGames} juegos`}</p>
             </div>
           </Card>
-        </SectionGrid>
+        </div>
+      </section>
 
-        {gamesData && (
-          <SectionGrid>
-            <Card className="h-[900px] overflow-y-auto">
-              <div className="grid md:flex w-full gap-4 justify-center md:justify-between items-center">
-                <div className="grid gap-2">
-                  <Title title="Quiniela" />
-                  <TextBody text="Selecciona el ganador de cada juego" />
-                </div>
+      {gamesData && (
+        <section>
+          <div className="max-w-[1280px] mx-auto px-10 py-8">
+            <Card>
+              <div className="grid gap-2">
+                <Title title="Quiniela" />
+                <TextBody text="Selecciona el ganador de cada juego" />
               </div>
-              {gamesData.map((game: QuinielaWeekTeam) => (
-                <GroupRadio
-                  key={game.Partido}
-                  disabled={!isQuinielaEnabled}
-                  game={game}
-                  quinielaData={quinielaData}
-                  handleChangeQuiniela={handleChangeQuiniela}
-                />
-              ))}
+
+              <div className="grid lg:grid-cols-2 gap-4">
+                {gamesData.map((game: QuinielaWeekTeam) => (
+                  <GroupRadio
+                    key={game.Partido}
+                    disabled={!isQuinielaEnabled}
+                    game={game}
+                    quinielaData={quinielaData}
+                    handleChangeQuiniela={handleChangeQuiniela}
+                  />
+                ))}
+              </div>
             </Card>
-          </SectionGrid>
-        )}
-
-        <SectionGrid>
-          <div className="grid sm:flex w-full gap-4 justify-center items-center">
-            <Link href="/dashboard">
-              <Button
-                type="button"
-                title="Volver al Dashboard"
-                theme="normal"
-              />
-            </Link>
-
-            <Button
-              type="submit"
-              title="Enviar Quiniela"
-              onClick={handleSubmit}
-            />
           </div>
-        </SectionGrid>
-      </MainContainer>
+        </section>
+      )}
+
+      <section>
+        <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
+          <Link href="/dashboard">
+            <Button type="button" title="Volver al Dashboard" theme="normal" />
+          </Link>
+
+          <Button
+            type="submit"
+            title="Enviar Quiniela"
+            onClick={handleSubmit}
+          />
+        </div>
+      </section>
     </ProtectedRoute>
   );
 }

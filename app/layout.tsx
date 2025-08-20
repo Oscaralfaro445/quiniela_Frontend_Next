@@ -19,7 +19,7 @@ export default function RootLayout({
           <AuthProvider>
             <AlertProvider>
               <Header />
-              <main className="min-h-screen">{children}</main>
+              <main>{children}</main>
               <Footer />
             </AlertProvider>
           </AuthProvider>

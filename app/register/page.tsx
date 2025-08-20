@@ -35,7 +35,7 @@ export default function RegisterPage() {
 
   return (
     <>
-      <section className="flex w-full h-screen pt-18 items-center">
+      <section className="flex w-full md:h-[calc(100vh-72px)] items-center">
         <div className="grid w-full max-w-[1280px] mx-auto px-10 py-20 lg:py-32 gap-4">
           <div className="grid gap-2 justify-items-center items-center">
             <Title className="text-center" title="Crear Cuenta" />

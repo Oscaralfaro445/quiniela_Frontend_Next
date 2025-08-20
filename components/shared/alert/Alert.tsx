@@ -1,7 +1,6 @@
 "use client";
 
 import { AlertState } from "@/types/alert/alert";
-import "./Alert.css";
 import { Icon } from "../icon/Icon";
 
 interface AlertProps {
@@ -21,8 +20,8 @@ export const Alert = ({
 }: AlertProps) => {
   return (
     <div
-      className={`fixed flex h-22 w-86 lg:w-96  p-4 justify-between items-center rounded-lg z-50 top-4 right-4 shadow-lg border border-neutral-400 bg-white alert ${
-        isModalOpen ? "active" : ""
+      className={`fixed z-50 top-4 right-4 flex h-22 w-86 lg:w-96 p-4 justify-between items-center rounded-lg shadow-lg border border-neutral-400 bg-white transform transition-transform duration-500 ease-in-out  ${
+        isModalOpen ? "" : "translate-x-[110%]"
       }`}
     >
       <div className="flex w-full gap-4 pr-8 justify-start items-center">

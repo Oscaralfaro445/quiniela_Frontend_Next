@@ -148,28 +148,6 @@ export default function PeriodClosingPage() {
               </div>
             </Card>
           )}
-
-          <Card>
-            <div>
-              <div className="flex items-center space-x-2">
-                <Icon name="settings" className="h-5 w-5 text-blue-700" />
-                <span>Proceso Secundario</span>
-              </div>
-              <div>
-                Proceso adicional de validación y sincronización de datos
-              </div>
-            </div>
-            <div>
-              <div className="flex items-center justify-between">
-                <Button type="button" title="EJECUTAR" icon="play" />
-
-                <div className="text-sm text-gray-500">
-                  Finalmente, si existe un error de sistema se mostrará el
-                  mensaje correspondiente
-                </div>
-              </div>
-            </div>
-          </Card>
         </SectionGrid>
       </MainContainer>
     </ProtectedRoute>

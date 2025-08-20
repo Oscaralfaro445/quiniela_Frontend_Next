@@ -5,17 +5,21 @@ import useGetMenu from "@/hooks/menu/queries/useGetMenu";
 import { Menu } from "@/components/shared/menu/Menu";
 
 interface SidebarProps {
+  isSidebarOpen: boolean;
   toggleSidebar: () => void;
 }
 
-export const Sidebar = ({ toggleSidebar }: SidebarProps) => {
+export const Sidebar = ({ toggleSidebar, isSidebarOpen }: SidebarProps) => {
   const currentRoute = usePathname();
   const menu = useGetMenu();
   const menuData = menu?.data?.data[0];
-  // console.log("menuData", menuData);
 
   return (
-    <div className="fixed z-50 top-18 w-full bg-white border-y border-neutral-400">
+    <div
+      className={`fixed z-30 top-18 w-full bg-white border-y border-neutral-400 transform transition-transform duration-300 ease-in-out ${
+        isSidebarOpen ? "" : "-translate-y-full"
+      }`}
+    >
       <aside className="max-w-[1280px] mx-auto p-6">
         {menuData && (
           <nav>

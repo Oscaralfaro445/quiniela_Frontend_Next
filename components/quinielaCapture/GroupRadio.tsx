@@ -11,10 +11,6 @@ interface GroupRadioProps {
   handleChangeQuiniela: (idGame: number, team: string) => void;
 }
 
-/* const getTeamAbbr = (teamName: string) => {
-  return teamName.split(" ").pop()?.substring(0, 3).toUpperCase() || "TBD";
-}; */
-
 export const GroupRadio = ({
   disabled,
   game,
@@ -22,7 +18,7 @@ export const GroupRadio = ({
   handleChangeQuiniela,
 }: GroupRadioProps) => {
   return (
-    <Card className="hover:shadow-md transition-shadow" key={game.Partido}>
+    <Card className="hover:shadow-lg transition-shadow bg-blue-50">
       <div className="flex w-full gap-4 justify-start items-center">
         <Icon name="clock" size={18} />
         <p className="text-sm">{game.Fecha}</p>
@@ -30,20 +26,21 @@ export const GroupRadio = ({
         <p className="text-sm">{game.Estadio}</p>
       </div>
 
-      <Card>
+      <Card className="bg-white">
         <div className="flex w-full justify-between items-center">
           <div className="flex w-full justify-start items-center gap-2">
             <input
+              className="h-4 w-4"
               type="radio"
               name={`game-${game.Partido}`}
               // id={`game-${game.Partido}`}
               // value={game.IdV}
               disabled={disabled}
-              checked={quinielaData.some(
+              /* checked={quinielaData.some(
                 (item) =>
                   item.ID_PARTIDO === game.Partido &&
                   item.CVE_GANADOR === game.EquipoV
-              )}
+              )} */
               onChange={() => handleChangeQuiniela(game.Partido, game.EquipoV)}
             />
 
@@ -64,20 +61,21 @@ export const GroupRadio = ({
         </div>
       </Card>
 
-      <Card>
+      <Card className="bg-white">
         <div className="flex w-full justify-between items-center">
           <div className="flex w-full justify-start items-center gap-2">
             <input
+              className="h-4 w-4"
               type="radio"
               name={`game-${game.Partido}`}
               // id={`game-${game.Partido}`}
               // value={game.IdL}
               disabled={disabled}
-              checked={quinielaData.some(
+              /*  checked={quinielaData.some(
                 (item) =>
                   item.ID_PARTIDO === game.Partido &&
                   item.CVE_GANADOR === game.EquipoL
-              )}
+              )} */
               onChange={() => handleChangeQuiniela(game.Partido, game.EquipoL)}
             />
 

@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { Button } from "@/components/shared/button/Button";
 import { Card } from "@/components/shared/card/Card";
-import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
 import { Icon } from "@/components/shared/icon/Icon";
 import { Title } from "@/components/shared/text/Title";
 import { TextBody } from "@/components/shared/text/TextBody";
@@ -55,23 +54,33 @@ export default function Dashboard() {
 
   return (
     <ProtectedRoute>
-      <SectionGrid>
-        <div className="grid md:flex w-full px-10 gap-4 justify-center md:justify-between items-center">
-          <div className="grid gap-2">
-            <Title title={`¡Bienvenido de vuelta!`} />
-            <TextBody text="Aquí tienes un resumen de tu rendimiento en la temporada." />
+      <section className="pt-18">
+        <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center lg:justify-between">
+          <div className="grid gap-2 justify-items-start items-center">
+            <Title
+              className="text-center"
+              title={`¡Bienvenido de vuelta ${dataUser?.nombre}!`}
+            />
+            <TextBody
+              className="text-center"
+              text="Aquí tienes un resumen de tu rendimiento en la temporada."
+            />
           </div>
 
-          <div className="flex justify-center items-center border-2 border-blue-600 rounded-2xl">
+          <div className="flex h-fit justify-center items-center border-2 border-blue-600 rounded-2xl">
             <p className="px-2 py-1 text-sm font-semibold text-blue-700">
               NFL temporada 2025
             </p>
           </div>
+        </div>
+      </section>
 
+      <section>
+        <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 lg:justify-between">
           <Card>
             <div className="flex items-center justify-between">
               <div className="text-sm font-medium text-gray-600">Precisión</div>
-              <Icon name="target" />
+              <Icon className="text-blue-600" name="target" />
             </div>
 
             <div className="grid gap-1">
@@ -88,7 +97,7 @@ export default function Dashboard() {
           <Card>
             <div className="flex items-center justify-between">
               <div className="text-sm font-medium text-gray-600">Ranking</div>
-              <Icon name="trending-up" />
+              <Icon className="text-blue-600" name="trending-up" />
             </div>
 
             <div className="grid gap-1">
@@ -107,7 +116,7 @@ export default function Dashboard() {
               <div className="text-sm font-medium text-gray-600">
                 Semana Actual
               </div>
-              <Icon name="calendar" />
+              <Icon className="text-blue-600" name="calendar" />
             </div>
 
             <div className="grid gap-1">
@@ -119,10 +128,10 @@ export default function Dashboard() {
             </div>
           </Card>
         </div>
-      </SectionGrid>
+      </section>
 
-      <SectionGrid>
-        <div className="grid w-full lg:grid-cols-2 gap-4">
+      <section>
+        <div className="grid lg:grid-cols-2 w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 ">
           <Card>
             <div className="grid w-full">
               <span className="text-gray-900">Acciones Rápidas</span>
@@ -266,7 +275,7 @@ export default function Dashboard() {
             </div>
           </Card>
         </div>
-      </SectionGrid>
+      </section>
     </ProtectedRoute>
   );
 }

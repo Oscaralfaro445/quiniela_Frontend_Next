@@ -18,7 +18,7 @@ export const Header = () => {
 
   return (
     <>
-      <header className="fixed top-0 z-40 w-full px-6 py-4 bg-white border-b border-neutral-400">
+      <header className="fixed top-0 z-40 w-full h-18 px-6 py-4 bg-white border-b border-neutral-400">
         <nav className="flex max-w-[1280px] mx-auto justify-between items-center">
           <Link href={isLogged ? "/dashboard" : "/"}>
             <div className="flex gap-2 items-center">
@@ -57,7 +57,9 @@ export const Header = () => {
         </nav>
       </header>
 
-      {isLogged && isSidebarOpen && <Sidebar toggleSidebar={toggleSidebar} />}
+      {isLogged && (
+        <Sidebar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+      )}
     </>
   );
 };
