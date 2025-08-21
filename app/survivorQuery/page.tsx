@@ -1,14 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import useGetSurvivorReport from "@/hooks/survivorReport/queries/useGetSurvivorReport";
 import { Icon } from "@/components/shared/icon/Icon";
-import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
-import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
 import { TextBody } from "@/components/shared/text/TextBody";
 import { Title } from "@/components/shared/text/Title";
 import { Card } from "@/components/shared/card/Card";
-import Link from "next/link";
 import { Button } from "@/components/shared/button/Button";
 import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
 
@@ -75,17 +73,23 @@ export default function SurvivorPage() {
 
   return (
     <ProtectedRoute>
-      <MainContainer>
-        <SectionGrid>
-          <div className="grid md:flex w-full gap-4 justify-center md:justify-between items-center">
-            <div className="grid gap-2">
-              <Title title="Reporte de Survivor" />
-              <TextBody text="Vista general de las selecciones de los participantes por semana." />
-            </div>
+      <section className="pt-18">
+        <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center lg:justify-between">
+          <div className="grid gap-2">
+            <Title title="Reporte de Survivor" />
+            <TextBody text="Vista general de las selecciones de los participantes por semana." />
           </div>
-        </SectionGrid>
 
-        <SectionGrid>
+          <div className="flex h-fit justify-center items-center border-2 border-blue-600 rounded-2xl">
+            <p className="px-2 py-1 text-sm font-semibold text-blue-700">
+              NFL temporada 2025
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center lg:justify-between">
           <Card>
             <p>Progeso de participantes</p>
 
@@ -165,24 +169,20 @@ export default function SurvivorPage() {
               </button>
             </div>
           </Card>
-        </SectionGrid>
+        </div>
+      </section>
 
-        <SectionGrid>
-          <div className="grid sm:flex w-full gap-4 justify-center items-center">
-            <Link href="/dashboard">
-              <Button
-                type="button"
-                title="Volver al Dashboard"
-                theme="normal"
-              />
-            </Link>
+      <section>
+        <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
+          <Link href="/dashboard">
+            <Button type="button" title="Volver al Dashboard" theme="normal" />
+          </Link>
 
-            <Link href="/positionQuery">
-              <Button type="button" title="Ver Clasificación" />
-            </Link>
-          </div>
-        </SectionGrid>
-      </MainContainer>
+          <Link href="/positionQuery">
+            <Button type="button" title="Ver Clasificación" />
+          </Link>
+        </div>
+      </section>
     </ProtectedRoute>
   );
 }

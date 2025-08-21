@@ -40,6 +40,7 @@ export default function SurvivorPaymentPage() {
   };
 
   const handleSubmit = () => {
+    console.log("Submitting participant data:", participantsData);
     survivor.mutate({ participants: participantsData });
   };
 

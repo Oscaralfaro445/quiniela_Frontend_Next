@@ -51,7 +51,9 @@ export default function LoginPage() {
           <p>¿No tienes una cuenta?</p>
 
           <Link href="/register">
-            <p className="text-blue-600 hover:underline">Regístrate ahora</p>
+            <p className="text-end text-blue-600 hover:underline">
+              Regístrate ahora
+            </p>
           </Link>
         </div>
       </div>

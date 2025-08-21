@@ -13,7 +13,6 @@ export default function PeriodOpeningPage() {
 
   const handleExecuteProcess = () => {
     mutation.mutate();
-    console.log("Proceso de apertura ejecutado", mutation.data);
   };
 
   return (

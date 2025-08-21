@@ -60,7 +60,7 @@ const usePostSurvivorActivation = () => {
       showAlert(
         AlertState.SUCCESS,
         "Operación exitosa",
-        "La activación del survivor se realizó con éxito"
+        "La actualización del survivor se realizó con éxito"
       );
     },
     onSettled: () => {},

@@ -15,6 +15,7 @@ export default function SurvivorActivationPage() {
   const survivorStatus = useGetSurvivorStatus();
   const survivorActivation = usePostSurvivorActivation();
   const survivorData = survivorStatus?.data?.data[0];
+  console.log("Survivor Data:", survivorData);
 
   const handleSurvivorActivation = () => {
     survivorActivation.mutate({

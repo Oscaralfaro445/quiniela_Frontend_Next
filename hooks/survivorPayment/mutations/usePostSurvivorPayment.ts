@@ -1,9 +1,9 @@
 import axiosInstance from "@/hooks/axios/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
-import { useAuth } from "@/context/authContext/AuthContext";
-import { useAlert } from "@/context/alertContext/AlertContext";
 import { AlertState } from "@/types/alert/alert";
 import { Participant } from "@/types/participant/participant";
+import { useAuth } from "@/context/authContext/AuthContext";
+import { useAlert } from "@/context/alertContext/AlertContext";
 
 const postSurvivorPayment = async (
   token: string,
@@ -44,7 +44,7 @@ const usePostSurvivorPayment = () => {
       showAlert(
         AlertState.SUCCESS,
         "Operación exitosa",
-        "La activación del survivor se realizó con éxito"
+        "La actualización de los pagos se realizó con éxito"
       );
     },
     onSettled: () => {},

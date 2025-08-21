@@ -27,7 +27,7 @@ export const LoginForm = () => {
         </div>
 
         <Link href="/">
-          <p className="text-blue-600 hover:underline hover:text-blue-700">
+          <p className="text-end text-blue-600 hover:underline hover:text-blue-700">
             ¿Olvidaste tu contraseña?
           </p>
         </Link>

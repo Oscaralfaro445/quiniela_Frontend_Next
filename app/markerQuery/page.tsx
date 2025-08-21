@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import usePostMarkers from "@/hooks/markers/queries/useGetMarkers";
+import useGetMarkers from "@/hooks/markers/queries/useGetMarkers";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { GameResult } from "@/types/gameResult/gameResult";
 import { Icon } from "@/components/shared/icon/Icon";
@@ -15,7 +15,7 @@ import { TeamLogo } from "@/components/shared/teamLogo/TeamLogo";
 export default function MarkerQueryPage() {
   const { dataUser } = useAuth();
   const week = dataUser?.idPeriodo;
-  const markers = usePostMarkers();
+  const markers = useGetMarkers();
   const gameResults: GameResult[] = markers?.data?.data;
 
   const totalGames = gameResults?.length;
@@ -156,7 +156,7 @@ export default function MarkerQueryPage() {
                         className={`flex items-center justify-between p-3 rounded-lg border-2 transition-colors ${
                           winner === game.nomEquipo1
                             ? "border-green-200 bg-green-50"
-                            : "border-gray-200 bg-red-50"
+                            : "border-red-200 bg-red-50"
                         }`}
                       >
                         <div className="flex items-center gap-2">
@@ -166,15 +166,10 @@ export default function MarkerQueryPage() {
                           />
 
                           <div className="hidden sm:block">
-                            <div
-                              className={`font-medium ${
-                                winner === game.nomEquipo1
-                                  ? "text-green-800"
-                                  : "text-gray-900"
-                              }`}
-                            >
+                            <span className="font-medium">
                               {game.nomEquipo1}
-                            </div>
+                            </span>
+
                             <div className="text-sm text-gray-500">
                               Visitante
                             </div>
@@ -198,7 +193,7 @@ export default function MarkerQueryPage() {
                         className={`flex items-center justify-between p-3 rounded-lg border-2 transition-colors ${
                           winner === game.nomEquipo2
                             ? "border-green-200 bg-green-50"
-                            : "border-gray-200 bg-gray-50"
+                            : "border-red-200 bg-red-50"
                         }`}
                       >
                         <div className="flex items-center gap-2">
@@ -208,15 +203,10 @@ export default function MarkerQueryPage() {
                           />
 
                           <div className="hidden sm:block">
-                            <div
-                              className={`font-medium ${
-                                winner === game.nomEquipo2
-                                  ? "text-green-800"
-                                  : "text-gray-900"
-                              }`}
-                            >
+                            <span className="font-medium">
                               {game.nomEquipo2}
-                            </div>
+                            </span>
+
                             <div className="text-sm text-gray-500">Local</div>
                           </div>
                         </div>
