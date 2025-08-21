@@ -76,7 +76,7 @@ export default function Dashboard() {
       </section>
 
       <section>
-        <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 lg:justify-between">
+        <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4">
           <Card>
             <div className="flex items-center justify-between">
               <div className="text-sm font-medium text-gray-600">Precisión</div>

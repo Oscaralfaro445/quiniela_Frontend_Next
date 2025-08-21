@@ -12,7 +12,7 @@ export const ByeWeek = ({ byeData }: ByeWeekProps) => {
       <p className="text-lg font-semibold">Equipos que Descansan (Bye Week)</p>
 
       <div className="grid lg:grid-cols-2 w-full gap-4 items-center">
-        {byeData !== null &&
+        {byeData &&
           byeData.map((team: ByeWeekTeam) => (
             <Card key={team.IdEquipo}>
               <div className="flex w-full gap-2 justify-start items-center">

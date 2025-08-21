@@ -2,7 +2,7 @@ import axiosInstance from "@/hooks/axios/axiosInstance";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/context/authContext/AuthContext";
 
-const postParticipantPositions = async (
+const fetchParticipantPositions = async (
   token: string,
   payload: {
     idProceso: number;
@@ -21,13 +21,13 @@ const postParticipantPositions = async (
   return response.data;
 };
 
-const usePostParticipantPositions = () => {
+const useGetParticipantPositions = () => {
   const { token, dataUser } = useAuth();
 
   return useQuery({
     queryKey: ["participantPositions"],
     queryFn: () =>
-      postParticipantPositions(token!, {
+      fetchParticipantPositions(token!, {
         idProceso: 3,
         idQuery: "4",
         parmRemp: {
@@ -39,4 +39,4 @@ const usePostParticipantPositions = () => {
   });
 };
 
-export default usePostParticipantPositions;
+export default useGetParticipantPositions;

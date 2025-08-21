@@ -10,7 +10,7 @@ interface MenuProps {
   toggleSidebar: () => void;
 }
 
-export const Menu = ({ menu, route, toggleSidebar }: MenuProps) => {
+export const Menu = ({ menu, route }: MenuProps) => {
   const [tree, setTree] = useState<MenuItemI>(menu);
 
   const handleTreeState = (menuCve: string, treeMenu: MenuItemI): boolean => {
@@ -29,7 +29,7 @@ export const Menu = ({ menu, route, toggleSidebar }: MenuProps) => {
         opt.active = !currentState;
       }
 
-      if (opt.children === null) toggleSidebar();
+      // if (opt.children === null) toggleSidebar();
     });
 
     return found;

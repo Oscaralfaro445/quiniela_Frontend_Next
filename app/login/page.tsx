@@ -29,35 +29,33 @@ export default function LoginPage() {
   };
 
   return (
-    <>
-      <section className="flex w-full h-screen items-center">
-        <div className="grid w-full max-w-[1280px] mx-auto px-10 py-20 lg:py-32 gap-4">
-          <div className="grid gap-2 justify-items-center items-center">
-            <Title className="text-center" title="Iniciar Sesión" />
-            <TextBody
-              className="text-center"
-              text="Ingresa tus credenciales para acceder a tu cuenta."
-            />
-          </div>
-
-          <Form
-            initialValues={initialValues}
-            onSubmit={handleSubmit}
-            validationSchema={validationSchema}
-          >
-            <LoginForm />
-          </Form>
-
-          <div className="flex w-full gap-4 items-center justify-center">
-            <p>¿No tienes una cuenta?</p>
-
-            <Link href="/register">
-              <p className="text-blue-600 hover:underline">Regístrate ahora</p>
-            </Link>
-          </div>
+    <section className="flex w-full h-screen items-center">
+      <div className="grid w-full max-w-[1280px] mx-auto px-10 py-20 lg:py-32 gap-4">
+        <div className="grid gap-2 justify-items-center items-center">
+          <Title className="text-center" title="Iniciar Sesión" />
+          <TextBody
+            className="text-center"
+            text="Ingresa tus credenciales para acceder a tu cuenta."
+          />
         </div>
-      </section>
-    </>
+
+        <Form
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          validationSchema={validationSchema}
+        >
+          <LoginForm />
+        </Form>
+
+        <div className="flex w-full gap-4 items-center justify-center">
+          <p>¿No tienes una cuenta?</p>
+
+          <Link href="/register">
+            <p className="text-blue-600 hover:underline">Regístrate ahora</p>
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 }
 

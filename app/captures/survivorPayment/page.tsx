@@ -1,16 +1,17 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import useGetSurvivorPayment from "@/hooks/survivorPayment/queries/useGetSurvivorPayment";
 import usePostSurvivorPayment from "@/hooks/survivorPayment/mutations/usePostSurvivorPayment";
 import { Participant } from "@/types/participant/participant";
 import { Card } from "@/components/shared/card/Card";
 import { Icon } from "@/components/shared/icon/Icon";
-import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
-import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
-import Link from "next/link";
 import { Button } from "@/components/shared/button/Button";
 import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
+import { Title } from "@/components/shared/text/Title";
+import { TextBody } from "@/components/shared/text/TextBody";
+import { TeamLogo } from "@/components/shared/teamLogo/TeamLogo";
 
 export default function SurvivorPaymentPage() {
   const survivorPayment = useGetSurvivorPayment();
@@ -44,10 +45,26 @@ export default function SurvivorPaymentPage() {
 
   return (
     <ProtectedRoute>
-      <MainContainer>
-        <SectionGrid>Consulta de Pagos</SectionGrid>
+      <section className="pt-18">
+        <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center lg:justify-between">
+          <div className="grid gap-2">
+            <Title title="Clasificación" />
+            <TextBody
+              text="Consulta las posiciones semanales y globales de todos los
+                participantes"
+            />
+          </div>
 
-        <SectionGrid>
+          <div className="flex h-fit justify-center items-center border-2 border-blue-600 rounded-2xl">
+            <p className="px-2 py-1 text-sm font-semibold text-blue-700">
+              NFL temporada 2025
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div className="w-full max-w-[1280px] mx-auto px-10 py-8">
           <Card>
             <div className="flex w-full items-center justify-between">
               <p className="text-lg font-semibold">Estado de Pagos Survivor</p>
@@ -62,7 +79,7 @@ export default function SurvivorPaymentPage() {
               </div>
             </div>
 
-            <div className="grid md:flex w-full gap-4">
+            <div className="grid lg:flex w-full gap-4">
               <div className="text-center p-4 bg-blue-50 rounded-lg border border-blue-200">
                 <div className="text-2xl font-bold text-blue-700">
                   {totalParticipants}
@@ -105,14 +122,10 @@ export default function SurvivorPaymentPage() {
                           <td>
                             {" "}
                             <div className="flex items-center space-x-2">
-                              <div className="w-6 h-6 bg-blue-700 rounded-full flex items-center justify-center">
-                                <span className="text-xs font-bold text-white">
-                                  {participant.NOM_EQUIPO.split(" ")
-                                    .pop()
-                                    ?.substring(0, 2)
-                                    .toUpperCase()}
-                                </span>
-                              </div>
+                              <TeamLogo
+                                teamName={participant.NOM_EQUIPO}
+                                className="scale-60"
+                              />
                               <span className="text-sm">
                                 {participant.NOM_EQUIPO}
                               </span>
@@ -151,26 +164,22 @@ export default function SurvivorPaymentPage() {
               </div>
             )}
           </Card>
-        </SectionGrid>
+        </div>
+      </section>
 
-        <SectionGrid>
-          <div className="grid sm:flex w-full gap-4 justify-center items-center">
-            <Link href="/dashboard">
-              <Button
-                type="button"
-                title="Volver al Dashboard"
-                theme="normal"
-              />
-            </Link>
+      <section>
+        <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
+          <Link href="/dashboard">
+            <Button type="button" title="Volver al Dashboard" theme="normal" />
+          </Link>
 
-            <Button
-              type="button"
-              title="Actualizar Pagos"
-              onClick={handleSubmit}
-            />
-          </div>
-        </SectionGrid>
-      </MainContainer>
+          <Button
+            type="button"
+            title="Actualizar Pagos"
+            onClick={handleSubmit}
+          />
+        </div>
+      </section>
     </ProtectedRoute>
   );
 }

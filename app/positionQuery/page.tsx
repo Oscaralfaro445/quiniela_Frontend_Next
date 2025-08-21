@@ -4,12 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/authContext/AuthContext";
-import usePostParticipantPositions from "@/hooks/participantPositions/queries/usePostParticipantPositions";
+import usePostParticipantPositions from "@/hooks/participantPositions/queries/useGetParticipantPositions";
 import { Card } from "@/components/shared/card/Card";
 import { Icon } from "@/components/shared/icon/Icon";
 import { Button } from "@/components/shared/button/Button";
-import { SectionGrid } from "@/components/shared/sectionGrid/SectionGrid";
-import { MainContainer } from "@/components/shared/mainContainer/MainContainer";
 import { Title } from "@/components/shared/text/Title";
 import { TextBody } from "@/components/shared/text/TextBody";
 import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
@@ -56,8 +54,8 @@ export default function PositionQueryPage() {
 
   return (
     <ProtectedRoute>
-      <MainContainer>
-        <SectionGrid>
+      <section className="pt-18">
+        <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center lg:justify-between">
           <div className="grid gap-2">
             <Title title="Clasificación" />
             <TextBody
@@ -65,52 +63,60 @@ export default function PositionQueryPage() {
           participantes"
             />
           </div>
-        </SectionGrid>
 
-        <SectionGrid>
-          <div className="grid md:flex gap-4">
-            <Card className="border-gray-200">
-              <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <div className="text-sm font-medium text-gray-600">
-                  Total Participantes
-                </div>
-                <Icon name="trophy" className="text-blue-700" />
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-gray-900">2,847</div>
-                <p className="text-xs text-gray-600">+127 esta semana</p>
-              </div>
-            </Card>
-
-            <Card className="border-gray-200">
-              <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <div className="text-sm font-medium text-gray-600">
-                  Precisión Promedio
-                </div>
-                <Icon name="target" className="text-blue-700" />
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-gray-900">64.2%</div>
-                <p className="text-xs text-gray-600">Semana {currentWeek}</p>
-              </div>
-            </Card>
-
-            <Card className="border-gray-200">
-              <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <div className="text-sm font-medium text-gray-600">
-                  Tu Posición
-                </div>
-                <Icon name="medal" className="text-blue-700" />
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-gray-900">#156</div>
-                <p className="text-xs text-gray-600">↑ 23 posiciones</p>
-              </div>
-            </Card>
+          <div className="flex h-fit justify-center items-center border-2 border-blue-600 rounded-2xl">
+            <p className="px-2 py-1 text-sm font-semibold text-blue-700">
+              NFL temporada 2025
+            </p>
           </div>
-        </SectionGrid>
+        </div>
+      </section>
 
-        <SectionGrid>
+      <section>
+        <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4">
+          <Card className="border-gray-200">
+            <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <div className="text-sm font-medium text-gray-600">
+                Total Participantes
+              </div>
+              <Icon name="trophy" className="text-blue-700" />
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-gray-900">2,847</div>
+              <p className="text-xs text-gray-600">+127 esta semana</p>
+            </div>
+          </Card>
+
+          <Card className="border-gray-200">
+            <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <div className="text-sm font-medium text-gray-600">
+                Precisión Promedio
+              </div>
+              <Icon name="target" className="text-blue-700" />
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-gray-900">64.2%</div>
+              <p className="text-xs text-gray-600">Semana {currentWeek}</p>
+            </div>
+          </Card>
+
+          <Card className="border-gray-200">
+            <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <div className="text-sm font-medium text-gray-600">
+                Tu Posición
+              </div>
+              <Icon name="medal" className="text-blue-700" />
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-gray-900">#156</div>
+              <p className="text-xs text-gray-600">↑ 23 posiciones</p>
+            </div>
+          </Card>
+        </div>
+      </section>
+
+      <section>
+        <div className="max-w-[1280px] mx-auto px-10 py-8">
           <div className="flex lg:w-96 h-12 p-1 rounded-md bg-neutral-100">
             <button
               className={`w-1/2 p-1 rounded-md transition-colors duration-100 cursor-pointer ${
@@ -132,9 +138,11 @@ export default function PositionQueryPage() {
               Global
             </button>
           </div>
-        </SectionGrid>
+        </div>
+      </section>
 
-        <SectionGrid>
+      <section>
+        <div className="max-w-[1280px] mx-auto px-10 py-8 gap-4">
           <div className="transition-all duration-300 ease-in-out">
             {activeTab === "weekly" && (
               <div className="animate-fadeIn">
@@ -238,59 +246,22 @@ export default function PositionQueryPage() {
               </div>
             )}
           </div>
-        </SectionGrid>
+        </div>
+      </section>
 
-        <SectionGrid>
-          <div className="grid lg:flex w-full gap-4 justify-center items-center">
-            <Link href="/dashboard">
-              <Button
-                type="button"
-                title="Volver al Dashboard"
-                theme="normal"
-              />
-            </Link>
+      <section>
+        <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
+          <Link href="/dashboard">
+            <Button type="button" title="Volver al Dashboard" theme="normal" />
+          </Link>
 
-            <Button
-              type="button"
-              title="Hacer Quiniela"
-              onClick={() => router.push("/quinielaCapture")}
-            />
-          </div>
-        </SectionGrid>
-      </MainContainer>
+          <Button
+            type="button"
+            title="Hacer Quiniela"
+            onClick={() => router.push("/quinielaCapture")}
+          />
+        </div>
+      </section>
     </ProtectedRoute>
   );
-}
-
-{
-  /* <div className="border-b border-gray-200">
-          <nav className="flex space-x-8" aria-label="Tabs">
-            <button
-              onClick={() => setActiveTab("weekly")}
-              className={`py-2 px-1 border-b-2 font-medium text-sm transition-colors duration-200 ${
-                activeTab === "weekly"
-                  ? "border-blue-500 text-blue-600"
-                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-              }`}
-            >
-              <div className="flex items-center gap-2">
-                <Icon name="calendar" />
-                <span>Semana {currentWeek}</span>
-              </div>
-            </button>
-            <button
-              onClick={() => setActiveTab("global")}
-              className={`py-2 px-1 border-b-2 font-medium text-sm transition-colors duration-200 ${
-                activeTab === "global"
-                  ? "border-blue-500 text-blue-600"
-                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-              }`}
-            >
-              <div className="flex items-center space-x-2">
-                <Icon name="trophy" />
-                <span>Global</span>
-              </div>
-            </button>
-          </nav>
-        </div> */
 }

@@ -34,34 +34,32 @@ export default function RegisterPage() {
   };
 
   return (
-    <>
-      <section className="flex w-full md:h-[calc(100vh-72px)] items-center">
-        <div className="grid w-full max-w-[1280px] mx-auto px-10 py-20 lg:py-32 gap-4">
-          <div className="grid gap-2 justify-items-center items-center">
-            <Title className="text-center" title="Crear Cuenta" />
-            <TextBody
-              className="text-center"
-              text="Ingresa tus credenciales para crear una cuenta nueva."
-            />
-          </div>
-
-          <Form
-            initialValues={initialValues}
-            onSubmit={handleSubmit}
-            validationSchema={validationSchema}
-          >
-            <RegisterForm />
-          </Form>
-
-          <div className="flex w-full gap-4 items-center justify-center">
-            <p>¿Ya tienes una cuenta?</p>
-
-            <Link href="/login">
-              <p className="text-blue-600 hover:underline">Inicia sesión</p>
-            </Link>
-          </div>
+    <section className="flex w-full md:h-[calc(100vh-72px)] items-center">
+      <div className="grid w-full max-w-[1280px] mx-auto px-10 py-20 lg:py-32 gap-4">
+        <div className="grid gap-2 justify-items-center items-center">
+          <Title className="text-center" title="Crear Cuenta" />
+          <TextBody
+            className="text-center"
+            text="Ingresa tus credenciales para crear una cuenta nueva."
+          />
         </div>
-      </section>
-    </>
+
+        <Form
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          validationSchema={validationSchema}
+        >
+          <RegisterForm />
+        </Form>
+
+        <div className="flex w-full gap-4 items-center justify-center">
+          <p>¿Ya tienes una cuenta?</p>
+
+          <Link href="/login">
+            <p className="text-blue-600 hover:underline">Inicia sesión</p>
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 }

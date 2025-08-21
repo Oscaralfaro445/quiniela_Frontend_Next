@@ -2,6 +2,7 @@ import Image from "next/image";
 
 interface TeamLogoProps {
   teamName: string;
+  className?: string;
 }
 
 const getTeamLogo = (teamName: string) => {
@@ -9,12 +10,12 @@ const getTeamLogo = (teamName: string) => {
   return name.at(-1)?.toLocaleLowerCase();
 };
 
-export const TeamLogo = ({ teamName }: TeamLogoProps) => {
+export const TeamLogo = ({ teamName, className }: TeamLogoProps) => {
   const src = getTeamLogo(teamName);
   // console.log(src);
 
   return (
-    <div>
+    <div className={className}>
       <figure className="relative w-20 h-20">
         <Image
           src={`/images/logos/${src}.png`}
