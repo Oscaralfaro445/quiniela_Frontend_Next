@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import useGetMenu from "@/hooks/menu/queries/useGetMenu";
-import { Menu } from "@/components/shared/menu/Menu";
+import { Menu } from "@/components/ui/menu/Menu";
 
 interface SidebarProps {
   isSidebarOpen: boolean;

@@ -1,8 +1,8 @@
-import { ReactQueryProvider } from "@/components/shared/reactQueryProvider/ReactQueryProvider";
+import { ReactQueryProvider } from "@/components/ui/reactQueryProvider/ReactQueryProvider";
 import { AuthProvider } from "@/context/authContext/AuthContext";
 import { AlertProvider } from "@/context/alertContext/AlertContext";
-import { Header } from "@/components/shared/header/Header";
-import { Footer } from "@/components/shared/footer/Footer";
+import { Header } from "@/components/ui/header/Header";
+import { Footer } from "@/components/ui/footer/Footer";
 import "./globals.css";
 
 export default function RootLayout({

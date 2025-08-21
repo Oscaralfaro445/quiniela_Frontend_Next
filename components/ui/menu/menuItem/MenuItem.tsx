@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { MenuItemI } from "@/types/menu/menuItemI";
-import { Icon } from "../../icon/Icon";
+import { Icon } from "../../../shared/icon/Icon";
 
 type MenuItemProps = {
   item: MenuItemI;

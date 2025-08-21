@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { MenuItemI } from "@/types/menu/menuItemI";
-import { MenuNode } from "@/components/shared/menu/menuNode/MenuNode";
+import { MenuNode } from "@/components/ui/menu/menuNode/MenuNode";
 
 interface MenuProps {
   menu: MenuItemI;

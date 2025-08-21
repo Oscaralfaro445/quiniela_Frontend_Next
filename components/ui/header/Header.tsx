@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useAuth } from "@/context/authContext/AuthContext";
-import { Icon } from "../icon/Icon";
-import { Button } from "../button/Button";
-import { ProfileOptions } from "../profileOptions.tsx/ProfileOptions";
+import { Icon } from "../../shared/icon/Icon";
+import { Button } from "../../shared/button/Button";
+import { ProfileOptions } from "../../shared/profileOptions.tsx/ProfileOptions";
 import { Sidebar } from "../sidebar/Sidebar";
 
 export const Header = () => {
