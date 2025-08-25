@@ -39,14 +39,8 @@ const usePostLogin = () => {
         "Error de autenticación",
         "Usuario o contraseña incorrectos"
       );
-
-      // console.log("Error en la peticion", error);
     },
     onSuccess: (data) => {
-      // console.log("Respuesta completa del servidor:", data);
-      // console.log("Propiedades de data:", Object.keys(data));
-      // console.log("Token de la respuesta:", data.data[0].token);
-
       showAlert(
         AlertState.SUCCESS,
         "Operación exitosa",
@@ -54,9 +48,8 @@ const usePostLogin = () => {
       );
 
       if (data.data[0].token) {
-        // Usar el contexto para manejar el login
-        login(data.data[0].token, data.data[0], data.rememberMe);
         router.push("/dashboard");
+        login(data.data[0].token, data.data[0], data.rememberMe);
       } else {
         console.log("No se recibió token en la respuesta", data);
       }

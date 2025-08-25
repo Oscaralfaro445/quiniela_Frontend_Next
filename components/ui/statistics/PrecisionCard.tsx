@@ -29,11 +29,11 @@ export const PrescisionCard = () => {
               %
             </div>
 
-            <p className="text-xs text-gray-600">
+            <span className="text-xs text-gray-600">
               {data.data[0].Dashboard_1[0].posicionPeriodo.puntosPeriodo}/
               {data.data[0].Dashboard_1[0].posicionPeriodo.partidosPeriodo}{" "}
               correctas
-            </p>
+            </span>
           </div>
         )}
       </Card>
@@ -60,11 +60,11 @@ export const PrescisionCard = () => {
               %
             </div>
 
-            <p className="text-xs text-gray-600">
+            <span className="text-xs text-gray-600">
               {data.data[0].Dashboard_1[0].posicionTotal.puntosTemporada}/
               {data.data[0].Dashboard_1[0].posicionTotal.partidosTemporada}{" "}
               correctas
-            </p>
+            </span>
           </div>
         )}
       </Card>

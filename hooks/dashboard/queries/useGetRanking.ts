@@ -24,6 +24,7 @@ const fetchRanking = async (
 
 export const useGetRanking = () => {
   const { token, dataUser } = useAuth();
+
   const { isPending, isError, isSuccess, error, data } = useQuery({
     queryKey: ["ranking"],
     queryFn: () =>

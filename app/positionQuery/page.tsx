@@ -116,7 +116,7 @@ export default function PositionQueryPage() {
       </section>
 
       <section>
-        <div className="max-w-[1280px] mx-auto px-10 py-8">
+        <div className="grid max-w-[1280px] mx-auto px-10 py-8 gap-4">
           <div className="flex lg:w-96 h-12 p-1 rounded-md bg-neutral-100">
             <button
               className={`w-1/2 p-1 rounded-md transition-colors duration-100 cursor-pointer ${
@@ -138,11 +138,7 @@ export default function PositionQueryPage() {
               Global
             </button>
           </div>
-        </div>
-      </section>
 
-      <section>
-        <div className="max-w-[1280px] mx-auto px-10 py-8 gap-4">
           <div className="transition-all duration-300 ease-in-out">
             {activeTab === "weekly" && (
               <div className="animate-fadeIn">
@@ -153,7 +149,7 @@ export default function PositionQueryPage() {
                         Clasificación Semana {currentWeek}
                       </div>
                     </div>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-md text-gray-600">
                       Basada en los aciertos de esta semana
                     </p>
                   </div>
@@ -185,7 +181,7 @@ export default function PositionQueryPage() {
                         </div>
 
                         <div className="flex items-center">
-                          <span className="text-xs text-gray-500">
+                          <span className="text-sm font-semibold text-gray-500">
                             {player.Puntos} puntos
                           </span>
                         </div>
@@ -201,7 +197,7 @@ export default function PositionQueryPage() {
                 <Card className="border-gray-200">
                   <div>
                     <div className="text-gray-900">Clasificación Global</div>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-md text-gray-600">
                       Basada en el rendimiento de toda la temporada
                     </p>
                   </div>
@@ -234,7 +230,7 @@ export default function PositionQueryPage() {
 
                         <div className="flex items-center space-x-6">
                           <div className="flex items-center">
-                            <span className="text-xs text-gray-500">
+                            <span className="text-sm font-semibold text-gray-500">
                               {player.Puntos} puntos
                             </span>
                           </div>

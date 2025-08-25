@@ -10,10 +10,10 @@ interface UpcomingGamesCardProps {
 interface Game {
   nombreVisitante: string;
   nombreLocal: string;
-  fechaPartido: "2024-11-09";
-  horaPartido: "20:30";
-  estadio: "Estadio no Definido";
-  ganador: "V";
+  fechaPartido: string;
+  horaPartido: string;
+  estadio: string;
+  ganador: string;
 }
 
 export const UpcomingGamesCard = ({ currentWeek }: UpcomingGamesCardProps) => {
@@ -37,13 +37,17 @@ export const UpcomingGamesCard = ({ currentWeek }: UpcomingGamesCardProps) => {
             {data?.data.map((game: Game, index: number) => (
               <div
                 key={index}
-                className="flex items-center justify-between p-3 border border-gray-200 rounded-lg"
+                className="grid lg:flex gap-2 items-center lg:justify-between p-3 border border-gray-200 rounded-lg"
               >
-                <div className="text-sm font-medium text-gray-900">
-                  {game.nombreVisitante} vs {game.nombreLocal}
+                <div className="grid lg:flex gap-2 text-center lg:text-start text-sm font-medium text-neutral-900">
+                  <span>{game.nombreVisitante}</span>
+                  <span>vs</span>
+                  <span>{game.nombreLocal}</span>
                 </div>
 
-                <div className="text-sm text-gray-600">{game.fechaPartido}</div>
+                <div className="text-center lg:text-end text-sm text-gray-600">
+                  {game.fechaPartido}
+                </div>
               </div>
             ))}
           </div>
