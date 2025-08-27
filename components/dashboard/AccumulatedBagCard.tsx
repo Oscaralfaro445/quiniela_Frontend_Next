@@ -3,7 +3,10 @@ import { Card } from "../shared/card/Card";
 
 export const AccumulatedBagCard = () => {
   const { isPending, isError, isSuccess, data } = useGetAccumulatedBag();
-  console.log("AccumulatedBagCard data:", data);
+  const totalQuiniela =
+    data?.data[0].totalQuiniela +
+    data?.data[0].totalSurvivor -
+    data?.data[0].totalPremio;
 
   return (
     <>
@@ -18,21 +21,29 @@ export const AccumulatedBagCard = () => {
         {isError && <span>Error al cargar los datos...</span>}
 
         {isSuccess && (
-          <div className="flex w-full gap-2 justify-between">
+          <>
             <Card>
-              <div className="flex flex-col">
+              <div className="flex flex-col items-center justify-between text-center text-sm">
+                <span className="text-gray-600">Bolsa Acumulada</span>
+                <span className="text-lg font-semibold text-gray-600">
+                  {`$ ${totalQuiniela}`}
+                </span>
+                <span className="text-gray-600">Recaudación total</span>
+              </div>
+            </Card>
+
+            <div className="grid lg:flex w-full gap-4 lg:justify-between">
+              <Card>
                 <div className="flex flex-col justify-between text-sm">
                   <span className="text-gray-600">Total Quiniela</span>
                   <span className="text-lg font-semibold text-gray-600">
                     {`$ ${data.data[0].totalQuiniela}`}
                   </span>
-                  <span className="text-gray-600">Recaudación total</span>
+                  <span className="text-gray-600">Recaudación quiniela</span>
                 </div>
-              </div>
-            </Card>
+              </Card>
 
-            <Card>
-              <div className="flex flex-col">
+              <Card>
                 <div className="flex flex-col justify-between text-sm">
                   <span className="text-gray-600">Total Survivor</span>
                   <span className="text-lg font-semibold text-gray-600">
@@ -40,21 +51,19 @@ export const AccumulatedBagCard = () => {
                   </span>
                   <span className="text-gray-600">Recaudación survivor</span>
                 </div>
-              </div>
-            </Card>
+              </Card>
 
-            <Card>
-              <div className="flex flex-col">
+              <Card>
                 <div className="flex flex-col justify-between text-sm">
-                  <span className="text-gray-600">Total Premio</span>
+                  <span className="text-gray-600">Premios Otorgados</span>
                   <span className="text-lg font-semibold text-gray-600">
                     {`$ ${data.data[0].totalPremio}`}
                   </span>
-                  <span className="text-gray-600">Premio acumulado</span>
+                  <span className="text-gray-600">Premios entregados</span>
                 </div>
-              </div>
-            </Card>
-          </div>
+              </Card>
+            </div>
+          </>
         )}
       </Card>
     </>

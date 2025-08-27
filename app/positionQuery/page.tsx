@@ -15,7 +15,7 @@ import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRout
 type TabType = "weekly" | "global";
 
 interface ParticipantData {
-  Secuencia: number;
+  Posicion: number;
   ID_QUINIELA: number;
   ID_PARTICIPANTE: number;
   periodo: string;
@@ -155,38 +155,40 @@ export default function PositionQueryPage() {
                   </div>
 
                   <div className="grid w-full gap-2">
-                    {weeklyLeaderboard?.map((player: ParticipantData) => (
-                      <div
-                        key={player.Secuencia}
-                        className={`flex p-4 items-center justify-between rounded-lg border transition-all duration-200 hover:bg-gray-50 hover:shadow-sm ${
-                          player.Secuencia <= 3
-                            ? "bg-blue-50 border-blue-200"
-                            : "border-gray-200"
-                        }`}
-                      >
-                        <div className="flex items-center gap-4">
-                          <div className="flex items-center justify-center w-10 h-10">
-                            {getRankIcon(player.Secuencia)}
+                    {weeklyLeaderboard?.map(
+                      (player: ParticipantData, index) => (
+                        <div
+                          key={index}
+                          className={`flex p-4 items-center justify-between rounded-lg border transition-all duration-200 hover:bg-gray-50 hover:shadow-sm ${
+                            player.Posicion <= 3
+                              ? "bg-blue-50 border-blue-200"
+                              : "border-gray-200"
+                          }`}
+                        >
+                          <div className="flex items-center gap-4">
+                            <div className="flex items-center justify-center w-10 h-10">
+                              {getRankIcon(player.Posicion)}
+                            </div>
+
+                            <div className="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center">
+                              <span className="text-sm font-bold text-white">
+                                {getNameAbbr(player.Nombre)}
+                              </span>
+                            </div>
+
+                            <div className="font-medium text-gray-900">
+                              {player.Nombre}
+                            </div>
                           </div>
 
-                          <div className="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center">
-                            <span className="text-sm font-bold text-white">
-                              {getNameAbbr(player.Nombre)}
+                          <div className="flex items-center">
+                            <span className="text-sm font-semibold text-gray-500">
+                              {player.Puntos} puntos
                             </span>
                           </div>
-
-                          <div className="font-medium text-gray-900">
-                            {player.Nombre}
-                          </div>
                         </div>
-
-                        <div className="flex items-center">
-                          <span className="text-sm font-semibold text-gray-500">
-                            {player.Puntos} puntos
-                          </span>
-                        </div>
-                      </div>
-                    ))}
+                      )
+                    )}
                   </div>
                 </Card>
               </div>
@@ -203,40 +205,42 @@ export default function PositionQueryPage() {
                   </div>
 
                   <div className="grid w-full gap-2">
-                    {globalLeaderboard?.map((player: ParticipantData) => (
-                      <div
-                        key={player.Secuencia}
-                        className={`flex p-4 items-center justify-between rounded-lg border transition-all duration-200 hover:bg-gray-50 hover:shadow-sm ${
-                          player.Secuencia <= 3
-                            ? "bg-blue-50 border-blue-200"
-                            : "border-gray-200"
-                        }`}
-                      >
-                        <div className="flex items-center gap-4">
-                          <div className="flex items-center justify-center w-10 h-10">
-                            {getRankIcon(player.Secuencia)}
+                    {globalLeaderboard?.map(
+                      (player: ParticipantData, index) => (
+                        <div
+                          key={index}
+                          className={`flex p-4 items-center justify-between rounded-lg border transition-all duration-200 hover:bg-gray-50 hover:shadow-sm ${
+                            player.Posicion <= 3
+                              ? "bg-blue-50 border-blue-200"
+                              : "border-gray-200"
+                          }`}
+                        >
+                          <div className="flex items-center gap-4">
+                            <div className="flex items-center justify-center w-10 h-10">
+                              {getRankIcon(player.Posicion)}
+                            </div>
+
+                            <div className="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center">
+                              <span className="text-sm font-bold text-white">
+                                {getNameAbbr(player.Nombre)}
+                              </span>
+                            </div>
+
+                            <div className="font-medium text-gray-700">
+                              {player.Nombre}
+                            </div>
                           </div>
 
-                          <div className="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center">
-                            <span className="text-sm font-bold text-white">
-                              {getNameAbbr(player.Nombre)}
-                            </span>
-                          </div>
-
-                          <div className="font-medium text-gray-700">
-                            {player.Nombre}
+                          <div className="flex items-center space-x-6">
+                            <div className="flex items-center">
+                              <span className="text-sm font-semibold text-gray-500">
+                                {player.Puntos} puntos
+                              </span>
+                            </div>
                           </div>
                         </div>
-
-                        <div className="flex items-center space-x-6">
-                          <div className="flex items-center">
-                            <span className="text-sm font-semibold text-gray-500">
-                              {player.Puntos} puntos
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
+                      )
+                    )}
                   </div>
                 </Card>
               </div>

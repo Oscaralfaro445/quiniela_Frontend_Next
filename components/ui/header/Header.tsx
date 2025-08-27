@@ -23,7 +23,9 @@ export const Header = () => {
           <Link href={isLogged ? "/dashboard" : "/"}>
             <div className="flex gap-2 items-center">
               <Icon name="trophy" size={30} className="text-blue-600" />
-              <p className="hidden sm:block text-3xl font-bold">NFL Quiniela</p>
+              <span className="hidden sm:block text-3xl font-bold">
+                {dataUser ? dataUser.titQuiniela : "NFL Quiniela"}
+              </span>
             </div>
           </Link>
 

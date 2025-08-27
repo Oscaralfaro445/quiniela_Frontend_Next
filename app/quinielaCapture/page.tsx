@@ -36,7 +36,6 @@ export default function QuinielaCapturePage() {
   const totalGames = gamesData?.length || 0;
   const isQuinielaEnabled =
     matches?.data?.data?.existeQuin?.bQuiniela === 1 ? false : true;
-  console.log("isQuinielaEnabled:", isQuinielaEnabled);
 
   const [selectedSurvivor, setSelectedSurvivor] = useState(0);
   const [quinielaData, setQuinielaData] = useState<QuinielaItem[]>([]);

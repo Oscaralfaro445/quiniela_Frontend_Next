@@ -16,6 +16,8 @@ const postSurvivorTeam = async (
       ID_EQUIPO_SUV: number;
       SITUACION: string;
       SITUACION_R: string;
+      B_PAGO: boolean;
+      B_RESUCITA: boolean;
     };
   }
 ) => {
@@ -44,6 +46,8 @@ const usePostSurvivorTeam = () => {
           ID_EQUIPO_SUV: idSurvivor,
           SITUACION: "P",
           SITUACION_R: "",
+          B_PAGO: dataUser!.bSurvivor,
+          B_RESUCITA: dataUser!.bResSurv,
         },
       }),
     onError: () => {

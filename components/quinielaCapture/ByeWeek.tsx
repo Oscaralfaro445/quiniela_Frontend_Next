@@ -17,7 +17,6 @@ export const ByeWeek = ({ byeData }: ByeWeekProps) => {
             <Card key={team.IdEquipo}>
               <div className="flex w-full gap-2 justify-start items-center">
                 <TeamLogo teamName={team.NomEquipo} />
-
                 <p>{team.NomEquipo}</p>
               </div>
             </Card>
