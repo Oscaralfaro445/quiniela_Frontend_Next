@@ -9,8 +9,8 @@ const fetchSurvivor = async (
     idQuery: number;
     parmRemp: {
       $1: number;
-      $2: string;
-      $3: number;
+      $2: number;
+      $3: string;
     };
   }
 ) => {
@@ -33,15 +33,15 @@ export const useGetSurvivor = () => {
         idQuery: 12,
         parmRemp: {
           $1: dataUser!.idQuiniela,
-          $2: dataUser!.idPeriodo,
-          $3: dataUser!.idParticipante,
+          $2: dataUser!.idParticipante,
+          $3: dataUser!.idPeriodo,
         },
       }),
     enabled:
       !!token &&
       !!dataUser?.idQuiniela &&
-      !!dataUser?.idPeriodo &&
-      !!dataUser?.idParticipante,
+      !!dataUser?.idParticipante &&
+      !!dataUser?.idPeriodo,
   });
   return { isPending, isError, isSuccess, error, data };
 };
