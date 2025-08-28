@@ -7,7 +7,7 @@ const fetchSurvivorStatus = async (
   payload: {
     idProceso: number;
     idProcedure: number;
-    parmRem: {
+    parmRemp: {
       $1: number;
       $2: number;
       $3: string;
@@ -31,13 +31,17 @@ const useGetSurvivorStatus = () => {
       fetchSurvivorStatus(token!, {
         idProceso: 6,
         idProcedure: 3,
-        parmRem: {
+        parmRemp: {
           $1: dataUser!.idQuiniela,
           $2: dataUser!.idParticipante,
           $3: dataUser!.idPeriodo,
         },
       }),
-    enabled: !!token && !!dataUser,
+    enabled:
+      !!token &&
+      !!dataUser?.idQuiniela &&
+      !!dataUser?.idParticipante &&
+      !!dataUser?.idPeriodo,
   });
 };
 
