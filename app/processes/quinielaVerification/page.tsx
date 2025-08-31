@@ -1,13 +1,15 @@
 "use client";
 
-import useGetQuinielaVerification from "@/hooks/quinielaVerification/queries/useGetQuinielaVerification";
+import { useGetQuinielaVerification } from "@/hooks/quinielaVerification/queries/useGetQuinielaVerification";
 import { Card } from "@/components/shared/card/Card";
-import { Icon } from "@/components/shared/icon/Icon";
 import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
 import { Title } from "@/components/shared/text/Title";
 import { TextBody } from "@/components/shared/text/TextBody";
+import { StatisticsCard } from "@/components/processes/quinielaVerification/StatisticsCard";
+import Link from "next/link";
+import { Button } from "@/components/shared/button/Button";
 
-interface Participant {
+export interface Participant {
   iD: number;
   nombre: string;
   quin: number;
@@ -17,16 +19,8 @@ interface Participant {
 }
 
 export default function QuinielaVerificationPage() {
-  const quinielaVerification = useGetQuinielaVerification();
-  const participants: Participant[] = quinielaVerification?.data?.data;
-
-  const totalParticipants = participants?.length;
-  const activeParticipants = participants?.filter((p) => p.existe === 1).length;
-  const quinielaParticipants = participants?.filter((p) => p.quin === 1).length;
-  const survivorParticipants = participants?.filter((p) => p.survivor).length;
-  const resurrectionParticipants = participants?.filter(
-    (p) => p.quinRes === 1
-  ).length;
+  const { isPending, isError, isSuccess, data } = useGetQuinielaVerification();
+  const participants: Participant[] = data?.data;
 
   return (
     <ProtectedRoute>
@@ -48,152 +42,70 @@ export default function QuinielaVerificationPage() {
         </div>
       </section>
 
-      <section>
-        <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center lg:justify-between">
-          <Card>
-            <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <div className="text-sm font-medium">Total Participantes</div>
-              <Icon name="check" className="h-4 w-4 text-green-600" />{" "}
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-blue-700">
-                {totalParticipants}
-              </div>
-            </div>
-          </Card>
+      <StatisticsCard />
 
-          <Card>
-            <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <div className="text-sm font-medium">Activos</div>
-              <Icon name="check" className="h-4 w-4 text-green-600" />
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-green-600">
-                {activeParticipants}
-              </div>
-            </div>
-          </Card>
+      {isPending && <div>Cargando datos...</div>}
 
-          <Card>
-            <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <div className="text-sm font-medium">En Quiniela</div>
-              <Icon name="trophy" className="h-4 w-4 text-blue-600" />
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-blue-600">
-                {quinielaParticipants}
-              </div>
-            </div>
-          </Card>
+      {isError && <div>Error al cargar los datos.</div>}
 
-          <Card>
-            <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <div className="text-sm font-medium">En Survivor</div>
-              <Icon name="shield" className="h-4 w-4 text-orange-600" />
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-orange-600">
-                {survivorParticipants}
-              </div>
-            </div>
-          </Card>
-
-          <Card>
-            <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <div className="text-sm font-medium">Resurrección</div>
-              <Icon name="user" className="h-4 w-4 text-purple-600" />
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-purple-600">
-                {resurrectionParticipants}
-              </div>
-            </div>
-          </Card>
-        </div>
-      </section>
-
-      {participants && (
+      {isSuccess && (
         <section>
           <div className="w-full max-w-[1280px] mx-auto px-10 py-8">
             <Card>
-              <div>
-                <div className="flex items-center space-x-2">
-                  <Icon name="users" className="h-5 w-5 text-blue-700" />
-                  <span>Lista de Participantes</span>
-                </div>
-
-                <p>
-                  Visualiza el estado de participación de cada usuario en las
-                  diferentes modalidades
-                </p>
+              <div className="flex flex-col">
+                <span className="text-lg text-blue-700 font-semibold">
+                  Lista de Participantes
+                </span>
+                <span className=" text-sm text-gray-600">
+                  Visualiza el estado general de cada usuario
+                </span>
               </div>
 
-              <div className="w-full overflow-x-auto">
-                <table>
-                  <thead>
-                    <tr className="bg-blue-700 hover:bg-blue-700">
-                      <th className="text-white font-semibold">ID</th>
-                      <th className="text-white font-semibold">Nombre</th>
-                      <th className="text-white font-semibold text-center">
-                        Estado
-                      </th>
-                      <th className="text-white font-semibold text-center">
-                        Quiniela
-                      </th>
-                      <th className="text-white font-semibold text-center">
-                        Resurrección
-                      </th>
-                      <th className="text-white font-semibold text-center">
-                        Survivor
-                      </th>
+              <table>
+                <thead>
+                  <tr className="bg-blue-700 hover:bg-blue-700">
+                    <th className="text-white font-semibold">ID</th>
+                    <th className="text-white font-semibold">Nombre</th>
+
+                    <th className="text-white font-semibold text-center">
+                      Survivor
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {participants.map((participant, index) => (
+                    <tr
+                      key={index}
+                      className="border-b border-neutral-300 hover:bg-gray-200"
+                    >
+                      <td className="text-center">{participant.iD}</td>
+                      <td className="text-center">{participant.nombre}</td>
+                      <td className="text-center">
+                        {participant.survivor === !!participant.existe ? (
+                          <div className="bg-green-600">Sí</div>
+                        ) : (
+                          <div className="bg-neutral-400">No</div>
+                        )}
+                      </td>
                     </tr>
-                  </thead>
-
-                  <tbody>
-                    {participants.map((participant, index) => (
-                      <tr
-                        key={participant.iD}
-                        className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
-                      >
-                        <td className="font-medium">{participant.iD}</td>
-                        <td className="font-medium">{participant.nombre}</td>
-                        <td className="text-center">
-                          {participant.existe === 1 ? (
-                            <div className="bg-green-600">Activo</div>
-                          ) : (
-                            <div className="bg-gray-400">Inactivo</div>
-                          )}
-                        </td>
-                        <td className="text-center">
-                          {participant.quin === 1 ? (
-                            <div className="bg-blue-600">Sí</div>
-                          ) : (
-                            <div className="bg-gray-400">No</div>
-                          )}
-                        </td>
-                        <td className="text-center">
-                          {participant.quinRes === 1 ? (
-                            <div className="bg-purple-600">Sí</div>
-                          ) : (
-                            <div className="bg-gray-400">No</div>
-                          )}
-                        </td>
-                        <td className="text-center">
-                          {participant.survivor ? (
-                            <div className="bg-orange-600">Sí</div>
-                          ) : (
-                            <div className="bg-gray-400">No</div>
-                          )}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                  ))}
+                </tbody>
+              </table>
             </Card>
           </div>
         </section>
       )}
+
+      <section>
+        <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
+          <Link href="/dashboard">
+            <Button type="button" title="Volver al Dashboard" theme="normal" />
+          </Link>
+
+          <Button type="submit" title="Enviar Quiniela" onClick={() => {}} />
+        </div>
+      </section>
     </ProtectedRoute>
   );
 }

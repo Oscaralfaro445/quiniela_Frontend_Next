@@ -21,10 +21,10 @@ const fetchQuinielaVerification = async (
   return response.data;
 };
 
-const useGetQuinielaVerification = () => {
+export const useGetQuinielaVerification = () => {
   const { token, dataUser } = useAuth();
 
-  return useQuery({
+  const { isPending, isError, isSuccess, error, data } = useQuery({
     queryKey: ["quinielaVerification"],
     queryFn: () =>
       fetchQuinielaVerification(token!, {
@@ -37,6 +37,6 @@ const useGetQuinielaVerification = () => {
       }),
     enabled: !!token && !!dataUser?.idQuiniela && !!dataUser?.idPeriodo,
   });
-};
 
-export default useGetQuinielaVerification;
+  return { isPending, isError, isSuccess, error, data };
+};
