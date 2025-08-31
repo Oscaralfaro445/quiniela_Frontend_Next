@@ -6,8 +6,8 @@ interface SurvivorPaymentPayload {
   idProceso: number;
   idQuery: string;
   parmRemp: {
-    $1: string | number;
-    $2: number;
+    $1: number;
+    $2: string;
   };
 }
 
@@ -23,41 +23,23 @@ const fetchSurvivorPayment = async (
   return response.data;
 };
 
-const useGetSurvivorPayment = () => {
+export const useGetSurvivorPayment = () => {
   const { token, dataUser } = useAuth();
 
-  return useQuery({
+  const { isPending, isError, isSuccess, error, data } = useQuery({
     queryKey: ["survivorPayment"],
     queryFn: () => {
-      /* if (!token) {
-        throw new Error("Authentication token is required");
-      } */
-
-      /* if (!dataUser?.idQuiniela || !dataUser?.idPeriodo) {
-        throw new Error("User data (idQuiniela or idPeriodo) is missing");
-      } */
-
-      const idPeriodo = Number(dataUser?.idPeriodo);
-
-      /* if (isNaN(idPeriodo)) {
-        throw new Error("Invalid idPeriodo value");
-      } */
-
-      const previousPeriodo = idPeriodo;
-
       return fetchSurvivorPayment(token!, {
         idProceso: 7,
         idQuery: "7",
         parmRemp: {
           $1: dataUser!.idQuiniela,
-          $2: previousPeriodo,
+          $2: dataUser!.idPeriodo,
         },
       });
     },
     enabled: !!token && !!dataUser?.idQuiniela && !!dataUser?.idPeriodo,
-    // staleTime: 5 * 60 * 1000,
-    // retry: 2,
   });
-};
 
-export default useGetSurvivorPayment;
+  return { isPending, isError, isSuccess, error, data };
+};

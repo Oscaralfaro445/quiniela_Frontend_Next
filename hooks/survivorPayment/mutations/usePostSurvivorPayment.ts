@@ -1,16 +1,23 @@
 import axiosInstance from "@/hooks/axios/axiosInstance";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AlertState } from "@/types/alert/alert";
-import { Participant } from "@/types/participant/participant";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { useAlert } from "@/context/alertContext/AlertContext";
+import { useHandleRequestStatus } from "@/utils/showRequestStatus/showRequestStatus";
+
+export interface survivorPayment {
+  ID_QUINIELA: number;
+  ID_PARTICIPANTE: number;
+  ID_PERIODO: string;
+  B_PAGO: boolean;
+}
 
 const postSurvivorPayment = async (
   token: string,
   payload: {
     idProceso: number;
     model: string;
-    data: Participant[];
+    data: survivorPayment[];
   }
 ) => {
   const response = await axiosInstance.post("/Crud/BulkU", payload, {
@@ -23,11 +30,13 @@ const postSurvivorPayment = async (
 
 const usePostSurvivorPayment = () => {
   const { token } = useAuth();
+  const queryClient = useQueryClient();
   const { showAlert } = useAlert();
+  const { handleRequestStatus } = useHandleRequestStatus();
 
   return useMutation({
     mutationKey: ["survivorPayment"],
-    mutationFn: ({ participants }: { participants: Participant[] }) =>
+    mutationFn: (participants: survivorPayment[]) =>
       postSurvivorPayment(token!, {
         idProceso: 7,
         model: "Q_SURVIVOR",
@@ -37,15 +46,17 @@ const usePostSurvivorPayment = () => {
       showAlert(
         AlertState.ERROR,
         "Error en la Solicitud",
-        "Tuvimos un problema al solicitar la activación del survivor"
+        "Tuvimos un problema al actualizar la información de los pagos"
       );
     },
-    onSuccess: () => {
-      showAlert(
-        AlertState.SUCCESS,
-        "Operación exitosa",
-        "La actualización de los pagos se realizó con éxito"
-      );
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["survivorPayment"] });
+      handleRequestStatus({
+        estatus: data.estatus,
+        errorUs: data.errorUs,
+        errorNeg: data.errorNeg,
+        mensajeExito: "La actualización de los pagos se realizó con éxito",
+      });
     },
     onSettled: () => {},
   });

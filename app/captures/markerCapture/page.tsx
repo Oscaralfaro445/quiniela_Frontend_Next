@@ -11,7 +11,7 @@ import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRout
 import { Title } from "@/components/shared/text/Title";
 import { TextBody } from "@/components/shared/text/TextBody";
 import { StatisticsCard } from "@/components/markerQuery/StatisticsCard";
-import { ScoreBoard } from "@/components/captures/marker/ScoreBoard";
+import { ScoreBoard } from "@/components/captures/markerCapture/ScoreBoard";
 
 export default function MarkerCapturePage() {
   const { dataUser } = useAuth();
