@@ -21,7 +21,7 @@ const fetchMarkers = async (
 const useGetMarkers = () => {
   const { token, dataUser } = useAuth();
 
-  const { isError, isPending, isSuccess, data, error } = useQuery({
+  const { isPending, isError, isSuccess, error, data } = useQuery({
     queryKey: ["markers"],
     queryFn: () =>
       fetchMarkers(token!, {
@@ -34,7 +34,7 @@ const useGetMarkers = () => {
     enabled: !!token && !!dataUser?.idQuiniela,
   });
 
-  return { isError, isPending, isSuccess, data, error };
+  return { isPending, isError, isSuccess, error, data };
 };
 
 export default useGetMarkers;

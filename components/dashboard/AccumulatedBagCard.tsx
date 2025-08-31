@@ -10,10 +10,14 @@ export const AccumulatedBagCard = () => {
 
   return (
     <>
-      <Card className="border-neutral-200">
-        <div>
-          <div className="text-gray-900">Bolsa Acumulada</div>
-          <div>Montos acumulados durante toda la temporada</div>
+      <Card>
+        <div className="flex flex-col">
+          <span className="text-lg text-blue-700 font-semibold">
+            Bolsa Acumulada
+          </span>
+          <span className=" text-sm text-gray-600">
+            Montos acumulados durante toda la temporada
+          </span>
         </div>
 
         {isPending && <span>Cargando...</span>}

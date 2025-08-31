@@ -38,7 +38,11 @@ export const Header = () => {
 
                 <div onClick={toggleSidebar}>
                   {isSidebarOpen ? (
-                    <Icon name="x" size={30} />
+                    <Icon
+                      className="transition-colors duration-200 hover:text-red-500"
+                      name="x"
+                      size={30}
+                    />
                   ) : (
                     <Icon name="menu" size={30} />
                   )}

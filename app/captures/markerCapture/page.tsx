@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import useGetMarkers from "@/hooks/markers/queries/useGetMarkers";
-import usePostMarkersMutation from "@/hooks/markers/mutations/usePostMarkersMutation";
+import { usePostMarkers } from "@/hooks/markers/mutations/usePostMarkers";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { GameResult } from "@/types/gameResult/gameResult";
 import { Card } from "@/components/shared/card/Card";
@@ -17,8 +17,9 @@ import { TeamLogo } from "@/components/shared/teamLogo/TeamLogo";
 export default function MarkerCapturePage() {
   const { dataUser } = useAuth();
   const week = dataUser?.idPeriodo;
-  const { isSuccess, data } = useGetMarkers();
-  const markersUpdate = usePostMarkersMutation();
+  const { isPending, isError, isSuccess, data } = useGetMarkers();
+  console.log(isPending, isError);
+  const markersUpdate = usePostMarkers();
 
   const [gameResults, setGameResults] = useState<GameResult[]>([]);
   const totalGames = gameResults?.length || 1;
@@ -61,9 +62,7 @@ export default function MarkerCapturePage() {
       ID_SCORE_E1: game.marcVisita,
       ID_SCORE_E2: game.marLocal,
     }));
-    console.log("Marcadores a enviar:", gameResultsUpdated);
     markersUpdate.mutate(gameResultsUpdated);
-    console.log("Marcadores enviados:", markersUpdate.data);
   };
 
   const getWinner = (partido: number) => {

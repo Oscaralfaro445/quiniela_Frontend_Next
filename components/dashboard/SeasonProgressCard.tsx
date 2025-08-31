@@ -6,10 +6,12 @@ export const SeasonProgressCard = () => {
 
   return (
     <>
-      <Card className="border-neutral-200">
-        <div>
-          <div className="text-gray-900">Progreso de la Temporada</div>
-          <div>Tu rendimiento general</div>
+      <Card>
+        <div className="flex flex-col">
+          <span className="text-lg text-blue-700 font-semibold">
+            Progreso de la Temporada
+          </span>
+          <span className=" text-sm text-gray-600">Tu rendimiento general</span>
         </div>
 
         {isPending && <span>Cargando...</span>}

@@ -22,10 +22,10 @@ const fetchSurvivorStatus = async (
   return response.data;
 };
 
-const useGetSurvivorStatus = () => {
+export const useGetSurvivorStatus = () => {
   const { token, dataUser } = useAuth();
 
-  return useQuery({
+  const { isPending, isError, isSuccess, error, data } = useQuery({
     queryKey: ["survivorStatus"],
     queryFn: () =>
       fetchSurvivorStatus(token!, {
@@ -43,6 +43,6 @@ const useGetSurvivorStatus = () => {
       !!dataUser?.idParticipante &&
       !!dataUser?.idPeriodo,
   });
-};
 
-export default useGetSurvivorStatus;
+  return { isPending, isError, isSuccess, error, data };
+};

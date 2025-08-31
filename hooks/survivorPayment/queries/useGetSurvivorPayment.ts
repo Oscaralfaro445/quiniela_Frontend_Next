@@ -43,7 +43,7 @@ const useGetSurvivorPayment = () => {
         throw new Error("Invalid idPeriodo value");
       } */
 
-      const previousPeriodo = idPeriodo - 1;
+      const previousPeriodo = idPeriodo;
 
       return fetchSurvivorPayment(token!, {
         idProceso: 7,

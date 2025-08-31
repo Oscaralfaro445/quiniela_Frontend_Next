@@ -11,9 +11,13 @@ export const SwiftActionsCard = ({ currentWeek }: SwiftActionsCardProps) => {
 
   return (
     <Card>
-      <div className="grid w-full">
-        <span className="text-gray-900">Acciones Rápidas</span>
-        <span>Gestiona tus quinielas de la semana</span>
+      <div className="flex flex-col">
+        <span className="text-lg text-blue-700 font-semibold">
+          Acciones Rápidas
+        </span>
+        <span className=" text-sm text-gray-600">
+          Gestiona tus quinielas de la semana
+        </span>
       </div>
 
       <Button

@@ -2,6 +2,8 @@ import { useGetUpcomingGames } from "@/hooks/dashboard/queries/useGetUpcomingGam
 import { useRouter } from "next/navigation";
 import { Button } from "../shared/button/Button";
 import { Card } from "../shared/card/Card";
+import { TeamLogo } from "../shared/teamLogo/TeamLogo";
+import { Icon } from "../shared/icon/Icon";
 
 interface UpcomingGamesCardProps {
   currentWeek: string;
@@ -22,10 +24,14 @@ export const UpcomingGamesCard = ({ currentWeek }: UpcomingGamesCardProps) => {
 
   return (
     <>
-      <Card className="lg:col-span-2 border-gray-200">
-        <div>
-          <div className="text-gray-900">Próximos Juegos</div>
-          <div>Semana {currentWeek} - Pendientes por jugar</div>
+      <Card className="lg:col-span-2">
+        <div className="flex flex-col">
+          <span className="text-lg text-blue-700 font-semibold">
+            Próximos Juegos
+          </span>
+          <span className=" text-sm text-gray-600">
+            Semana {currentWeek} - Pendientes por jugar
+          </span>
         </div>
 
         {isPending && <span>Cargando...</span>}
@@ -37,22 +43,51 @@ export const UpcomingGamesCard = ({ currentWeek }: UpcomingGamesCardProps) => {
             {data?.data.map((game: Game, index: number) => (
               <div
                 key={index}
-                className="grid lg:flex gap-2 items-center lg:justify-between p-3 border border-gray-200 rounded-lg"
+                className="grid p-3 gap-4 border border-gray-300 rounded-lg"
               >
-                <div className="grid lg:flex gap-2 text-center lg:text-start text-sm font-medium text-neutral-900">
-                  <span>{game.nombreVisitante}</span>
-                  <span>vs</span>
-                  <span>{game.nombreLocal}</span>
+                <div className="grid sm:flex w-full justify-between">
+                  <div className="flex gap-2 items-center">
+                    <TeamLogo
+                      className="transform scale-65"
+                      teamName={game.nombreVisitante}
+                    />
+
+                    <span className="text-md font-semibold">vs</span>
+
+                    <TeamLogo
+                      className="transform scale-65"
+                      teamName={game.nombreLocal}
+                    />
+                  </div>
+
+                  <div className="flex sm:grid w-full gap-2 justify-between">
+                    <div className="flex gap-2 items-center">
+                      <Icon name="map-pin" />
+                      <span className="lg:text-end text-sm text-gray-600">
+                        {game.estadio}
+                      </span>
+                    </div>
+
+                    <div className="flex gap-2 items-center">
+                      <Icon name="calendar" />
+                      <span className="lg:text-end text-sm text-gray-600">
+                        {game.fechaPartido}
+                      </span>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="text-center lg:text-end text-sm text-gray-600">
-                  {game.fechaPartido}
+                <div className="flex h-fit justify-center items-center border-2 border-blue-600 rounded-2xl">
+                  <span className="px-2 py-1 text-sm font-semibold text-blue-700">{`Ganador seleccionado: ${
+                    game.ganador === "V"
+                      ? game.nombreVisitante
+                      : game.nombreLocal
+                  }`}</span>
                 </div>
               </div>
             ))}
           </div>
         )}
-
         <Button
           type="button"
           title="Ver Quiniela"

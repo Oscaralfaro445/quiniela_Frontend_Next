@@ -1,5 +1,6 @@
+import { useHandleRequestStatus } from "@/utils/showRequestStatus/showRequestStatus";
 import axiosInstance from "@/hooks/axios/axiosInstance";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { useAlert } from "@/context/alertContext/AlertContext";
 import { AlertState } from "@/types/alert/alert";
@@ -26,9 +27,12 @@ const postSurvivorActivation = async (
   return response.data;
 };
 
-const usePostSurvivorActivation = () => {
+export const usePostSurvivorActivation = () => {
   const { token, dataUser } = useAuth();
+  const queryClient = useQueryClient();
   const { showAlert } = useAlert();
+  const { handleRequestStatus } = useHandleRequestStatus();
+
   return useMutation({
     mutationKey: ["survivorActivation"],
     mutationFn: ({
@@ -49,6 +53,7 @@ const usePostSurvivorActivation = () => {
           B_RESUCITA: bResucita,
         },
       }),
+
     onError: () => {
       showAlert(
         AlertState.ERROR,
@@ -56,15 +61,16 @@ const usePostSurvivorActivation = () => {
         "Tuvimos un problema al solicitar la activación del survivor"
       );
     },
-    onSuccess: () => {
-      showAlert(
-        AlertState.SUCCESS,
-        "Operación exitosa",
-        "La actualización del survivor se realizó con éxito"
-      );
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["survivorStatus"] });
+
+      handleRequestStatus({
+        estatus: data.estatus,
+        errorUs: data.errorUs,
+        errorNeg: data.errorNeg,
+        mensajeExito: "Activación del survivor realizada de forma correcta",
+      });
     },
     onSettled: () => {},
   });
 };
-
-export default usePostSurvivorActivation;

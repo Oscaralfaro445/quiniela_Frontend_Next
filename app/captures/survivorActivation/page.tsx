@@ -1,25 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import useGetSurvivorStatus from "@/hooks/survivorActivation/queries/useGetSurvivorStatus";
-import usePostSurvivorActivation from "@/hooks/survivorActivation/mutations/usePostSurvicorActivation";
+import { useGetSurvivorStatus } from "@/hooks/survivorActivation/queries/useGetSurvivorStatus";
+import { usePostSurvivorActivation } from "@/hooks/survivorActivation/mutations/usePostSurvicorActivation";
 import { TextBody } from "@/components/shared/text/TextBody";
 import { Title } from "@/components/shared/text/Title";
 import { Button } from "@/components/shared/button/Button";
 import { Card } from "@/components/shared/card/Card";
-import { Icon } from "@/components/shared/icon/Icon";
 import { TeamLogo } from "@/components/shared/teamLogo/TeamLogo";
 import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
 
 export default function SurvivorActivationPage() {
-  const survivorStatus = useGetSurvivorStatus();
+  const { isPending, isError, isSuccess, data } = useGetSurvivorStatus();
   const survivorActivation = usePostSurvivorActivation();
-  const survivorData = survivorStatus?.data?.data[0];
 
   const handleSurvivorActivation = () => {
     survivorActivation.mutate({
-      idEquipo: survivorData.idEquipoSuv,
-      bResucita: !survivorData.bResucita,
+      idEquipo: data.data[0].idEquipoSuv,
+      bResucita: !data.data[0].bResucita,
     });
   };
 
@@ -43,56 +41,61 @@ export default function SurvivorActivationPage() {
 
         <section>
           <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center lg:justify-between">
-            <Card className="border-gray-200">
-              <div>
-                <div className="flex items-center space-x-2">
-                  <Icon name="check" />
-                  <span>Equipo Disponible para Resurrección</span>
-                </div>
-                <div>
+            <Card>
+              <div className="flex flex-col">
+                <span className="text-lg text-blue-700 font-semibold">
+                  Equipo Disponible para Resurrección
+                </span>
+                <span className=" text-sm text-gray-600">
                   Gestiona el estado de activación de cada equipo y su costo
                   asociado
-                </div>
+                </span>
               </div>
 
-              {survivorData && (
-                <div>
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-                      <div className="flex items-center space-x-4">
-                        <div className="relative">
-                          <TeamLogo teamName={survivorData.nomEquipo} />
-                        </div>
-                        <div>
-                          <h3 className="font-semibold text-gray-900">
-                            {survivorData?.nomEquipo}
-                          </h3>
-                          <p className="text-sm text-gray-600">
-                            ID: {survivorData.idEquipoSuv}
-                          </p>
-                        </div>
-                      </div>
+              {isPending && (
+                <div className="p-4 text-gray-500">Cargando...</div>
+              )}
 
-                      <div className="flex items-center space-x-4">
-                        <div className="text-right">
-                          <p className="font-semibold text-gray-900">
-                            ${survivorData.costoQuiniela}
-                          </p>
-                          <p className="text-sm text-gray-600">Costo</p>
-                        </div>
+              {isError && <div>Error al cargar los datos</div>}
 
-                        <Button
-                          type="button"
-                          title={
-                            survivorData.bResucita ? "Cancelar" : "Activar"
-                          }
-                          theme={survivorData.bResucita ? "primary" : "danger"}
-                          onClick={handleSurvivorActivation}
-                        />
-                      </div>
+              {isSuccess && data.data.length > 0 ? (
+                <div className="flex items-center justify-between p-4 border border-gray-400 rounded-lg hover:bg-gray-50 transition-colors">
+                  <div className="flex items-center space-x-4">
+                    <div className="relative">
+                      <TeamLogo teamName={data.data[0].nomEquipo} />
+                    </div>
+
+                    <div>
+                      <h3 className="font-semibold text-gray-900">
+                        {data.data[0].nomEquipo}
+                      </h3>
+                      <p className="text-sm text-gray-600">
+                        ID: {data.data[0].idEquipoSuv}
+                      </p>
                     </div>
                   </div>
+
+                  <div className="flex items-center space-x-4">
+                    <div className="flex flex-col text-right">
+                      <span className="font-semibold text-lg text-gray-900">
+                        ${data.data[0].costoSurvivor}
+                      </span>
+
+                      <span className="text-sm text-gray-600">Costo</span>
+                    </div>
+
+                    <Button
+                      type="button"
+                      title={data.data[0].bResucita ? "Cancelar" : "Activar"}
+                      theme={data.data[0].bResucita ? "danger" : "primary"}
+                      onClick={handleSurvivorActivation}
+                    />
+                  </div>
                 </div>
+              ) : (
+                <span className="text-red-500">
+                  No hay equipos disponibles para Resurrección
+                </span>
               )}
             </Card>
           </div>

@@ -1,5 +1,5 @@
 import axiosInstance from "@/hooks/axios/axiosInstance";
-import { useMutation } from "@tanstack/react-query";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useAuth } from "@/context/authContext/AuthContext";
 
 interface Marker {
@@ -9,7 +9,7 @@ interface Marker {
   ID_SCORE_E2: number;
 }
 
-const postMarkersMutation = async (
+const postMarkers = async (
   token: string,
   payload: {
     idProceso: number;
@@ -25,21 +25,22 @@ const postMarkersMutation = async (
   return response.data;
 };
 
-const usePostMarkersMutation = () => {
+export const usePostMarkers = () => {
+  const queryClient = useQueryClient();
   const { token } = useAuth();
 
   return useMutation({
     mutationKey: ["markers"],
     mutationFn: (markersData: Marker[]) =>
-      postMarkersMutation(token!, {
+      postMarkers(token!, {
         idProceso: 5,
         model: "Q_PARTIDO",
         data: markersData,
       }),
     onError: () => {},
-    onSuccess: () => {},
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["markers"] });
+    },
     onSettled: () => {},
   });
 };
-
-export default usePostMarkersMutation;

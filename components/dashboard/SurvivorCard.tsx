@@ -14,7 +14,7 @@ export const SurvivorCard = () => {
           <span className="text-lg text-blue-700 font-semibold">
             Partido Survivor Seleccionado
           </span>
-          <span className="text-gray-600">
+          <span className="text-sm text-gray-600">
             Información del partido de survivor seleccionado
           </span>
         </div>
@@ -67,12 +67,12 @@ export const SurvivorCard = () => {
 
                 <div className="flex gap-2 justify-between text-sm">
                   <Icon className="text-blue-600" name="clock" />
-                  <span className="text-gray-600">{`Fecha: ${data.data[0].HORA_PARTIDO}`}</span>
+                  <span className="text-gray-600">{`Hora: ${data.data[0].HORA_PARTIDO}`}</span>
                 </div>
 
                 <div className="flex gap-2 justify-between text-sm">
                   <Icon className="text-blue-600" name="map-pin" />
-                  <span className="text-gray-600">{`Fecha: ${data.data[0].ESTADIO}`}</span>
+                  <span className="text-gray-600">{`Estadio: ${data.data[0].ESTADIO}`}</span>
                 </div>
               </div>
             </div>

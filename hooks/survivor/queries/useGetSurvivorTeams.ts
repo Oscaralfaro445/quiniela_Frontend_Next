@@ -10,6 +10,7 @@ const fetchSurvivorTeams = async (
     parmRemp: {
       $1: number;
       $2: number;
+      $3: string;
     };
   }
 ) => {
@@ -33,9 +34,14 @@ const useGetSurvivorTeams = () => {
         parmRemp: {
           $1: dataUser!.idQuiniela,
           $2: dataUser!.idParticipante,
+          $3: dataUser!.idPeriodo,
         },
       }),
-    enabled: !!token && !!dataUser?.idQuiniela && !!dataUser?.idParticipante,
+    enabled:
+      !!token &&
+      !!dataUser?.idQuiniela &&
+      !!dataUser?.idParticipante &&
+      !!dataUser?.idPeriodo,
   });
 };
 

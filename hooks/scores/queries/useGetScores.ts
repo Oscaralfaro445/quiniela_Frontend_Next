@@ -1,5 +1,5 @@
 import axiosInstance from "@/hooks/axios/axiosInstance";
-import { useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/context/authContext/AuthContext";
 
 const fetchScores = async (
@@ -14,21 +14,21 @@ const fetchScores = async (
   return response.data;
 };
 
-const useGetScores = () => {
+const useGetScores = (idEquipo: number) => {
   const { token } = useAuth();
 
-  return useMutation({
-    mutationKey: ["scores"],
-    mutationFn: ({ idEquipo }: { idEquipo: number }) =>
+  const { isPending, isError, isSuccess, error, data } = useQuery({
+    queryKey: ["scores", idEquipo],
+    queryFn: () =>
       fetchScores(token!, {
         idProceso: 2,
         idQuery: "3",
         parmRemp: { $1: idEquipo },
       }),
-    onError: () => {},
-    onSuccess: () => {},
-    onSettled: () => {},
+    enabled: !!token && !!idEquipo,
   });
+
+  return { isPending, isError, isSuccess, error, data };
 };
 
 export default useGetScores;

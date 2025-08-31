@@ -134,11 +134,7 @@ export default function QuinielaCapturePage() {
         </section>
       )}
 
-      <section>
-        <div className="max-w-[1280px] mx-auto px-10 py-8">
-          <Timer />
-        </div>
-      </section>
+      <Timer />
 
       <section>
         <div className="max-w-[1280px] mx-auto px-10 py-8">
