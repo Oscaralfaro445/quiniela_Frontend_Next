@@ -1,10 +1,11 @@
 import axiosInstance from "../../axios/axiosInstance";
 import { useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { LoginFormValues } from "@/types/login/login";
 import { AlertState } from "@/types/alert/alert";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { useAlert } from "@/context/alertContext/AlertContext";
+import { useHandleRequestStatus } from "@/utils/showRequestStatus/showRequestStatus";
 
 const postLogin = async (payload: {
   cveUsuario: string;
@@ -18,8 +19,10 @@ const postLogin = async (payload: {
 
 const usePostLogin = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const { login } = useAuth();
   const { showAlert } = useAlert();
+  const { handleRequestStatus } = useHandleRequestStatus();
 
   return useMutation({
     mutationKey: ["login"],
@@ -36,22 +39,28 @@ const usePostLogin = () => {
     onError: () => {
       showAlert(
         AlertState.ERROR,
-        "Error de autenticación",
-        "Usuario o contraseña incorrectos"
+        "Error al procesar la solicitud",
+        "Tuvimos un problema al iniciar sesión"
       );
     },
     onSuccess: (data) => {
-      showAlert(
-        AlertState.SUCCESS,
-        "Operación exitosa",
-        "Inicio de sesión exitoso"
-      );
+      queryClient.invalidateQueries({ queryKey: ["survivorStatus"] });
+      handleRequestStatus({
+        estatus: data.estatus,
+        errorUs: data.errorUs,
+        errorNeg: data.errorNeg,
+        mensajeExito: "Inicio de sesión exitoso",
+      });
 
       if (data.data[0].token) {
         router.push("/dashboard");
         login(data.data[0].token, data.data[0], data.rememberMe);
       } else {
-        console.log("No se recibió token en la respuesta", data);
+        showAlert(
+          AlertState.ERROR,
+          "Error al procesar la respuesta",
+          "No se recibió token en la respuesta"
+        );
       }
     },
     onSettled: () => {},

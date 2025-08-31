@@ -5,7 +5,6 @@ import { Icon } from "../shared/icon/Icon";
 
 export const SurvivorCard = () => {
   const { isPending, isError, isSuccess, data } = useGetSurvivor();
-  console.log("SurvivorCard data:", data);
 
   return (
     <>

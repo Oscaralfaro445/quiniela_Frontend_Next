@@ -18,10 +18,10 @@ const fetchMatches = async (
   return response.data;
 };
 
-const useGetMatches = () => {
+export const useGetMatches = () => {
   const { token, dataUser } = useAuth();
 
-  return useQuery({
+  const { isPending, isError, isSuccess, error, data } = useQuery({
     queryKey: ["matches"],
     queryFn: () =>
       fetchMatches(token!, {
@@ -39,6 +39,5 @@ const useGetMatches = () => {
       !!dataUser?.idParticipante &&
       !!dataUser?.idPeriodo,
   });
+  return { isPending, isError, isSuccess, error, data };
 };
-
-export default useGetMatches;

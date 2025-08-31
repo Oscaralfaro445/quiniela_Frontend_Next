@@ -1,9 +1,9 @@
-import { useHandleRequestStatus } from "@/utils/showRequestStatus/showRequestStatus";
 import axiosInstance from "@/hooks/axios/axiosInstance";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { useAlert } from "@/context/alertContext/AlertContext";
 import { AlertState } from "@/types/alert/alert";
+import { useHandleRequestStatus } from "@/utils/showRequestStatus/showRequestStatus";
 
 const postSurvivorActivation = async (
   token: string,
@@ -53,7 +53,6 @@ export const usePostSurvivorActivation = () => {
           B_RESUCITA: bResucita,
         },
       }),
-
     onError: () => {
       showAlert(
         AlertState.ERROR,
@@ -63,7 +62,6 @@ export const usePostSurvivorActivation = () => {
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["survivorStatus"] });
-
       handleRequestStatus({
         estatus: data.estatus,
         errorUs: data.errorUs,
