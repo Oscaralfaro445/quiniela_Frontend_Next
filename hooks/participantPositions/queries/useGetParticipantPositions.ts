@@ -21,10 +21,10 @@ const fetchParticipantPositions = async (
   return response.data;
 };
 
-const useGetParticipantPositions = () => {
+export const useGetParticipantPositions = () => {
   const { token, dataUser } = useAuth();
 
-  return useQuery({
+  const { isPending, isError, isSuccess, error, data } = useQuery({
     queryKey: ["participantPositions"],
     queryFn: () =>
       fetchParticipantPositions(token!, {
@@ -37,6 +37,5 @@ const useGetParticipantPositions = () => {
       }),
     enabled: !!token && !!dataUser?.idQuiniela && !!dataUser?.idPeriodo,
   });
+  return { isPending, isError, isSuccess, error, data };
 };
-
-export default useGetParticipantPositions;

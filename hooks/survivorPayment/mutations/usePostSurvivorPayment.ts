@@ -28,7 +28,7 @@ const postSurvivorPayment = async (
   return response.data;
 };
 
-const usePostSurvivorPayment = () => {
+export const usePostSurvivorPayment = () => {
   const { token } = useAuth();
   const queryClient = useQueryClient();
   const { showAlert } = useAlert();
@@ -61,5 +61,3 @@ const usePostSurvivorPayment = () => {
     onSettled: () => {},
   });
 };
-
-export default usePostSurvivorPayment;

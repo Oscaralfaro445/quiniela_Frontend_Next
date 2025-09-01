@@ -22,10 +22,10 @@ const fetchSurvivorTeams = async (
   return response.data;
 };
 
-const useGetSurvivorTeams = () => {
+export const useGetSurvivorTeams = () => {
   const { token, dataUser } = useAuth();
 
-  return useQuery({
+  const { isPending, isError, isSuccess, error, data } = useQuery({
     queryKey: ["survivorTeams"],
     queryFn: () =>
       fetchSurvivorTeams(token!, {
@@ -43,6 +43,6 @@ const useGetSurvivorTeams = () => {
       !!dataUser?.idParticipante &&
       !!dataUser?.idPeriodo,
   });
-};
 
-export default useGetSurvivorTeams;
+  return { isPending, isError, isSuccess, error, data };
+};

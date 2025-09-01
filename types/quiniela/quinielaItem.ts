@@ -1,7 +1,13 @@
 export interface QuinielaItem {
-  ID_QUINIELA: number | undefined;
-  ID_PARTICIPANTE: number | undefined;
-  ID_PERIODO: string | undefined;
-  ID_PARTIDO: number;
-  CVE_GANADOR: string;
+  Partido: number;
+  IdL: number;
+  EquipoV: string;
+  IdV: number;
+  EquipoL: string;
+  Fecha: string;
+  HoraPartido: string;
+  Estadio: string;
+  partGanador: string;
+  scoreVist: number;
+  scoreLocal: number;
 }

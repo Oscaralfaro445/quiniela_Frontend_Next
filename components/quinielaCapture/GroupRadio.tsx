@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { QuinielaWeekTeam } from "@/types/quiniela/quinielaWeekTeam";
 import { QuinielaItem } from "@/types/quiniela/quinielaItem";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";
@@ -9,7 +8,7 @@ import { TeamLogo } from "../shared/teamLogo/TeamLogo";
 
 interface GroupRadioProps {
   disabled: boolean;
-  game: QuinielaWeekTeam;
+  game: QuinielaItem;
   quinielaData: QuinielaItem[];
   handleChangeQuiniela: (idGame: number, team: string) => void;
 }
@@ -17,7 +16,7 @@ interface GroupRadioProps {
 export const GroupRadio = ({
   disabled,
   game,
-  quinielaData,
+  // quinielaData,
   handleChangeQuiniela,
 }: GroupRadioProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -43,17 +42,12 @@ export const GroupRadio = ({
                 className="h-4 w-4"
                 type="radio"
                 name={`game-${game.Partido}`}
-                // id={`game-${game.Partido}`}
-                // value={game.IdV}
+                id={`game-${game.EquipoV}`}
+                value={game.EquipoV}
                 disabled={disabled}
-                /* checked={quinielaData.some(
-                (item) =>
-                  item.ID_PARTIDO === game.Partido &&
-                  item.CVE_GANADOR === game.EquipoV
-              )} */
-
-                onChange={() =>
-                  handleChangeQuiniela(game.Partido, game.EquipoV)
+                checked={game.partGanador === "V"}
+                onChange={(event) =>
+                  handleChangeQuiniela(game.Partido, event.target.value)
                 }
               />
 
@@ -66,13 +60,7 @@ export const GroupRadio = ({
               </label>
             </div>
 
-            {quinielaData.some(
-              (item) =>
-                item.ID_PARTIDO === game.Partido &&
-                item.CVE_GANADOR === game.EquipoV && (
-                  <Icon name="check" size={12} />
-                )
-            )}
+            {game.partGanador === "V" && <Icon name="check" size={25} />}
           </div>
         </Card>
 
@@ -83,16 +71,12 @@ export const GroupRadio = ({
                 className="h-4 w-4"
                 type="radio"
                 name={`game-${game.Partido}`}
-                // id={`game-${game.Partido}`}
-                // value={game.IdL}
+                id={`game-${game.EquipoL}`}
+                value={game.EquipoL}
                 disabled={disabled}
-                /*  checked={quinielaData.some(
-                (item) =>
-                  item.ID_PARTIDO === game.Partido &&
-                  item.CVE_GANADOR === game.EquipoL
-              )} */
-                onChange={() =>
-                  handleChangeQuiniela(game.Partido, game.EquipoL)
+                checked={game.partGanador === "L"}
+                onChange={(event) =>
+                  handleChangeQuiniela(game.Partido, event.target.value)
                 }
               />
 
@@ -105,13 +89,7 @@ export const GroupRadio = ({
               </label>
             </div>
 
-            {quinielaData.some(
-              (item) =>
-                item.ID_PARTIDO === game.Partido &&
-                item.CVE_GANADOR === game.EquipoL && (
-                  <Icon name="check" size={12} />
-                )
-            )}
+            {game.partGanador === "L" && <Icon name="check" size={25} />}
           </div>
         </Card>
       </Card>

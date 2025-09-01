@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { useGetSurvivorPayment } from "@/hooks/survivorPayment/queries/useGetSurvivorPayment";
-import usePostSurvivorPayment from "@/hooks/survivorPayment/mutations/usePostSurvivorPayment";
+import { usePostSurvivorPayment } from "@/hooks/survivorPayment/mutations/usePostSurvivorPayment";
 import { Participant } from "@/types/participant/participant";
 import { Card } from "@/components/shared/card/Card";
 import { Icon } from "@/components/shared/icon/Icon";
@@ -58,11 +58,8 @@ export default function SurvivorPaymentPage() {
       <section className="pt-18">
         <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center lg:justify-between">
           <div className="grid gap-2">
-            <Title title="Clasificación" />
-            <TextBody
-              text="Consulta las posiciones semanales y globales de todos los
-                participantes"
-            />
+            <Title title="Pagos Survivor" />
+            <TextBody text="Consulta el estatus de pago del survivor" />
           </div>
 
           <div className="flex h-fit justify-center items-center border-2 border-blue-600 rounded-2xl">

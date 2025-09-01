@@ -1,19 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useGetMatches } from "@/hooks/matches/queries/useGetMatches";
-import useGetSurvivorTeams from "@/hooks/survivor/queries/useGetSurvivorTeams";
 import usePostSurvivorTeam from "@/hooks/survivor/mutations/usePostSurvivorTeam";
 import { usePostQuiniela } from "@/hooks/quiniela/mutation/usePostQuiniela";
 import { AlertState } from "@/types/alert/alert";
-import { SurvivorTeam } from "@/types/survivor/survivorTeam";
-import { QuinielaWeekTeam } from "@/types/quiniela/quinielaWeekTeam";
 import { QuinielaItem } from "@/types/quiniela/quinielaItem";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { useAlert } from "@/context/alertContext/AlertContext";
 import { WeeklyHeadline } from "@/components/quinielaCapture/WeeklyHeadline";
-import { Survivor } from "@/components/quinielaCapture/Survivor";
 import { Card } from "@/components/shared/card/Card";
 import { Button } from "@/components/shared/button/Button";
 import { ByeWeek } from "@/components/quinielaCapture/ByeWeek";
@@ -23,24 +19,31 @@ import { Title } from "@/components/shared/text/Title";
 import { TextBody } from "@/components/shared/text/TextBody";
 import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
 import { QuinielaProgressCard } from "@/components/quinielaCapture/QuinielaProgressCard";
+import { SurvivorSelector } from "@/components/quinielaCapture/SurvivorSelector";
 
 export default function QuinielaCapturePage() {
   const { dataUser } = useAuth();
   const { showAlert } = useAlert();
-  const matches = useGetMatches();
-  const survivor = useGetSurvivorTeams();
+  const { isPending, isError, isSuccess, data } = useGetMatches();
   const survivorAlta = usePostSurvivorTeam();
   const quinielaAlta = usePostQuiniela();
   const currentWeek = dataUser?.idPeriodo;
-  const gamesData: QuinielaWeekTeam[] = matches?.data?.data[0]?.quiniela;
-  const survivorData: SurvivorTeam[] = survivor?.data?.data;
-  const totalGames = gamesData?.length || 0;
   const isQuinielaEnabled =
-    matches?.data?.data?.existeQuin?.bQuiniela === 1 ? false : true;
+    data?.data?.extraData?.bQuiniela === 1 ? false : true;
 
   const [selectedSurvivor, setSelectedSurvivor] = useState(0);
   const [quinielaData, setQuinielaData] = useState<QuinielaItem[]>([]);
-  const completedPicks = quinielaData.length;
+  const totalGames = data?.data[0]?.quiniela?.length || 0;
+  const completedPicks = quinielaData.filter(
+    (game) => game.partGanador !== " "
+  ).length;
+
+  useEffect(() => {
+    if (isSuccess) {
+      const quinielaInitialData = data.data[0].quiniela;
+      setQuinielaData(quinielaInitialData);
+    }
+  }, [isSuccess, data]);
 
   const handleChangeSurvivor = (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -50,21 +53,12 @@ export default function QuinielaCapturePage() {
 
   const handleChangeQuiniela = (idGame: number, team: string) => {
     setQuinielaData((prev) => {
-      const updated = prev.some((game) => game.ID_PARTIDO === idGame)
-        ? prev.map((game) =>
-            game.ID_PARTIDO === idGame ? { ...game, CVE_GANADOR: team } : game
-          )
-        : [
-            ...prev,
-            {
-              ID_QUINIELA: dataUser?.idQuiniela,
-              ID_PARTICIPANTE: dataUser?.idParticipante,
-              ID_PERIODO: dataUser?.idPeriodo,
-              ID_PARTIDO: idGame,
-              CVE_GANADOR: team,
-            },
-          ];
-      return updated;
+      const quinielaUpdated = prev.map((game) =>
+        game.Partido === idGame
+          ? { ...game, partGanador: team === game.EquipoV ? "V" : "L" }
+          : game
+      );
+      return quinielaUpdated;
     });
   };
 
@@ -107,8 +101,8 @@ export default function QuinielaCapturePage() {
       ID_QUINIELA: dataUser!.idQuiniela,
       ID_PARTICIPANTE: dataUser!.idParticipante,
       ID_PERIODO: dataUser!.idPeriodo,
-      ID_PARTIDO: game.ID_PARTIDO,
-      CVE_GANADOR: game.CVE_GANADOR,
+      ID_PARTIDO: game.Partido,
+      CVE_GANADOR: game.partGanador,
     }));
 
     survivorAlta.mutate(selectedSurvivor);
@@ -123,17 +117,12 @@ export default function QuinielaCapturePage() {
         </div>
       </section>
 
-      {dataUser?.bSurvivor && survivorData && (
-        <section>
-          <div className="max-w-[1280px] mx-auto px-10 py-8">
-            <Survivor
-              disabled={!isQuinielaEnabled}
-              survivorData={survivorData}
-              selectedSurvivor={selectedSurvivor}
-              handleChangeSurvivor={handleChangeSurvivor}
-            />
-          </div>
-        </section>
+      {dataUser?.bSurvivor && (
+        <SurvivorSelector
+          disabled={!isQuinielaEnabled}
+          selectedSurvivor={selectedSurvivor}
+          handleSelectedSurvivor={handleChangeSurvivor}
+        />
       )}
 
       <ByeWeek />
@@ -145,17 +134,21 @@ export default function QuinielaCapturePage() {
         totalGames={totalGames}
       />
 
-      {gamesData && (
-        <section>
-          <div className="max-w-[1280px] mx-auto px-10 py-8">
-            <Card>
-              <div className="grid gap-2">
-                <Title title="Quiniela" />
-                <TextBody text="Selecciona el ganador de cada juego" />
-              </div>
+      <section>
+        <div className="max-w-[1280px] mx-auto px-10 py-8">
+          <Card>
+            <div className="grid gap-2">
+              <Title title="Quiniela" />
+              <TextBody text="Selecciona el ganador de cada juego" />
+            </div>
 
+            {isPending && <>Loading...</>}
+
+            {isError && <></>}
+
+            {isSuccess && (
               <div className="grid lg:grid-cols-2 gap-4">
-                {gamesData.map((game: QuinielaWeekTeam) => (
+                {quinielaData.map((game: QuinielaItem) => (
                   <GroupRadio
                     key={game.Partido}
                     disabled={!isQuinielaEnabled}
@@ -165,10 +158,10 @@ export default function QuinielaCapturePage() {
                   />
                 ))}
               </div>
-            </Card>
-          </div>
-        </section>
-      )}
+            )}
+          </Card>
+        </div>
+      </section>
 
       <section>
         <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">

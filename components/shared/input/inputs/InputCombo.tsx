@@ -40,7 +40,7 @@ export const InputCombo = <T extends keyof Option>({
     const event = {
       target: {
         name,
-        value: selectedValue?.toString() || "", // Convertir a string para consistencia
+        value: selectedValue?.toString() || "",
       },
     } as ChangeEvent<HTMLSelectElement>;
 
