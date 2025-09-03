@@ -31,7 +31,10 @@ export default function QuinielaCapturePage() {
   const isQuinielaEnabled =
     data?.data[0]?.extraData?.bQuiniela === 1 ? false : true;
 
+  console.log(data);
+
   const [selectedSurvivor, setSelectedSurvivor] = useState(0);
+  console.log("Selected Survivor:", selectedSurvivor);
   const [quinielaData, setQuinielaData] = useState<QuinielaItem[]>([]);
   const totalGames = data?.data[0]?.quiniela?.length || 0;
   const completedPicks = quinielaData.filter(
@@ -112,11 +115,7 @@ export default function QuinielaCapturePage() {
 
   return (
     <ProtectedRoute>
-      <section className="pt-18">
-        <div className="max-w-[1280px] mx-auto px-10 py-8">
-          <WeeklyHeadline week={currentWeek} />
-        </div>
-      </section>
+      <WeeklyHeadline week={currentWeek} />
 
       {dataUser?.bSurvivor && (
         <SurvivorSelector

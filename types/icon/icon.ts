@@ -33,6 +33,7 @@ export type IconName =
   | "menu"
   | "message-circle-question-mark"
   | "minus"
+  | "octagon-alert"
   | "panel-left-close"
   | "panel-left-open"
   | "pencil"
