@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useGetMatches } from "@/hooks/matches/queries/useGetMatches";
 import usePostSurvivorTeam from "@/hooks/survivor/mutations/usePostSurvivorTeam";
 import { usePostQuiniela } from "@/hooks/quiniela/mutation/usePostQuiniela";
@@ -29,7 +29,7 @@ export default function QuinielaCapturePage() {
   const quinielaAlta = usePostQuiniela();
   const currentWeek = dataUser?.idPeriodo;
   const isQuinielaEnabled =
-    data?.data?.extraData?.bQuiniela === 1 ? false : true;
+    data?.data[0]?.extraData?.bQuiniela === 1 ? false : true;
 
   const [selectedSurvivor, setSelectedSurvivor] = useState(0);
   const [quinielaData, setQuinielaData] = useState<QuinielaItem[]>([]);
@@ -41,6 +41,7 @@ export default function QuinielaCapturePage() {
   useEffect(() => {
     if (isSuccess) {
       const quinielaInitialData = data.data[0].quiniela;
+      setSelectedSurvivor(data.data[0].extraData.idSurvivor);
       setQuinielaData(quinielaInitialData);
     }
   }, [isSuccess, data]);
@@ -78,7 +79,7 @@ export default function QuinielaCapturePage() {
       return;
     }
 
-    if (selectedSurvivor < 1 || quinielaData.length !== totalGames) {
+    if (selectedSurvivor < 1 || completedPicks !== totalGames) {
       showAlert(
         AlertState.WARNING,
         "Campos incompletos",
