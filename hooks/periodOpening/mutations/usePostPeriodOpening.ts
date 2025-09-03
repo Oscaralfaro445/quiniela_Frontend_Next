@@ -18,7 +18,7 @@ const postPeriodOpening = async (
   return response.data;
 };
 
-const usePostPeriodOpening = () => {
+export const usePostPeriodOpening = () => {
   const { token, dataUser } = useAuth();
 
   return useMutation({
@@ -34,5 +34,3 @@ const usePostPeriodOpening = () => {
     onSettled: () => {},
   });
 };
-
-export default usePostPeriodOpening;

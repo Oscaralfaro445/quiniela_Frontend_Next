@@ -18,7 +18,7 @@ const postPeriodClosing = async (
   return response.data;
 };
 
-const usePostPeriodClosing = () => {
+export const usePostPeriodClosing = () => {
   const { token, dataUser } = useAuth();
 
   return useMutation({
@@ -34,5 +34,3 @@ const usePostPeriodClosing = () => {
     onSettled: () => {},
   });
 };
-
-export default usePostPeriodClosing;

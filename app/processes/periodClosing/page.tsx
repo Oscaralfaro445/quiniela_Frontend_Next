@@ -1,6 +1,6 @@
 "use client";
 
-import usePostPeriodClosing from "@/hooks/periodClosing/mutations/usePostPeriodClosing";
+import { usePostPeriodClosing } from "@/hooks/periodClosing/mutations/usePostPeriodClosing";
 import { Icon } from "@/components/shared/icon/Icon";
 import { Card } from "@/components/shared/card/Card";
 import { Button } from "@/components/shared/button/Button";
@@ -13,6 +13,7 @@ export default function PeriodOpeningPage() {
 
   const handleExecuteProcess = () => {
     mutation.mutate();
+    console.log(mutation.data);
   };
 
   return (
@@ -52,34 +53,39 @@ export default function PeriodOpeningPage() {
               </div>
 
               <div className="flex items-center justify-between">
-                <div className="flex items-center">
+                <div className="flex gap-2 items-center">
                   <Button
                     type="button"
                     title={
-                      mutation.isPending ? "Detener Proceso" : "Iniciar Proceso"
+                      mutation.isSuccess
+                        ? "Reiniciar Proceso"
+                        : "Iniciar Proceso"
                     }
-                    icon={mutation.isPending ? "loader" : "play"}
+                    icon="play"
                     onClick={handleExecuteProcess}
                     disabled={mutation.isPending}
                   />
 
-                  {true && (
-                    <div className="text-green-700 border-green-700">
+                  {mutation.isSuccess && (
+                    <div className="flex gap-2 text-green-700 border-green-700">
                       <Icon name="check" />
                       Completado
                     </div>
                   )}
                 </div>
 
-                <div className="text-end">
-                  <div className="text-2xl font-bold text-red-600">
-                    Participantes procesados: {mutation.data?.data[0]?.Contador}
-                  </div>
+                {mutation.isSuccess && (
+                  <div className="text-end">
+                    <div className="text-2xl font-bold text-red-600">
+                      Participantes procesados:{" "}
+                      {mutation.data?.data[0]?.Contador}
+                    </div>
 
-                  <div className="text-sm text-gray-500">
-                    Última actualización: {new Date().toLocaleString()}
+                    <div className="text-sm text-gray-500">
+                      Última actualización: {new Date().toLocaleString()}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </Card>
           </div>
@@ -98,12 +104,26 @@ export default function PeriodOpeningPage() {
                 </div>
 
                 <p>
-                  En caso de existir errores de negocio se mostrarían de la
-                  siguiente manera
+                  En caso de existir errores de negocio se mostrarán a
+                  continuación:
                 </p>
               </div>
 
-              {mutation.isSuccess && <div></div>}
+              {mutation.isSuccess && mutation.data.errorNeg && (
+                <div className="mt-4">
+                  {mutation.data.errorNeg.map(
+                    (error: string, index: number) => (
+                      <div key={index} className="flex items-center space-x-2">
+                        <Icon
+                          name="alert-triangle"
+                          className="h-5 w-5 text-yellow-600"
+                        />
+                        <span>{error}</span>
+                      </div>
+                    )
+                  )}
+                </div>
+              )}
             </Card>
           </div>
         </section>
