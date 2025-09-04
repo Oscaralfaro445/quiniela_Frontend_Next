@@ -7,6 +7,7 @@ import { Button } from "@/components/shared/button/Button";
 import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
 import { Title } from "@/components/shared/text/Title";
 import { TextBody } from "@/components/shared/text/TextBody";
+import { BusinessErrorPanel } from "@/components/ui/errors/BusinessErrorPanel";
 
 export default function PeriodOpeningPage() {
   const mutation = usePostPeriodOpening();
@@ -90,28 +91,9 @@ export default function PeriodOpeningPage() {
           </div>
         </section>
 
-        <section>
-          <div className="w-full max-w-[1280px] mx-auto px-10 py-8 gap-4">
-            <Card>
-              <div>
-                <div className="flex items-center space-x-2">
-                  <Icon
-                    name="alert-triangle"
-                    className="h-5 w-5 text-yellow-600"
-                  />
-                  <span>Mensajes del Sistema</span>
-                </div>
-
-                <p>
-                  En caso de existir errores de negocio se mostrarán a
-                  continuación:
-                </p>
-              </div>
-
-              {mutation.isSuccess && <div></div>}
-            </Card>
-          </div>
-        </section>
+        {mutation.isSuccess && mutation.data?.errorNeg && (
+          <BusinessErrorPanel errorNeg={mutation.data.errorNeg} />
+        )}
       </div>
     </ProtectedRoute>
   );

@@ -46,8 +46,8 @@ const usePostSurvivorTeam = () => {
           ID_EQUIPO_SUV: idSurvivor,
           SITUACION: "P",
           SITUACION_R: "",
-          B_PAGO: dataUser!.bSurvivor,
-          B_RESUCITA: dataUser!.bResSurv,
+          B_PAGO: false,
+          B_RESUCITA: false,
         },
       }),
     onError: () => {

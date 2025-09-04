@@ -75,139 +75,153 @@ export default function PositionQueryPage() {
 
       <StatisticsCard currentWeek={currentWeek} />
 
-      <section>
-        <div className="grid max-w-[1280px] mx-auto px-10 py-8 gap-4">
-          <div className="flex lg:w-96 h-12 p-1 rounded-md bg-neutral-100">
-            <button
-              className={`w-1/2 p-1 rounded-md transition-colors duration-100 cursor-pointer ${
-                activeTab === "weekly" ? "bg-white" : ""
-              }`}
-              type="button"
-              onClick={() => setActiveTab("weekly")}
-            >
-              Semana {currentWeek}
-            </button>
+      {isPending && (
+        <div className="flex justify-center items-center mt-10">
+          <Icon name="loader" className="animate-spin h-5 w-5 text-blue-500" />
+        </div>
+      )}
 
-            <button
-              className={`w-1/2 p-1 rounded-lg transition-colors duration-100 cursor-pointer ${
-                activeTab === "global" ? "bg-white" : ""
-              }`}
-              type="button"
-              onClick={() => setActiveTab("global")}
-            >
-              Global
-            </button>
-          </div>
+      {isError && (
+        <div className="flex justify-center items-center mt-10">
+          <Icon name="alert-triangle" className="h-5 w-5 text-red-500" />
+        </div>
+      )}
 
-          <div className="transition-all duration-300 ease-in-out">
-            {activeTab === "weekly" && (
-              <div className="animate-fadeIn">
-                <Card>
-                  <div>
-                    <div className="flex items-center space-x-2">
-                      <div className="text-gray-900">
-                        Clasificación Semana {currentWeek}
-                      </div>
-                    </div>
-                    <p className="text-md text-gray-600">
-                      Basada en los aciertos de esta semana
-                    </p>
-                  </div>
+      {isSuccess && (
+        <section>
+          <div className="grid max-w-[1280px] mx-auto px-10 py-8 gap-4">
+            <div className="flex lg:w-96 h-12 p-1 rounded-md bg-neutral-100">
+              <button
+                className={`w-1/2 p-1 rounded-md transition-colors duration-100 cursor-pointer ${
+                  activeTab === "weekly" ? "bg-white" : ""
+                }`}
+                type="button"
+                onClick={() => setActiveTab("weekly")}
+              >
+                Semana {currentWeek}
+              </button>
 
-                  <div className="grid w-full gap-2">
-                    {weeklyLeaderboard?.map(
-                      (player: ParticipantData, index) => (
-                        <div
-                          key={index}
-                          className={`flex p-4 items-center justify-between rounded-lg border transition-all duration-200 hover:bg-gray-50 hover:shadow-sm ${
-                            player.Posicion <= 3
-                              ? "bg-blue-50 border-blue-200"
-                              : "border-gray-200"
-                          }`}
-                        >
-                          <div className="flex items-center gap-4">
-                            <div className="flex items-center justify-center w-10 h-10">
-                              {getRankIcon(player.Posicion)}
-                            </div>
+              <button
+                className={`w-1/2 p-1 rounded-lg transition-colors duration-100 cursor-pointer ${
+                  activeTab === "global" ? "bg-white" : ""
+                }`}
+                type="button"
+                onClick={() => setActiveTab("global")}
+              >
+                Global
+              </button>
+            </div>
 
-                            <div className="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center">
-                              <span className="text-sm font-bold text-white">
-                                {getNameAbbr(player.Nombre)}
-                              </span>
-                            </div>
-
-                            <div className="font-medium text-gray-900">
-                              {player.Nombre}
-                            </div>
-                          </div>
-
-                          <div className="flex items-center">
-                            <span className="text-sm font-semibold text-gray-500">
-                              {player.Puntos} puntos
-                            </span>
-                          </div>
+            <div className="transition-all duration-300 ease-in-out">
+              {activeTab === "weekly" && (
+                <div className="animate-fadeIn">
+                  <Card>
+                    <div>
+                      <div className="flex items-center space-x-2">
+                        <div className="text-gray-900">
+                          Clasificación Semana {currentWeek}
                         </div>
-                      )
-                    )}
-                  </div>
-                </Card>
-              </div>
-            )}
+                      </div>
+                      <p className="text-md text-gray-600">
+                        Basada en los aciertos de esta semana
+                      </p>
+                    </div>
 
-            {activeTab === "global" && (
-              <div className="animate-fadeIn">
-                <Card className="border-gray-200">
-                  <div>
-                    <div className="text-gray-900">Clasificación Global</div>
-                    <p className="text-md text-gray-600">
-                      Basada en el rendimiento de toda la temporada
-                    </p>
-                  </div>
+                    <div className="grid w-full gap-2">
+                      {weeklyLeaderboard?.map(
+                        (player: ParticipantData, index) => (
+                          <div
+                            key={index}
+                            className={`flex p-4 items-center justify-between rounded-lg border transition-all duration-200 hover:bg-gray-50 hover:shadow-sm ${
+                              player.Posicion <= 3
+                                ? "bg-blue-50 border-blue-200"
+                                : "border-gray-200"
+                            }`}
+                          >
+                            <div className="flex items-center gap-4">
+                              <div className="flex items-center justify-center w-10 h-10">
+                                {getRankIcon(player.Posicion)}
+                              </div>
 
-                  <div className="grid w-full gap-2">
-                    {globalLeaderboard?.map(
-                      (player: ParticipantData, index) => (
-                        <div
-                          key={index}
-                          className={`flex p-4 items-center justify-between rounded-lg border transition-all duration-200 hover:bg-gray-50 hover:shadow-sm ${
-                            player.Posicion <= 3
-                              ? "bg-blue-50 border-blue-200"
-                              : "border-gray-200"
-                          }`}
-                        >
-                          <div className="flex items-center gap-4">
-                            <div className="flex items-center justify-center w-10 h-10">
-                              {getRankIcon(player.Posicion)}
+                              <div className="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center">
+                                <span className="text-sm font-bold text-white">
+                                  {getNameAbbr(player.Nombre)}
+                                </span>
+                              </div>
+
+                              <div className="font-medium text-gray-900">
+                                {player.Nombre}
+                              </div>
                             </div>
 
-                            <div className="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center">
-                              <span className="text-sm font-bold text-white">
-                                {getNameAbbr(player.Nombre)}
-                              </span>
-                            </div>
-
-                            <div className="font-medium text-gray-700">
-                              {player.Nombre}
-                            </div>
-                          </div>
-
-                          <div className="flex items-center space-x-6">
                             <div className="flex items-center">
-                              <span className="text-sm font-semibold text-gray-500">
+                              <span className="text-md font-semibold text-gray-500">
                                 {player.Puntos} puntos
                               </span>
                             </div>
                           </div>
-                        </div>
-                      )
-                    )}
-                  </div>
-                </Card>
-              </div>
-            )}
+                        )
+                      )}
+                    </div>
+                  </Card>
+                </div>
+              )}
+
+              {activeTab === "global" && (
+                <div className="animate-fadeIn">
+                  <Card className="border-gray-200">
+                    <div>
+                      <div className="text-gray-900">Clasificación Global</div>
+                      <p className="text-md text-gray-600">
+                        Basada en el rendimiento de toda la temporada
+                      </p>
+                    </div>
+
+                    <div className="grid w-full gap-2">
+                      {globalLeaderboard?.map(
+                        (player: ParticipantData, index) => (
+                          <div
+                            key={index}
+                            className={`flex p-4 items-center justify-between rounded-lg border transition-all duration-200 hover:bg-gray-50 hover:shadow-sm ${
+                              player.Posicion <= 3
+                                ? "bg-blue-50 border-blue-200"
+                                : "border-gray-200"
+                            }`}
+                          >
+                            <div className="flex items-center gap-4">
+                              <div className="flex items-center justify-center w-10 h-10">
+                                {getRankIcon(player.Posicion)}
+                              </div>
+
+                              <div className="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center">
+                                <span className="text-sm font-bold text-white">
+                                  {getNameAbbr(player.Nombre)}
+                                </span>
+                              </div>
+
+                              <div className="font-medium text-gray-700">
+                                {player.Nombre}
+                              </div>
+                            </div>
+
+                            <div className="flex items-center space-x-6">
+                              <div className="flex items-center">
+                                <span className="text-md font-semibold text-gray-500">
+                                  {player.Puntos} puntos
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </Card>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section>
         <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">

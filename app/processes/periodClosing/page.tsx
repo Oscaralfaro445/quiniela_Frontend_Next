@@ -14,7 +14,6 @@ export default function PeriodOpeningPage() {
 
   const handleExecuteProcess = () => {
     mutation.mutate();
-    console.log(mutation.data);
   };
 
   return (
@@ -93,7 +92,7 @@ export default function PeriodOpeningPage() {
         </section>
 
         {mutation.isSuccess && mutation.data?.errorNeg && (
-          <BusinessErrorPanel errorNeg={mutation.data?.errorNeg} />
+          <BusinessErrorPanel errorNeg={mutation.data.errorNeg} />
         )}
       </div>
     </ProtectedRoute>

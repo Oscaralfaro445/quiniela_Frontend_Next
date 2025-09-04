@@ -43,10 +43,10 @@ export const UpcomingGamesCard = ({ currentWeek }: UpcomingGamesCardProps) => {
             {data?.data.map((game: Game, index: number) => (
               <div
                 key={index}
-                className="grid p-3 gap-4 border border-gray-300 rounded-lg"
+                className="grid p-3 gap-4 justify-items-center border border-gray-400 rounded-lg hover:shadow-lg"
               >
-                <div className="grid sm:flex w-full justify-between">
-                  <div className="flex gap-2 items-center">
+                <div className="grid sm:flex w-full sm:px-10 sm:justify-between">
+                  <div className="flex w-full gap-2 justify-center sm:justify-start items-center">
                     <TeamLogo
                       className="transform scale-65"
                       teamName={game.nombreVisitante}
@@ -60,10 +60,10 @@ export const UpcomingGamesCard = ({ currentWeek }: UpcomingGamesCardProps) => {
                     />
                   </div>
 
-                  <div className="flex sm:grid w-full gap-2 justify-between">
+                  <div className="flex sm:grid gap-2 justify-between">
                     <div className="flex gap-2 items-center">
                       <Icon name="map-pin" />
-                      <span className="lg:text-end text-sm text-gray-600">
+                      <span className="text-sm text-gray-600">
                         {game.estadio}
                       </span>
                     </div>
@@ -77,12 +77,12 @@ export const UpcomingGamesCard = ({ currentWeek }: UpcomingGamesCardProps) => {
                   </div>
                 </div>
 
-                <div className="flex h-fit justify-center items-center border-2 border-blue-600 rounded-2xl">
-                  <span className="px-2 py-1 text-sm font-semibold text-blue-700">{`Ganador seleccionado: ${
+                <div className="flex w-fit justify-center items-center border-2 border-blue-600 rounded-2xl">
+                  <p className="px-2 py-1 text-sm font-semibold text-blue-700">{`Ganador seleccionado: ${
                     game.ganador === "V"
                       ? game.nombreVisitante
                       : game.nombreLocal
-                  }`}</span>
+                  }`}</p>
                 </div>
               </div>
             ))}

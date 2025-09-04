@@ -43,7 +43,7 @@ export const SurvivorCard = () => {
               </div>
             </div>
 
-            <div className="grid md:flex">
+            <div className="grid sm:flex">
               <div className="flex w-1/2 justify-start items-center gap-4">
                 <div className="flex flex-col items-center">
                   <TeamLogo teamName={data.data[0].nombreVisita} />
