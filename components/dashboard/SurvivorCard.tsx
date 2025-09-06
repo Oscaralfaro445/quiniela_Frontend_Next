@@ -5,6 +5,19 @@ import { Icon } from "../shared/icon/Icon";
 
 export const SurvivorCard = () => {
   const { isPending, isError, isSuccess, data } = useGetSurvivor();
+  const getGanador = () => {
+    if (data.data[0].scoreLocal > data.data[0].scoreVisitante) {
+      return `Ganador: ${data.data[0].nombreLocal}`;
+    } else if (data.data[0].scoreLocal < data.data[0].scoreVisitante) {
+      return `Ganador: ${data.data[0].nombreVisita}`;
+    } else if (data.data[0].scoreLocal === data.data[0].scoreVisitante) {
+      if (data.data[0].scoreLocal === 0 && data.data[0].scoreVisitante === 0) {
+        return "Partido pendiente";
+      } else {
+        return "Ganador: partido empatado";
+      }
+    }
+  };
 
   return (
     <>
@@ -35,11 +48,7 @@ export const SurvivorCard = () => {
                     : "border-red-600 bg-red-100 text-red-700"
                 }`}
               >
-                <span>{`Ganador: ${
-                  data.data[0].localVisitante === "V"
-                    ? data.data[0].nombreVisitante
-                    : data.data[0].nombreLocal
-                } `}</span>
+                <span>{getGanador()}</span>
               </div>
             </div>
 

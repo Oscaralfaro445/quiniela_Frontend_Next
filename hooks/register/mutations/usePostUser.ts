@@ -1,7 +1,10 @@
 import axiosInstance from "@/hooks/axios/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "@/context/authContext/AuthContext";
+import { useAlert } from "@/context/alertContext/AlertContext";
 import { RegisterFormValues } from "@/types/register/register";
+import { AlertState } from "@/types/alert/alert";
+import { useHandleRequestStatus } from "@/utils/showRequestStatus/showRequestStatus";
 
 const postUser = async (
   token: string,
@@ -28,8 +31,10 @@ const postUser = async (
   return response.data;
 };
 
-const usePostUser = () => {
+export const usePostUser = () => {
   const { token } = useAuth();
+  const { showAlert } = useAlert();
+  const { handleRequestStatus } = useHandleRequestStatus();
 
   return useMutation({
     mutationKey: ["postUser"],
@@ -43,12 +48,26 @@ const usePostUser = () => {
           NOMBRE: registerData.nombre,
           PASSWORD: registerData.password,
           B_BLOQUEADO: true,
-          SIT_USUARIO: "P",
+          SIT_USUARIO: "A",
           CVE_IDIOMA: "ES",
           CVE_PERFIL: "TEMPORAL",
         },
       }),
+    onError: () => {
+      showAlert(
+        AlertState.ERROR,
+        "Error al procesar la solicitud",
+        "Tuvimos un problema al registrar al usuario"
+      );
+    },
+    onSuccess: (data) => {
+      handleRequestStatus({
+        estatus: data.estatus,
+        errorUs: data.errorUs,
+        errorNeg: data.errorNeg,
+        mensajeExito: "Registro exitoso",
+      });
+    },
+    onSettled: () => {},
   });
 };
-
-export default usePostUser;

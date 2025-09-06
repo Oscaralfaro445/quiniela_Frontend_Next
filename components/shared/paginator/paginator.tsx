@@ -2,16 +2,14 @@ import { Icon } from "../icon/Icon";
 
 interface PaginatorProps {
   currentPage: number;
+  totalPages: number;
   onPageChange: (page: number) => void;
-  rowsPerPage: number;
-  onRowsPerPageChange: (rows: number) => void;
 }
 
 export const Paginator = ({
   currentPage,
+  totalPages,
   onPageChange,
-  rowsPerPage,
-  onRowsPerPageChange,
 }: PaginatorProps) => {
   const goToFirstPage = () => {
     if (currentPage > 1) onPageChange(1);
@@ -22,32 +20,15 @@ export const Paginator = ({
   };
 
   const goToNextPage = () => {
-    if (currentPage < 100) onPageChange(currentPage + 1);
+    if (currentPage < totalPages) onPageChange(currentPage + 1);
   };
 
   const goToLastPage = () => {
-    if (currentPage < 100) onPageChange(100);
+    if (currentPage < totalPages) onPageChange(totalPages - 3);
   };
 
   return (
     <div className="flex px-2 gap-2 items-center justify-end">
-      <div className="flex gap-1 items-center">
-        <p>Filas</p>
-        <select
-          name="rowsPerPage"
-          id="rowsPerPage"
-          value={rowsPerPage}
-          onChange={(event) => {
-            onRowsPerPageChange(Number(event.target.value));
-          }}
-        >
-          <option value={5}>5</option>
-          <option value={10}>10</option>
-          <option value={25}>25</option>
-          <option value={50}>50</option>
-        </select>
-      </div>
-
       <div className="flex items-center">
         <div className="cursor-pointer" onClick={goToFirstPage}>
           <Icon name="chevrons-left" />
@@ -57,7 +38,7 @@ export const Paginator = ({
           <Icon name="chevron-left" />
         </div>
 
-        <p className="flex justify-center w-20">{currentPage} - 100</p>
+        <p className="flex justify-center w-20">{`${currentPage} - ${totalPages}`}</p>
 
         <div className="cursor-pointer" onClick={goToNextPage}>
           <Icon name="chevron-right" />

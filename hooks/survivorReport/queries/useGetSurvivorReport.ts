@@ -20,10 +20,10 @@ const fetchSurvivorReport = async (
   return response.data;
 };
 
-const useGetSurvivorReport = () => {
+export const useGetSurvivorReport = () => {
   const { token, dataUser } = useAuth();
 
-  return useQuery({
+  const { isPending, isError, isSuccess, error, data } = useQuery({
     queryKey: ["survivorReport"],
     queryFn: () =>
       fetchSurvivorReport(token!, {
@@ -35,6 +35,5 @@ const useGetSurvivorReport = () => {
       }),
     enabled: !!token && !!dataUser?.idQuiniela,
   });
+  return { isPending, isError, isSuccess, error, data };
 };
-
-export default useGetSurvivorReport;

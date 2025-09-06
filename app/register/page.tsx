@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import * as Yup from "yup";
-import usePostUser from "@/hooks/register/mutations/usePostUser";
+import { usePostUser } from "@/hooks/register/mutations/usePostUser";
 import { RegisterFormValues } from "@/types/register/register";
 import { RegisterForm } from "@/components/register/RegisterForm";
 import { Form } from "@/components/shared/form/Form";
@@ -30,7 +30,6 @@ export default function RegisterPage() {
 
   const handleSubmit = (values: RegisterFormValues) => {
     register.mutate(values);
-    console.log("Values:", values);
   };
 
   return (
