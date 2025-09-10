@@ -75,58 +75,66 @@ export default function PositionQueryPage() {
 
       <StatisticsCard currentWeek={currentWeek} />
 
-      {isPending && (
-        <div className="flex justify-center items-center mt-10">
-          <Icon name="loader" className="animate-spin h-5 w-5 text-blue-500" />
-        </div>
-      )}
+      <section>
+        <div className="grid max-w-[1280px] mx-auto px-10 py-8 gap-4">
+          <div className="flex lg:w-96 h-12 p-1 rounded-md bg-neutral-100">
+            <button
+              className={`w-1/2 p-1 rounded-md transition-colors duration-100 cursor-pointer ${
+                activeTab === "weekly" ? "bg-white" : ""
+              }`}
+              type="button"
+              onClick={() => setActiveTab("weekly")}
+            >
+              Semana {currentWeek}
+            </button>
 
-      {isError && (
-        <div className="flex justify-center items-center mt-10">
-          <Icon name="alert-triangle" className="h-5 w-5 text-red-500" />
-        </div>
-      )}
+            <button
+              className={`w-1/2 p-1 rounded-lg transition-colors duration-100 cursor-pointer ${
+                activeTab === "global" ? "bg-white" : ""
+              }`}
+              type="button"
+              onClick={() => setActiveTab("global")}
+            >
+              Global
+            </button>
+          </div>
 
-      {isSuccess && (
-        <section>
-          <div className="grid max-w-[1280px] mx-auto px-10 py-8 gap-4">
-            <div className="flex lg:w-96 h-12 p-1 rounded-md bg-neutral-100">
-              <button
-                className={`w-1/2 p-1 rounded-md transition-colors duration-100 cursor-pointer ${
-                  activeTab === "weekly" ? "bg-white" : ""
-                }`}
-                type="button"
-                onClick={() => setActiveTab("weekly")}
-              >
-                Semana {currentWeek}
-              </button>
-
-              <button
-                className={`w-1/2 p-1 rounded-lg transition-colors duration-100 cursor-pointer ${
-                  activeTab === "global" ? "bg-white" : ""
-                }`}
-                type="button"
-                onClick={() => setActiveTab("global")}
-              >
-                Global
-              </button>
-            </div>
-
-            <div className="transition-all duration-300 ease-in-out">
-              {activeTab === "weekly" && (
-                <div className="animate-fadeIn">
-                  <Card>
-                    <div>
-                      <div className="flex items-center space-x-2">
-                        <div className="text-gray-900">
-                          Clasificación Semana {currentWeek}
-                        </div>
+          <div className="transition-all duration-300 ease-in-out">
+            {activeTab === "weekly" && (
+              <div className="animate-fadeIn">
+                <Card>
+                  <div>
+                    <div className="flex items-center space-x-2">
+                      <div className="text-gray-900">
+                        Clasificación Semana {currentWeek}
                       </div>
-                      <p className="text-md text-gray-600">
-                        Basada en los aciertos de esta semana
-                      </p>
                     </div>
+                    <p className="text-md text-gray-600">
+                      Basada en los aciertos de esta semana
+                    </p>
+                  </div>
 
+                  {isPending && (
+                    <div className="flex gap-2 justify-center items-center">
+                      <p>Cargando información...</p>
+                      <Icon
+                        name="loader"
+                        className="animate-spin h-5 w-5 text-blue-500"
+                      />
+                    </div>
+                  )}
+
+                  {isError && (
+                    <div className="flex gap-2 justify-center items-center">
+                      <p>Error al cargar información</p>
+                      <Icon
+                        name="alert-triangle"
+                        className="h-5 w-5 text-red-500"
+                      />
+                    </div>
+                  )}
+
+                  {isSuccess && (
                     <div className="grid w-full gap-2">
                       {weeklyLeaderboard?.map(
                         (player: ParticipantData, index) => (
@@ -163,20 +171,40 @@ export default function PositionQueryPage() {
                         )
                       )}
                     </div>
-                  </Card>
-                </div>
-              )}
+                  )}
+                </Card>
+              </div>
+            )}
 
-              {activeTab === "global" && (
-                <div className="animate-fadeIn">
-                  <Card className="border-gray-200">
-                    <div>
-                      <div className="text-gray-900">Clasificación Global</div>
-                      <p className="text-md text-gray-600">
-                        Basada en el rendimiento de toda la temporada
-                      </p>
+            {activeTab === "global" && (
+              <div className="animate-fadeIn">
+                <Card className="border-gray-200">
+                  <div>
+                    <div className="text-gray-900">Clasificación Global</div>
+                    <p className="text-md text-gray-600">
+                      Basada en el rendimiento de toda la temporada
+                    </p>
+                  </div>
+
+                  {isPending && (
+                    <div className="flex justify-center items-center mt-10">
+                      <Icon
+                        name="loader"
+                        className="animate-spin h-5 w-5 text-blue-500"
+                      />
                     </div>
+                  )}
 
+                  {isError && (
+                    <div className="flex justify-center items-center mt-10">
+                      <Icon
+                        name="alert-triangle"
+                        className="h-5 w-5 text-red-500"
+                      />
+                    </div>
+                  )}
+
+                  {isSuccess && (
                     <div className="grid w-full gap-2">
                       {globalLeaderboard?.map(
                         (player: ParticipantData, index) => (
@@ -215,13 +243,13 @@ export default function PositionQueryPage() {
                         )
                       )}
                     </div>
-                  </Card>
-                </div>
-              )}
-            </div>
+                  )}
+                </Card>
+              </div>
+            )}
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       <section>
         <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">

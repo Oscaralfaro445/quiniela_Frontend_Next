@@ -31,10 +31,7 @@ export default function QuinielaCapturePage() {
   const isQuinielaEnabled =
     data?.data[0]?.extraData?.bQuiniela === 1 ? false : true;
 
-  console.log(data);
-
   const [selectedSurvivor, setSelectedSurvivor] = useState(0);
-  console.log("Selected Survivor:", selectedSurvivor);
   const [quinielaData, setQuinielaData] = useState<QuinielaItem[]>([]);
   const totalGames = data?.data[0]?.quiniela?.length || 0;
   const completedPicks = quinielaData.filter(

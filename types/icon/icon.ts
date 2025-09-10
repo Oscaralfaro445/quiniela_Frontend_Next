@@ -49,6 +49,7 @@ export type IconName =
   | "trash-2"
   | "trending-down"
   | "trending-up"
+  | "triangle-alert"
   | "trophy"
   | "user"
   | "users"

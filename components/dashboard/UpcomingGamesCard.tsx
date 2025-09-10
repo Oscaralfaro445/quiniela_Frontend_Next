@@ -45,7 +45,7 @@ export const UpcomingGamesCard = ({ currentWeek }: UpcomingGamesCardProps) => {
                 key={index}
                 className="grid p-3 gap-4 justify-items-center border border-gray-400 rounded-lg hover:shadow-lg"
               >
-                <div className="grid sm:flex w-full sm:px-10 sm:justify-between">
+                <div className="grid sm:flex w-full sm:px-10">
                   <div className="flex w-full gap-2 justify-center sm:justify-start items-center">
                     <TeamLogo
                       className="transform scale-65"
@@ -70,7 +70,7 @@ export const UpcomingGamesCard = ({ currentWeek }: UpcomingGamesCardProps) => {
 
                     <div className="flex gap-2 items-center">
                       <Icon name="calendar" />
-                      <span className="lg:text-end text-sm text-gray-600">
+                      <span className="text-sm text-gray-600">
                         {game.fechaPartido}
                       </span>
                     </div>

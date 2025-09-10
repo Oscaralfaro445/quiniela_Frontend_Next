@@ -29,7 +29,7 @@ export default function LoginPage() {
   };
 
   return (
-    <section className="flex w-full h-screen items-center">
+    <section className="flex w-full min-h-screen items-center">
       <div className="grid w-full max-w-[1280px] mx-auto px-10 py-20 lg:py-32 gap-4">
         <div className="grid gap-2 justify-items-center items-center">
           <Title className="text-center" title="Iniciar Sesión" />
