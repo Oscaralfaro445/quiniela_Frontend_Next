@@ -16,32 +16,44 @@ export const ScoresCard = ({ teamId, teamName }: CardScoresProps) => {
   const { isPending, isError, isSuccess, error, data } = useGetScores(teamId);
 
   return (
-    <div>
-      <span>Marcadores Previos</span>
+    <div className="grid gap-2 justify-center">
+      <p>Marcadores Previos</p>
       {isPending && <div>Cargando...</div>}
 
       {isError && <div>Error: {error?.message}</div>}
 
-      {isSuccess &&
-        data.data.map((match: match, index: number) =>
-          match.lv === "L" ? (
-            <div key={index} className="flex gap-2">
-              {match.equipo}
-              <div>{match.scoreE1}</div>
+      {isSuccess && (
+        <table>
+          <thead>
+            <tr>
+              <th>Equipo 1</th>
+              <th>Score 1</th>
+              <th>Score 2</th>
+              <th>Equipo 2</th>
+            </tr>
+          </thead>
 
-              <div>{match.scoreE2}</div>
-              <div>{teamName}</div>
-            </div>
-          ) : (
-            <div key={index} className="flex gap-2">
-              <div>{teamName}</div>
-              <div>{match.scoreE1}</div>
-
-              <div>{match.scoreE2}</div>
-              <div>{match.equipo}</div>
-            </div>
-          )
-        )}
+          <tbody>
+            {data.data.map((match: match, index: number) =>
+              match.lv === "L" ? (
+                <tr key={index} className="flex gap-2">
+                  <td>{match.equipo}</td>
+                  <td>{match.scoreE1}</td>
+                  <td>{match.scoreE2}</td>
+                  <td>{teamName}</td>
+                </tr>
+              ) : (
+                <tr key={index} className="flex gap-2">
+                  <td>{teamName}</td>
+                  <td>{match.scoreE1}</td>
+                  <td>{match.scoreE2}</td>
+                  <td>{match.equipo}</td>
+                </tr>
+              )
+            )}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };

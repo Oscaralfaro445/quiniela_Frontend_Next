@@ -4,6 +4,7 @@ import { Icon } from "@/components/shared/icon/Icon";
 
 export const RankingCard = () => {
   const { isPending, isError, isSuccess, data } = useGetRanking();
+  console.log("Ranking info", data);
 
   return (
     <>

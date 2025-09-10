@@ -3,6 +3,7 @@ import { Card } from "../shared/card/Card";
 
 export const SeasonProgressCard = () => {
   const { isPending, isError, isSuccess, data } = useGetPrecision();
+  console.log(data);
 
   return (
     <>
@@ -42,8 +43,13 @@ export const SeasonProgressCard = () => {
               <div className="flex justify-between text-sm mb-2">
                 <span className="text-gray-600">Juegos Completados</span>
                 <span className="font-medium text-gray-900">
-                  {data.data[0].Dashboard_1[0].posicionTotal.puntosTemporada}/
-                  {data.data[0].Dashboard_1[0].posicionTotal.partidosTemporada}
+                  {data.data[0].Dashboard_1[0].posicionTotal.puntosTemporada ===
+                  0
+                    ? 0
+                    : data.data[0].Dashboard_1[0].posicionTotal
+                        .puntosTemporada /
+                      data.data[0].Dashboard_1[0].posicionTotal
+                        .partidosTemporada}
                 </span>
               </div>
             </div>
@@ -51,11 +57,13 @@ export const SeasonProgressCard = () => {
             <progress
               className="w-full"
               max={100}
-              value={Number(
-                (data.data[0].Dashboard_1[0].posicionTotal.puntosTemporada *
-                  100) /
-                  data.data[0].Dashboard_1[0].posicionTotal.partidosTemporada
-              )}
+              value={
+                data.data[0].Dashboard_1[0].posicionTotal.puntosTemporada === 0
+                  ? 0
+                  : (data.data[0].Dashboard_1[0].posicionTotal.puntosTemporada *
+                      100) /
+                    data.data[0].Dashboard_1[0].posicionTotal.partidosTemporada
+              }
             />
           </div>
         )}

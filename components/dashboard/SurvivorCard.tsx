@@ -5,6 +5,7 @@ import { Icon } from "../shared/icon/Icon";
 
 export const SurvivorCard = () => {
   const { isPending, isError, isSuccess, data } = useGetSurvivor();
+  console.log("survivor data", data);
   const getGanador = () => {
     if (data.data[0].scoreLocal > data.data[0].scoreVisitante) {
       return `Ganador: ${data.data[0].nombreLocal}`;
@@ -35,7 +36,7 @@ export const SurvivorCard = () => {
 
         {isError && <span>Error al cargar los datos...</span>}
 
-        {isSuccess && (
+        {isSuccess && data.data && (
           <>
             <div className="flex justify-start">
               <div

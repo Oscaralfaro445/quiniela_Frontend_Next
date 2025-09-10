@@ -14,6 +14,7 @@ export default function MarkerQueryPage() {
   const { dataUser } = useAuth();
   const week = dataUser?.idPeriodo;
   const { isPending, isError, isSuccess, data } = useGetMarkers();
+  console.log(data);
 
   return (
     <ProtectedRoute>
@@ -36,7 +37,7 @@ export default function MarkerQueryPage() {
 
       {isError && <span>Error al cargar los datos...</span>}
 
-      {isSuccess && (
+      {isSuccess && data.data && (
         <>
           <StatisticsCard gameResults={data.data} week={week} />{" "}
           <ScoreBoard gameResults={data.data} />
