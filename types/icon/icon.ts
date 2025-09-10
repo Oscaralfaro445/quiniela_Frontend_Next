@@ -19,6 +19,8 @@ export type IconName =
   | "database"
   | "dollar-sign"
   | "earth"
+  | "eye"
+  | "eye-off"
   | "file-question-mark"
   | "filter"
   | "gamepad-2"

@@ -42,7 +42,7 @@ export const ByeWeek = () => {
               ))}
             </div>
           ) : (
-            <div className="flex gap-4 justify-center items-center">
+            <div className="flex gap-4 items-center">
               <p>No hay equipos en descanso</p>
               <Icon name="triangle-alert" className="h-6 w-6 text-yellow-600" />
             </div>
