@@ -41,6 +41,7 @@ export default function QuinielaCapturePage() {
   useEffect(() => {
     if (isSuccess) {
       const quinielaInitialData = data.data[0].quiniela;
+      console.log(typeof data.data[0].extraData.idSurvivor);
       setSelectedSurvivor(data.data[0].extraData.idSurvivor);
       setQuinielaData(quinielaInitialData);
     }

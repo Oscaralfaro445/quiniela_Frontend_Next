@@ -45,8 +45,6 @@ export const SurvivorSelector = ({
                 value={selectedSurvivor}
                 disabled={disabled}
                 onChange={handleSelectedSurvivor}
-                optionValueKey="llave"
-                optionLabelKey="valor"
               />
             </>
           )}

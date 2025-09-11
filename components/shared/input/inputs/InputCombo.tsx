@@ -6,27 +6,24 @@ interface Option {
   valor: string;
 }
 
-interface InputComboProps<T extends keyof Option> {
+interface InputComboProps {
   data: Option[];
   name?: string;
   value?: string | number;
   disabled?: boolean;
   onChange?: (event: ChangeEvent<HTMLSelectElement>) => void;
-  optionValueKey: T;
-  optionLabelKey: T;
 }
 
-export const InputCombo = <T extends keyof Option>({
+export const InputCombo = ({
   data,
   name,
   value,
   disabled,
   onChange = () => {},
-  optionValueKey,
-  optionLabelKey,
-}: InputComboProps<T>) => {
+}: InputComboProps) => {
   const [options, setOptions] = useState<Option[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  console.log(options);
 
   useEffect(() => {
     if (data && Array.isArray(data)) {
@@ -35,7 +32,7 @@ export const InputCombo = <T extends keyof Option>({
   }, [data]);
 
   const handleSelect = (option: Option) => {
-    const selectedValue = option[optionValueKey];
+    const selectedValue = option["llave"];
 
     const event = {
       target: {
@@ -49,9 +46,12 @@ export const InputCombo = <T extends keyof Option>({
   };
 
   const selectedOption = options?.find((option) => {
-    const optionValue = option[optionValueKey];
-    return optionValue?.toString() === value?.toString();
+    const optionValue = option;
+    console.log(optionValue);
+    return optionValue["llave"] === value ? optionValue : null;
   });
+
+  console.log(selectedOption);
 
   return (
     <div className="relative w-full">
@@ -65,7 +65,7 @@ export const InputCombo = <T extends keyof Option>({
       >
         <span className="text-sm font-medium text-neutral-700">
           {selectedOption
-            ? selectedOption[optionLabelKey]
+            ? selectedOption["valor"]
             : "Seleccione una opción..."}
         </span>
 
@@ -84,7 +84,7 @@ export const InputCombo = <T extends keyof Option>({
           ) : (
             <ul>
               {options.map((option, index) => {
-                const optionValue = option[optionValueKey];
+                const optionValue = option["llave"];
                 const isSelected =
                   optionValue?.toString() === value?.toString();
 
@@ -98,7 +98,7 @@ export const InputCombo = <T extends keyof Option>({
                     }`}
                     onClick={() => handleSelect(option)}
                   >
-                    {option[optionLabelKey]}
+                    {option["valor"]}
                   </li>
                 );
               })}

@@ -78,32 +78,34 @@ export const SurvivorReportCard = () => {
                 </tr>
               </thead>
               <tbody className="text-center text-gray-700 text-sm">
-                {survivorData?.map((participante: Participant) => (
-                  <tr key={participante.ID_PARTICIPANTE}>
-                    <td className="py-1 border border-gray-300 w-44">
-                      {participante.NOM_PARTICIPANTE}
-                    </td>
-                    <td className="py-1 border border-gray-300 w-12">
-                      {participante.NUM_SURVIVORS}
-                    </td>
-                    <td className="py-1 border border-gray-300 w-20">
-                      {participante.NUM_ACIERTOS}
-                    </td>
-                    <td className="py-1 border border-gray-300 w-20">
-                      {participante.IMP_INVERSION}
-                    </td>
-                    {semanasVisibles.map((semana) => (
-                      <td
-                        key={`row-${participante.ID_PARTICIPANTE}-semana-${semana}`}
-                        className={`py-1 border border-gray-300 ${getBackgroundColor(
-                          participante[`NOM_EQ_${semana}`]
-                        )}`}
-                      >
-                        {participante[`NOM_EQ_${semana}`]}
+                {survivorData?.map(
+                  (participante: Participant, index: number) => (
+                    <tr key={index}>
+                      <td className="py-1 border border-gray-300 w-44">
+                        {participante.NOM_PARTICIPANTE}
                       </td>
-                    ))}
-                  </tr>
-                ))}
+                      <td className="py-1 border border-gray-300 w-12">
+                        {participante.NUM_SURVIVORS}
+                      </td>
+                      <td className="py-1 border border-gray-300 w-20">
+                        {participante.NUM_ACIERTOS}
+                      </td>
+                      <td className="py-1 border border-gray-300 w-20">
+                        {participante.IMP_INVERSION}
+                      </td>
+                      {semanasVisibles.map((semana) => (
+                        <td
+                          key={`row-${participante.ID_PARTICIPANTE}-semana-${semana}`}
+                          className={`py-1 border border-gray-300 ${getBackgroundColor(
+                            participante[`NOM_EQ_${semana}`]
+                          )}`}
+                        >
+                          {participante[`NOM_EQ_${semana}`]}
+                        </td>
+                      ))}
+                    </tr>
+                  )
+                )}
               </tbody>
             </table>
           )}
