@@ -4,7 +4,7 @@ import { Icon } from "@/components/shared/icon/Icon";
 
 export const RankingCard = () => {
   const { isPending, isError, isSuccess, data } = useGetRanking();
-  console.log("Ranking info", data);
+  const rankings = data?.data;
 
   return (
     <>
@@ -21,18 +21,14 @@ export const RankingCard = () => {
 
         {isError && <span>Error al cargar los datos...</span>}
 
-        {isSuccess && (
+        {isSuccess && rankings && (
           <div className="grid gap-1">
             <div className="text-2xl font-bold text-gray-900">
-              #{data.data[0].Dashboard_2[0].posicionPeriodo.puntos}
+              #{rankings[0].Dashboard_2[0].posicionPeriodo.posicion}
             </div>
 
             <p className="text-xs text-gray-600">
-              {`de ${data.data[0].Dashboard_2[0].totalParticipantes.TotalParticipantes}  usuarios`}
-            </p>
-
-            <p className="text-xs text-gray-600">
-              {`con ${data.data[0].Dashboard_2[0].posicionPeriodo.puntos}  puntos`}
+              {`de ${rankings[0].Dashboard_2[0].totalParticipantes.TotalParticipantes} usuarios`}
             </p>
           </div>
         )}
@@ -51,18 +47,14 @@ export const RankingCard = () => {
 
         {isError && <span>Error al cargar los datos...</span>}
 
-        {isSuccess && (
+        {isSuccess && rankings && (
           <div className="grid gap-1">
             <div className="text-2xl font-bold text-gray-900">
-              #{data.data[0].Dashboard_2[0].posicionTotal.posicion}
+              #{rankings[0].Dashboard_2[0].posicionTotal.posicion}
             </div>
 
             <p className="text-xs text-gray-600">
-              {`de ${data.data[0].Dashboard_2[0].totalParticipantes.TotalParticipantes}  usuarios`}
-            </p>
-
-            <p className="text-xs text-gray-600">
-              {`con ${data.data[0].Dashboard_2[0].posicionTotal.puntos}  puntos`}
+              {`de ${rankings[0].Dashboard_2[0].totalParticipantes.TotalParticipantes} usuarios`}
             </p>
           </div>
         )}

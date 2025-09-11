@@ -21,6 +21,7 @@ interface Game {
 export const UpcomingGamesCard = ({ currentWeek }: UpcomingGamesCardProps) => {
   const router = useRouter();
   const { isPending, isError, isSuccess, data } = useGetUpcomingGames();
+  const upcomingGames = data?.data;
 
   return (
     <>
@@ -29,7 +30,7 @@ export const UpcomingGamesCard = ({ currentWeek }: UpcomingGamesCardProps) => {
           <span className="text-lg text-blue-700 font-semibold">
             Próximos Juegos
           </span>
-          <span className=" text-sm text-gray-600">
+          <span className=" text-sm text-neutral-600">
             Semana {currentWeek} - Pendientes por jugar
           </span>
         </div>
@@ -38,9 +39,9 @@ export const UpcomingGamesCard = ({ currentWeek }: UpcomingGamesCardProps) => {
 
         {isError && <span>Error al cargar los datos...</span>}
 
-        {isSuccess && (
+        {isSuccess && upcomingGames ? (
           <div className="grid lg:grid-cols-2 gap-4">
-            {data?.data.map((game: Game, index: number) => (
+            {upcomingGames.map((game: Game, index: number) => (
               <div
                 key={index}
                 className="grid p-3 gap-4 justify-items-center border border-gray-400 rounded-lg hover:shadow-lg"
@@ -87,7 +88,12 @@ export const UpcomingGamesCard = ({ currentWeek }: UpcomingGamesCardProps) => {
               </div>
             ))}
           </div>
+        ) : (
+          <p className="text-neutral-600">
+            No hay partidos pendientes por jugar...
+          </p>
         )}
+
         <Button
           type="button"
           title="Ver Quiniela"

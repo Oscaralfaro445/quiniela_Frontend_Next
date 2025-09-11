@@ -60,7 +60,7 @@ export default function PositionQueryPage() {
           text="Consulta las posiciones semanales y globales de todos los participantes"
         />
 
-        <StatisticsCard currentWeek={currentWeek} />
+        <StatisticsCard />
 
         <section>
           <div className="grid max-w-[1280px] mx-auto px-10 py-8 gap-4">

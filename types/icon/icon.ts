@@ -25,6 +25,7 @@ export type IconName =
   | "filter"
   | "gamepad-2"
   | "hand-coins"
+  | "help"
   | "house"
   | "list"
   | "list-ordered"

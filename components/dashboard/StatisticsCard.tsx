@@ -30,7 +30,7 @@ export const StatisticsCard = ({ currentWeek }: StatisticsCard) => {
 
             <p className="text-xs text-gray-600">{`${
               18 - Number(currentWeek)
-            } semanas pendientes`}</p>
+            } semanas restantes`}</p>
           </div>
         </Card>
       </div>

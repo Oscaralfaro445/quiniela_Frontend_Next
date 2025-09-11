@@ -14,8 +14,8 @@ export const HeaderPage = ({ title, text }: HeaderPageProps) => {
         <TextBody className="text-center" text={text} />
       </div>
 
-      <div className="flex h-fit justify-center items-center">
-        <p className="px-2 py-1  text-sm font-semibold text-blue-700">
+      <div className="flex h-fit justify-center items-center border-2 border-blue-600 rounded-2xl">
+        <p className="px-2 py-1 text-sm font-semibold text-blue-700">
           NFL temporada 2025
         </p>
       </div>

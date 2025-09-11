@@ -1,7 +1,25 @@
-/* import { Card } from "@/components/shared/card/Card";
+import { useGetSurvivorPayment } from "@/hooks/survivorPayment/queries/useGetSurvivorPayment";
+import { Participant } from "@/types/participant/participant";
+import { Card } from "@/components/shared/card/Card";
 import { Icon } from "@/components/shared/icon/Icon";
+import { TeamLogo } from "@/components/shared/teamLogo/TeamLogo";
 
-export const SurvivorPaymentStatusCard = () => {
+interface SurvivorPaymentStatusCardProps {
+  participantsData?: Participant[];
+  togglePaymentStatus: (participantId: number) => void;
+}
+
+export const SurvivorPaymentStatusCard = ({
+  participantsData,
+  togglePaymentStatus,
+}: SurvivorPaymentStatusCardProps) => {
+  const { isPending, isError, isSuccess } = useGetSurvivorPayment();
+
+  const totalParticipants = participantsData?.length || 0;
+  const paidParticipants =
+    participantsData?.filter((p) => p.B_PAGO).length || 0;
+  const unpaidParticipants = totalParticipants - paidParticipants || 0;
+
   return (
     <section>
       <div className="w-full max-w-[1280px] mx-auto px-10 py-8">
@@ -42,7 +60,11 @@ export const SurvivorPaymentStatusCard = () => {
             </div>
           </div>
 
-          {participantsData && (
+          {isPending && <p>Cargando...</p>}
+
+          {isError && <p>Error al cargar los datos... </p>}
+
+          {isSuccess && participantsData ? (
             <div className="border border-gray-200 rounded-lg overflow-hidden">
               <table className="w-full">
                 <thead>
@@ -102,10 +124,13 @@ export const SurvivorPaymentStatusCard = () => {
                 </tbody>
               </table>
             </div>
+          ) : (
+            <p className="text-center">
+              No hay información disponible para mostrar.
+            </p>
           )}
         </Card>
       </div>
     </section>
   );
 };
- */

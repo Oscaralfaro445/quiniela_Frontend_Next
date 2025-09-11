@@ -1,16 +1,14 @@
 import { useAuth } from "@/context/authContext/AuthContext";
 import { useGetParticipantPositions } from "@/hooks/participantPositions/queries/useGetParticipantPositions";
+import { useGetPrecision } from "@/hooks/dashboard/queries/useGetPrecision";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";
 import { ParticipantData } from "@/app/positionQuery/page";
 
-interface StatisticsCardProps {
-  currentWeek: string | undefined;
-}
-
-export const StatisticsCard = ({ currentWeek }: StatisticsCardProps) => {
+export const StatisticsCard = () => {
   const { dataUser } = useAuth();
-  const { isPending, isError, isSuccess, data } = useGetParticipantPositions();
+  const { data } = useGetParticipantPositions();
+  const { data: precisionData } = useGetPrecision();
 
   return (
     <section>
@@ -30,17 +28,39 @@ export const StatisticsCard = ({ currentWeek }: StatisticsCardProps) => {
           </div>
         </Card>
 
-        <Card className="border-gray-200">
-          <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <Card>
+          <div className="flex items-center justify-between">
             <div className="text-sm font-medium text-gray-600">
               Precisión Promedio
             </div>
-            <Icon name="target" className="text-blue-700" />
+
+            <Icon className="text-blue-600" name="target" />
           </div>
-          <div>
-            <div className="text-2xl font-bold text-gray-900">64.2%</div>
-            <p className="text-xs text-gray-600">Semana {currentWeek}</p>
-          </div>
+
+          {true && (
+            <div className="grid gap-1">
+              <div className="text-2xl font-bold text-gray-900">
+                {Math.trunc(
+                  precisionData?.data[0].Dashboard_1[0].posicionTotal
+                    .pjeTemporada
+                )}
+                %
+              </div>
+
+              <span className="text-xs text-gray-600">
+                {
+                  precisionData?.data[0].Dashboard_1[0].posicionTotal
+                    .puntosTemporada
+                }
+                /
+                {
+                  precisionData?.data[0].Dashboard_1[0].posicionTotal
+                    .partidosTemporada
+                }{" "}
+                correctas
+              </span>
+            </div>
+          )}
         </Card>
 
         <Card className="border-gray-200">
@@ -55,7 +75,9 @@ export const StatisticsCard = ({ currentWeek }: StatisticsCardProps) => {
                   item.ID_PARTICIPANTE === dataUser?.idParticipante
               )?.Posicion ?? "0"
             }`}</div>
-            <p className="text-xs text-gray-600">↑ 23 posiciones</p>
+            <p className="text-xs text-gray-600">{`de ${
+              data?.data[0]?.puntosPeriodo?.length ?? "0"
+            } participantes`}</p>
           </div>
         </Card>
       </div>

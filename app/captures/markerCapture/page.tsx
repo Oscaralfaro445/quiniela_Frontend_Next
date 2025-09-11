@@ -8,10 +8,9 @@ import { useAuth } from "@/context/authContext/AuthContext";
 import { GameResult } from "@/types/gameResult/gameResult";
 import { Button } from "@/components/shared/button/Button";
 import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
-import { Title } from "@/components/shared/text/Title";
-import { TextBody } from "@/components/shared/text/TextBody";
 import { StatisticsCard } from "@/components/markerQuery/StatisticsCard";
 import { ScoreBoard } from "@/components/captures/markerCapture/ScoreBoard";
+import { HeaderPage } from "@/components/ui/headerPage/HeaderPage";
 
 export default function MarkerCapturePage() {
   const { dataUser } = useAuth();
@@ -60,47 +59,43 @@ export default function MarkerCapturePage() {
 
   return (
     <ProtectedRoute>
-      <section className="pt-18">
-        <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center lg:justify-between">
-          <div className="grid gap-2">
-            <Title title={`Marcadores Semana ${week}`} />
-            <TextBody text="Edita los marcadores de los partidos de la semana" />
-          </div>
-
-          <div className="flex h-fit justify-center items-center border-2 border-blue-600 rounded-2xl">
-            <p className="px-2 py-1 text-sm font-semibold text-blue-700">
-              NFL temporada 2025
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {isPending && <span>Cargando...</span>}
-
-      {isError && <span>Error al cargar los datos...</span>}
-
-      {isSuccess && <StatisticsCard gameResults={data.data} week={week} />}
-
-      {isSuccess && (
-        <ScoreBoard
-          gameResults={gameResults}
-          handleScoreChange={handleScoreChange}
+      <div className="min-h-screen pt-18">
+        <HeaderPage
+          title={`Marcadores Semana ${week}`}
+          text="Edita los marcadores de los partidos de la semana"
         />
-      )}
 
-      <section>
-        <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
-          <Link href="/dashboard">
-            <Button type="button" title="Volver al Dashboard" theme="normal" />
-          </Link>
+        {isPending && <span>Cargando...</span>}
 
-          <Button
-            type="submit"
-            title="Actualizar Marcadores"
-            onClick={handleSubmitScores}
+        {isError && <span>Error al cargar los datos...</span>}
+
+        {isSuccess && <StatisticsCard gameResults={data.data} week={week} />}
+
+        {isSuccess && (
+          <ScoreBoard
+            gameResults={gameResults}
+            handleScoreChange={handleScoreChange}
           />
-        </div>
-      </section>
+        )}
+
+        <section>
+          <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
+            <Link href="/dashboard">
+              <Button
+                type="button"
+                title="Volver al Dashboard"
+                theme="normal"
+              />
+            </Link>
+
+            <Button
+              type="submit"
+              title="Actualizar Marcadores"
+              onClick={handleSubmitScores}
+            />
+          </div>
+        </section>
+      </div>
     </ProtectedRoute>
   );
 }
