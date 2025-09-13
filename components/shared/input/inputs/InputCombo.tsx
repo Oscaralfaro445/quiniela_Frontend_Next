@@ -24,6 +24,7 @@ export const InputCombo = ({
   const [options, setOptions] = useState<Option[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   console.log(options);
+  console.log(data);
 
   useEffect(() => {
     if (data && Array.isArray(data)) {

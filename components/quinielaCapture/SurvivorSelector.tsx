@@ -39,6 +39,7 @@ export const SurvivorSelector = ({
                 Elige un equipo que creas que ganará esta semana. Solo puedes
                 usar cada equipo una vez por temporada.
               </p>
+
               <InputCombo
                 name="survivor"
                 data={data.data}

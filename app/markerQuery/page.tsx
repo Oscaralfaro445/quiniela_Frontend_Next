@@ -14,7 +14,6 @@ export default function MarkerQueryPage() {
   const { dataUser } = useAuth();
   const week = dataUser?.idPeriodo;
   const { isPending, isError, isSuccess, data } = useGetMarkers();
-  console.log(data);
 
   return (
     <ProtectedRoute>
@@ -50,7 +49,9 @@ export default function MarkerQueryPage() {
             <Button type="button" title="Volver al Dashboard" theme="normal" />
           </Link>
 
-          <Button type="submit" title="Enviar Quiniela" onClick={() => {}} />
+          <Link href={"/quinielaCapture"}>
+            <Button type="submit" title="Llenar Quiniela" />
+          </Link>
         </div>
       </section>
     </ProtectedRoute>
