@@ -9,6 +9,7 @@ interface Option {
 interface InputComboProps {
   data: Option[];
   name?: string;
+  selectedSurvivor?: number;
   value?: string | number;
   disabled?: boolean;
   onChange?: (event: ChangeEvent<HTMLSelectElement>) => void;
@@ -17,14 +18,13 @@ interface InputComboProps {
 export const InputCombo = ({
   data,
   name,
+  selectedSurvivor,
   value,
   disabled,
   onChange = () => {},
 }: InputComboProps) => {
   const [options, setOptions] = useState<Option[]>([]);
   const [isOpen, setIsOpen] = useState(false);
-  console.log(options);
-  console.log(data);
 
   useEffect(() => {
     if (data && Array.isArray(data)) {
@@ -46,13 +46,9 @@ export const InputCombo = ({
     setIsOpen(false);
   };
 
-  const selectedOption = options?.find((option) => {
-    const optionValue = option;
-    console.log(optionValue);
-    return optionValue["llave"] === value ? optionValue : null;
-  });
-
-  console.log(selectedOption);
+  const survivorName = options.find(
+    (option) => option.llave === selectedSurvivor
+  )?.valor;
 
   return (
     <div className="relative w-full">
@@ -64,11 +60,13 @@ export const InputCombo = ({
         id={name}
         tabIndex={0}
       >
-        <span className="text-sm font-medium text-neutral-700">
-          {selectedOption
-            ? selectedOption["valor"]
-            : "Seleccione una opción..."}
-        </span>
+        <p className="text-sm font-medium text-neutral-700">
+          {value === " "
+            ? selectedSurvivor === 0
+              ? "Selecciona una opcion..."
+              : survivorName
+            : value}
+        </p>
 
         <Icon
           name="chevron-down"

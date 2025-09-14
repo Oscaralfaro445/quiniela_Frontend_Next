@@ -31,7 +31,7 @@ export default function QuinielaCapturePage() {
   const isQuinielaEnabled =
     data?.data[0]?.extraData?.bQuiniela === 1 ? false : true;
 
-  const [selectedSurvivor, setSelectedSurvivor] = useState(0);
+  const [selectedSurvivor, setSelectedSurvivor] = useState<number>(0);
   const [quinielaData, setQuinielaData] = useState<QuinielaItem[]>([]);
   const totalGames = data?.data[0]?.quiniela?.length || 0;
   const completedPicks = quinielaData.filter(
@@ -41,8 +41,7 @@ export default function QuinielaCapturePage() {
   useEffect(() => {
     if (isSuccess) {
       const quinielaInitialData = data.data[0].quiniela;
-      console.log(typeof data.data[0].extraData.idSurvivor);
-      setSelectedSurvivor(data.data[0].extraData.idSurvivor);
+      setSelectedSurvivor(0);
       setQuinielaData(quinielaInitialData);
     }
   }, [isSuccess, data]);
@@ -119,6 +118,7 @@ export default function QuinielaCapturePage() {
         <SurvivorSelector
           disabled={!isQuinielaEnabled}
           selectedSurvivor={selectedSurvivor}
+          value={data?.data[0].extraData.nomSurvivor}
           handleSelectedSurvivor={handleChangeSurvivor}
         />
       )}
