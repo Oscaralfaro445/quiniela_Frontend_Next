@@ -54,6 +54,10 @@ export const SurvivorReportCard = () => {
     }
   };
 
+  const getCleanTeamName = (team: string) => {
+    return team?.replace(/\s*\((X|P)\)\s*/g, "").trim() || "";
+  };
+
   return (
     <section>
       <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center lg:justify-between">
@@ -77,6 +81,7 @@ export const SurvivorReportCard = () => {
                   ))}
                 </tr>
               </thead>
+
               <tbody className="text-center text-gray-700 text-sm">
                 {survivorData?.map(
                   (participante: Participant, index: number) => (
@@ -100,7 +105,7 @@ export const SurvivorReportCard = () => {
                             participante[`NOM_EQ_${semana}`]
                           )}`}
                         >
-                          {participante[`NOM_EQ_${semana}`]}
+                          {getCleanTeamName(participante[`NOM_EQ_${semana}`])}
                         </td>
                       ))}
                     </tr>

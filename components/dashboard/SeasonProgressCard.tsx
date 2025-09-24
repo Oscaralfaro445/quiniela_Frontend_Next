@@ -21,13 +21,13 @@ export const SeasonProgressCard = () => {
         {isSuccess && (
           <div>
             <div className="flex justify-between text-sm mb-2">
-              <span className="text-gray-600">Precisión General</span>
-              <span className="font-medium text-gray-900">
+              <p className="text-gray-600">Precisión General</p>
+              <p className="font-medium text-gray-900">
                 {Math.trunc(
                   data.data[0].Dashboard_1[0].posicionTotal.pjeTemporada
                 )}
                 %
-              </span>
+              </p>
             </div>
 
             <progress
@@ -40,10 +40,10 @@ export const SeasonProgressCard = () => {
 
             <div>
               <div className="flex justify-between text-sm mb-2">
-                <span className="text-gray-600">Juegos Completados</span>
-                <span className="font-medium text-gray-900">
+                <p className="text-gray-600">Juegos Completados</p>
+                <p className="font-medium text-gray-900">
                   {`${data.data[0].Dashboard_1[0].posicionTotal.partidosTemporada} / ${data.data[0].Dashboard_1[0].posicionTotal.partidosTemporada}`}
-                </span>
+                </p>
               </div>
             </div>
 

@@ -150,7 +150,7 @@ export default function PositionQueryPage() {
                               </div>
 
                               <div className="flex items-center">
-                                <span className="text-md font-semibold text-gray-500">
+                                <span className="text-lg font-semibold text-gray-500">
                                   {player.Puntos} puntos
                                 </span>
                               </div>
@@ -221,7 +221,7 @@ export default function PositionQueryPage() {
 
                               <div className="flex items-center space-x-6">
                                 <div className="flex items-center">
-                                  <span className="text-md font-semibold text-gray-500">
+                                  <span className="text-lg font-semibold text-gray-500">
                                     {player.Puntos} puntos
                                   </span>
                                 </div>

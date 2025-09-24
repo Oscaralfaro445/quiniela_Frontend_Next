@@ -11,18 +11,15 @@ export const StatisticsCard = () => {
     useGetQuinielaVerification();
 
   const totalParticipants = data?.data?.length;
-  const activeParticipants = data?.data?.filter(
-    (p: Participant) => p.existe === 1
+  const completedQuinielas = data?.data?.filter(
+    (p: Participant) => p.quiniela === 1
   ).length;
-  const quinielaParticipants = data?.data?.filter(
-    (p: Participant) => p.quin === 1
+  const correctQuinielas = data?.data?.filter(
+    (p: Participant) => p.resultados === 1
   ).length;
-  const survivorParticipants = data?.data?.filter(
-    (p: Participant) => p.survivor
-  ).length;
-  const resurrectionParticipants = data?.data?.filter(
-    (p: Participant) => p.quinRes === 1
-  ).length;
+  const registeredSurvivors = data?.data
+    ?.map((p: Participant) => p.survivor === !!p.existe)
+    .filter(Boolean).length;
 
   return (
     <>
@@ -46,27 +43,21 @@ export const StatisticsCard = () => {
             />
 
             <ParticipantCard
-              icon="check"
-              title="Activos"
-              number={activeParticipants}
-            />
-
-            <ParticipantCard
               icon="trophy"
-              title="En Quiniela"
-              number={quinielaParticipants}
+              title="Quinielas Completas"
+              number={completedQuinielas}
             />
 
             <ParticipantCard
               icon="shield"
-              title="En Survivor"
-              number={survivorParticipants}
+              title="Quiniela Correctas"
+              number={correctQuinielas}
             />
 
             <ParticipantCard
               icon="refresh-ccw"
-              title="Resurrección"
-              number={resurrectionParticipants}
+              title="Survivors Registrados"
+              number={registeredSurvivors}
             />
           </div>
         </section>
