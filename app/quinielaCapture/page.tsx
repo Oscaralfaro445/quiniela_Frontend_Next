@@ -118,7 +118,9 @@ export default function QuinielaCapturePage() {
       CVE_GANADOR: game.partGanador,
     }));
 
-    survivorAlta.mutate(selectedSurvivor);
+    if (dataUser?.bSurvivor && selectedSurvivor > 0) {
+      survivorAlta.mutate(selectedSurvivor);
+    }
     quinielaAlta.mutate(quinielaDataUpdated);
   };
 
