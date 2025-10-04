@@ -79,14 +79,26 @@ export default function QuinielaCapturePage() {
       return;
     }
 
-    if (selectedSurvivor < 1 || completedPicks !== totalGames) {
-      showAlert(
-        AlertState.WARNING,
-        "Campos incompletos",
-        "Por favor, completa todos los campos requeridos"
-      );
+    if (dataUser?.bSurvivor) {
+      if (selectedSurvivor < 1 || completedPicks !== totalGames) {
+        showAlert(
+          AlertState.WARNING,
+          "Campos incompletos",
+          "Por favor, completa todos los campos requeridos"
+        );
 
-      return;
+        return;
+      }
+    } else {
+      if (completedPicks !== totalGames) {
+        showAlert(
+          AlertState.WARNING,
+          "Campos incompletos",
+          "Por favor, completa todos los campos requeridos"
+        );
+
+        return;
+      }
     }
 
     if (fechaActual > fechaLimite) {
