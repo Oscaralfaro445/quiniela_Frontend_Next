@@ -10,4 +10,10 @@ export interface QuinielaItem {
   partGanador: string;
   scoreVist: number;
   scoreLocal: number;
+  numGanadosV: number;
+  numPerdidosV: number;
+  numEmpatadosV: number;
+  numGanadosL: number;
+  numPerdidosL: number;
+  numEmpatadosL: number;
 }
