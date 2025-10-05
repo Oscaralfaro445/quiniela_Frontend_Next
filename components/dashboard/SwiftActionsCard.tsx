@@ -26,35 +26,42 @@ export const SwiftActionsCard = ({ currentWeek }: SwiftActionsCardProps) => {
       />
 
       <div className="grid lg:grid-cols-2 gap-4">
-        <div className="grid w-full gap-4">
-          <Button
-            type="button"
-            title="Clasificación"
-            theme="normal"
-            onClick={() => router.push("/positionQuery")}
-          />
-          <Button
-            type="button"
-            title={`Resultados Semana ${currentWeek}`}
-            theme="normal"
-            onClick={() => router.push("/markerQuery")}
-          />
-        </div>
-
-        <div className="grid gap-4">
-          <Button
-            type="button"
-            title="Survivor"
-            theme="normal"
-            onClick={() => router.push("/survivorQuery")}
-          />
-          <Button
-            type="button"
-            title="Activar Survivor"
-            theme="normal"
-            onClick={() => router.push("/captures/survivorActivation")}
-          />
-        </div>
+        <Button
+          type="button"
+          title="Clasificación"
+          theme="normal"
+          onClick={() => router.push("/positionQuery")}
+        />
+        <Button
+          type="button"
+          title={`Resultados Semana ${currentWeek}`}
+          theme="normal"
+          onClick={() => router.push("/markerQuery")}
+        />
+        <Button
+          type="button"
+          title="Survivor"
+          theme="normal"
+          onClick={() => router.push("/survivorQuery")}
+        />
+        <Button
+          type="button"
+          title="Activar Survivor"
+          theme="normal"
+          onClick={() => router.push("/captures/survivorActivation")}
+        />
+        <Button
+          type="button"
+          title="Ganancias"
+          theme="normal"
+          onClick={() => router.push("/captures/survivorActivation")}
+        />
+        <Button
+          type="button"
+          title="Simulador"
+          theme="normal"
+          onClick={() => router.push("/captures/survivorActivation")}
+        />
       </div>
     </Card>
   );
