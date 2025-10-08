@@ -78,7 +78,7 @@ export default function PeriodOpeningPage() {
                   <div className="text-end">
                     <div className="text-2xl font-bold text-red-600">
                       Participantes procesados:{" "}
-                      {mutation.data?.data[0]?.Contador}
+                      {mutation.data?.data?.[0]?.Contador ?? 0}
                     </div>
 
                     <div className="text-sm text-gray-500">

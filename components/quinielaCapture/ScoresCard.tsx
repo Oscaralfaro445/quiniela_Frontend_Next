@@ -1,4 +1,4 @@
-import useGetScores from "@/hooks/scores/queries/useGetScores";
+import { useGetScores } from "@/hooks/scores/queries/useGetScores";
 
 interface CardScoresProps {
   teamId: number;
@@ -16,7 +16,7 @@ export const ScoresCard = ({ teamId, teamName }: CardScoresProps) => {
   const { isPending, isError, isSuccess, error, data } = useGetScores(teamId);
 
   return (
-    <div className="grid gap-4 justify-center">
+    <div className="grid gap-4">
       <div className="text-center">
         <h2 className="text-2xl font-bold text-gray-800 mb-2">
           Marcadores Previos

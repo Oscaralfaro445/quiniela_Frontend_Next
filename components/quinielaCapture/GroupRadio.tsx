@@ -19,6 +19,10 @@ export const GroupRadio = ({
   // quinielaData,
   handleChangeQuiniela,
 }: GroupRadioProps) => {
+  const [selectedTeam, setSelectedTeam] = useState<{
+    id: number;
+    name: string;
+  }>({ id: 0, name: "" });
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleModalOpen = () => {
@@ -41,7 +45,12 @@ export const GroupRadio = ({
         </div>
 
         <Card className="bg-white">
-          <div className="flex w-full justify-between items-center">
+          <div
+            className="flex w-full justify-between items-center"
+            onClick={() =>
+              setSelectedTeam({ id: game.IdV, name: game.EquipoV })
+            }
+          >
             <div className="flex w-full justify-start items-center gap-2">
               <input
                 className="h-4 w-4"
@@ -65,7 +74,7 @@ export const GroupRadio = ({
                   {game.EquipoV}
                 </label>
 
-                <p className="text-red-600 font-semibold">{`${game.numGanadosV}-${game.numEmpatadosV}-${game.numPerdidosV}`}</p>
+                <p className="text-red-600 font-semibold">{`${game.numGanadosV}-${game.numPerdidosV}-${game.numEmpatadosV}`}</p>
               </div>
             </div>
 
@@ -74,7 +83,12 @@ export const GroupRadio = ({
         </Card>
 
         <Card className="bg-white">
-          <div className="flex w-full justify-between items-center">
+          <div
+            className="flex w-full justify-between items-center"
+            onClick={() =>
+              setSelectedTeam({ id: game.IdL, name: game.EquipoL })
+            }
+          >
             <div className="flex w-full justify-start items-center gap-2">
               <input
                 className="h-4 w-4"
@@ -98,7 +112,7 @@ export const GroupRadio = ({
                   {game.EquipoL}
                 </label>
 
-                <p className="text-red-600 font-semibold">{`${game.numGanadosL}-${game.numEmpatadosL}-${game.numPerdidosL}`}</p>
+                <p className="text-red-600 font-semibold">{`${game.numGanadosL}-${game.numPerdidosL}-${game.numEmpatadosL}`}</p>
               </div>
             </div>
 
@@ -108,7 +122,7 @@ export const GroupRadio = ({
       </Card>
 
       <Modal isOpen={isModalOpen} onClose={handleModalOpen}>
-        <ScoresCard teamId={game.IdV} teamName={game.EquipoV} />
+        <ScoresCard teamId={selectedTeam.id} teamName={selectedTeam.name} />
       </Modal>
     </>
   );

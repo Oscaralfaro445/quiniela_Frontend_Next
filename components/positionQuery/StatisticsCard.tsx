@@ -43,7 +43,7 @@ export const StatisticsCard = () => {
                 {Math.trunc(
                   precisionData?.data[0].Dashboard_1[0].posicionTotal
                     .pjeTemporada
-                )}
+                ) ?? 0}
                 %
               </div>
 

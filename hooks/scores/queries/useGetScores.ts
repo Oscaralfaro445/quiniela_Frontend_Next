@@ -14,7 +14,7 @@ const fetchScores = async (
   return response.data;
 };
 
-const useGetScores = (idEquipo: number) => {
+export const useGetScores = (idEquipo: number) => {
   const { token } = useAuth();
 
   const { isPending, isError, isSuccess, error, data } = useQuery({
@@ -30,5 +30,3 @@ const useGetScores = (idEquipo: number) => {
 
   return { isPending, isError, isSuccess, error, data };
 };
-
-export default useGetScores;

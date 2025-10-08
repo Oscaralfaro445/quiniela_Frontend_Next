@@ -15,7 +15,6 @@ export const useHandleRequestStatus = () => {
     mensajeExito,
     estatus,
     errorUs,
-    errorNeg,
   }: RequestStatus) => {
     switch (estatus) {
       case 1:
@@ -39,7 +38,7 @@ export const useHandleRequestStatus = () => {
         showAlert(
           AlertState.ERROR,
           "Error en la Solicitud",
-          errorNeg ?? "Ocurrió un error en la validación de negocio."
+          "Ocurrió un error en la validación de negocio."
         );
         break;
 

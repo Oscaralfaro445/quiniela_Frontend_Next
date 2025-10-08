@@ -42,6 +42,7 @@ export const usePostPeriodClosing = () => {
       );
     },
     onSuccess: (data) => {
+      console.log("Response data:", data);
       handleRequestStatus({
         estatus: data.estatus,
         errorUs: data.errorUs,
