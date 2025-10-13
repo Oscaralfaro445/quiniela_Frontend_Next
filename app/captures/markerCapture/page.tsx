@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import useGetMarkers from "@/hooks/markers/queries/useGetMarkers";
+import { useGetMarkers } from "@/hooks/markers/queries/useGetMarkers";
 import { usePostMarkers } from "@/hooks/markers/mutations/usePostMarkers";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { GameResult } from "@/types/gameResult/gameResult";
