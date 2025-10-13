@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import useGetMarkers from "@/hooks/markers/queries/useGetMarkers";
+import { useGetMarkers } from "@/hooks/markers/queries/useGetMarkers";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { Button } from "@/components/shared/button/Button";
 import { Title } from "@/components/shared/text/Title";

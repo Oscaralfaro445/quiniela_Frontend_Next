@@ -1,4 +1,5 @@
 import { useGetMatchPrediction } from "@/hooks/matchPrediction/queries/useGetMatchPrediction";
+import { TeamLogo } from "../shared/teamLogo/TeamLogo";
 
 interface MatchPredictionCardProps {
   gameId: number;
@@ -9,7 +10,8 @@ interface MatchPrediction {
   nomParticipante: string;
   pronostico: string;
   idEquipoPronost: number;
-  acerto: boolean;
+  nomEquipoPronost: string;
+  acerto: string;
 }
 
 export const MatchPredictionCard = ({ gameId }: MatchPredictionCardProps) => {
@@ -17,7 +19,7 @@ export const MatchPredictionCard = ({ gameId }: MatchPredictionCardProps) => {
     useGetMatchPrediction(gameId);
 
   return (
-    <div className="grid gap-4">
+    <div className="grid h-3/4 gap-4">
       <div className="text-center">
         <h2 className="text-2xl font-bold text-gray-800 mb-2">
           Pronostico de partido
@@ -30,7 +32,7 @@ export const MatchPredictionCard = ({ gameId }: MatchPredictionCardProps) => {
       {isError && <div>Error: {error?.message}</div>}
 
       {isSuccess && (
-        <div className="overflow-x-auto">
+        <div className="overflow-auto">
           <table className="w-full min-w-max bg-white shadow-sm rounded-lg border border-gray-200">
             <thead>
               <tr className="bg-blue-600 text-white text-center text-sm font-semibold">
@@ -47,7 +49,10 @@ export const MatchPredictionCard = ({ gameId }: MatchPredictionCardProps) => {
                     {prediction.nomParticipante}
                   </td>
                   <td className="py-2 px-4 border-b border-gray-200 font-bold text-blue-600">
-                    {prediction.pronostico}
+                    <TeamLogo
+                      className="scale-75"
+                      teamName={prediction.nomEquipoPronost}
+                    />
                   </td>
                   <td className="py-2 px-4 border-b border-gray-200 font-bold text-blue-600">
                     {prediction.acerto}

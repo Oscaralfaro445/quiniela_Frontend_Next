@@ -18,7 +18,7 @@ const fetchMarkers = async (
   return response.data;
 };
 
-const useGetMarkers = () => {
+export const useGetMarkers = () => {
   const { token, dataUser } = useAuth();
 
   const { isPending, isError, isSuccess, error, data } = useQuery({
@@ -36,5 +36,3 @@ const useGetMarkers = () => {
 
   return { isPending, isError, isSuccess, error, data };
 };
-
-export default useGetMarkers;
