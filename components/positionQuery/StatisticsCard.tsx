@@ -5,7 +5,11 @@ import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";
 import { ParticipantData } from "@/app/positionQuery/page";
 
-export const StatisticsCard = () => {
+interface StatisticsCardProps {
+  activeTab: "weekly" | "global";
+}
+
+export const StatisticsCard = ({ activeTab }: StatisticsCardProps) => {
   const { dataUser } = useAuth();
   const { data } = useGetParticipantPositions();
   const { data: precisionData } = useGetPrecision();
@@ -40,25 +44,33 @@ export const StatisticsCard = () => {
           {true && (
             <div className="grid gap-1">
               <div className="text-2xl font-bold text-gray-900">
-                {Math.trunc(
-                  precisionData?.data[0].Dashboard_1[0].posicionTotal
-                    .pjeTemporada
-                ) ?? 0}
+                {activeTab === "weekly"
+                  ? Math.trunc(
+                      precisionData?.data[0].Dashboard_1[0].posicionPeriodo
+                        .pjeSemana
+                    ) ?? 0
+                  : Math.trunc(
+                      precisionData?.data[0].Dashboard_1[0].posicionTotal
+                        .pjeTemporada
+                    ) ?? 0}
                 %
               </div>
 
-              <span className="text-xs text-gray-600">
-                {
-                  precisionData?.data[0].Dashboard_1[0].posicionTotal
-                    .puntosTemporada
-                }
-                /
-                {
-                  precisionData?.data[0].Dashboard_1[0].posicionTotal
-                    .partidosTemporada
-                }{" "}
-                correctas
-              </span>
+              <p className="text-xs text-gray-600">
+                {activeTab === "weekly"
+                  ? precisionData?.data[0].Dashboard_1[0].posicionPeriodo
+                      .puntosPeriodo +
+                    "/" +
+                    precisionData?.data[0].Dashboard_1[0].posicionPeriodo
+                      .partidosPeriodo +
+                    " correctas"
+                  : precisionData?.data[0].Dashboard_1[0].posicionTotal
+                      .puntosTemporada +
+                    "/" +
+                    precisionData?.data[0].Dashboard_1[0].posicionTotal
+                      .partidosTemporada +
+                    " correctas"}
+              </p>
             </div>
           )}
         </Card>
@@ -68,15 +80,23 @@ export const StatisticsCard = () => {
             <div className="text-sm font-medium text-gray-600">Tu Posición</div>
             <Icon name="medal" className="text-blue-700" />
           </div>
+
           <div>
             <div className="text-2xl font-bold text-gray-900">{`#${
-              data?.data[0]?.puntosPeriodo?.find(
-                (item: ParticipantData) =>
-                  item.ID_PARTICIPANTE === dataUser?.idParticipante
-              )?.Posicion ?? "0"
+              activeTab === "weekly"
+                ? data?.data[0]?.puntosPeriodo?.find(
+                    (item: ParticipantData) =>
+                      item.ID_PARTICIPANTE === dataUser?.idParticipante
+                  )?.Posicion ?? "0"
+                : data?.data[0]?.puntosTotal?.find(
+                    (item: ParticipantData) =>
+                      item.ID_PARTICIPANTE === dataUser?.idParticipante
+                  )?.Posicion ?? "0"
             }`}</div>
             <p className="text-xs text-gray-600">{`de ${
-              data?.data[0]?.puntosPeriodo?.length ?? "0"
+              activeTab === "weekly"
+                ? data?.data[0]?.puntosPeriodo?.length ?? "0"
+                : data?.data[0]?.puntosTotal?.length ?? "0"
             } participantes`}</p>
           </div>
         </Card>
