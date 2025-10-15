@@ -20,7 +20,7 @@ export const Paginator = ({
   };
 
   const goToNextPage = () => {
-    if (currentPage < totalPages) onPageChange(currentPage + 1);
+    if (currentPage < totalPages - 3) onPageChange(currentPage + 1);
   };
 
   const goToLastPage = () => {

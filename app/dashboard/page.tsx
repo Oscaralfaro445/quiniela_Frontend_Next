@@ -10,6 +10,7 @@ import { SurvivorCard } from "@/components/dashboard/SurvivorCard";
 import { AccumulatedBagCard } from "@/components/dashboard/AccumulatedBagCard";
 import { SeasonProgressCard } from "@/components/dashboard/SeasonProgressCard";
 import { HeaderPage } from "@/components/ui/headerPage/HeaderPage";
+import { AccumulatedGainsCard } from "@/components/dashboard/AccumulatedGainsCard";
 
 export default function Dashboard() {
   const { dataUser } = useAuth();
@@ -38,6 +39,8 @@ export default function Dashboard() {
             <SurvivorCard />
 
             <UpcomingGamesCard currentWeek={currentWeek ?? ""} />
+
+            <AccumulatedGainsCard />
           </div>
         </section>
       </div>

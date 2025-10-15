@@ -14,7 +14,7 @@ type MenuNodeProps = {
 export const MenuNode = ({
   items,
   route,
-  level = 0,
+  level = -1,
   handleClick,
 }: MenuNodeProps) => {
   const [currentLevel] = useState(level + 1);

@@ -1,4 +1,5 @@
 import { useGetSurvivorReport } from "@/hooks/survivorReport/queries/useGetSurvivorReport";
+import { useAuth } from "@/context/authContext/AuthContext";
 import { Card } from "../shared/card/Card";
 import { useEffect, useState } from "react";
 import { Paginator } from "../shared/paginator/paginator";
@@ -13,11 +14,13 @@ interface Participant {
 }
 
 export const SurvivorReportCard = () => {
+  const { dataUser } = useAuth();
   const { isSuccess, isError, isPending, error, data } = useGetSurvivorReport();
   const survivorData = data?.data;
   const semanas = Object.keys(survivorData?.[0] || {})
     .filter((key) => key.startsWith("NOM_EQ_"))
-    .map((key) => parseInt(key.split("_")[2]));
+    .map((key) => parseInt(key.split("_")[2]))
+    .slice(0, parseInt(dataUser!.idPeriodo));
 
   const [rango, setRango] = useState({
     inicio: 0,
