@@ -24,6 +24,7 @@ export type IconName =
   | "file-question-mark"
   | "filter"
   | "gamepad-2"
+  | "gauge"
   | "hand-coins"
   | "house"
   | "list"

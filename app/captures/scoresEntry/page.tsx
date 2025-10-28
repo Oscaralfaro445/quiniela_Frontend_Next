@@ -8,11 +8,11 @@ import { useAuth } from "@/context/authContext/AuthContext";
 import { GameResult } from "@/types/gameResult/gameResult";
 import { Button } from "@/components/shared/button/Button";
 import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
-import { StatisticsCard } from "@/components/markerQuery/StatisticsCard";
-import { ScoreBoard } from "@/components/captures/markerCapture/ScoreBoard";
+import { StatisticsCard } from "@/components/scores/StatisticsCard";
+import { ScoreBoard } from "@/components/captures/scoresEntry/ScoreBoard";
 import { HeaderPage } from "@/components/ui/headerPage/HeaderPage";
 
-export default function MarkerCapturePage() {
+export default function ScoresEntryPage() {
   const { dataUser } = useAuth();
   const week = dataUser?.idPeriodo;
   const { isPending, isError, isSuccess, data } = useGetMarkers();

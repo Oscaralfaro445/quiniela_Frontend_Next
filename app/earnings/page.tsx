@@ -1,21 +1,23 @@
-"use client";
-
-import Link from "next/link";
+import { AccumulatedEarningsCard } from "@/components/dashboard/AccumulatedEarningsCard";
 import { Button } from "@/components/shared/button/Button";
 import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
-import { SurvivorReportCard } from "@/components/survivorQuery/SurvivorReportCard";
 import { HeaderPage } from "@/components/ui/headerPage/HeaderPage";
+import Link from "next/link";
 
-export default function SurvivorPage() {
+export default function GainsPage() {
   return (
     <ProtectedRoute>
-      <div className="min-h-screen pt-18">
+      <div className="grid pt-18">
         <HeaderPage
-          title="Reporte de Survivor"
-          text="Consulta las selecciones de los participantes semana a semana."
+          title={`Consulta las ganancias de la temporada.`}
+          text="Aquí tienes un resumen de las ganancias obtenidas por cada participante."
         />
 
-        <SurvivorReportCard />
+        <section>
+          <div className="grid w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 ">
+            <AccumulatedEarningsCard />
+          </div>
+        </section>
 
         <section>
           <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
@@ -27,8 +29,8 @@ export default function SurvivorPage() {
               />
             </Link>
 
-            <Link href="/positionQuery">
-              <Button type="button" title="Ver Clasificación" />
+            <Link href={"/quinielaCapture"}>
+              <Button type="submit" title="Llenar Quiniela" />
             </Link>
           </div>
         </section>

@@ -3,25 +3,25 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useGetMatches } from "@/hooks/matches/queries/useGetMatches";
-import usePostSurvivorTeam from "@/hooks/survivor/mutations/usePostSurvivorTeam";
+import { usePostSurvivorTeam } from "@/hooks/survivor/mutations/usePostSurvivorTeam";
 import { usePostQuiniela } from "@/hooks/quiniela/mutation/usePostQuiniela";
 import { AlertState } from "@/types/alert/alert";
 import { QuinielaItem } from "@/types/quiniela/quinielaItem";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { useAlert } from "@/context/alertContext/AlertContext";
-import { WeeklyHeadline } from "@/components/quinielaCapture/WeeklyHeadline";
+import { WeeklyHeadline } from "@/components/quiniela/WeeklyHeadline";
 import { Card } from "@/components/shared/card/Card";
 import { Button } from "@/components/shared/button/Button";
-import { ByeWeek } from "@/components/quinielaCapture/ByeWeek";
+import { ByeWeek } from "@/components/quiniela/ByeWeek";
 import { Timer } from "@/components/shared/timer/Timer";
-import { GroupRadio } from "@/components/quinielaCapture/GroupRadio";
+import { GroupRadio } from "@/components/quiniela/GroupRadio";
 import { Title } from "@/components/shared/text/Title";
 import { TextBody } from "@/components/shared/text/TextBody";
 import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
-import { QuinielaProgressCard } from "@/components/quinielaCapture/QuinielaProgressCard";
-import { SurvivorSelector } from "@/components/quinielaCapture/SurvivorSelector";
+import { QuinielaProgressCard } from "@/components/quiniela/QuinielaProgressCard";
+import { SurvivorSelector } from "@/components/quiniela/SurvivorSelector";
 
-export default function QuinielaCapturePage() {
+export default function QuinielaPage() {
   const { dataUser } = useAuth();
   const { showAlert } = useAlert();
   const { isPending, isError, isSuccess, data } = useGetMatches();
@@ -128,15 +128,6 @@ export default function QuinielaCapturePage() {
     <ProtectedRoute>
       <WeeklyHeadline week={currentWeek} />
 
-      {dataUser?.bSurvivor && (
-        <SurvivorSelector
-          disabled={!isQuinielaEnabled}
-          selectedSurvivor={selectedSurvivor}
-          value={data?.data[0].extraData.nomSurvivor}
-          handleSelectedSurvivor={handleChangeSurvivor}
-        />
-      )}
-
       <ByeWeek />
 
       <Timer />
@@ -174,6 +165,15 @@ export default function QuinielaCapturePage() {
           </Card>
         </div>
       </section>
+
+      {dataUser?.bSurvivor && (
+        <SurvivorSelector
+          disabled={!isQuinielaEnabled}
+          selectedSurvivor={selectedSurvivor}
+          value={data?.data[0].extraData.nomSurvivor}
+          handleSelectedSurvivor={handleChangeSurvivor}
+        />
+      )}
 
       <section>
         <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">

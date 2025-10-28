@@ -3,7 +3,7 @@ import { useGetParticipantPositions } from "@/hooks/participantPositions/queries
 import { useGetPrecision } from "@/hooks/dashboard/queries/useGetPrecision";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";
-import { ParticipantData } from "@/app/positionQuery/page";
+import { ParticipantData } from "@/app/standings/page";
 
 interface StatisticsCardProps {
   activeTab: "weekly" | "global";

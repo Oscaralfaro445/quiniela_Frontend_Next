@@ -7,10 +7,10 @@ import { Button } from "@/components/shared/button/Button";
 import { Title } from "@/components/shared/text/Title";
 import { TextBody } from "@/components/shared/text/TextBody";
 import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
-import { StatisticsCard } from "@/components/markerQuery/StatisticsCard";
-import { ScoreBoard } from "@/components/markerQuery/ScoreBoard";
+import { StatisticsCard } from "@/components/scores/StatisticsCard";
+import { ScoreBoard } from "@/components/scores/ScoreBoard";
 
-export default function MarkerQueryPage() {
+export default function ScoresPage() {
   const { dataUser } = useAuth();
   const week = dataUser?.idPeriodo;
   const { isPending, isError, isSuccess, data } = useGetMarkers();

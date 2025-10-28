@@ -29,7 +29,7 @@ const postSurvivorTeam = async (
   return response.data;
 };
 
-const usePostSurvivorTeam = () => {
+export const usePostSurvivorTeam = () => {
   const { token, dataUser } = useAuth();
   const { showAlert } = useAlert();
 
@@ -67,5 +67,3 @@ const usePostSurvivorTeam = () => {
     onSettled: () => {},
   });
 };
-
-export default usePostSurvivorTeam;

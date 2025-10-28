@@ -9,7 +9,7 @@ import { Card } from "@/components/shared/card/Card";
 import { Icon } from "@/components/shared/icon/Icon";
 import { Button } from "@/components/shared/button/Button";
 import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
-import { StatisticsCard } from "@/components/positionQuery/StatisticsCard";
+import { StatisticsCard } from "@/components/standings/StatisticsCard";
 import { HeaderPage } from "@/components/ui/headerPage/HeaderPage";
 
 type TabType = "weekly" | "global";

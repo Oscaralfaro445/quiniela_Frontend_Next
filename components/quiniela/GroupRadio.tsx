@@ -73,8 +73,6 @@ export const GroupRadio = ({
                 <label htmlFor={`game-${game.Partido}`} className="text-sm">
                   {game.EquipoV}
                 </label>
-
-                <p className="text-red-600 font-semibold">{`${game.numGanadosV}-${game.numPerdidosV}-${game.numEmpatadosV}`}</p>
               </div>
             </div>
 
@@ -111,8 +109,6 @@ export const GroupRadio = ({
                 <label htmlFor={`game-${game.Partido}`} className="text-sm">
                   {game.EquipoL}
                 </label>
-
-                <p className="text-red-600 font-semibold">{`${game.numGanadosL}-${game.numPerdidosL}-${game.numEmpatadosL}`}</p>
               </div>
             </div>
 
