@@ -97,7 +97,7 @@ export const UpcomingGamesCard = ({ currentWeek }: UpcomingGamesCardProps) => {
         <Button
           type="button"
           title="Ver Quiniela"
-          onClick={() => router.push("/quinielaCapture")}
+          onClick={() => router.push("/quiniela")}
         />
       </Card>
     </>

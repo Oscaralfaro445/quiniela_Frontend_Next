@@ -22,7 +22,7 @@ export const SwiftActionsCard = ({ currentWeek }: SwiftActionsCardProps) => {
         type="button"
         title={`Hacer Quiniela Semana ${currentWeek}`}
         icon="play"
-        onClick={() => router.push("/quinielaCapture")}
+        onClick={() => router.push("/quiniela")}
       />
 
       <div className="grid lg:grid-cols-2 gap-4">
@@ -30,19 +30,19 @@ export const SwiftActionsCard = ({ currentWeek }: SwiftActionsCardProps) => {
           type="button"
           title="Clasificación"
           theme="normal"
-          onClick={() => router.push("/positionQuery")}
+          onClick={() => router.push("/standings")}
         />
         <Button
           type="button"
           title={`Resultados Semana ${currentWeek}`}
           theme="normal"
-          onClick={() => router.push("/markerQuery")}
+          onClick={() => router.push("/scores")}
         />
         <Button
           type="button"
           title="Survivor"
           theme="normal"
-          onClick={() => router.push("/survivorQuery")}
+          onClick={() => router.push("/survivor")}
         />
         <Button
           type="button"
@@ -54,13 +54,13 @@ export const SwiftActionsCard = ({ currentWeek }: SwiftActionsCardProps) => {
           type="button"
           title="Ganancias"
           theme="normal"
-          onClick={() => router.push("/captures/survivorActivation")}
+          onClick={() => router.push("/earnings")}
         />
         <Button
           type="button"
           title="Simulador"
           theme="normal"
-          onClick={() => router.push("/captures/survivorActivation")}
+          onClick={() => router.push("/simulator")}
         />
       </div>
     </Card>

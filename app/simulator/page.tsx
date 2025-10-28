@@ -17,7 +17,7 @@ import { QuinielaProgressCard } from "@/components/quiniela/QuinielaProgressCard
 import { Modal } from "@/components/shared/modal/Modal";
 import { StandingsSimulator } from "@/components/simulator/StandingsSimulator";
 
-export default function QuinielaPage() {
+export default function SimulatorPage() {
   const { dataUser } = useAuth();
   const { isPending, isError, isSuccess, data } = useGetSimulatorMatches();
   const quinielaAlta = usePostSimulatorQuiniela();
@@ -25,7 +25,7 @@ export default function QuinielaPage() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [quinielaData, setQuinielaData] = useState<QuinielaItem[]>([]);
-  const totalGames = data?.data.length || 0;
+  const totalGames = data?.data?.length || 0;
   const completedPicks = quinielaData.filter(
     (game) => game.partGanador !== " "
   ).length;
@@ -33,7 +33,7 @@ export default function QuinielaPage() {
   console.log(quinielaData);
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && data.data) {
       const quinielaInitialData = data.data.map((game) => ({
         ...game,
         partGanador: " ",
@@ -91,7 +91,7 @@ export default function QuinielaPage() {
 
             {isError && <></>}
 
-            {isSuccess && (
+            {isSuccess && quinielaData && (
               <div className="grid lg:grid-cols-2 gap-4">
                 {quinielaData.map((game: QuinielaItem) => (
                   <GroupRadio
