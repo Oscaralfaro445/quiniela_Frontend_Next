@@ -16,4 +16,6 @@ export interface QuinielaItem {
   numGanadosL: number;
   numPerdidosL: number;
   numEmpatadosL: number;
+  survEquipoV: string;
+  survEquipoL: string;
 }

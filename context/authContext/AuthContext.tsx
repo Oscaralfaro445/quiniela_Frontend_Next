@@ -8,6 +8,7 @@ import {
   ReactNode,
 } from "react";
 import { DataUser } from "@/types/user/dataUser";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface AuthContextProps {
   token: string | null;
@@ -25,6 +26,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [dataUser, setDataUser] = useState<DataUser | null>(null);
   const [isLogged, setIsLogged] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     const checkToken = () => {
@@ -108,6 +110,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       localStorage.removeItem("authData");
       sessionStorage.removeItem("authToken");
       sessionStorage.removeItem("authData");
+
+      queryClient.clear();
 
       setIsLogged(false);
     } catch (error) {

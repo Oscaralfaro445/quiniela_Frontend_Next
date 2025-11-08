@@ -27,7 +27,7 @@ export default function SurvivorPage() {
               />
             </Link>
 
-            <Link href="/positionQuery">
+            <Link href="/standings">
               <Button type="button" title="Ver Clasificación" />
             </Link>
           </div>

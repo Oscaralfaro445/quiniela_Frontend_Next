@@ -111,8 +111,8 @@ export default function SurvivorActivationPage() {
               />
             </Link>
 
-            <Link href="/quinielaCapture">
-              <Button type="button" title="Hacer Quiniela" />
+            <Link href="/quiniela">
+              <Button type="button" title="Ver Quiniela" />
             </Link>
           </div>
         </section>

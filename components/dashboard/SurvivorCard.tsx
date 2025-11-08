@@ -24,12 +24,12 @@ export const SurvivorCard = () => {
     <>
       <Card className="border-neutral-200">
         <div className="flex flex-col">
-          <span className="text-lg text-blue-700 font-semibold">
+          <p className="text-lg text-blue-700 font-semibold">
             Partido Survivor Seleccionado
-          </span>
-          <span className="text-sm text-gray-600">
+          </p>
+          <p className="text-sm text-gray-600">
             Información del partido de survivor seleccionado
-          </span>
+          </p>
         </div>
 
         {isPending && <span>Cargando...</span>}
@@ -57,31 +57,31 @@ export const SurvivorCard = () => {
               <div className="flex w-1/2 justify-start items-center gap-4">
                 <div className="flex flex-col items-center">
                   <TeamLogo teamName={data.data[0].nombreVisita} />
-                  <span>{data.data[0].scoreVisitante}</span>
+                  <p>{data.data[0].scoreVisitante}</p>
                 </div>
 
-                <span>vs</span>
+                <p>vs</p>
 
                 <div className="flex flex-col items-center">
                   <TeamLogo teamName={data.data[0].nombreLocal} />
-                  <span>{data.data[0].scoreLocal}</span>
+                  <p>{data.data[0].scoreLocal}</p>
                 </div>
               </div>
 
               <div className="flex flex-col gap-2 justify-between items-start">
                 <div className="flex gap-2 justify-between text-sm">
                   <Icon className="text-blue-600" name="calendar" />
-                  <span className="text-gray-600">{`Fecha: ${data.data[0].fechaPartido}`}</span>
+                  <p className="text-gray-600">{`${data.data[0].fechaPartido}`}</p>
                 </div>
 
                 <div className="flex gap-2 justify-between text-sm">
                   <Icon className="text-blue-600" name="clock" />
-                  <span className="text-gray-600">{`Hora: ${data.data[0].HORA_PARTIDO}`}</span>
+                  <p className="text-gray-600">{`${data.data[0].HORA_PARTIDO}`}</p>
                 </div>
 
                 <div className="flex gap-2 justify-between text-sm">
                   <Icon className="text-blue-600" name="map-pin" />
-                  <span className="text-gray-600">{`Estadio: ${data.data[0].ESTADIO}`}</span>
+                  <p className="text-gray-600">{` ${data.data[0].ESTADIO}`}</p>
                 </div>
               </div>
             </div>

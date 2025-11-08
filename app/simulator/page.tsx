@@ -30,8 +30,6 @@ export default function SimulatorPage() {
     (game) => game.partGanador !== " "
   ).length;
 
-  console.log(quinielaData);
-
   useEffect(() => {
     if (isSuccess && data.data) {
       const quinielaInitialData = data.data.map((game) => ({
@@ -64,7 +62,6 @@ export default function SimulatorPage() {
       CVE_GANADOR: game.partGanador,
     }));
 
-    console.log(quinielaDataUpdated);
     quinielaAlta.mutate(JSON.stringify(quinielaDataUpdated));
 
     setIsModalOpen(true);
@@ -72,59 +69,64 @@ export default function SimulatorPage() {
 
   return (
     <ProtectedRoute>
-      <WeeklyHeadline week={currentWeek} />
+      <div className="h-screen">
+        <WeeklyHeadline week={currentWeek} />
 
-      <QuinielaProgressCard
-        completedPicks={completedPicks}
-        totalGames={totalGames}
-      />
-
-      <section>
-        <div className="max-w-[1280px] mx-auto px-10 py-8">
-          <Card>
-            <div className="grid gap-2">
-              <Title title="Quiniela" />
-              <TextBody text="Selecciona el ganador de cada juego" />
-            </div>
-
-            {isPending && <>Loading...</>}
-
-            {isError && <></>}
-
-            {isSuccess && quinielaData && (
-              <div className="grid lg:grid-cols-2 gap-4">
-                {quinielaData.map((game: QuinielaItem) => (
-                  <GroupRadio
-                    key={game.Partido}
-                    disabled={false}
-                    game={game}
-                    quinielaData={quinielaData}
-                    handleChangeQuiniela={handleChangeQuiniela}
-                  />
-                ))}
+        <QuinielaProgressCard
+          completedPicks={completedPicks}
+          totalGames={totalGames}
+        />
+        <section>
+          <div className="max-w-[1280px] mx-auto px-10 py-8">
+            <Card>
+              <div className="grid gap-2">
+                <Title title="Quiniela" />
+                <TextBody text="Selecciona el ganador de cada juego" />
               </div>
-            )}
-          </Card>
-        </div>
-      </section>
 
-      <section>
-        <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
-          <Link href="/dashboard">
-            <Button type="button" title="Volver al Dashboard" theme="normal" />
-          </Link>
+              {isPending && <>Loading...</>}
 
-          <Button
-            type="submit"
-            title="Simular Quiniela"
-            onClick={handleSubmit}
-          />
-        </div>
-      </section>
+              {isError && <></>}
 
-      <Modal isOpen={isModalOpen} onClose={handleModalOpen}>
-        <StandingsSimulator quinielaAlta={quinielaAlta} />
-      </Modal>
+              {isSuccess && quinielaData && (
+                <div className="grid lg:grid-cols-2 gap-4">
+                  {quinielaData.map((game: QuinielaItem) => (
+                    <GroupRadio
+                      key={game.Partido}
+                      disabled={false}
+                      game={game}
+                      quinielaData={quinielaData}
+                      handleChangeQuiniela={handleChangeQuiniela}
+                    />
+                  ))}
+                </div>
+              )}
+            </Card>
+          </div>
+        </section>
+
+        <section>
+          <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
+            <Link href="/dashboard">
+              <Button
+                type="button"
+                title="Volver al Dashboard"
+                theme="normal"
+              />
+            </Link>
+
+            <Button
+              type="submit"
+              title="Simular Quiniela"
+              onClick={handleSubmit}
+            />
+          </div>
+        </section>
+
+        <Modal isOpen={isModalOpen} onClose={handleModalOpen}>
+          <StandingsSimulator quinielaAlta={quinielaAlta} />
+        </Modal>
+      </div>
     </ProtectedRoute>
   );
 }

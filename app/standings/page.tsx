@@ -250,8 +250,8 @@ export default function PositionQueryPage() {
 
             <Button
               type="button"
-              title="Hacer Quiniela"
-              onClick={() => router.push("/quinielaCapture")}
+              title="Ver Quiniela"
+              onClick={() => router.push("/quiniela")}
             />
           </div>
         </section>

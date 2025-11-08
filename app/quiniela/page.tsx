@@ -20,6 +20,7 @@ import { TextBody } from "@/components/shared/text/TextBody";
 import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
 import { QuinielaProgressCard } from "@/components/quiniela/QuinielaProgressCard";
 import { SurvivorSelector } from "@/components/quiniela/SurvivorSelector";
+import { Icon } from "@/components/shared/icon/Icon";
 
 export default function QuinielaPage() {
   const { dataUser } = useAuth();
@@ -142,7 +143,22 @@ export default function QuinielaPage() {
           <Card>
             <div className="grid gap-2">
               <Title title="Quiniela" />
-              <TextBody text="Selecciona el ganador de cada juego" />
+
+              <div className="flex justify-between">
+                <TextBody text="Selecciona el ganador de cada juego" />
+
+                <div className="flex p-2 gap-4 items-center border border-neutral-400 rounded-lg">
+                  <div className="flex gap-2">
+                    <Icon className="text-green-600" name="check" />
+                    <p>Equipo ganador</p>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <Icon className="text-red-500" name="swords" />
+                    <p>Survivor usado</p>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {isPending && <>Loading...</>}

@@ -70,13 +70,22 @@ export const GroupRadio = ({
               </div>
 
               <div>
-                <label htmlFor={`game-${game.Partido}`} className="text-sm">
+                <label htmlFor={`game-${game.Partido}`} className="text-md">
                   {game.EquipoV}
                 </label>
+
+                <p className="font-semibold text-sm text-red-600">{`${game.numGanadosV}-${game.numPerdidosV}-${game.numEmpatadosV}`}</p>
               </div>
             </div>
 
-            {game.partGanador === "V" && <Icon name="check" size={25} />}
+            <div className="flex gap-2">
+              {game.partGanador === "V" && (
+                <Icon className="text-green-600" name="check" size={25} />
+              )}
+              {game.survEquipoV === "TRUE" && (
+                <Icon className="text-red-500" name="swords" size={25} />
+              )}
+            </div>
           </div>
         </Card>
 
@@ -106,13 +115,22 @@ export const GroupRadio = ({
               </div>
 
               <div>
-                <label htmlFor={`game-${game.Partido}`} className="text-sm">
+                <label htmlFor={`game-${game.Partido}`} className="text-md">
                   {game.EquipoL}
                 </label>
+
+                <p className="font-semibold text-sm text-red-600">{`${game.numGanadosL}-${game.numPerdidosL}-${game.numEmpatadosL}`}</p>
               </div>
             </div>
 
-            {game.partGanador === "L" && <Icon name="check" size={25} />}
+            <div className="flex gap-2">
+              {game.partGanador === "L" && (
+                <Icon className="text-green-600" name="check" size={25} />
+              )}
+              {game.survEquipoL === "TRUE" && (
+                <Icon className="text-red-500" name="swords" size={25} />
+              )}
+            </div>
           </div>
         </Card>
       </Card>

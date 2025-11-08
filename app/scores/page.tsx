@@ -49,8 +49,8 @@ export default function ScoresPage() {
             <Button type="button" title="Volver al Dashboard" theme="normal" />
           </Link>
 
-          <Link href={"/quinielaCapture"}>
-            <Button type="submit" title="Llenar Quiniela" />
+          <Link href={"/quiniela"}>
+            <Button type="submit" title="Ver Quiniela" />
           </Link>
         </div>
       </section>

@@ -29,8 +29,8 @@ export default function GainsPage() {
               />
             </Link>
 
-            <Link href={"/quinielaCapture"}>
-              <Button type="submit" title="Llenar Quiniela" />
+            <Link href={"/quiniela"}>
+              <Button type="submit" title="Ver Quiniela" />
             </Link>
           </div>
         </section>
