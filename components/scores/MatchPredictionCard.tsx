@@ -19,7 +19,7 @@ export const MatchPredictionCard = ({ gameId }: MatchPredictionCardProps) => {
     useGetMatchPrediction(gameId);
 
   return (
-    <div className="grid h-3/4 gap-4">
+    <div className="grid gap-4">
       <div className="text-center">
         <h2 className="text-2xl font-bold text-gray-800 mb-2">
           Pronostico de partido
@@ -32,7 +32,7 @@ export const MatchPredictionCard = ({ gameId }: MatchPredictionCardProps) => {
       {isError && <div>Error: {error?.message}</div>}
 
       {isSuccess && (
-        <div className="overflow-auto">
+        <div className="h-full overflow-y-auto">
           <table className="w-full min-w-max bg-white shadow-sm rounded-lg border border-gray-200">
             <thead>
               <tr className="bg-blue-600 text-white text-center text-sm font-semibold">

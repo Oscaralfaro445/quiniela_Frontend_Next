@@ -82,10 +82,10 @@ export const StandingsSimulator = ({
             </button>
           </div>
 
-          <div className="h-full transition-all duration-300 ease-in-out">
+          <div className="overflow-y-auto h-2/6 transition-all duration-300 ease-in-out">
             {activeTab === "weekly" && (
               <div className="animate-fadeIn">
-                <Card className="max-h-96 overflow-y-auto">
+                <Card>
                   <div>
                     <div className="flex items-center space-x-2">
                       <div className="text-gray-900">
@@ -161,7 +161,7 @@ export const StandingsSimulator = ({
 
             {activeTab === "global" && (
               <div className="animate-fadeIn">
-                <Card className="border-gray-200 max-h-96 overflow-y-auto">
+                <Card className="border-gray-200">
                   <div>
                     <div className="text-gray-900">Clasificación Global</div>
                     <p className="text-md text-gray-600">

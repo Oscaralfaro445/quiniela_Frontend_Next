@@ -13,6 +13,7 @@ export type IconName =
   | "circle-alert"
   | "circle-check"
   | "circle-check-big"
+  | "circle-question-mark"
   | "circle-x"
   | "clock"
   | "crown"

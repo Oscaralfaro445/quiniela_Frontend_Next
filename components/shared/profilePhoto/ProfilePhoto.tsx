@@ -1,24 +1,17 @@
 "use client";
-import clsx from "clsx";
+import { Icon } from "../icon/Icon";
 
 interface ProfilePhotoProps {
   onClick?: () => void;
-  className?: string;
 }
 
-export const ProfilePhoto = ({ className, onClick }: ProfilePhotoProps) => {
+export const ProfilePhoto = ({ onClick }: ProfilePhotoProps) => {
   return (
-    <figure
-      className={clsx("relative cursor-pointer", className)}
+    <div
+      className="flex w-full h-full rounded-full p-2 bg-neutral-100 border  border-neutral-600 hover:cursor-pointer hover:bg-neutral-200 transition-colors duration-200"
       onClick={onClick}
     >
-      <div className="w-full h-full rounded-full p-4 bg-neutral-200 dark:bg-neutral-300"></div>
-
-      {/* <img
-        src={data.imagen_usuario}
-        alt="Foto de perfil"
-        className="rounded-full bg-white dark:bg-neutral-950 dark:hover:brightness-50 ease-in-out duration-300"
-      /> */}
-    </figure>
+      <Icon name="user" size={40} strokeWidth={1.25} />
+    </div>
   );
 };
