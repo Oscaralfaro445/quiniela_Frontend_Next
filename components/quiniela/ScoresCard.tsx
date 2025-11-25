@@ -50,10 +50,22 @@ export const ScoresCard = ({ teamId, teamName }: CardScoresProps) => {
                     <td className="py-2 px-4 border-b border-gray-200 font-medium">
                       {match.equipo}
                     </td>
-                    <td className="py-2 px-4 border-b border-gray-200 font-bold text-blue-600">
+                    <td
+                      className={`py-2 px-4 border-b border-gray-200 font-bold ${
+                        match.scoreE2 > match.scoreE1
+                          ? ""
+                          : "rounded-lg rounded-green-200 bg-green-50 text-green-700"
+                      }`}
+                    >
                       {match.scoreE1}
                     </td>
-                    <td className="py-2 px-4 border-b border-gray-200 font-bold text-blue-600">
+                    <td
+                      className={`py-2 px-4 border-b border-gray-200 font-bold ${
+                        match.scoreE2 > match.scoreE1
+                          ? "rounded-lg rounded-green-200 bg-green-50 text-green-700"
+                          : ""
+                      }`}
+                    >
                       {match.scoreE2}
                     </td>
                     <td className="py-2 px-4 border-b border-gray-200 font-medium">
@@ -68,10 +80,22 @@ export const ScoresCard = ({ teamId, teamName }: CardScoresProps) => {
                     <td className="py-2 px-4 border-b border-gray-200 font-medium">
                       {teamName}
                     </td>
-                    <td className="py-2 px-4 border-b border-gray-200 font-bold text-blue-600">
+                    <td
+                      className={`py-2 px-4 border-b border-gray-200 font-bold ${
+                        match.scoreE1 > match.scoreE2
+                          ? "rounded-lg rounded-green-200 bg-green-50 text-green-700"
+                          : ""
+                      }`}
+                    >
                       {match.scoreE1}
                     </td>
-                    <td className="py-2 px-4 border-b border-gray-200 font-bold text-blue-600">
+                    <td
+                      className={`py-2 px-4 border-b border-gray-200 font-bold ${
+                        match.scoreE1 > match.scoreE2
+                          ? ""
+                          : "rounded-lg rounded-green-200 bg-green-50 text-green-700"
+                      }`}
+                    >
                       {match.scoreE2}
                     </td>
                     <td className="py-2 px-4 border-b border-gray-200 font-medium">

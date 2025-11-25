@@ -9,13 +9,26 @@ import { useAuth } from "@/context/authContext/AuthContext";
 import { WeeklyHeadline } from "@/components/quiniela/WeeklyHeadline";
 import { Card } from "@/components/shared/card/Card";
 import { Button } from "@/components/shared/button/Button";
-import { GroupRadio } from "@/components/quiniela/GroupRadio";
 import { Title } from "@/components/shared/text/Title";
 import { TextBody } from "@/components/shared/text/TextBody";
 import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
 import { QuinielaProgressCard } from "@/components/quiniela/QuinielaProgressCard";
 import { Modal } from "@/components/shared/modal/Modal";
 import { StandingsSimulator } from "@/components/simulator/StandingsSimulator";
+import { GroupRadioSimulator } from "@/components/simulator/GroupRadioSimulator";
+
+export interface SimulatedQuinielaData {
+  Partido: number;
+  IdV: number;
+  EquipoV: string;
+  IdL: number;
+  EquipoL: string;
+  Fecha: string;
+  HoraPartido: string;
+  Estadio: string;
+  scoreVisit: number;
+  scoreLocal: number;
+}
 
 export default function SimulatorPage() {
   const { dataUser } = useAuth();
@@ -32,10 +45,12 @@ export default function SimulatorPage() {
 
   useEffect(() => {
     if (isSuccess && data.data) {
-      const quinielaInitialData = data.data.map((game) => ({
-        ...game,
-        partGanador: " ",
-      }));
+      const quinielaInitialData = data.data.map(
+        (game: SimulatedQuinielaData[]) => ({
+          ...game,
+          partGanador: " ",
+        })
+      );
       setQuinielaData(quinielaInitialData);
     }
   }, [isSuccess, data]);
@@ -63,13 +78,14 @@ export default function SimulatorPage() {
     }));
 
     quinielaAlta.mutate(JSON.stringify(quinielaDataUpdated));
+    console.log("Quiniela Updated", quinielaDataUpdated);
 
     setIsModalOpen(true);
   };
 
   return (
     <ProtectedRoute>
-      <div className="h-screen">
+      <div className="min-h-screen">
         <WeeklyHeadline week={currentWeek} />
 
         <QuinielaProgressCard
@@ -91,7 +107,7 @@ export default function SimulatorPage() {
               {isSuccess && quinielaData && (
                 <div className="grid lg:grid-cols-2 gap-4">
                   {quinielaData.map((game: QuinielaItem) => (
-                    <GroupRadio
+                    <GroupRadioSimulator
                       key={game.Partido}
                       disabled={false}
                       game={game}
@@ -124,7 +140,14 @@ export default function SimulatorPage() {
         </section>
 
         <Modal isOpen={isModalOpen} onClose={handleModalOpen}>
-          <StandingsSimulator quinielaAlta={quinielaAlta} />
+          <StandingsSimulator
+            quinielaAlta={{
+              data: quinielaAlta?.data?.data,
+              isPending: quinielaAlta.isPending,
+              isError: quinielaAlta.isError,
+              isSuccess: quinielaAlta.isSuccess,
+            }}
+          />
         </Modal>
       </div>
     </ProtectedRoute>

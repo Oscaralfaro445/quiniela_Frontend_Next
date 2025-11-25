@@ -12,7 +12,6 @@ const getTeamLogo = (teamName: string) => {
 
 export const TeamLogo = ({ teamName, className }: TeamLogoProps) => {
   const src = getTeamLogo(teamName);
-  // console.log(src);
 
   return (
     <div className={className}>

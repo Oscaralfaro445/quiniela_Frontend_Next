@@ -18,7 +18,14 @@ export interface ParticipantData {
 }
 
 interface StandingsSimulatorProps {
-  quinielaAlta: any;
+  quinielaAlta: {
+    data: [
+      { puntosPeriodo: ParticipantData[]; puntosTotal: ParticipantData[] }
+    ];
+    isPending: boolean;
+    isError: boolean;
+    isSuccess: boolean;
+  };
 }
 
 export const StandingsSimulator = ({
@@ -26,11 +33,13 @@ export const StandingsSimulator = ({
 }: StandingsSimulatorProps) => {
   const { dataUser } = useAuth();
   const { isPending, isError, isSuccess, data } = quinielaAlta;
-  const participantData = data?.data[0];
+  const participantData = data?.[0];
   const currentWeek = dataUser?.idPeriodo;
   const weeklyLeaderboard: ParticipantData[] = participantData?.puntosPeriodo;
   const globalLeaderboard: ParticipantData[] = participantData?.puntosTotal;
   const [activeTab, setActiveTab] = useState<TabType>("weekly");
+
+  console.log("data", data);
 
   const getRankIcon = (rank: number) => {
     switch (rank) {

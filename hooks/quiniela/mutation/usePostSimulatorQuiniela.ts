@@ -2,7 +2,18 @@ import axiosInstance from "@/hooks/axios/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "@/context/authContext/AuthContext";
 
-const postQuinielaSimulator = async (token: string, payload: any) => {
+const postQuinielaSimulator = async (
+  token: string,
+  payload: {
+    idProceso: number;
+    idProcedure: number;
+    parmRemp: {
+      $1: number;
+      $2: string;
+      $3: string;
+    };
+  }
+) => {
   const response = await axiosInstance.post("/Query/Procedure", payload, {
     headers: {
       Authorization: `Bearer ${token}`,
