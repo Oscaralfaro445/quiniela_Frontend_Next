@@ -1,5 +1,5 @@
 "use client";
-import { Icon } from "../icon/Icon";
+import Image from "next/image";
 
 interface ProfilePhotoProps {
   onClick?: () => void;
@@ -8,10 +8,10 @@ interface ProfilePhotoProps {
 export const ProfilePhoto = ({ onClick }: ProfilePhotoProps) => {
   return (
     <div
-      className="flex w-full h-full rounded-full p-2 bg-neutral-100 border  border-neutral-600 hover:cursor-pointer hover:bg-neutral-200 transition-colors duration-200"
+      className="rounded-full border p-1 border-neutral-600 hover:cursor-pointer"
       onClick={onClick}
     >
-      <Icon name="user" size={40} strokeWidth={1.25} />
+      <Image src="/images/user.png" alt="user photo" width={35} height={35} />
     </div>
   );
 };

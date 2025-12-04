@@ -1,41 +1,34 @@
 import { Card } from "../shared/card/Card";
+import { ProgressBar } from "../shared/progressBar/ProgressBar";
 
-interface QuinielaProgressCardProps {
-  completedPicks: number;
-  totalGames: number;
+interface QuinielaProgressBarCardProps {
+  title?: string;
+  description?: string;
+  max: number;
+  value: number;
 }
 
-export const QuinielaProgressCard = ({
-  completedPicks,
-  totalGames,
-}: QuinielaProgressCardProps) => {
+export const QuinielaProgressBarCard = ({
+  title,
+  description,
+  max,
+  value,
+}: QuinielaProgressBarCardProps) => {
   return (
-    <>
-      <section>
-        <div className="max-w-[1280px] mx-auto px-10 py-8">
-          <Card>
-            <div className="flex flex-col">
-              <span className="text-lg text-blue-700 font-semibold">
-                Progreso de la Quiniela
-              </span>
+    <div className="max-w-[1280px] mx-auto px-10 py-8">
+      <Card>
+        <div className="flex flex-col gap-2 pb-2">
+          <p className="text-lg text-blue-600 font-semibold">{title}</p>
 
-              <div className="flex justify-between">
-                <span className=" text-sm  text-gray-600">
-                  Partidos completados de la semana
-                </span>
+          <div className="flex gap-2 justify-between">
+            <p className=" text-sm text-neutral-600">{description}</p>
 
-                <span className="text-sm">{`${completedPicks}/${totalGames} juegos`}</span>
-              </div>
-            </div>
-
-            <progress
-              className="w-full"
-              max={totalGames}
-              value={completedPicks}
-            />
-          </Card>
+            <p className="text-sm">{`${value}/${max}`}</p>
+          </div>
         </div>
-      </section>
-    </>
+
+        <ProgressBar value={value} max={max} />
+      </Card>
+    </div>
   );
 };

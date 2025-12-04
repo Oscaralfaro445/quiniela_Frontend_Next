@@ -3,31 +3,23 @@ import clsx from "clsx";
 interface TextBodyProps {
   text: string;
   className?: string;
-  size?: "sm" | "md" | "lg";
-  color?: "primary" | "secondary" | "muted" | "danger" | "success";
+  color?: "secondary" | "muted" | "danger" | "success";
   weight?: "normal" | "medium" | "semibold";
 }
 
 export const TextBody = ({
   text,
   className,
-  size = "lg",
   color = "secondary",
   weight = "normal",
 }: TextBodyProps) => {
   return (
     <p
       className={clsx(
-        "leading-relaxed",
+        "leading-relaxed text-sm md:text-base",
         {
-          "text-sm": size === "sm",
-          "text-base": size === "md",
-          "text-lg": size === "lg",
-        },
-        {
-          "text-gray-900": color === "primary",
-          "text-gray-600": color === "secondary",
-          "text-gray-500": color === "muted",
+          "text-neutral-600": color === "secondary",
+          "text-neutral-500": color === "muted",
           "text-red-600": color === "danger",
           "text-green-600": color === "success",
         },

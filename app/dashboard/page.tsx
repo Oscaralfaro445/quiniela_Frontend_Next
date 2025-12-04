@@ -9,16 +9,16 @@ import { UpcomingGamesCard } from "@/components/dashboard/UpcomingGamesCard";
 import { SurvivorCard } from "@/components/dashboard/SurvivorCard";
 import { AccumulatedBagCard } from "@/components/dashboard/AccumulatedBagCard";
 import { SeasonProgressCard } from "@/components/dashboard/SeasonProgressCard";
-import { HeaderPage } from "@/components/ui/headerPage/HeaderPage";
+import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
 
-export default function Dashboard() {
+export default function DashboardPage() {
   const { dataUser } = useAuth();
   const currentWeek = dataUser?.idPeriodo;
 
   return (
     <ProtectedRoute>
-      <div className="grid pt-18">
-        <HeaderPage
+      <div className="pt-16">
+        <PageHeader
           title={`¡Bienvenido de vuelta ${dataUser?.nombre}!`}
           text="Aquí tienes un resumen de tu rendimiento en la temporada."
         />
@@ -27,19 +27,17 @@ export default function Dashboard() {
 
         <Timer />
 
-        <section>
-          <div className="grid lg:grid-cols-2 w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 ">
-            <SwiftActionsCard currentWeek={currentWeek ?? ""} />
+        <div className="grid lg:grid-cols-2 w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 ">
+          <SwiftActionsCard currentWeek={currentWeek ?? ""} />
 
-            <AccumulatedBagCard />
+          <AccumulatedBagCard />
 
-            <SeasonProgressCard />
+          <SeasonProgressCard />
 
-            <SurvivorCard />
+          <SurvivorCard />
 
-            <UpcomingGamesCard currentWeek={currentWeek ?? ""} />
-          </div>
-        </section>
+          <UpcomingGamesCard currentWeek={currentWeek ?? ""} />
+        </div>
       </div>
     </ProtectedRoute>
   );

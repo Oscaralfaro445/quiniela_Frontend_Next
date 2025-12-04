@@ -34,33 +34,31 @@ export const StatisticsCard = () => {
       {isPending && <StatisticsCardSkeleton />}
 
       {isSuccess && (
-        <section>
-          <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center lg:justify-between">
-            <ParticipantCard
-              icon="list"
-              title="Total Participantes"
-              number={totalParticipants}
-            />
+        <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4">
+          <ParticipantCard
+            icon="list"
+            title="Total Participantes"
+            number={totalParticipants}
+          />
 
-            <ParticipantCard
-              icon="trophy"
-              title="Quinielas Completas"
-              number={completedQuinielas}
-            />
+          <ParticipantCard
+            icon="trophy"
+            title="Quinielas Completas"
+            number={completedQuinielas}
+          />
 
-            <ParticipantCard
-              icon="shield"
-              title="Quiniela Correctas"
-              number={correctQuinielas}
-            />
+          <ParticipantCard
+            icon="shield"
+            title="Quiniela Correctas"
+            number={correctQuinielas}
+          />
 
-            <ParticipantCard
-              icon="refresh-ccw"
-              title="Survivors Registrados"
-              number={registeredSurvivors}
-            />
-          </div>
-        </section>
+          <ParticipantCard
+            icon="refresh-ccw"
+            title="Survivors Registrados"
+            number={registeredSurvivors}
+          />
+        </div>
       )}
     </>
   );

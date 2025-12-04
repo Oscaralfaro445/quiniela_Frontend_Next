@@ -16,7 +16,7 @@ export const Sidebar = ({ toggleSidebar, isSidebarOpen }: SidebarProps) => {
 
   return (
     <div
-      className={`fixed z-30 top-18 w-full bg-white border-b border-neutral-400 transform transition-transform duration-300 ease-in-out ${
+      className={`fixed z-30 top-16 w-full bg-white border-b border-neutral-300 transform transition-transform duration-300 ease-in-out shadow-sm shadow-neutral-200 ${
         isSidebarOpen ? "" : "-translate-y-full"
       }`}
     >

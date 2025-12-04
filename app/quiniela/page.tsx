@@ -9,7 +9,6 @@ import { AlertState } from "@/types/alert/alert";
 import { QuinielaItem } from "@/types/quiniela/quinielaItem";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { useAlert } from "@/context/alertContext/AlertContext";
-import { WeeklyHeadline } from "@/components/quiniela/WeeklyHeadline";
 import { Card } from "@/components/shared/card/Card";
 import { Button } from "@/components/shared/button/Button";
 import { ByeWeek } from "@/components/quiniela/ByeWeek";
@@ -18,9 +17,10 @@ import { GroupRadio } from "@/components/quiniela/GroupRadio";
 import { Title } from "@/components/shared/text/Title";
 import { TextBody } from "@/components/shared/text/TextBody";
 import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
-import { QuinielaProgressCard } from "@/components/quiniela/QuinielaProgressCard";
 import { SurvivorSelector } from "@/components/quiniela/SurvivorSelector";
 import { Icon } from "@/components/shared/icon/Icon";
+import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
+import { QuinielaProgressBarCard } from "@/components/quiniela/QuinielaProgressCard";
 
 export default function QuinielaPage() {
   const { dataUser } = useAuth();
@@ -127,60 +127,64 @@ export default function QuinielaPage() {
 
   return (
     <ProtectedRoute>
-      <WeeklyHeadline week={currentWeek} />
+      <div className="pt-16" />
+      <PageHeader
+        title={`Quiniela - Semana ${currentWeek}`}
+        text="Selecciona el ganador de cada juego"
+      />
 
       <ByeWeek />
 
       <Timer />
 
-      <QuinielaProgressCard
-        completedPicks={completedPicks}
-        totalGames={totalGames}
+      <QuinielaProgressBarCard
+        title="Progreso de la quiniela"
+        description="Partidos completados de la semana"
+        value={completedPicks}
+        max={totalGames}
       />
 
-      <section>
-        <div className="max-w-[1280px] mx-auto px-10 py-8">
-          <Card>
-            <div className="grid gap-2">
-              <Title title="Quiniela" />
+      <div className="max-w-[1280px] mx-auto px-10 py-8">
+        <Card>
+          <div className="grid gap-2">
+            <Title title="Quiniela" />
 
-              <div className="flex justify-between">
-                <TextBody text="Selecciona el ganador de cada juego" />
+            <div className="grid md:flex gap-2 justify-between items-center">
+              <TextBody text="Selecciona el ganador de cada juego" />
 
-                <div className="flex p-2 gap-4 items-center border border-neutral-400 rounded-lg">
-                  <div className="flex gap-2">
-                    <Icon className="text-green-600" name="check" />
-                    <p>Equipo ganador</p>
-                  </div>
+              <div className="grid md:flex p-2 gap-4 items-center border border-neutral-400 rounded-lg">
+                <div className="flex gap-2">
+                  <Icon className="text-green-600" name="check" />
+                  <p>Equipo ganador</p>
+                </div>
 
-                  <div className="flex gap-2">
-                    <Icon className="text-red-500" name="swords" />
-                    <p>Survivor usado</p>
-                  </div>
+                <div className="flex gap-2">
+                  <Icon className="text-red-500" name="swords" />
+                  <p>Survivor usado</p>
                 </div>
               </div>
             </div>
+          </div>
 
-            {isPending && <>Loading...</>}
+          {isPending && <p>Loading...</p>}
 
-            {isError && <></>}
+          {isError && <p>Error al cargar los datos...</p>}
 
-            {isSuccess && (
-              <div className="grid lg:grid-cols-2 gap-4">
-                {quinielaData.map((game: QuinielaItem) => (
-                  <GroupRadio
-                    key={game.Partido}
-                    disabled={!isQuinielaEnabled}
-                    game={game}
-                    quinielaData={quinielaData}
-                    handleChangeQuiniela={handleChangeQuiniela}
-                  />
-                ))}
-              </div>
-            )}
-          </Card>
-        </div>
-      </section>
+          {isSuccess && (
+            <div className="grid lg:grid-cols-2 py-4 gap-4 overflow-y-auto max-h-[600px] ">
+              {quinielaData.map((game: QuinielaItem) => (
+                <GroupRadio
+                  key={game.Partido}
+                  disabled={!isQuinielaEnabled}
+                  game={game}
+                  quinielaData={quinielaData}
+                  handleChangeQuiniela={handleChangeQuiniela}
+                />
+              ))}
+            </div>
+          )}
+        </Card>
+      </div>
 
       {dataUser?.bSurvivor && (
         <SurvivorSelector
@@ -191,19 +195,13 @@ export default function QuinielaPage() {
         />
       )}
 
-      <section>
-        <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
-          <Link href="/dashboard">
-            <Button type="button" title="Volver al Dashboard" theme="normal" />
-          </Link>
+      <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
+        <Link href="/dashboard">
+          <Button type="button" title="Volver al Dashboard" theme="normal" />
+        </Link>
 
-          <Button
-            type="submit"
-            title="Enviar Quiniela"
-            onClick={handleSubmit}
-          />
-        </div>
-      </section>
+        <Button type="submit" title="Enviar Quiniela" onClick={handleSubmit} />
+      </div>
     </ProtectedRoute>
   );
 }

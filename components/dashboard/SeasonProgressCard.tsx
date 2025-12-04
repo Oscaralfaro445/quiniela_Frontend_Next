@@ -1,62 +1,54 @@
 import { useGetPrecision } from "@/hooks/dashboard/queries/useGetPrecision";
 import { Card } from "../shared/card/Card";
+import { ProgressBar } from "../shared/progressBar/ProgressBar";
 
 export const SeasonProgressCard = () => {
   const { isPending, isError, isSuccess, data } = useGetPrecision();
 
   return (
-    <>
-      <Card>
-        <div className="flex flex-col">
-          <span className="text-lg text-blue-700 font-semibold">
-            Progreso de la Temporada
-          </span>
-          <span className=" text-sm text-gray-600">Tu rendimiento general</span>
-        </div>
+    <Card>
+      <div>
+        <p className="text-lg text-blue-600 font-semibold">
+          Progreso de la Temporada
+        </p>
+        <p className=" text-sm text-neutral-600">Tu rendimiento general</p>
+      </div>
 
-        {isPending && <span>Cargando...</span>}
+      {isPending && <p>Cargando...</p>}
 
-        {isError && <span>Error al cargar los datos...</span>}
+      {isError && <p>Error al cargar los datos...</p>}
 
-        {isSuccess && (
-          <div>
-            <div className="flex justify-between text-sm mb-2">
-              <p className="text-gray-600">Precisión General</p>
-              <p className="font-medium text-gray-900">
-                {Math.trunc(
-                  data.data[0].Dashboard_1[0].posicionTotal.pjeTemporada
-                )}
-                %
-              </p>
-            </div>
-
-            <progress
-              className="w-full"
-              max={100}
-              value={Math.trunc(
+      {isSuccess && (
+        <div>
+          <div className="flex justify-between text-sm mb-2">
+            <p className="text-neutral-600">Precisión general</p>
+            <p className="font-medium text-neutral-600">
+              {`${Math.trunc(
                 data.data[0].Dashboard_1[0].posicionTotal.pjeTemporada
-              )}
-            />
-
-            <div>
-              <div className="flex justify-between text-sm mb-2">
-                <p className="text-gray-600">Juegos Completados</p>
-                <p className="font-medium text-gray-900">
-                  {`${data.data[0].Dashboard_1[0].posicionTotal.partidosTemporada} / ${data.data[0].Dashboard_1[0].posicionTotal.partidosTemporada}`}
-                </p>
-              </div>
-            </div>
-
-            <progress
-              className="w-full"
-              max={data.data[0].Dashboard_1[0].posicionTotal.partidosTemporada}
-              value={
-                data.data[0].Dashboard_1[0].posicionTotal.partidosTemporada
-              }
-            />
+              )} %`}
+            </p>
           </div>
-        )}
-      </Card>
-    </>
+
+          <ProgressBar
+            max={100}
+            value={Math.trunc(
+              data.data[0].Dashboard_1[0].posicionTotal.pjeTemporada
+            )}
+          />
+
+          <div className="flex justify-between text-sm mb-2">
+            <p className="text-neutral-600">Juegos completados</p>
+            <p className="font-medium text-neutral-600">
+              {`${data.data[0].Dashboard_1[0].posicionTotal.partidosTemporada} / ${data.data[0].Dashboard_1[0].posicionTotal.partidosTemporada}`}
+            </p>
+          </div>
+
+          <ProgressBar
+            max={data.data[0].Dashboard_1[0].posicionTotal.partidosTemporada}
+            value={data.data[0].Dashboard_1[0].posicionTotal.partidosTemporada}
+          />
+        </div>
+      )}
+    </Card>
   );
 };

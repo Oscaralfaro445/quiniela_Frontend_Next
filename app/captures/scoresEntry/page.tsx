@@ -10,13 +10,13 @@ import { Button } from "@/components/shared/button/Button";
 import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
 import { StatisticsCard } from "@/components/scores/StatisticsCard";
 import { ScoreBoard } from "@/components/captures/scoresEntry/ScoreBoard";
-import { HeaderPage } from "@/components/ui/headerPage/HeaderPage";
+import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
 
 export default function ScoresEntryPage() {
-  const { dataUser } = useAuth();
-  const week = dataUser?.idPeriodo;
   const { isPending, isError, isSuccess, data } = useGetMarkers();
   const markersUpdate = usePostMarkers();
+  const { dataUser } = useAuth();
+  const week = dataUser?.idPeriodo;
 
   const [gameResults, setGameResults] = useState<GameResult[]>([]);
 
@@ -59,42 +59,37 @@ export default function ScoresEntryPage() {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen pt-18">
-        <HeaderPage
+      <div className="min-h-screen pt-16">
+        <PageHeader
           title={`Marcadores Semana ${week}`}
           text="Edita los marcadores de los partidos de la semana"
         />
 
-        {isPending && <span>Cargando...</span>}
+        {isPending && <p>Cargando...</p>}
 
-        {isError && <span>Error al cargar los datos...</span>}
-
-        {isSuccess && <StatisticsCard gameResults={data.data} week={week} />}
+        {isError && <p>Error al cargar los datos...</p>}
 
         {isSuccess && (
-          <ScoreBoard
-            gameResults={gameResults}
-            handleScoreChange={handleScoreChange}
-          />
+          <>
+            <StatisticsCard gameResults={data.data} week={week} />
+            <ScoreBoard
+              gameResults={gameResults}
+              handleScoreChange={handleScoreChange}
+            />
+          </>
         )}
 
-        <section>
-          <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
-            <Link href="/dashboard">
-              <Button
-                type="button"
-                title="Volver al Dashboard"
-                theme="normal"
-              />
-            </Link>
+        <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
+          <Link href="/dashboard">
+            <Button type="button" title="Volver al Dashboard" theme="normal" />
+          </Link>
 
-            <Button
-              type="submit"
-              title="Actualizar Marcadores"
-              onClick={handleSubmitScores}
-            />
-          </div>
-        </section>
+          <Button
+            type="submit"
+            title="Actualizar Marcadores"
+            onClick={handleSubmitScores}
+          />
+        </div>
       </div>
     </ProtectedRoute>
   );
