@@ -5,89 +5,71 @@ import { Icon } from "../shared/icon/Icon";
 
 export const SurvivorCard = () => {
   const { isPending, isError, isSuccess, data } = useGetSurvivor();
-  console.log("survivor data", data);
-  const getGanador = () => {
-    if (data.data[0].scoreLocal > data.data[0].scoreVisitante) {
-      return `Ganador: ${data.data[0].nombreLocal}`;
-    } else if (data.data[0].scoreLocal < data.data[0].scoreVisitante) {
-      return `Ganador: ${data.data[0].nombreVisita}`;
-    } else if (data.data[0].scoreLocal === data.data[0].scoreVisitante) {
-      if (data.data[0].scoreLocal === 0 && data.data[0].scoreVisitante === 0) {
-        return "Partido pendiente";
+  const equipos = data?.data;
+
+  /* const getGanador = () => {
+    if (equipos[0].scoreLocal > equipos[0].scoreVisitante) {
+      return "L";
+    } else if (equipos[0].scoreLocal < equipos[0].scoreVisitante) {
+      return "V";
+    } else if (equipos[0].scoreLocal === equipos[0].scoreVisitante) {
+      if (equipos[0].scoreLocal === 0 && equipos[0].scoreVisitante === 0) {
+        return "P";
       } else {
-        return "Ganador: partido empatado";
+        return "E";
       }
     }
-  };
+  }; */
 
   return (
-    <>
-      <Card className="border-neutral-200">
-        <div className="flex flex-col">
-          <p className="text-lg text-blue-700 font-semibold">
-            Partido Survivor Seleccionado
-          </p>
-          <p className="text-sm text-gray-600">
-            Información del partido de survivor seleccionado
-          </p>
+    <Card>
+      <div>
+        <p className="text-lg text-blue-600 font-semibold">
+          Partido survivor seleccionado
+        </p>
+        <p className="text-sm text-neutral-600">
+          Información del partido de survivor seleccionado
+        </p>
+      </div>
+
+      {isPending && <p>Cargando...</p>}
+
+      {isError && <p>Error al cargar los datos...</p>}
+
+      {isSuccess && data.data && (
+        <div className="flex flex-wrap gap-4 pt-2 ">
+          <div className="flex items-center gap-4">
+            <div className="flex flex-col items-center">
+              <TeamLogo teamName={equipos[0].nombreVisita} />
+              <p className="">{equipos[0].scoreVisitante}</p>
+            </div>
+
+            <p className="text-xl font-bold text-blue-600">VS</p>
+
+            <div className="flex flex-col items-center">
+              <TeamLogo teamName={equipos[0].nombreLocal} />
+              <p className="">{equipos[0].scoreLocal}</p>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-2 justify-between items-start">
+            <div className="flex gap-2 justify-between text-sm">
+              <Icon className="text-blue-600" name="calendar" />
+              <p className="text-neutral-600">{`${equipos[0].fechaPartido}`}</p>
+            </div>
+
+            <div className="flex gap-2 justify-between text-sm">
+              <Icon className="text-blue-600" name="clock" />
+              <p className="text-neutral-600">{`${equipos[0].HORA_PARTIDO}`}</p>
+            </div>
+
+            <div className="flex gap-2 justify-between text-sm">
+              <Icon className="text-blue-600" name="map-pin" />
+              <p className="text-neutral-600">{` ${equipos[0].ESTADIO}`}</p>
+            </div>
+          </div>
         </div>
-
-        {isPending && <span>Cargando...</span>}
-
-        {isError && <span>Error al cargar los datos...</span>}
-
-        {isSuccess && data.data && (
-          <>
-            <div className="flex justify-start">
-              <div
-                className={`px-4 py-1 border rounded-2xl ${
-                  data.data[0].nombreEquipo ===
-                  (data.data[0].localVisitante === "V"
-                    ? data.data[0].nombreVisitante
-                    : data.data[0].nombreLocal)
-                    ? "border-green-600 bg-green-100 text-green-700"
-                    : "border-red-600 bg-red-100 text-red-700"
-                }`}
-              >
-                <span>{getGanador()}</span>
-              </div>
-            </div>
-
-            <div className="grid sm:flex">
-              <div className="flex w-1/2 justify-start items-center gap-4">
-                <div className="flex flex-col items-center">
-                  <TeamLogo teamName={data.data[0].nombreVisita} />
-                  <p>{data.data[0].scoreVisitante}</p>
-                </div>
-
-                <p>vs</p>
-
-                <div className="flex flex-col items-center">
-                  <TeamLogo teamName={data.data[0].nombreLocal} />
-                  <p>{data.data[0].scoreLocal}</p>
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-2 justify-between items-start">
-                <div className="flex gap-2 justify-between text-sm">
-                  <Icon className="text-blue-600" name="calendar" />
-                  <p className="text-gray-600">{`${data.data[0].fechaPartido}`}</p>
-                </div>
-
-                <div className="flex gap-2 justify-between text-sm">
-                  <Icon className="text-blue-600" name="clock" />
-                  <p className="text-gray-600">{`${data.data[0].HORA_PARTIDO}`}</p>
-                </div>
-
-                <div className="flex gap-2 justify-between text-sm">
-                  <Icon className="text-blue-600" name="map-pin" />
-                  <p className="text-gray-600">{` ${data.data[0].ESTADIO}`}</p>
-                </div>
-              </div>
-            </div>
-          </>
-        )}
-      </Card>
-    </>
+      )}
+    </Card>
   );
 };

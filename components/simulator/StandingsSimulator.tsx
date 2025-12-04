@@ -2,25 +2,19 @@
 
 import { useState } from "react";
 import { useAuth } from "@/context/authContext/AuthContext";
-import { Card } from "@/components/shared/card/Card";
-import { Icon } from "@/components/shared/icon/Icon";
-import { HeaderPage } from "@/components/ui/headerPage/HeaderPage";
+import { StandingsGridSimulator } from "./StandingsGridSimulator";
+import { ParticipantStatistics } from "@/types/participantStatistics/participantStatistics";
+import { PeriodTabs } from "../standings/PeriodTabs";
 
 type TabType = "weekly" | "global";
-
-export interface ParticipantData {
-  Posicion: number;
-  ID_QUINIELA: number;
-  ID_PARTICIPANTE: number;
-  periodo: string;
-  Nombre: string;
-  Puntos: number;
-}
 
 interface StandingsSimulatorProps {
   quinielaAlta: {
     data: [
-      { puntosPeriodo: ParticipantData[]; puntosTotal: ParticipantData[] }
+      {
+        puntosPeriodo: ParticipantStatistics[];
+        puntosTotal: ParticipantStatistics[];
+      }
     ];
     isPending: boolean;
     isError: boolean;
@@ -35,213 +29,51 @@ export const StandingsSimulator = ({
   const { isPending, isError, isSuccess, data } = quinielaAlta;
   const participantData = data?.[0];
   const currentWeek = dataUser?.idPeriodo;
-  const weeklyLeaderboard: ParticipantData[] = participantData?.puntosPeriodo;
-  const globalLeaderboard: ParticipantData[] = participantData?.puntosTotal;
+  const weeklyLeaderboard: ParticipantStatistics[] =
+    participantData?.puntosPeriodo;
+  const globalLeaderboard: ParticipantStatistics[] =
+    participantData?.puntosTotal;
   const [activeTab, setActiveTab] = useState<TabType>("weekly");
 
-  console.log("data", data);
-
-  const getRankIcon = (rank: number) => {
-    switch (rank) {
-      case 1:
-        return <Icon name="crown" className="text-yellow-500" />;
-      case 2:
-        return <Icon name="medal" className="text-gray-500" />;
-      case 3:
-        return <Icon name="award" className="text-orange-500" />;
-      default:
-        return (
-          <span className="text-lg font-semibold text-gray-700">#{rank}</span>
-        );
-    }
-  };
-
-  const getNameAbbr = (teamName: string) => {
-    return teamName.split(" ").map((word) => word.charAt(0).toUpperCase());
-  };
-
   return (
-    <div className="grid">
-      <HeaderPage
-        title="Clasificación"
-        text="Consulta las posiciones semanales y globales de todos los participantes"
-      />
+    <div className="space-y-4">
+      <div>
+        <p>Clasificación</p>
+        <p>
+          Consulta las posiciones semanales y globales de todos los
+          participantes
+        </p>
+      </div>
 
-      <section>
-        <div className="grid max-w-[1280px] mx-auto px-10 py-8 gap-4">
-          <div className="flex lg:w-96 h-12 p-1 rounded-md bg-neutral-100">
-            <button
-              className={`w-1/2 p-1 rounded-md transition-colors duration-100 cursor-pointer ${
-                activeTab === "weekly" ? "bg-white" : ""
-              }`}
-              type="button"
-              onClick={() => setActiveTab("weekly")}
-            >
-              Semana {currentWeek}
-            </button>
+      <div className="grid max-w-[1280px] mx-auto gap-4">
+        <PeriodTabs
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          currentWeek={currentWeek}
+        />
 
-            <button
-              className={`w-1/2 p-1 rounded-lg transition-colors duration-100 cursor-pointer ${
-                activeTab === "global" ? "bg-white" : ""
-              }`}
-              type="button"
-              onClick={() => setActiveTab("global")}
-            >
-              Global
-            </button>
-          </div>
+        <div>
+          {activeTab === "weekly" && (
+            <StandingsGridSimulator
+              isPending={isPending}
+              isError={isError}
+              isSuccess={isSuccess}
+              leaderboard={weeklyLeaderboard}
+              typeTab="semanal"
+            />
+          )}
 
-          <div className="overflow-y-auto h-2/6 transition-all duration-300 ease-in-out">
-            {activeTab === "weekly" && (
-              <div className="animate-fadeIn">
-                <Card>
-                  <div>
-                    <div className="flex items-center space-x-2">
-                      <div className="text-gray-900">
-                        Clasificación Semana {currentWeek}
-                      </div>
-                    </div>
-                    <p className="text-md text-gray-600">
-                      Resultados de Simulación de Posiciones
-                    </p>
-                  </div>
-
-                  {isPending && (
-                    <div className="flex gap-2 justify-center items-center">
-                      <p>Cargando información...</p>
-                      <Icon
-                        name="loader"
-                        className="animate-spin h-5 w-5 text-blue-500"
-                      />
-                    </div>
-                  )}
-
-                  {isError && (
-                    <div className="flex gap-2 justify-center items-center">
-                      <p>Error al cargar información</p>
-                      <Icon
-                        name="alert-triangle"
-                        className="h-5 w-5 text-red-500"
-                      />
-                    </div>
-                  )}
-
-                  {isSuccess && (
-                    <div className="grid w-full gap-2">
-                      {weeklyLeaderboard?.map(
-                        (player: ParticipantData, index) => (
-                          <div
-                            key={index}
-                            className={`flex p-4 items-center justify-between rounded-lg border transition-all duration-200 hover:bg-gray-50 hover:shadow-sm ${
-                              player.Posicion <= 3
-                                ? "bg-blue-50 border-blue-200"
-                                : "border-gray-200"
-                            }`}
-                          >
-                            <div className="flex items-center gap-4">
-                              <div className="flex items-center justify-center w-10 h-10">
-                                {getRankIcon(player.Posicion)}
-                              </div>
-
-                              <div className="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center">
-                                <span className="text-sm font-bold text-white">
-                                  {getNameAbbr(player.Nombre)}
-                                </span>
-                              </div>
-
-                              <div className="font-medium text-gray-900">
-                                {player.Nombre}
-                              </div>
-                            </div>
-
-                            <div className="flex items-center">
-                              <span className="text-lg font-semibold text-gray-500">
-                                {player.Puntos} puntos
-                              </span>
-                            </div>
-                          </div>
-                        )
-                      )}
-                    </div>
-                  )}
-                </Card>
-              </div>
-            )}
-
-            {activeTab === "global" && (
-              <div className="animate-fadeIn">
-                <Card className="border-gray-200">
-                  <div>
-                    <div className="text-gray-900">Clasificación Global</div>
-                    <p className="text-md text-gray-600">
-                      Resultados de Simulación de Posiciones
-                    </p>
-                  </div>
-
-                  {isPending && (
-                    <div className="flex justify-center items-center mt-10">
-                      <Icon
-                        name="loader"
-                        className="animate-spin h-5 w-5 text-blue-500"
-                      />
-                    </div>
-                  )}
-
-                  {isError && (
-                    <div className="flex justify-center items-center mt-10">
-                      <Icon
-                        name="alert-triangle"
-                        className="h-5 w-5 text-red-500"
-                      />
-                    </div>
-                  )}
-
-                  {isSuccess && (
-                    <div className="grid w-full gap-2">
-                      {globalLeaderboard?.map(
-                        (player: ParticipantData, index) => (
-                          <div
-                            key={index}
-                            className={`flex p-4 items-center justify-between rounded-lg border transition-all duration-200 hover:bg-gray-50 hover:shadow-sm ${
-                              player.Posicion <= 3
-                                ? "bg-blue-50 border-blue-200"
-                                : "border-gray-200"
-                            }`}
-                          >
-                            <div className="flex items-center gap-4">
-                              <div className="flex items-center justify-center w-10 h-10">
-                                {getRankIcon(player.Posicion)}
-                              </div>
-
-                              <div className="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center">
-                                <span className="text-sm font-bold text-white">
-                                  {getNameAbbr(player.Nombre)}
-                                </span>
-                              </div>
-
-                              <div className="font-medium text-gray-700">
-                                {player.Nombre}
-                              </div>
-                            </div>
-
-                            <div className="flex items-center space-x-6">
-                              <div className="flex items-center">
-                                <span className="text-lg font-semibold text-gray-500">
-                                  {player.Puntos} puntos
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        )
-                      )}
-                    </div>
-                  )}
-                </Card>
-              </div>
-            )}
-          </div>
+          {activeTab === "global" && (
+            <StandingsGridSimulator
+              isPending={isPending}
+              isError={isError}
+              isSuccess={isSuccess}
+              leaderboard={globalLeaderboard}
+              typeTab="global"
+            />
+          )}
         </div>
-      </section>
+      </div>
     </div>
   );
 };

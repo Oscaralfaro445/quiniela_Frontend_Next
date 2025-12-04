@@ -8,6 +8,7 @@ import { RegisterForm } from "@/components/register/RegisterForm";
 import { Form } from "@/components/shared/form/Form";
 import { Title } from "@/components/shared/text/Title";
 import { TextBody } from "@/components/shared/text/TextBody";
+import Image from "next/image";
 
 const initialValues: RegisterFormValues = {
   cveUsuario: "",
@@ -15,6 +16,7 @@ const initialValues: RegisterFormValues = {
   apellidoMaterno: "",
   nombre: "",
   password: "",
+  passwordConfirm: "",
 };
 
 const validationSchema = Yup.object({
@@ -23,6 +25,9 @@ const validationSchema = Yup.object({
   apellidoMaterno: Yup.string().required("Campo requerido"),
   nombre: Yup.string().required("Campo requerido"),
   password: Yup.string().required("Campo requerido"),
+  passwordConfirm: Yup.string()
+    .oneOf([Yup.ref("password")], "Las contraseñas deben coincidir")
+    .required("Campo requerido"),
 });
 
 export default function RegisterPage() {
@@ -33,10 +38,16 @@ export default function RegisterPage() {
   };
 
   return (
-    <section className="flex w-full h-screen items-center">
-      <div className="grid w-full max-w-[1280px] mx-auto px-10 py-20 lg:py-32 gap-4">
+    <section className="flex min-h-screen pt-16 items-center">
+      <div className="grid w-full max-w-[768px] mx-auto px-4 py-8 gap-4 lg:border border-neutral-300 rounded-2xl lg:shadow-xs">
         <div className="grid gap-2 justify-items-center items-center">
-          <Title className="text-center" title="Crear Cuenta" />
+          <Image
+            src="/images/logoNFL.gif"
+            alt="Logo NFL"
+            width={50}
+            height={50}
+          />
+          <Title className="text-center" title="Crear Cuenta" color="blue" />
           <TextBody
             className="text-center"
             text="Ingresa tus credenciales para crear una cuenta nueva."
@@ -51,11 +62,13 @@ export default function RegisterPage() {
           <RegisterForm />
         </Form>
 
-        <div className="flex w-full gap-4 items-center justify-center">
-          <p>¿Ya tienes una cuenta?</p>
+        <div className="grid md:flex gap-2 items-center justify-center">
+          <p className="text-neutral-600">¿Ya tienes una cuenta?</p>
 
           <Link href="/login">
-            <p className="text-blue-600 hover:underline">Inicia sesión</p>
+            <p className="text-center md:text-end text-blue-600 hover:underline">
+              Inicia sesión
+            </p>
           </Link>
         </div>
       </div>

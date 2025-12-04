@@ -4,4 +4,5 @@ export interface RegisterFormValues {
   apellidoMaterno: string;
   nombre: string;
   password: string;
+  passwordConfirm: string;
 }

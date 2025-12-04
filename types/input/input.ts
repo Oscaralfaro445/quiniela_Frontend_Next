@@ -14,7 +14,7 @@ export enum InputType {
 }
 
 export interface InputProps {
-  type: string;
+  type?: string;
   name: string;
   label?: string;
   placeholder?: string;

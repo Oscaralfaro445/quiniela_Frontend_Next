@@ -6,12 +6,12 @@ interface HeaderPageProps {
   text: string;
 }
 
-export const HeaderPage = ({ title, text }: HeaderPageProps) => {
+export const PageHeader = ({ title, text }: HeaderPageProps) => {
   return (
-    <section className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center lg:justify-between">
-      <div className="grid gap-2 justify-items-start items-center">
-        <Title className="text-center" title={title} />
-        <TextBody className="text-center" text={text} />
+    <section className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 lg:justify-between">
+      <div className="grid gap-2 items-center">
+        <Title title={title} />
+        <TextBody text={text} />
       </div>
 
       <div className="flex h-fit justify-center items-center border-2 border-blue-600 rounded-2xl">

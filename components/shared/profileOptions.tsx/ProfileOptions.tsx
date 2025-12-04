@@ -26,14 +26,13 @@ export const ProfileOptions = ({ data }: ProfileOptionsProps) => {
       <ProfilePhoto onClick={() => setShowOptions(!showOptions)} />
 
       {showOptions ? (
-        <div className="absolute w-80 sm:w-96  p-4 border -right-4 top-[68px] border-neutral-300 bg-white rounded-lg z-50">
-          <div className="flex justify-between">
-            <div>
-              <p className="text-black">{data && data.nombre}</p>
-            </div>
+        <div className="absolute z-50 w-60 sm:w-96  p-4 border -right-10 top-[64px] border-neutral-300 bg-white rounded-lg">
+          <div className="flex gap-4 items-center">
+            <ProfilePhoto />
+            <p className="text-neutral-700">{data.nombre}</p>
           </div>
 
-          <div className="grid pt-2 gap-2">
+          <div className="grid pt-4 gap-2">
             <div className="border-b border-neutral-300 pb-2">
               <Link href="/profile">
                 <button

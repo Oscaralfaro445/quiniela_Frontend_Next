@@ -33,49 +33,42 @@ export const MatchPredictionCard = ({ gameId }: MatchPredictionCardProps) => {
       {isError && <div>Error: {error?.message}</div>}
 
       {isSuccess && (
-        <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden">
-          <div className="max-h-96 overflow-y-auto">
-            <table className="table-auto w-full">
-              <thead className="bg-blue-600 text-white text-sm font-semibold sticky top-0 z-10">
-                <tr>
-                  <th className="py-3 px-4 border-b border-gray-200 text-left">
-                    Nombre
-                  </th>
-                  <th className="py-3 px-4 border-b border-gray-200 text-left">
-                    Equipo
-                  </th>
-                  <th className="py-3 px-4 border-b border-gray-200 text-left">
-                    Estatus
-                  </th>
+        <div className="w-full max-h-[70vh] overflow-auto">
+          <table className="w-full">
+            <thead className="bg-blue-600 text-white text-sm font-semibold sticky top-0 z-10">
+              <tr>
+                <th className="p-2 border-b border-gray-200 text-left">
+                  Nombre
+                </th>
+                <th className="p-2 border-b border-gray-200 text-left">
+                  Equipo
+                </th>
+                <th className="p-2 border-b border-gray-200 text-left">
+                  Estatus
+                </th>
+              </tr>
+            </thead>
+
+            <tbody className="text-gray-700 text-sm">
+              {data.data.map((prediction: MatchPrediction, index: number) => (
+                <tr key={index} className="hover:bg-gray-50 transition-colors">
+                  <td className="p-2 border-b border-gray-200 font-medium">
+                    {prediction.nomParticipante}
+                  </td>
+                  <td className="p-2 border-b border-gray-200">
+                    <TeamLogo teamName={prediction.nomEquipoPronost} />
+                  </td>
+                  <td className="p-2 border-b border-gray-200 font-bold text-blue-600">
+                    {prediction.acerto === "si" ? (
+                      <Icon name="check" color="green" />
+                    ) : (
+                      <Icon name="x" color="red" />
+                    )}
+                  </td>
                 </tr>
-              </thead>
-              <tbody className="text-gray-700 text-sm">
-                {data.data.map((prediction: MatchPrediction, index: number) => (
-                  <tr
-                    key={index}
-                    className="hover:bg-gray-50 transition-colors"
-                  >
-                    <td className="py-2 px-4 border-b border-gray-200 font-medium">
-                      {prediction.nomParticipante}
-                    </td>
-                    <td className="py-2 px-4 border-b border-gray-200">
-                      <TeamLogo
-                        className="scale-75"
-                        teamName={prediction.nomEquipoPronost}
-                      />
-                    </td>
-                    <td className="py-2 px-4 border-b border-gray-200 font-bold text-blue-600">
-                      {prediction.acerto === "si" ? (
-                        <Icon name="check" color="green" />
-                      ) : (
-                        <Icon name="x" color="red" />
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </div>

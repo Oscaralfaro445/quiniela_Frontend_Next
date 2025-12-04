@@ -15,92 +15,90 @@ export const StatisticsCard = ({ activeTab }: StatisticsCardProps) => {
   const { data: precisionData } = useGetPrecision();
 
   return (
-    <section>
-      <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4">
-        <Card className="border-gray-200">
-          <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <div className="text-sm font-medium text-gray-600">
-              Total Participantes
-            </div>
-            <Icon name="trophy" className="text-blue-700" />
+    <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4">
+      <Card className="border-gray-200">
+        <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <div className="text-sm font-medium text-gray-600">
+            Total Participantes
           </div>
-          <div>
+          <Icon name="trophy" className="text-blue-700" />
+        </div>
+        <div>
+          <div className="text-2xl font-bold text-gray-900">
+            {data?.data[0]?.puntosPeriodo?.length ?? "0"}
+          </div>
+          <p className="text-xs text-gray-600">participantes</p>
+        </div>
+      </Card>
+
+      <Card>
+        <div className="flex items-center justify-between">
+          <div className="text-sm font-medium text-gray-600">
+            Precisión Promedio
+          </div>
+
+          <Icon className="text-blue-600" name="target" />
+        </div>
+
+        {true && (
+          <div className="grid gap-1">
             <div className="text-2xl font-bold text-gray-900">
-              {data?.data[0]?.puntosPeriodo?.length ?? "0"}
-            </div>
-            <p className="text-xs text-gray-600">participantes</p>
-          </div>
-        </Card>
-
-        <Card>
-          <div className="flex items-center justify-between">
-            <div className="text-sm font-medium text-gray-600">
-              Precisión Promedio
-            </div>
-
-            <Icon className="text-blue-600" name="target" />
-          </div>
-
-          {true && (
-            <div className="grid gap-1">
-              <div className="text-2xl font-bold text-gray-900">
-                {activeTab === "weekly"
-                  ? Math.trunc(
-                      precisionData?.data[0].Dashboard_1[0].posicionPeriodo
-                        .pjeSemana
-                    ) ?? 0
-                  : Math.trunc(
-                      precisionData?.data[0].Dashboard_1[0].posicionTotal
-                        .pjeTemporada
-                    ) ?? 0}
-                %
-              </div>
-
-              <p className="text-xs text-gray-600">
-                {activeTab === "weekly"
-                  ? precisionData?.data[0].Dashboard_1[0].posicionPeriodo
-                      .puntosPeriodo +
-                    "/" +
+              {activeTab === "weekly"
+                ? Math.trunc(
                     precisionData?.data[0].Dashboard_1[0].posicionPeriodo
-                      .partidosPeriodo +
-                    " correctas"
-                  : precisionData?.data[0].Dashboard_1[0].posicionTotal
-                      .puntosTemporada +
-                    "/" +
+                      .pjeSemana
+                  ) ?? 0
+                : Math.trunc(
                     precisionData?.data[0].Dashboard_1[0].posicionTotal
-                      .partidosTemporada +
-                    " correctas"}
-              </p>
+                      .pjeTemporada
+                  ) ?? 0}
+              %
             </div>
-          )}
-        </Card>
 
-        <Card className="border-gray-200">
-          <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <div className="text-sm font-medium text-gray-600">Tu Posición</div>
-            <Icon name="medal" className="text-blue-700" />
+            <p className="text-xs text-gray-600">
+              {activeTab === "weekly"
+                ? precisionData?.data[0].Dashboard_1[0].posicionPeriodo
+                    .puntosPeriodo +
+                  "/" +
+                  precisionData?.data[0].Dashboard_1[0].posicionPeriodo
+                    .partidosPeriodo +
+                  " correctas"
+                : precisionData?.data[0].Dashboard_1[0].posicionTotal
+                    .puntosTemporada +
+                  "/" +
+                  precisionData?.data[0].Dashboard_1[0].posicionTotal
+                    .partidosTemporada +
+                  " correctas"}
+            </p>
           </div>
+        )}
+      </Card>
 
-          <div>
-            <div className="text-2xl font-bold text-gray-900">{`#${
-              activeTab === "weekly"
-                ? data?.data[0]?.puntosPeriodo?.find(
-                    (item: ParticipantData) =>
-                      item.ID_PARTICIPANTE === dataUser?.idParticipante
-                  )?.Posicion ?? "0"
-                : data?.data[0]?.puntosTotal?.find(
-                    (item: ParticipantData) =>
-                      item.ID_PARTICIPANTE === dataUser?.idParticipante
-                  )?.Posicion ?? "0"
-            }`}</div>
-            <p className="text-xs text-gray-600">{`de ${
-              activeTab === "weekly"
-                ? data?.data[0]?.puntosPeriodo?.length ?? "0"
-                : data?.data[0]?.puntosTotal?.length ?? "0"
-            } participantes`}</p>
-          </div>
-        </Card>
-      </div>
-    </section>
+      <Card className="border-gray-200">
+        <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <div className="text-sm font-medium text-gray-600">Tu Posición</div>
+          <Icon name="medal" className="text-blue-700" />
+        </div>
+
+        <div>
+          <div className="text-2xl font-bold text-gray-900">{`#${
+            activeTab === "weekly"
+              ? data?.data[0]?.puntosPeriodo?.find(
+                  (item: ParticipantData) =>
+                    item.ID_PARTICIPANTE === dataUser?.idParticipante
+                )?.Posicion ?? "0"
+              : data?.data[0]?.puntosTotal?.find(
+                  (item: ParticipantData) =>
+                    item.ID_PARTICIPANTE === dataUser?.idParticipante
+                )?.Posicion ?? "0"
+          }`}</div>
+          <p className="text-xs text-gray-600">{`de ${
+            activeTab === "weekly"
+              ? data?.data[0]?.puntosPeriodo?.length ?? "0"
+              : data?.data[0]?.puntosTotal?.length ?? "0"
+          } participantes`}</p>
+        </div>
+      </Card>
+    </div>
   );
 };

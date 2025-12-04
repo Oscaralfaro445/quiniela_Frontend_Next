@@ -7,6 +7,7 @@ import { Icon } from "../../shared/icon/Icon";
 import { Button } from "../../shared/button/Button";
 import { ProfileOptions } from "../../shared/profileOptions.tsx/ProfileOptions";
 import { Sidebar } from "../sidebar/Sidebar";
+import Image from "next/image";
 
 export const Header = () => {
   const { isLogged, dataUser } = useAuth();
@@ -18,14 +19,20 @@ export const Header = () => {
 
   return (
     <>
-      <header className="fixed top-0 z-40 w-full h-18 px-6 py-2 bg-white border-b border-neutral-400">
-        <nav className="flex max-w-[1280px] mx-auto justify-between items-center">
+      <header className="fixed top-0 z-40 w-full h-16 px-4 py-2 bg-white border-b border-neutral-400">
+        <nav className="flex h-full justify-between items-center">
           <Link href={isLogged ? "/dashboard" : "/"}>
-            <div className="flex gap-2 items-center">
-              <Icon name="trophy" size={30} className="text-blue-600" />
-              <span className="hidden sm:block text-3xl font-bold">
+            <div className="flex gap-4 items-center">
+              <Image
+                src="/images/logoNFL.gif"
+                alt="Logo NFL"
+                width={30}
+                height={30}
+              />
+
+              <p className="hidden sm:block text-3xl font-bold">
                 {dataUser ? dataUser.titQuiniela : "NFL Quiniela"}
-              </span>
+              </p>
             </div>
           </Link>
 
@@ -39,12 +46,16 @@ export const Header = () => {
                 <div onClick={toggleSidebar}>
                   {isSidebarOpen ? (
                     <Icon
-                      className="transition-colors duration-200 hover:text-red-500"
+                      className="transition-colors duration-200 hover:text-red-500 cursor-pointer"
                       name="x"
                       size={30}
                     />
                   ) : (
-                    <Icon name="menu" size={30} />
+                    <Icon
+                      className="transition-colors duration-200 hover:text-blue-600 cursor-pointer"
+                      name="menu"
+                      size={30}
+                    />
                   )}
                 </div>
               </div>

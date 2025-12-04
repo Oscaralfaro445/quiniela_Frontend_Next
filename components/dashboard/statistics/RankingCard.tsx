@@ -10,24 +10,23 @@ export const RankingCard = () => {
     <>
       <Card>
         <div className="flex items-center justify-between">
-          <div className="text-sm font-medium text-gray-600">
-            Ranking Semanal
-          </div>
-
+          <p className="text-md font-medium text-neutral-600">
+            Ranking semanal
+          </p>
           <Icon className="text-blue-600" name="calendar-search" />
         </div>
 
-        {isPending && <span>Cargando...</span>}
+        {isPending && <p>Cargando...</p>}
 
-        {isError && <span>Error al cargar los datos...</span>}
+        {isError && <p>Error al cargar los datos...</p>}
 
         {isSuccess && rankings && (
           <div className="grid gap-1">
-            <div className="text-2xl font-bold text-gray-900">
-              #{rankings[0].Dashboard_2[0].posicionPeriodo.posicion}
-            </div>
+            <p className="text-2xl font-bold text-neutral-700">
+              {`# ${rankings[0].Dashboard_2[0].posicionPeriodo.posicion}`}
+            </p>
 
-            <p className="text-xs text-gray-600">
+            <p className="text-xs text-blue-600">
               {`de ${rankings[0].Dashboard_2[0].totalParticipantes.TotalParticipantes} usuarios`}
             </p>
           </div>
@@ -36,24 +35,21 @@ export const RankingCard = () => {
 
       <Card>
         <div className="flex items-center justify-between">
-          <div className="text-sm font-medium text-gray-600">
-            Ranking Global
-          </div>
-
+          <p className="text-md font-medium text-neutral-600">Ranking global</p>
           <Icon className="text-blue-600" name="trending-up" />
         </div>
 
-        {isPending && <span>Cargando...</span>}
+        {isPending && <p>Cargando...</p>}
 
-        {isError && <span>Error al cargar los datos...</span>}
+        {isError && <p>Error al cargar los datos...</p>}
 
         {isSuccess && rankings && (
           <div className="grid gap-1">
-            <div className="text-2xl font-bold text-gray-900">
-              #{rankings[0].Dashboard_2[0].posicionTotal.posicion}
-            </div>
+            <p className="text-2xl font-bold text-neutral-700">
+              {`# ${rankings[0].Dashboard_2[0].posicionTotal.posicion}`}
+            </p>
 
-            <p className="text-xs text-gray-600">
+            <p className="text-xs text-blue-600">
               {`de ${rankings[0].Dashboard_2[0].totalParticipantes.TotalParticipantes} usuarios`}
             </p>
           </div>

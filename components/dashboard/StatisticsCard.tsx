@@ -1,7 +1,7 @@
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";
-import { PrescisionCard } from "../ui/statistics/PrecisionCard";
-import { RankingCard } from "../ui/statistics/RankingCard";
+import { PrescisionCard } from "./statistics/PrecisionCard";
+import { RankingCard } from "./statistics/RankingCard";
 
 interface StatisticsCard {
   currentWeek: string;
@@ -9,31 +9,27 @@ interface StatisticsCard {
 
 export const StatisticsCard = ({ currentWeek }: StatisticsCard) => {
   return (
-    <section>
-      <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4">
-        <PrescisionCard />
+    <section className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4">
+      <PrescisionCard />
 
-        <RankingCard />
+      <RankingCard />
 
-        <Card>
-          <div className="flex items-center justify-between">
-            <div className="text-sm font-medium text-gray-600">
-              Semana Actual
-            </div>
-            <Icon className="text-blue-600" name="calendar" />
-          </div>
+      <Card>
+        <div className="flex items-center justify-between">
+          <p className="text-md font-medium text-neutral-600">Semana actual</p>
+          <Icon className="text-blue-600" name="calendar" />
+        </div>
 
-          <div className="grid gap-1">
-            <div className="text-2xl font-bold text-gray-900">
-              Semana {currentWeek}
-            </div>
+        <div className="grid gap-1">
+          <p className="text-2xl font-bold text-neutral-700">
+            Semana {currentWeek}
+          </p>
 
-            <p className="text-xs text-gray-600">{`${
-              18 - Number(currentWeek)
-            } semanas restantes`}</p>
-          </div>
-        </Card>
-      </div>
+          <p className="text-xs text-blue-600">{`${
+            18 - Number(currentWeek)
+          } semanas restantes`}</p>
+        </div>
+      </Card>
     </section>
   );
 };

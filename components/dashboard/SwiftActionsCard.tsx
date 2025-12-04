@@ -11,9 +11,9 @@ export const SwiftActionsCard = ({ currentWeek }: SwiftActionsCardProps) => {
 
   return (
     <Card>
-      <div className="grid">
-        <p className="text-lg text-blue-700 font-semibold">Acciones Rápidas</p>
-        <p className=" text-sm text-gray-600">
+      <div>
+        <p className="text-lg text-blue-600 font-semibold">Acciones Rápidas</p>
+        <p className=" text-sm text-neutral-600">
           Gestiona tus quinielas de la semana
         </p>
       </div>
@@ -25,7 +25,7 @@ export const SwiftActionsCard = ({ currentWeek }: SwiftActionsCardProps) => {
         onClick={() => router.push("/quiniela")}
       />
 
-      <div className="grid lg:grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
         <Button
           type="button"
           title="Clasificación"
