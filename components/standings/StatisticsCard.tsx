@@ -1,9 +1,9 @@
 import { useAuth } from "@/context/authContext/AuthContext";
 import { useGetParticipantPositions } from "@/hooks/participantPositions/queries/useGetParticipantPositions";
 import { useGetPrecision } from "@/hooks/dashboard/queries/useGetPrecision";
+import { ParticipantStatistics } from "@/types/participantStatistics/participantStatistics";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";
-import { ParticipantData } from "@/app/standings/page";
 
 interface StatisticsCardProps {
   activeTab: "weekly" | "global";
@@ -84,11 +84,11 @@ export const StatisticsCard = ({ activeTab }: StatisticsCardProps) => {
           <div className="text-2xl font-bold text-gray-900">{`#${
             activeTab === "weekly"
               ? data?.data[0]?.puntosPeriodo?.find(
-                  (item: ParticipantData) =>
+                  (item: ParticipantStatistics) =>
                     item.ID_PARTICIPANTE === dataUser?.idParticipante
                 )?.Posicion ?? "0"
               : data?.data[0]?.puntosTotal?.find(
-                  (item: ParticipantData) =>
+                  (item: ParticipantStatistics) =>
                     item.ID_PARTICIPANTE === dataUser?.idParticipante
                 )?.Posicion ?? "0"
           }`}</div>
