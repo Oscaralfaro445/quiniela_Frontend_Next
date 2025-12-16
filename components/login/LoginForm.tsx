@@ -9,7 +9,7 @@ export const LoginForm = () => {
       <Input
         type="email"
         name="cveUsuario"
-        label="Nombre de Usuario"
+        label="Nombre de usuario"
         placeholder="Ingresa tu nombre de usuario "
       />
 
@@ -23,7 +23,7 @@ export const LoginForm = () => {
       <div className="flex w-full items-center justify-between">
         <div className="flex gap-2 items-center">
           <Input type="checkbox" name="rememberMe" />
-          <p className="">Recordarme</p>
+          <p className="text-neutral-600">Recordarme</p>
         </div>
 
         <Link href="/">

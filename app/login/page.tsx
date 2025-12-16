@@ -8,6 +8,7 @@ import { Form } from "@/components/shared/form/Form";
 import { LoginForm } from "@/components/login/LoginForm";
 import { Title } from "@/components/shared/text/Title";
 import { TextBody } from "@/components/shared/text/TextBody";
+import Image from "next/image";
 
 const initialValues: LoginFormValues = {
   cveUsuario: "",
@@ -16,8 +17,10 @@ const initialValues: LoginFormValues = {
 };
 
 const validationSchema = Yup.object({
-  cveUsuario: Yup.string().required("Campo requerido"),
-  password: Yup.string().required("Campo requerido"),
+  cveUsuario: Yup.string().required("Campo requerido").email("Email inválido"),
+  password: Yup.string()
+    .required("Campo requerido")
+    .min(6, "Mínimo 6 caracteres"),
   rememberMe: Yup.boolean(),
 });
 
@@ -29,13 +32,19 @@ export default function LoginPage() {
   };
 
   return (
-    <section className="flex w-full min-h-screen items-center">
-      <div className="grid w-full max-w-[1280px] mx-auto px-10 py-20 lg:py-32 gap-4">
+    <div className="flex min-h-screen pt-16 items-center">
+      <div className="grid w-full max-w-[768px] mx-auto px-4 py-8 gap-4 lg:border border-neutral-300 rounded-xl lg:shadow-xs">
         <div className="grid gap-2 justify-items-center items-center">
-          <Title className="text-center" title="Iniciar Sesión" />
+          <Image
+            src="/images/logoNFL.gif"
+            alt="Logo NFL"
+            width={50}
+            height={50}
+          />
+          <Title className="text-center" title="Iniciar Sesión" color="blue" />
           <TextBody
             className="text-center"
-            text="Ingresa tus credenciales para acceder a tu cuenta."
+            text="Ingresa tus credenciales para iniciar sesión."
           />
         </div>
 
@@ -47,68 +56,16 @@ export default function LoginPage() {
           <LoginForm />
         </Form>
 
-        <div className="flex w-full gap-4 items-center justify-center">
-          <p>¿No tienes una cuenta?</p>
+        <div className="grid md:flex gap-2 items-center justify-center">
+          <p className="text-neutral-600">¿No tienes una cuenta?</p>
 
           <Link href="/register">
-            <p className="text-end text-blue-600 hover:underline">
+            <p className="text-center md:text-end text-blue-600 hover:underline">
               Regístrate ahora
             </p>
           </Link>
         </div>
       </div>
-    </section>
-  );
-}
-
-{
-  /* <MainContainer>
-  <SectionGrid>
-    <div className="grid lg:flex w-full gap-4 justify-center lg:justify-between">
-      <div className="relative w-full h-80 lg:hidden">
-        <Image
-          src="/images/28.png"
-          alt="Imagen de ejemplo"
-          fill
-          style={{ objectFit: "cover", objectPosition: "top" }}
-          priority
-        />
-      </div>
-
-      <div className="relative hidden lg:block lg:w-1/3 justify-center">
-        <Image
-          src={"/images/28.png"}
-          width={400}
-          height={400}
-          alt="Jugador con balón"
-        />
-      </div>
-
-      <div className="grid w-full gap-4 justify-center items-center">
-        <div className="grid w-full gap-4 justify-items-center items-center">
-          <p className="text-5xl font-bold text-centers">Iniciar Sesión</p>
-          <p className="text-lg font-semibold">
-            Ingresa tus credenciales para acceder a tu cuenta
-          </p>
-        </div>
-
-        <Form
-          initialValues={initialValues}
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}
-        >
-          <LoginForm />
-        </Form>
-
-        <div className="flex w-full gap-4 items-center justify-center">
-          <p>¿No tienes una cuenta?</p>
-
-          <Link href="/register">
-            <p className="text-blue-600 hover:underline">Regístrate ahora</p>
-          </Link>
-        </div>
-      </div>
     </div>
-  </SectionGrid>
-</MainContainer>; */
+  );
 }

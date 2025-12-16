@@ -13,7 +13,7 @@ interface match {
 }
 
 export const ScoresCard = ({ teamId, teamName }: CardScoresProps) => {
-  const { isPending, isError, isSuccess, error, data } = useGetScores(teamId);
+  const { isPending, isError, isSuccess, data } = useGetScores(teamId);
 
   return (
     <div className="grid gap-4">
@@ -24,23 +24,23 @@ export const ScoresCard = ({ teamId, teamName }: CardScoresProps) => {
         <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
       </div>
 
-      {isPending && <div>Cargando...</div>}
+      {isPending && <p>Cargando...</p>}
 
-      {isError && <div>Error: {error?.message}</div>}
+      {isError && <p>Error al cargar los datos</p>}
 
       {isSuccess && (
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-max bg-white shadow-sm rounded-lg border border-gray-200">
+        <div className="w-full max-h-[70vh] overflow-auto">
+          <table className="w-full">
             <thead>
-              <tr className="bg-blue-600 text-white text-center text-sm font-semibold">
-                <th className="py-3 px-4 border-b border-gray-200">Equipo 1</th>
-                <th className="py-3 px-4 border-b border-gray-200">Score 1</th>
-                <th className="py-3 px-4 border-b border-gray-200">Score 2</th>
-                <th className="py-3 px-4 border-b border-gray-200">Equipo 2</th>
+              <tr className="bg-blue-600 text-white text-sm font-semibold">
+                <th className="py-3 px-4">Equipo 1</th>
+                <th className="py-3 px-4">Score 1</th>
+                <th className="py-3 px-4">Score 2</th>
+                <th className="py-3 px-4">Equipo 2</th>
               </tr>
             </thead>
 
-            <tbody className="text-center text-gray-700 text-sm">
+            <tbody className="text-center text-neutral-600 text-sm">
               {data.data.map((match: match, index: number) =>
                 match.lv === "L" ? (
                   <tr

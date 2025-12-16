@@ -34,7 +34,7 @@ export const AlertProvider = ({ children }: { children: React.ReactNode }) => {
         type={type}
         title={title}
         description={description}
-        isModalOpen={isAlertOpen}
+        isAlertOpen={isAlertOpen}
         toggleAlert={() => setIsAlertOpen(false)}
       />
     </AlertContext.Provider>

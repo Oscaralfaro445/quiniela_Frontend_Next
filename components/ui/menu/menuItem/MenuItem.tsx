@@ -24,13 +24,11 @@ export const MenuItem = ({
     if (item.urlMenu && !item.children?.length) router.push(item.urlMenu);
   };
 
-  console.log(itemLevel);
-
   return (
     <>
       {item && item.icono && (
         <div
-          className={`flex w-full px-2 py-1 justify-between items-center border-b border-neutral-300 cursor-pointer ${
+          className={`flex w-full px-2 py-2 justify-between items-center border-b border-neutral-300 cursor-pointer rounded-sm ${
             currentRoute === item.urlMenu
               ? "bg-blue-600 text-white hover:bg-blue-700"
               : "hover:bg-neutral-200"
@@ -42,7 +40,7 @@ export const MenuItem = ({
               itemLevel > 0 ? `pl-12` : ""
             }`}
           >
-            <Icon name={item.icono} size={16} />
+            <Icon name={item.icono} size={18} />
 
             <p className="text-md font-semibold">{item.descMenu}</p>
           </div>

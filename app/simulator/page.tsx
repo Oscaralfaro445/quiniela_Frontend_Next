@@ -4,31 +4,19 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useGetSimulatorMatches } from "@/hooks/matches/queries/useGetSimulatorMatches";
 import { usePostSimulatorQuiniela } from "@/hooks/quiniela/mutation/usePostSimulatorQuiniela";
+import { SimulatedQuinielaData } from "@/types/SimulatedQuinielaData/simulatedQuinielaData";
 import { QuinielaItem } from "@/types/quiniela/quinielaItem";
 import { useAuth } from "@/context/authContext/AuthContext";
-import { WeeklyHeadline } from "@/components/quiniela/WeeklyHeadline";
 import { Card } from "@/components/shared/card/Card";
 import { Button } from "@/components/shared/button/Button";
 import { Title } from "@/components/shared/text/Title";
 import { TextBody } from "@/components/shared/text/TextBody";
 import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
-import { QuinielaProgressCard } from "@/components/quiniela/QuinielaProgressCard";
 import { Modal } from "@/components/shared/modal/Modal";
 import { StandingsSimulator } from "@/components/simulator/StandingsSimulator";
 import { GroupRadioSimulator } from "@/components/simulator/GroupRadioSimulator";
-
-export interface SimulatedQuinielaData {
-  Partido: number;
-  IdV: number;
-  EquipoV: string;
-  IdL: number;
-  EquipoL: string;
-  Fecha: string;
-  HoraPartido: string;
-  Estadio: string;
-  scoreVisit: number;
-  scoreLocal: number;
-}
+import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
+import { QuinielaProgressBarCard } from "@/components/quiniela/QuinielaProgressCard";
 
 export default function SimulatorPage() {
   const { dataUser } = useAuth();
@@ -78,66 +66,62 @@ export default function SimulatorPage() {
     }));
 
     quinielaAlta.mutate(JSON.stringify(quinielaDataUpdated));
-    console.log("Quiniela Updated", quinielaDataUpdated);
-
     setIsModalOpen(true);
   };
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen">
-        <WeeklyHeadline week={currentWeek} />
-
-        <QuinielaProgressCard
-          completedPicks={completedPicks}
-          totalGames={totalGames}
+      <div className="min-h-screen pt-16">
+        <PageHeader
+          title={`Simulador de quiniela - semana ${currentWeek}`}
+          text="En este apartado podrás simular los resultados de los partidos y ver la clasificación semanal y global"
         />
-        <section>
-          <div className="max-w-[1280px] mx-auto px-10 py-8">
-            <Card>
-              <div className="grid gap-2">
-                <Title title="Quiniela" />
-                <TextBody text="Selecciona el ganador de cada juego" />
+
+        <QuinielaProgressBarCard
+          title="Progreso del simulador"
+          description="Partidos completados"
+          value={completedPicks}
+          max={totalGames}
+        />
+
+        <div className="max-w-[1280px] mx-auto px-10 py-8">
+          <Card>
+            <div className="grid gap-2">
+              <Title title="Quiniela" />
+              <TextBody text="Selecciona el ganador de cada juego" />
+            </div>
+
+            {isPending && <p>Cargando...</p>}
+
+            {isError && <p>Error al cargar los datos...</p>}
+
+            {isSuccess && quinielaData && (
+              <div className="grid lg:grid-cols-2 gap-4">
+                {quinielaData.map((game: QuinielaItem) => (
+                  <GroupRadioSimulator
+                    key={game.Partido}
+                    disabled={false}
+                    game={game}
+                    quinielaData={quinielaData}
+                    handleChangeQuiniela={handleChangeQuiniela}
+                  />
+                ))}
               </div>
+            )}
+          </Card>
+        </div>
 
-              {isPending && <>Loading...</>}
+        <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
+          <Link href="/dashboard">
+            <Button type="button" title="Volver al Dashboard" theme="normal" />
+          </Link>
 
-              {isError && <></>}
-
-              {isSuccess && quinielaData && (
-                <div className="grid lg:grid-cols-2 gap-4">
-                  {quinielaData.map((game: QuinielaItem) => (
-                    <GroupRadioSimulator
-                      key={game.Partido}
-                      disabled={false}
-                      game={game}
-                      quinielaData={quinielaData}
-                      handleChangeQuiniela={handleChangeQuiniela}
-                    />
-                  ))}
-                </div>
-              )}
-            </Card>
-          </div>
-        </section>
-
-        <section>
-          <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
-            <Link href="/dashboard">
-              <Button
-                type="button"
-                title="Volver al Dashboard"
-                theme="normal"
-              />
-            </Link>
-
-            <Button
-              type="submit"
-              title="Simular Quiniela"
-              onClick={handleSubmit}
-            />
-          </div>
-        </section>
+          <Button
+            type="submit"
+            title="Simular Quiniela"
+            onClick={handleSubmit}
+          />
+        </div>
 
         <Modal isOpen={isModalOpen} onClose={handleModalOpen}>
           <StandingsSimulator

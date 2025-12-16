@@ -26,11 +26,15 @@ export const InputPassword = ({
           placeholder={placeholder}
           onChange={handleChange}
           onBlur={handleBlur}
-          className="w-full px-2 py-2 text-gray-700 shadow-sm border border-gray-300 rounded-md hover:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+          className={`w-full px-2 py-2 text-neutral-600 shadow-xs border border-neutral-300 rounded-md hover:border-blue-600 focus:outline-none focus:ring focus:ring-blue-600 transition-colors duration-200 ${
+            error
+              ? "border-red-500 focus:ring-red-500 hover:border-red-500"
+              : ""
+          }`}
         />
 
         <button
-          className="absolute right-2 top-2"
+          className="absolute right-2 top-2 cursor-pointer"
           type="button"
           onClick={() => setShowPassword(!showPassword)}
         >

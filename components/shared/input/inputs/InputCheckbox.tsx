@@ -22,7 +22,7 @@ export const InputCheckbox = ({
         // placeholder={placeholder}
         onChange={handleChange}
         onBlur={handleBlur}
-        className="text-gray-700 shadow-sm rounded-md border border-gray-300 hover:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+        className="text-neutral-700 shadow-sm rounded-md border border-neutral-300 hover:border-blue-600 focus:outline-none focus:ring focus:ring-blue-600 transition"
       />
 
       {error && <p className="text-red-500 text-sm">{error as string}</p>}

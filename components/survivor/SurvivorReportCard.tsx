@@ -1,21 +1,15 @@
+"use client";
+
 import { useGetSurvivorReport } from "@/hooks/survivorReport/queries/useGetSurvivorReport";
 import { useAuth } from "@/context/authContext/AuthContext";
 import { Card } from "../shared/card/Card";
 import { useEffect, useState } from "react";
 import { Paginator } from "../shared/paginator/paginator";
-
-interface Participant {
-  ID_PARTICIPANTE: number;
-  NOM_PARTICIPANTE: string;
-  NUM_SURVIVORS: number;
-  NUM_ACIERTOS: number;
-  IMP_INVERSION: number;
-  [key: `NOM_EQ_${number}`]: string;
-}
+import { ParticipantSurvivor } from "@/types/participantSurvivor/participantSurvivor";
 
 export const SurvivorReportCard = () => {
   const { dataUser } = useAuth();
-  const { isSuccess, isError, isPending, error, data } = useGetSurvivorReport();
+  const { isSuccess, isError, isPending, data } = useGetSurvivorReport();
   const survivorData = data?.data;
   const semanas = Object.keys(survivorData?.[0] || {})
     .filter((key) => key.startsWith("NOM_EQ_"))
@@ -62,20 +56,20 @@ export const SurvivorReportCard = () => {
   };
 
   return (
-    <section>
-      <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center lg:justify-between">
-        <Card>
-          <p>Progeso de participantes</p>
+    <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
+      <Card>
+        <p className="text-lg text-neutral-700">Progeso de participantes</p>
 
-          {isPending && <p>Cargando datos...</p>}
+        {isPending && <p>Cargando datos...</p>}
 
-          {isError && <p>Error cargando datos: {error?.message}</p>}
+        {isError && <p>Error cargando datos...</p>}
 
-          {isSuccess && (
-            <table className="w-full min-w-max">
+        {isSuccess && (
+          <div className="w-full overflow-x-auto">
+            <table className="w-full">
               <thead>
-                <tr className="bg-blue-600 text-white text-center text-md leading-normal">
-                  <th className="">Participante</th>
+                <tr className="bg-blue-600 text-white text-md leading-normal">
+                  <th>Participante</th>
                   <th>SUV</th>
                   <th>Aciertos</th>
                   <th>Inv($)</th>
@@ -85,20 +79,20 @@ export const SurvivorReportCard = () => {
                 </tr>
               </thead>
 
-              <tbody className="text-center text-gray-700 text-sm">
+              <tbody className="text-neutral-600 text-sm">
                 {survivorData?.map(
-                  (participante: Participant, index: number) => (
+                  (participante: ParticipantSurvivor, index: number) => (
                     <tr key={index}>
-                      <td className="py-1 border border-gray-300 w-44">
+                      <td className="px-1 py-1 border border-gray-300 w-44">
                         {participante.NOM_PARTICIPANTE}
                       </td>
-                      <td className="py-1 border border-gray-300 w-12">
+                      <td className="px-1 py-1 border border-gray-300 w-12">
                         {participante.NUM_SURVIVORS}
                       </td>
-                      <td className="py-1 border border-gray-300 w-20">
+                      <td className="px-1 py-1 border border-gray-300 w-20">
                         {participante.NUM_ACIERTOS}
                       </td>
-                      <td className="py-1 border border-gray-300 w-20">
+                      <td className="px-1 py-1 border border-gray-300 w-20">
                         {participante.IMP_INVERSION}
                       </td>
                       {semanasVisibles.map((semana) => (
@@ -116,15 +110,15 @@ export const SurvivorReportCard = () => {
                 )}
               </tbody>
             </table>
-          )}
+          </div>
+        )}
 
-          <Paginator
-            currentPage={rango.inicio + 1}
-            totalPages={semanas.length}
-            onPageChange={handlePageChange}
-          />
-        </Card>
-      </div>
-    </section>
+        <Paginator
+          currentPage={rango.inicio + 1}
+          totalPages={semanas.length}
+          onPageChange={handlePageChange}
+        />
+      </Card>
+    </div>
   );
 };

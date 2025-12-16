@@ -6,7 +6,7 @@ import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRout
 import { StatisticsCard } from "@/components/processes/quinielaVerification/StatisticsCard";
 import Link from "next/link";
 import { Button } from "@/components/shared/button/Button";
-import { HeaderPage } from "@/components/ui/headerPage/HeaderPage";
+import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
 import { Icon } from "@/components/shared/icon/Icon";
 
 export interface Participant {
@@ -34,35 +34,34 @@ export default function QuinielaVerificationPage() {
   return (
     <ProtectedRoute>
       <div className="min-h-screen pt-18">
-        <HeaderPage
-          title="Proceso de Verificación de Información"
-          text="Gestiona la carga y procesamiento de datos de participantes y quinielas."
+        <PageHeader
+          title="Proceso de verificación de información"
+          text="Gestiona la carga y procesamiento de datos de participantes y quinielas"
         />
 
         <StatisticsCard />
 
         {isSuccess && (
-          <section>
-            <div className="w-full max-w-[1280px] mx-auto px-10 py-8">
-              <Card>
-                <div className="grid">
-                  <p className="text-lg text-blue-700 font-semibold">
-                    Lista de Participantes
-                  </p>
-                  <p className=" text-sm text-gray-600">
-                    Visualiza el estado general de cada usuario
-                  </p>
-                </div>
+          <div className="w-full max-w-[1280px] mx-auto px-10 py-8">
+            <Card>
+              <div className="grid">
+                <p className="text-lg text-neutral-700 font-semibold">
+                  Lista de participantes
+                </p>
+                <p className="text-sm text-neutral-600">
+                  Visualiza el estado general de cada usuario
+                </p>
+              </div>
 
-                {isPending && <div>Cargando datos...</div>}
+              {isPending && <p>Cargando datos...</p>}
 
-                {isError && <div>Error al cargar los datos.</div>}
+              {isError && <p>Error al cargar los datos...</p>}
 
-                {isSuccess && participants && (
-                  <table className="table-fixed">
+              {isSuccess && participants && (
+                <div className="w-full overflow-x-auto">
+                  <table className="w-full">
                     <thead>
-                      <tr className="bg-blue-700 hover:bg-blue-700">
-                        <th className="text-white font-semibold">ID</th>
+                      <tr className="bg-blue-600">
                         <th className="text-white font-semibold">Nombre</th>
                         <th className="text-white font-semibold">Quiniela</th>
                         <th className="text-white font-semibold">Resultados</th>
@@ -76,8 +75,7 @@ export default function QuinielaVerificationPage() {
                           key={index}
                           className="border-b border-neutral-300 hover:bg-gray-200"
                         >
-                          <td className="text-center">{participant.iD}</td>
-                          <td className="text-center">{participant.nombre}</td>
+                          <td className="">{participant.nombre}</td>
                           <td className="">
                             {getIcon(!!participant.quiniela)}
                           </td>
@@ -93,25 +91,19 @@ export default function QuinielaVerificationPage() {
                       ))}
                     </tbody>
                   </table>
-                )}
-              </Card>
-            </div>
-          </section>
+                </div>
+              )}
+            </Card>
+          </div>
         )}
 
-        <section>
-          <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
-            <Link href="/dashboard">
-              <Button
-                type="button"
-                title="Volver al Dashboard"
-                theme="normal"
-              />
-            </Link>
+        <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
+          <Link href="/dashboard">
+            <Button type="button" title="Volver al Dashboard" theme="normal" />
+          </Link>
 
-            <Button type="submit" title="Enviar Quiniela" onClick={() => {}} />
-          </div>
-        </section>
+          <Button type="submit" title="Enviar Quiniela" onClick={() => {}} />
+        </div>
       </div>
     </ProtectedRoute>
   );

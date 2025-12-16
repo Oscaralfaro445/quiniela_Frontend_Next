@@ -8,7 +8,7 @@ import { usePostSurvivorPayment } from "@/hooks/survivorPayment/mutations/usePos
 import { Participant } from "@/types/participant/participant";
 import { Button } from "@/components/shared/button/Button";
 import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
-import { HeaderPage } from "@/components/ui/headerPage/HeaderPage";
+import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
 import { SurvivorPaymentStatusCard } from "@/components/captures/survivorPayment/SurvivorPaymentStatusCard";
 
 export default function SurvivorPaymentPage() {
@@ -49,7 +49,7 @@ export default function SurvivorPaymentPage() {
   return (
     <ProtectedRoute>
       <div className="min-h-screen pt-18">
-        <HeaderPage
+        <PageHeader
           title="Pagos Survivor"
           text="Gestiona los pagos de los participantes en la quiniela."
         />
@@ -61,23 +61,17 @@ export default function SurvivorPaymentPage() {
           />
         )}
 
-        <section>
-          <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
-            <Link href="/dashboard">
-              <Button
-                type="button"
-                title="Volver al Dashboard"
-                theme="normal"
-              />
-            </Link>
+        <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
+          <Link href="/dashboard">
+            <Button type="button" title="Volver al dashboard" theme="normal" />
+          </Link>
 
-            <Button
-              type="button"
-              title="Actualizar Pagos"
-              onClick={handleSubmit}
-            />
-          </div>
-        </section>
+          <Button
+            type="button"
+            title="Actualizar pagos"
+            onClick={handleSubmit}
+          />
+        </div>
       </div>
     </ProtectedRoute>
   );
