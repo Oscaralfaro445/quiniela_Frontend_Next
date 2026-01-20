@@ -1,44 +1,31 @@
-import axiosInstance from "@/hooks/axios/axiosInstance";
+import { axiosInstance } from "@/hooks/axios/axiosInstance";
 import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "@/context/authContext/AuthContext";
 
-interface SurvivorPaymentPayload {
+const fetchSurvivorPayment = async (payload: {
   idProceso: number;
   idQuery: string;
   parmRemp: {
     $1: number;
     $2: string;
   };
-}
-
-const fetchSurvivorPayment = async (
-  token: string,
-  payload: SurvivorPaymentPayload
-) => {
-  const response = await axiosInstance.post("/Query/Consulta", payload, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+}) => {
+  const response = await axiosInstance.post("/Query/Consulta", payload);
   return response.data;
 };
 
 export const useGetSurvivorPayment = () => {
-  const { token, dataUser } = useAuth();
-
   const { isPending, isError, isSuccess, error, data } = useQuery({
     queryKey: ["survivorPayment"],
     queryFn: () => {
-      return fetchSurvivorPayment(token!, {
+      return fetchSurvivorPayment({
         idProceso: 7,
         idQuery: "7",
         parmRemp: {
-          $1: dataUser!.idQuiniela,
-          $2: dataUser!.idPeriodo,
+          $1: 1,
+          $2: "2",
         },
       });
     },
-    enabled: !!token && !!dataUser?.idQuiniela && !!dataUser?.idPeriodo,
   });
 
   return { isPending, isError, isSuccess, error, data };

@@ -1,6 +1,6 @@
-import { useAuth } from "@/context/authContext/AuthContext";
 import { useGetParticipantPositions } from "@/hooks/participantPositions/queries/useGetParticipantPositions";
 import { useGetPrecision } from "@/hooks/dashboard/queries/useGetPrecision";
+import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
 import { ParticipantStatistics } from "@/types/participantStatistics/participantStatistics";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";
@@ -10,7 +10,8 @@ interface StatisticsCardProps {
 }
 
 export const StatisticsCard = ({ activeTab }: StatisticsCardProps) => {
-  const { dataUser } = useAuth();
+  const { data: me } = useGetMe();
+  const dataUser = me?.data;
   const { data } = useGetParticipantPositions();
   const { data: precisionData } = useGetPrecision();
 
@@ -44,14 +45,14 @@ export const StatisticsCard = ({ activeTab }: StatisticsCardProps) => {
           <div className="grid gap-1">
             <div className="text-2xl font-bold text-gray-900">
               {activeTab === "weekly"
-                ? Math.trunc(
+                ? (Math.trunc(
                     precisionData?.data[0].Dashboard_1[0].posicionPeriodo
-                      .pjeSemana
-                  ) ?? 0
-                : Math.trunc(
+                      .pjeSemana,
+                  ) ?? 0)
+                : (Math.trunc(
                     precisionData?.data[0].Dashboard_1[0].posicionTotal
-                      .pjeTemporada
-                  ) ?? 0}
+                      .pjeTemporada,
+                  ) ?? 0)}
               %
             </div>
 
@@ -83,19 +84,19 @@ export const StatisticsCard = ({ activeTab }: StatisticsCardProps) => {
         <div>
           <div className="text-2xl font-bold text-gray-900">{`#${
             activeTab === "weekly"
-              ? data?.data[0]?.puntosPeriodo?.find(
+              ? (data?.data[0]?.puntosPeriodo?.find(
                   (item: ParticipantStatistics) =>
-                    item.ID_PARTICIPANTE === dataUser?.idParticipante
-                )?.Posicion ?? "0"
-              : data?.data[0]?.puntosTotal?.find(
+                    item.ID_PARTICIPANTE === dataUser?.idParticipante,
+                )?.Posicion ?? "0")
+              : (data?.data[0]?.puntosTotal?.find(
                   (item: ParticipantStatistics) =>
-                    item.ID_PARTICIPANTE === dataUser?.idParticipante
-                )?.Posicion ?? "0"
+                    item.ID_PARTICIPANTE === dataUser?.idParticipante,
+                )?.Posicion ?? "0")
           }`}</div>
           <p className="text-xs text-gray-600">{`de ${
             activeTab === "weekly"
-              ? data?.data[0]?.puntosPeriodo?.length ?? "0"
-              : data?.data[0]?.puntosTotal?.length ?? "0"
+              ? (data?.data[0]?.puntosPeriodo?.length ?? "0")
+              : (data?.data[0]?.puntosTotal?.length ?? "0")
           } participantes`}</p>
         </div>
       </Card>

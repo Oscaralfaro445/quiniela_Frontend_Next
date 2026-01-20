@@ -1,47 +1,32 @@
-import axiosInstance from "@/hooks/axios/axiosInstance";
+import { axiosInstance } from "@/hooks/axios/axiosInstance";
 import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "@/context/authContext/AuthContext";
 
-const fetchUpcomingGames = async (
-  token: string,
-  payload: {
-    idProceso: number;
-    idQuery: number;
-    parmRemp: {
-      $1: number;
-      $2: string;
-      $3: number;
-    };
-  }
-) => {
-  const response = await axiosInstance.post("/Query/Consulta", payload, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+const fetchUpcomingGames = async (payload: {
+  idProceso: number;
+  idQuery: number;
+  parmRemp: {
+    $1: number;
+    $2: string;
+    $3: number;
+  };
+}) => {
+  const response = await axiosInstance.post("/Query/Consulta", payload);
   return response.data;
 };
 
 export const useGetUpcomingGames = () => {
-  const { token, dataUser } = useAuth();
-
   const { isPending, isError, isSuccess, error, data } = useQuery({
     queryKey: ["upcomingGames"],
     queryFn: () =>
-      fetchUpcomingGames(token!, {
+      fetchUpcomingGames({
         idProceso: 14,
         idQuery: 11,
         parmRemp: {
-          $1: dataUser!.idQuiniela,
-          $2: dataUser!.idPeriodo,
-          $3: dataUser!.idParticipante,
+          $1: 1,
+          $2: "2",
+          $3: 3,
         },
       }),
-    enabled:
-      !!token &&
-      !!dataUser?.idQuiniela &&
-      !!dataUser?.idPeriodo &&
-      !!dataUser?.idParticipante,
   });
   return { isPending, isError, isSuccess, error, data };
 };

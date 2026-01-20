@@ -1,7 +1,5 @@
 "use client";
 
-import { useAuth } from "@/context/authContext/AuthContext";
-import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
 import { StatisticsCard } from "@/components/dashboard/StatisticsCard";
 import { Timer } from "@/components/shared/timer/Timer";
 import { SwiftActionsCard } from "@/components/dashboard/SwiftActionsCard";
@@ -10,35 +8,34 @@ import { SurvivorCard } from "@/components/dashboard/SurvivorCard";
 import { AccumulatedBagCard } from "@/components/dashboard/AccumulatedBagCard";
 import { SeasonProgressCard } from "@/components/dashboard/SeasonProgressCard";
 import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
+import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
 
 export default function DashboardPage() {
-  const { dataUser } = useAuth();
-  const currentWeek = dataUser?.idPeriodo;
+  const { isLoading, isError, data, error } = useGetMe();
+  const currentWeek = "17";
 
   return (
-    <ProtectedRoute>
-      <div className="pt-16">
-        <PageHeader
-          title={`¡Bienvenido de vuelta ${dataUser?.nombre}!`}
-          text="Aquí tienes un resumen de tu rendimiento en la temporada."
-        />
+    <div className="pt-16">
+      <PageHeader
+        title={`¡Bienvenido de vuelta ${""}!`}
+        text="Aquí tienes un resumen de tu rendimiento en la temporada."
+      />
 
-        <StatisticsCard currentWeek={currentWeek ?? ""} />
+      <StatisticsCard currentWeek={currentWeek ?? ""} />
 
-        <Timer />
+      <Timer />
 
-        <div className="grid lg:grid-cols-2 w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 ">
-          <SwiftActionsCard currentWeek={currentWeek ?? ""} />
+      <div className="grid lg:grid-cols-2 w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 ">
+        <SwiftActionsCard currentWeek={currentWeek ?? ""} />
 
-          <AccumulatedBagCard />
+        <AccumulatedBagCard />
 
-          <SeasonProgressCard />
+        <SeasonProgressCard />
 
-          <SurvivorCard />
+        <SurvivorCard />
 
-          <UpcomingGamesCard currentWeek={currentWeek ?? ""} />
-        </div>
+        <UpcomingGamesCard currentWeek={currentWeek ?? ""} />
       </div>
-    </ProtectedRoute>
+    </div>
   );
 }

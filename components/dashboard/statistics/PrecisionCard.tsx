@@ -24,12 +24,12 @@ export const PrescisionCard = () => {
           <div className="grid gap-1">
             <p className="text-2xl font-bold text-neutral-700">
               {`${Math.trunc(
-                target[0].Dashboard_1[0].posicionPeriodo.pjeSemana
+                target[0]?.Dashboard_1[0]?.posicionPeriodo?.pjeSemana
               )} %`}
             </p>
 
             <p className="text-xs text-blue-600">
-              {`${target[0].Dashboard_1[0].posicionPeriodo.puntosPeriodo}/${target[0].Dashboard_1[0].posicionPeriodo.partidosPeriodo}`}
+              {`${target[0]?.Dashboard_1[0]?.posicionPeriodo?.puntosPeriodo}/${target[0]?.Dashboard_1[0]?.posicionPeriodo?.partidosPeriodo}`}
               correctas
             </p>
           </div>

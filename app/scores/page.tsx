@@ -2,20 +2,20 @@
 
 import Link from "next/link";
 import { useGetMarkers } from "@/hooks/markers/queries/useGetMarkers";
-import { useAuth } from "@/context/authContext/AuthContext";
+import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
 import { Button } from "@/components/shared/button/Button";
-import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
 import { StatisticsCard } from "@/components/scores/StatisticsCard";
 import { ScoreBoard } from "@/components/scores/ScoreBoard";
 import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
 
 export default function ScoresPage() {
-  const { dataUser } = useAuth();
+  const { data: me } = useGetMe();
+  const dataUser = me?.data;
   const week = dataUser?.idPeriodo;
   const { isPending, isError, isSuccess, data } = useGetMarkers();
 
   return (
-    <ProtectedRoute>
+    <>
       <div className="pt-16">
         <PageHeader
           title={`Resultados Semana ${week}`}
@@ -43,6 +43,6 @@ export default function ScoresPage() {
           <Button type="submit" title="Ver Quiniela" />
         </Link>
       </div>
-    </ProtectedRoute>
+    </>
   );
 }

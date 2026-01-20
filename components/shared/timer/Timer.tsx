@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { useAuth } from "@/context/authContext/AuthContext";
+import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
 import { Card } from "../card/Card";
 import { Icon } from "../icon/Icon";
 
@@ -14,7 +14,8 @@ interface TimeRemaining {
 }
 
 export const Timer = () => {
-  const { dataUser } = useAuth();
+  const { data } = useGetMe();
+  const dataUser = data?.data;
   const [timeRemaining, setTimeRemaining] = useState<TimeRemaining>({
     days: 0,
     hours: 0,
@@ -30,7 +31,7 @@ export const Timer = () => {
 
     try {
       const fechaLimite = new Date(
-        `${dataUser.fLimite}T${dataUser.horaLimite}`
+        `${dataUser.fLimite}T${dataUser.horaLimite}`,
       );
       const ahora = new Date();
       const diferencia = fechaLimite.getTime() - ahora.getTime();
@@ -41,7 +42,7 @@ export const Timer = () => {
 
       const days = Math.floor(diferencia / (1000 * 60 * 60 * 24));
       const hours = Math.floor(
-        (diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        (diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
       );
       const minutes = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diferencia % (1000 * 60)) / 1000);

@@ -1,13 +1,14 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { useAuth } from "@/context/authContext/AuthContext";
 import { ProfilePhoto } from "../profilePhoto/ProfilePhoto";
 import { Icon } from "../icon/Icon";
 import { Button } from "@/components/shared/button/Button";
+import { useLogout } from "@/hooks/logout/mutations/useLogout";
 
 interface ProfileOptionsProps {
-  data: {
+  data?: {
+    cveUsuario: string;
     cveIdioma: string;
     cvePerfil: string;
     nombre: string;
@@ -18,8 +19,12 @@ interface ProfileOptionsProps {
 }
 
 export const ProfileOptions = ({ data }: ProfileOptionsProps) => {
-  const { logout } = useAuth();
+  const mutation = useLogout();
   const [showOptions, setShowOptions] = useState(false);
+
+  const handleLogout = () => {
+    mutation.mutate();
+  };
 
   return (
     <div className="relative">
@@ -29,7 +34,11 @@ export const ProfileOptions = ({ data }: ProfileOptionsProps) => {
         <div className="absolute z-50 w-60 sm:w-96  p-4 border -right-10 top-[64px] border-neutral-300 bg-white rounded-lg">
           <div className="flex gap-4 items-center">
             <ProfilePhoto />
-            <p className="text-neutral-700">{data.nombre}</p>
+            <div>
+              <p className="text-neutral-700 font-semibold">{data?.nombre}</p>
+              <p className="text-neutral-700 text-sm">{data?.cvePerfil}</p>
+              <p className="text-neutral-700 text-xs">{data?.cveUsuario}</p>
+            </div>
           </div>
 
           <div className="grid pt-4 gap-2">
@@ -62,9 +71,11 @@ export const ProfileOptions = ({ data }: ProfileOptionsProps) => {
             className="flex pt-2 justify-end"
             onClick={() => setShowOptions(false)}
           >
-            <Link href={"/"}>
-              <Button type="button" title="Cerrar sesión" onClick={logout} />
-            </Link>
+            <Button
+              type="button"
+              title="Cerrar sesión"
+              onClick={handleLogout}
+            />
           </div>
         </div>
       ) : null}

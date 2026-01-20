@@ -4,18 +4,18 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useGetMarkers } from "@/hooks/markers/queries/useGetMarkers";
 import { usePostMarkers } from "@/hooks/markers/mutations/usePostMarkers";
-import { useAuth } from "@/context/authContext/AuthContext";
+import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
 import { GameResult } from "@/types/gameResult/gameResult";
 import { Button } from "@/components/shared/button/Button";
-import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
 import { StatisticsCard } from "@/components/scores/StatisticsCard";
 import { ScoreBoard } from "@/components/captures/scoresEntry/ScoreBoard";
 import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
 
 export default function ScoresEntryPage() {
+  const { data: me } = useGetMe();
+  const dataUser = me?.data;
   const { isPending, isError, isSuccess, data } = useGetMarkers();
   const markersUpdate = usePostMarkers();
-  const { dataUser } = useAuth();
   const week = dataUser?.idPeriodo;
 
   const [gameResults, setGameResults] = useState<GameResult[]>([]);
@@ -30,7 +30,7 @@ export default function ScoresEntryPage() {
   const handleScoreChange = (
     partido: number,
     team: "away" | "home",
-    value: string
+    value: string,
   ) => {
     const numValue = Number.parseInt(value) || 0;
 
@@ -41,8 +41,8 @@ export default function ScoresEntryPage() {
               ...game,
               [team === "away" ? "marcVisita" : "marLocal"]: numValue,
             }
-          : game
-      )
+          : game,
+      ),
     );
   };
 
@@ -58,39 +58,37 @@ export default function ScoresEntryPage() {
   };
 
   return (
-    <ProtectedRoute>
-      <div className="min-h-screen pt-16">
-        <PageHeader
-          title={`Marcadores Semana ${week}`}
-          text="Edita los marcadores de los partidos de la semana"
-        />
+    <div className="min-h-screen pt-16">
+      <PageHeader
+        title={`Marcadores Semana ${week}`}
+        text="Edita los marcadores de los partidos de la semana"
+      />
 
-        {isPending && <p>Cargando...</p>}
+      {isPending && <p>Cargando...</p>}
 
-        {isError && <p>Error al cargar los datos...</p>}
+      {isError && <p>Error al cargar los datos...</p>}
 
-        {isSuccess && (
-          <>
-            <StatisticsCard gameResults={data.data} week={week} />
-            <ScoreBoard
-              gameResults={gameResults}
-              handleScoreChange={handleScoreChange}
-            />
-          </>
-        )}
-
-        <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
-          <Link href="/dashboard">
-            <Button type="button" title="Volver al Dashboard" theme="normal" />
-          </Link>
-
-          <Button
-            type="submit"
-            title="Actualizar Marcadores"
-            onClick={handleSubmitScores}
+      {isSuccess && (
+        <>
+          <StatisticsCard gameResults={data.data} week={week} />
+          <ScoreBoard
+            gameResults={gameResults}
+            handleScoreChange={handleScoreChange}
           />
-        </div>
+        </>
+      )}
+
+      <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
+        <Link href="/dashboard">
+          <Button type="button" title="Volver al Dashboard" theme="normal" />
+        </Link>
+
+        <Button
+          type="submit"
+          title="Actualizar Marcadores"
+          onClick={handleSubmitScores}
+        />
       </div>
-    </ProtectedRoute>
+    </div>
   );
 }

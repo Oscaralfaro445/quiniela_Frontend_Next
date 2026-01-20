@@ -1,7 +1,6 @@
-import axiosInstance from "@/hooks/axios/axiosInstance";
+import { axiosInstance } from "@/hooks/axios/axiosInstance";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
-import { useAuth } from "@/context/authContext/AuthContext";
-import { useAlert } from "@/context/alertContext/AlertContext";
+import { useAlert } from "@/context/alert/AlertContext";
 import { AlertState } from "@/types/alert/alert";
 import { useHandleRequestStatus } from "@/utils/showRequestStatus/showRequestStatus";
 
@@ -13,24 +12,16 @@ interface QuinielaData {
   CVE_GANADOR: string;
 }
 
-const postQuiniela = async (
-  token: string,
-  payload: {
-    idProceso: number;
-    model: string;
-    data: QuinielaData[];
-  }
-) => {
-  const response = await axiosInstance.post("/Crud/BulkU", payload, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+const postQuiniela = async (payload: {
+  idProceso: number;
+  model: string;
+  data: QuinielaData[];
+}) => {
+  const response = await axiosInstance.post("/Crud/BulkU", payload);
   return response.data;
 };
 
 export const usePostQuiniela = () => {
-  const { token } = useAuth();
   const queryClient = useQueryClient();
   const { showAlert } = useAlert();
   const { handleRequestStatus } = useHandleRequestStatus();
@@ -38,7 +29,7 @@ export const usePostQuiniela = () => {
   return useMutation({
     mutationKey: ["quiniela"],
     mutationFn: (quinielaData: QuinielaData[]) =>
-      postQuiniela(token!, {
+      postQuiniela({
         idProceso: 2,
         model: "Q_QUIN_PARTICIPANTE",
         data: quinielaData,
@@ -48,7 +39,7 @@ export const usePostQuiniela = () => {
         AlertState.ERROR,
         "Error en la Solicitud",
         "Tuvimos un problema al enviar la información de la quiniela, " +
-          error.message
+          error.message,
       );
     },
     onSuccess: (data) => {
@@ -60,6 +51,5 @@ export const usePostQuiniela = () => {
         mensajeExito: "Tu quiniela ha sido actualizada correctamente",
       });
     },
-    onSettled: () => {},
   });
 };

@@ -1,36 +1,10 @@
-"use client";
-
 import Link from "next/link";
-import * as Yup from "yup";
-import usePostLogin from "@/hooks/login/mutations/usePostLogin";
-import { LoginFormValues } from "@/types/login/login";
-import { Form } from "@/components/shared/form/Form";
+import Image from "next/image";
 import { LoginForm } from "@/components/login/LoginForm";
 import { Title } from "@/components/shared/text/Title";
 import { TextBody } from "@/components/shared/text/TextBody";
-import Image from "next/image";
-
-const initialValues: LoginFormValues = {
-  cveUsuario: "",
-  password: "",
-  rememberMe: false,
-};
-
-const validationSchema = Yup.object({
-  cveUsuario: Yup.string().required("Campo requerido").email("Email inválido"),
-  password: Yup.string()
-    .required("Campo requerido")
-    .min(6, "Mínimo 6 caracteres"),
-  rememberMe: Yup.boolean(),
-});
 
 export default function LoginPage() {
-  const login = usePostLogin();
-
-  const handleSubmit = (values: LoginFormValues) => {
-    login.mutate(values);
-  };
-
   return (
     <div className="flex min-h-screen pt-16 items-center">
       <div className="grid w-full max-w-[768px] mx-auto px-4 py-8 gap-4 lg:border border-neutral-300 rounded-xl lg:shadow-xs">
@@ -48,13 +22,7 @@ export default function LoginPage() {
           />
         </div>
 
-        <Form
-          initialValues={initialValues}
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}
-        >
-          <LoginForm />
-        </Form>
+        <LoginForm />
 
         <div className="grid md:flex gap-2 items-center justify-center">
           <p className="text-neutral-600">¿No tienes una cuenta?</p>

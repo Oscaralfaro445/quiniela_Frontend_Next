@@ -23,11 +23,11 @@ export const RankingCard = () => {
         {isSuccess && rankings && (
           <div className="grid gap-1">
             <p className="text-2xl font-bold text-neutral-700">
-              {`# ${rankings[0].Dashboard_2[0].posicionPeriodo.posicion}`}
+              {`# ${rankings[0]?.Dashboard_2[0]?.posicionPeriodo?.posicion}`}
             </p>
 
             <p className="text-xs text-blue-600">
-              {`de ${rankings[0].Dashboard_2[0].totalParticipantes.TotalParticipantes} usuarios`}
+              {`de ${rankings[0]?.Dashboard_2[0]?.totalParticipantes?.TotalParticipantes} usuarios`}
             </p>
           </div>
         )}

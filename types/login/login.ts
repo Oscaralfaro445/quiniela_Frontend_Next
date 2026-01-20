@@ -1,5 +1,9 @@
 export interface LoginFormValues {
   cveUsuario: string;
   password: string;
-  rememberMe: boolean;
+}
+
+export interface PostLoginData extends LoginFormValues {
+  idProceso: number;
+  cveAplicacion: string;
 }

@@ -1,13 +1,1 @@
 @import "tailwindcss";
-
-progress {
-  color: #3b82f6; /* azul tailwind: blue-500 */
-}
-
-progress::-webkit-progress-bar {
-  background-color: #e5e7eb; /* gray-200 */
-}
-
-progress::-webkit-progress-value {
-  background-color: #3b82f6; /* blue-500 */
-}

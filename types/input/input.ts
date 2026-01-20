@@ -20,4 +20,5 @@ export interface InputProps {
   placeholder?: string;
   description?: string;
   disabled?: boolean;
+  mutation?: { isError: boolean; isSuccess: boolean; isIdle: boolean };
 }

@@ -1,4 +1,4 @@
-import { useAlert } from "@/context/alertContext/AlertContext";
+import { useAlert } from "@/context/alert/AlertContext";
 import { AlertState } from "@/types/alert/alert";
 
 type RequestStatus = {
@@ -21,7 +21,7 @@ export const useHandleRequestStatus = () => {
         showAlert(
           AlertState.SUCCESS,
           "Solicitud procesada con éxito",
-          mensajeExito
+          mensajeExito,
         );
         break;
 
@@ -30,7 +30,7 @@ export const useHandleRequestStatus = () => {
           AlertState.ERROR,
           "Error en la Solicitud",
           errorUs ??
-            "Tuvimos un problema al procesar tu solicitud. Inténtalo más tarde."
+            "Tuvimos un problema al procesar tu solicitud. Inténtalo más tarde.",
         );
         break;
 
@@ -38,7 +38,7 @@ export const useHandleRequestStatus = () => {
         showAlert(
           AlertState.ERROR,
           "Error en la Solicitud",
-          "Ocurrió un error en la validación de negocio."
+          "Ocurrió un error en la validación de negocio.",
         );
         break;
 
@@ -47,7 +47,7 @@ export const useHandleRequestStatus = () => {
           AlertState.ERROR,
           "Error al validar las credenciales",
           errorUs ??
-            "Tuvimos un problema al procesar tu solicitud. Inténtalo más tarde."
+            "Tuvimos un problema al procesar tu solicitud. Inténtalo más tarde.",
         );
         break;
 
@@ -55,7 +55,7 @@ export const useHandleRequestStatus = () => {
         showAlert(
           AlertState.WARNING,
           "Estado no reconocido",
-          `Recibimos un código de estado inesperado: ${status}`
+          `Recibimos un código de estado inesperado: ${status}`,
         );
         break;
     }

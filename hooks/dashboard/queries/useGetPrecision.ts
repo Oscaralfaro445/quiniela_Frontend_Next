@@ -1,48 +1,33 @@
-import axiosInstance from "@/hooks/axios/axiosInstance";
+import { axiosInstance } from "@/hooks/axios/axiosInstance";
 import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "@/context/authContext/AuthContext";
 
-const fetchPrecision = async (
-  token: string,
-  payload: {
-    idProceso: number;
-    idQuery: number;
-    parmRemp: {
-      $1: number;
-      $2: string;
-      $3: number;
-    };
-  }
-) => {
-  const response = await axiosInstance.post("/Query/Consulta", payload, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+const fetchPrecision = async (payload: {
+  idProceso: number;
+  idQuery: number;
+  parmRemp: {
+    $1: number;
+    $2: string;
+    $3: number;
+  };
+}) => {
+  const response = await axiosInstance.post("/Query/Consulta", payload);
 
   return response.data;
 };
 
 export const useGetPrecision = () => {
-  const { token, dataUser } = useAuth();
-
   const { isPending, isError, isSuccess, error, data } = useQuery({
     queryKey: ["precision"],
     queryFn: () =>
-      fetchPrecision(token!, {
+      fetchPrecision({
         idProceso: 14,
         idQuery: 10,
         parmRemp: {
-          $1: dataUser!.idQuiniela,
-          $2: dataUser!.idPeriodo,
-          $3: dataUser!.idParticipante,
+          $1: 1,
+          $2: "2",
+          $3: 3,
         },
       }),
-    enabled:
-      !!token &&
-      !!dataUser?.idQuiniela &&
-      !!dataUser?.idPeriodo &&
-      !!dataUser?.idParticipante,
   });
   return { isPending, isError, isSuccess, error, data };
 };

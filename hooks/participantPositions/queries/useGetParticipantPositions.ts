@@ -1,41 +1,30 @@
-import axiosInstance from "@/hooks/axios/axiosInstance";
+import { axiosInstance } from "@/hooks/axios/axiosInstance";
 import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "@/context/authContext/AuthContext";
 
-const fetchParticipantPositions = async (
-  token: string,
-  payload: {
-    idProceso: number;
-    idQuery: string;
-    parmRemp: {
-      $1: number;
-      $2: string;
-    };
-  }
-) => {
-  const response = await axiosInstance.post("/Query/Consulta", payload, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+const fetchParticipantPositions = async (payload: {
+  idProceso: number;
+  idQuery: string;
+  parmRemp: {
+    $1: number;
+    $2: string;
+  };
+}) => {
+  const response = await axiosInstance.post("/Query/Consulta", payload);
   return response.data;
 };
 
 export const useGetParticipantPositions = () => {
-  const { token, dataUser } = useAuth();
-
   const { isPending, isError, isSuccess, error, data } = useQuery({
     queryKey: ["participantPositions"],
     queryFn: () =>
-      fetchParticipantPositions(token!, {
+      fetchParticipantPositions({
         idProceso: 3,
         idQuery: "4",
         parmRemp: {
-          $1: dataUser!.idQuiniela,
-          $2: dataUser!.idPeriodo,
+          $1: 1,
+          $2: "2",
         },
       }),
-    enabled: !!token && !!dataUser?.idQuiniela && !!dataUser?.idPeriodo,
   });
   return { isPending, isError, isSuccess, error, data };
 };

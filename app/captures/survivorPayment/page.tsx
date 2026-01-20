@@ -2,17 +2,17 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useAuth } from "@/context/authContext/AuthContext";
 import { useGetSurvivorPayment } from "@/hooks/survivorPayment/queries/useGetSurvivorPayment";
 import { usePostSurvivorPayment } from "@/hooks/survivorPayment/mutations/usePostSurvivorPayment";
+import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
 import { Participant } from "@/types/participant/participant";
 import { Button } from "@/components/shared/button/Button";
-import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
 import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
 import { SurvivorPaymentStatusCard } from "@/components/captures/survivorPayment/SurvivorPaymentStatusCard";
 
 export default function SurvivorPaymentPage() {
-  const { dataUser } = useAuth();
+  const { data: me } = useGetMe();
+  const dataUser = me?.data;
   const { isSuccess, data } = useGetSurvivorPayment();
   const survivorPayment = usePostSurvivorPayment();
 
@@ -30,8 +30,8 @@ export default function SurvivorPaymentPage() {
       prev.map((participant) =>
         participant.ID_PARTICIPANTE === participantId
           ? { ...participant, B_PAGO: !participant.B_PAGO }
-          : participant
-      )
+          : participant,
+      ),
     );
   };
 
@@ -47,32 +47,26 @@ export default function SurvivorPaymentPage() {
   };
 
   return (
-    <ProtectedRoute>
-      <div className="min-h-screen pt-18">
-        <PageHeader
-          title="Pagos Survivor"
-          text="Gestiona los pagos de los participantes en la quiniela."
+    <div className="min-h-screen pt-18">
+      <PageHeader
+        title="Pagos Survivor"
+        text="Gestiona los pagos de los participantes en la quiniela."
+      />
+
+      {isSuccess && (
+        <SurvivorPaymentStatusCard
+          participantsData={participantsData}
+          togglePaymentStatus={togglePaymentStatus}
         />
+      )}
 
-        {isSuccess && (
-          <SurvivorPaymentStatusCard
-            participantsData={participantsData}
-            togglePaymentStatus={togglePaymentStatus}
-          />
-        )}
+      <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
+        <Link href="/dashboard">
+          <Button type="button" title="Volver al dashboard" theme="normal" />
+        </Link>
 
-        <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
-          <Link href="/dashboard">
-            <Button type="button" title="Volver al dashboard" theme="normal" />
-          </Link>
-
-          <Button
-            type="button"
-            title="Actualizar pagos"
-            onClick={handleSubmit}
-          />
-        </div>
+        <Button type="button" title="Actualizar pagos" onClick={handleSubmit} />
       </div>
-    </ProtectedRoute>
+    </div>
   );
 }

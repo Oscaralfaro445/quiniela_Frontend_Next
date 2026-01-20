@@ -1,9 +1,8 @@
-import "./globals.css";
 import { ReactQueryProvider } from "@/components/ui/reactQueryProvider/ReactQueryProvider";
-import { AuthProvider } from "@/context/authContext/AuthContext";
-import { AlertProvider } from "@/context/alertContext/AlertContext";
+import { AlertProvider } from "@/context/alert/AlertContext";
 import { Header } from "@/components/ui/header/Header";
 import { Footer } from "@/components/ui/footer/Footer";
+import "./globals.css";
 
 export default function RootLayout({
   children,
@@ -33,13 +32,11 @@ export default function RootLayout({
 
       <body>
         <ReactQueryProvider>
-          <AuthProvider>
-            <AlertProvider>
-              <Header />
-              <main>{children}</main>
-              <Footer />
-            </AlertProvider>
-          </AuthProvider>
+          <AlertProvider>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </AlertProvider>
         </ReactQueryProvider>
       </body>
     </html>

@@ -1,41 +1,27 @@
-import axiosInstance from "@/hooks/axios/axiosInstance";
+import { axiosInstance } from "@/hooks/axios/axiosInstance";
 import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "@/context/authContext/AuthContext";
 
-const fetchMenu = async (
-  token: string,
-  payload: {
-    idProceso: number;
-    idProcedure: number;
-    parmRemp: {
-      $1: string;
-    };
-  }
-) => {
-  const response = await axiosInstance.post("/Query/Procedure", payload, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+const fetchMenu = async (payload: {
+  idProceso: number;
+  idProcedure: number;
+  parmRemp: {
+    $1: string;
+  };
+}) => {
+  const response = await axiosInstance.post("/Query/Procedure", payload);
   return response.data;
 };
 
-const useGetMenu = () => {
-  const { token, dataUser } = useAuth();
-  // console.log("hook useGetMenu", { token, dataUser });
-
+export const useGetMenu = () => {
   return useQuery({
     queryKey: ["menu"],
     queryFn: () =>
-      fetchMenu(token!, {
+      fetchMenu({
         idProceso: 12,
         idProcedure: 7,
         parmRemp: {
-          $1: dataUser!.cveUsuario,
+          $1: "4",
         },
       }),
-    enabled: !!token && !!dataUser?.cveUsuario,
   });
 };
-
-export default useGetMenu;

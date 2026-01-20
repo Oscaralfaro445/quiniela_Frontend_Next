@@ -1,8 +1,7 @@
-import axiosInstance from "@/hooks/axios/axiosInstance";
+import { axiosInstance } from "@/hooks/axios/axiosInstance";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AlertState } from "@/types/alert/alert";
-import { useAuth } from "@/context/authContext/AuthContext";
-import { useAlert } from "@/context/alertContext/AlertContext";
+import { useAlert } from "@/context/alert/AlertContext";
 import { useHandleRequestStatus } from "@/utils/showRequestStatus/showRequestStatus";
 
 export interface survivorPayment {
@@ -12,24 +11,16 @@ export interface survivorPayment {
   B_PAGO: boolean;
 }
 
-const postSurvivorPayment = async (
-  token: string,
-  payload: {
-    idProceso: number;
-    model: string;
-    data: survivorPayment[];
-  }
-) => {
-  const response = await axiosInstance.post("/Crud/BulkU", payload, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+const postSurvivorPayment = async (payload: {
+  idProceso: number;
+  model: string;
+  data: survivorPayment[];
+}) => {
+  const response = await axiosInstance.post("/Crud/BulkU", payload);
   return response.data;
 };
 
 export const usePostSurvivorPayment = () => {
-  const { token } = useAuth();
   const queryClient = useQueryClient();
   const { showAlert } = useAlert();
   const { handleRequestStatus } = useHandleRequestStatus();
@@ -37,7 +28,7 @@ export const usePostSurvivorPayment = () => {
   return useMutation({
     mutationKey: ["survivorPayment"],
     mutationFn: (participants: survivorPayment[]) =>
-      postSurvivorPayment(token!, {
+      postSurvivorPayment({
         idProceso: 7,
         model: "Q_SURVIVOR",
         data: participants,
@@ -46,7 +37,7 @@ export const usePostSurvivorPayment = () => {
       showAlert(
         AlertState.ERROR,
         "Error en la Solicitud",
-        "Tuvimos un problema al actualizar la información de los pagos"
+        "Tuvimos un problema al actualizar la información de los pagos",
       );
     },
     onSuccess: (data) => {
@@ -58,6 +49,5 @@ export const usePostSurvivorPayment = () => {
         mensajeExito: "La actualización de los pagos se realizó con éxito",
       });
     },
-    onSettled: () => {},
   });
 };

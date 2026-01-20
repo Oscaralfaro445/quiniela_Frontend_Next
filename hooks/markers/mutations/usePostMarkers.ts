@@ -1,7 +1,6 @@
-import axiosInstance from "@/hooks/axios/axiosInstance";
+import { axiosInstance } from "@/hooks/axios/axiosInstance";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
-import { useAuth } from "@/context/authContext/AuthContext";
-import { useAlert } from "@/context/alertContext/AlertContext";
+import { useAlert } from "@/context/alert/AlertContext";
 import { AlertState } from "@/types/alert/alert";
 import { useHandleRequestStatus } from "@/utils/showRequestStatus/showRequestStatus";
 
@@ -12,24 +11,16 @@ interface Marker {
   ID_SCORE_E2: number;
 }
 
-const postMarkers = async (
-  token: string,
-  payload: {
-    idProceso: number;
-    model: string;
-    data: Marker[];
-  }
-) => {
-  const response = await axiosInstance.post("/Crud/BulkU", payload, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+const postMarkers = async (payload: {
+  idProceso: number;
+  model: string;
+  data: Marker[];
+}) => {
+  const response = await axiosInstance.post("/Crud/BulkU", payload);
   return response.data;
 };
 
 export const usePostMarkers = () => {
-  const { token } = useAuth();
   const queryClient = useQueryClient();
   const { showAlert } = useAlert();
   const { handleRequestStatus } = useHandleRequestStatus();
@@ -37,7 +28,7 @@ export const usePostMarkers = () => {
   return useMutation({
     mutationKey: ["markers"],
     mutationFn: (markersData: Marker[]) =>
-      postMarkers(token!, {
+      postMarkers({
         idProceso: 5,
         model: "Q_PARTIDO",
         data: markersData,
@@ -46,7 +37,7 @@ export const usePostMarkers = () => {
       showAlert(
         AlertState.ERROR,
         "Error en la Solicitud",
-        "Tuvimos un problema al actualizar la información de los marcadores"
+        "Tuvimos un problema al actualizar la información de los marcadores",
       );
     },
     onSuccess: (data) => {

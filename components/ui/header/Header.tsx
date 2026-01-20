@@ -1,17 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
-import { useAuth } from "@/context/authContext/AuthContext";
 import { Icon } from "../../shared/icon/Icon";
 import { Button } from "../../shared/button/Button";
 import { ProfileOptions } from "../../shared/profileOptions.tsx/ProfileOptions";
 import { Sidebar } from "../sidebar/Sidebar";
-import Image from "next/image";
+import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
 
 export const Header = () => {
-  const { isLogged, dataUser } = useAuth();
+  const { data, isLoading } = useGetMe();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  console.log("Header render - User data:", data?.data);
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
@@ -21,7 +22,7 @@ export const Header = () => {
     <>
       <header className="fixed top-0 z-40 w-full h-16 px-4 py-2 bg-white border-b border-neutral-400">
         <nav className="flex h-full justify-between items-center">
-          <Link href={isLogged ? "/dashboard" : "/"}>
+          <Link href={data?.data ? "/dashboard" : "/"}>
             <div className="flex gap-4 items-center">
               <Image
                 src="/images/logoNFL.gif"
@@ -31,35 +32,24 @@ export const Header = () => {
               />
 
               <p className="hidden sm:block text-3xl font-bold">
-                {dataUser ? dataUser.titQuiniela : "NFL Quiniela"}
+                {data?.data ? data?.data[0]?.titQuiniela : "NFL Quiniela"}
               </p>
             </div>
           </Link>
+          {isLoading ? null : data?.data ? (
+            <div className="flex gap-2 items-center">
+              <ProfileOptions data={data} />
 
-          {isLogged ? (
-            dataUser && (
-              <div className="flex gap-2 items-center">
-                <ProfileOptions data={dataUser} />
+              <div className="h-10 mx-2 border-l border-neutral-400" />
 
-                <div className="h-10 mx-2 border-l border-neutral-400" />
-
-                <div onClick={toggleSidebar}>
-                  {isSidebarOpen ? (
-                    <Icon
-                      className="transition-colors duration-200 hover:text-red-500 cursor-pointer"
-                      name="x"
-                      size={30}
-                    />
-                  ) : (
-                    <Icon
-                      className="transition-colors duration-200 hover:text-blue-600 cursor-pointer"
-                      name="menu"
-                      size={30}
-                    />
-                  )}
-                </div>
+              <div onClick={toggleSidebar}>
+                <Icon
+                  className="transition-colors duration-200 hover:text-blue-600 cursor-pointer"
+                  name={isSidebarOpen ? "x" : "menu"}
+                  size={30}
+                />
               </div>
-            )
+            </div>
           ) : (
             <div className="flex gap-2">
               <Link href="/register">
@@ -74,7 +64,7 @@ export const Header = () => {
         </nav>
       </header>
 
-      {isLogged && (
+      {data?.data && (
         <Sidebar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
       )}
     </>

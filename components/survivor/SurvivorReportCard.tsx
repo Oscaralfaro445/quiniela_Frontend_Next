@@ -1,20 +1,21 @@
 "use client";
 
 import { useGetSurvivorReport } from "@/hooks/survivorReport/queries/useGetSurvivorReport";
-import { useAuth } from "@/context/authContext/AuthContext";
+import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
 import { Card } from "../shared/card/Card";
 import { useEffect, useState } from "react";
 import { Paginator } from "../shared/paginator/paginator";
 import { ParticipantSurvivor } from "@/types/participantSurvivor/participantSurvivor";
 
 export const SurvivorReportCard = () => {
-  const { dataUser } = useAuth();
+  const { data: me } = useGetMe();
+  const dataUser = me?.data;
   const { isSuccess, isError, isPending, data } = useGetSurvivorReport();
   const survivorData = data?.data;
   const semanas = Object.keys(survivorData?.[0] || {})
     .filter((key) => key.startsWith("NOM_EQ_"))
     .map((key) => parseInt(key.split("_")[2]))
-    .slice(0, parseInt(dataUser!.idPeriodo));
+    .slice(0, parseInt(dataUser?.idPeriodo));
 
   const [rango, setRango] = useState({
     inicio: 0,
@@ -99,14 +100,14 @@ export const SurvivorReportCard = () => {
                         <td
                           key={`row-${participante.ID_PARTICIPANTE}-semana-${semana}`}
                           className={`py-1 border border-gray-300 ${getBackgroundColor(
-                            participante[`NOM_EQ_${semana}`]
+                            participante[`NOM_EQ_${semana}`],
                           )}`}
                         >
                           {getCleanTeamName(participante[`NOM_EQ_${semana}`])}
                         </td>
                       ))}
                     </tr>
-                  )
+                  ),
                 )}
               </tbody>
             </table>

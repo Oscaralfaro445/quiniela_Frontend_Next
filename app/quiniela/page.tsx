@@ -4,11 +4,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useGetMatches } from "@/hooks/matches/queries/useGetMatches";
 import { usePostSurvivorTeam } from "@/hooks/survivor/mutations/usePostSurvivorTeam";
+import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
 import { usePostQuiniela } from "@/hooks/quiniela/mutation/usePostQuiniela";
 import { AlertState } from "@/types/alert/alert";
 import { QuinielaItem } from "@/types/quiniela/quinielaItem";
-import { useAuth } from "@/context/authContext/AuthContext";
-import { useAlert } from "@/context/alertContext/AlertContext";
+import { useAlert } from "@/context/alert/AlertContext";
 import { Card } from "@/components/shared/card/Card";
 import { Button } from "@/components/shared/button/Button";
 import { ByeWeek } from "@/components/quiniela/ByeWeek";
@@ -16,14 +16,14 @@ import { Timer } from "@/components/shared/timer/Timer";
 import { GroupRadio } from "@/components/quiniela/GroupRadio";
 import { Title } from "@/components/shared/text/Title";
 import { TextBody } from "@/components/shared/text/TextBody";
-import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
 import { SurvivorSelector } from "@/components/quiniela/SurvivorSelector";
 import { Icon } from "@/components/shared/icon/Icon";
 import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
 import { QuinielaProgressBarCard } from "@/components/quiniela/QuinielaProgressCard";
 
 export default function QuinielaPage() {
-  const { dataUser } = useAuth();
+  const { data: me } = useGetMe();
+  const dataUser = me?.data;
   const { showAlert } = useAlert();
   const { isPending, isError, isSuccess, data } = useGetMatches();
   const survivorAlta = usePostSurvivorTeam();
@@ -36,7 +36,7 @@ export default function QuinielaPage() {
   const [quinielaData, setQuinielaData] = useState<QuinielaItem[]>([]);
   const totalGames = data?.data[0]?.quiniela?.length || 0;
   const completedPicks = quinielaData.filter(
-    (game) => game.partGanador !== " "
+    (game) => game.partGanador !== " ",
   ).length;
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function QuinielaPage() {
   }, [isSuccess, data]);
 
   const handleChangeSurvivor = (
-    event: React.ChangeEvent<HTMLSelectElement>
+    event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     setSelectedSurvivor(Number(event.target.value));
   };
@@ -58,7 +58,7 @@ export default function QuinielaPage() {
       const quinielaUpdated = prev.map((game) =>
         game.Partido === idGame
           ? { ...game, partGanador: team === game.EquipoV ? "V" : "L" }
-          : game
+          : game,
       );
       return quinielaUpdated;
     });
@@ -67,14 +67,14 @@ export default function QuinielaPage() {
   const handleSubmit = () => {
     const fechaActual = new Date();
     const fechaLimite = new Date(
-      `${dataUser?.fLimite}T${dataUser?.horaLimite}`
+      `${dataUser?.fLimite}T${dataUser?.horaLimite}`,
     );
 
     if (!isQuinielaEnabled) {
       showAlert(
         AlertState.WARNING,
         "Error de envio",
-        "Quiniela previamente enviada, solo se puede enviar una vez"
+        "Quiniela previamente enviada, solo se puede enviar una vez",
       );
 
       return;
@@ -85,7 +85,7 @@ export default function QuinielaPage() {
         showAlert(
           AlertState.WARNING,
           "Campos incompletos",
-          "Por favor, completa todos los campos requeridos"
+          "Por favor, completa todos los campos requeridos",
         );
 
         return;
@@ -95,7 +95,7 @@ export default function QuinielaPage() {
         showAlert(
           AlertState.WARNING,
           "Campos incompletos",
-          "Por favor, completa todos los campos requeridos"
+          "Por favor, completa todos los campos requeridos",
         );
 
         return;
@@ -106,7 +106,7 @@ export default function QuinielaPage() {
       showAlert(
         AlertState.ERROR,
         "Fecha límite alcanzada",
-        "El tiempo para enviar tu quiniela ha expirado."
+        "El tiempo para enviar tu quiniela ha expirado.",
       );
       return;
     }
@@ -126,7 +126,7 @@ export default function QuinielaPage() {
   };
 
   return (
-    <ProtectedRoute>
+    <>
       <div className="pt-16" />
       <PageHeader
         title={`Quiniela - Semana ${currentWeek}`}
@@ -202,6 +202,6 @@ export default function QuinielaPage() {
 
         <Button type="submit" title="Enviar Quiniela" onClick={handleSubmit} />
       </div>
-    </ProtectedRoute>
+    </>
   );
 }
