@@ -3,8 +3,12 @@ import { Card } from "@/components/shared/card/Card";
 import { Icon } from "@/components/shared/icon/Icon";
 
 export const RankingCard = () => {
-  const { isPending, isError, isSuccess, data } = useGetRanking();
-  const rankings = data?.data;
+  const { isPending, isError, data, error } = useGetRanking();
+  const rankingsInfo = data?.data?.[0]?.Dashboard_2?.[0];
+  const positionWeek = rankingsInfo?.posicionPeriodo?.posicion || 0;
+  const positionTotal = rankingsInfo?.posicionTotal?.posicion || 0;
+  const totalParticipants =
+    rankingsInfo?.totalParticipantes?.TotalParticipantes || 0;
 
   return (
     <>
@@ -18,16 +22,16 @@ export const RankingCard = () => {
 
         {isPending && <p>Cargando...</p>}
 
-        {isError && <p>Error al cargar los datos...</p>}
+        {isError && <p>Error al cargar los datos... {error?.message}</p>}
 
-        {isSuccess && rankings && (
+        {rankingsInfo && (
           <div className="grid gap-1">
             <p className="text-2xl font-bold text-neutral-700">
-              {`# ${rankings[0]?.Dashboard_2[0]?.posicionPeriodo?.posicion}`}
+              {`# ${positionWeek}`}
             </p>
 
             <p className="text-xs text-blue-600">
-              {`de ${rankings[0]?.Dashboard_2[0]?.totalParticipantes?.TotalParticipantes} usuarios`}
+              {`de ${totalParticipants} usuarios`}
             </p>
           </div>
         )}
@@ -43,14 +47,14 @@ export const RankingCard = () => {
 
         {isError && <p>Error al cargar los datos...</p>}
 
-        {isSuccess && rankings && (
+        {rankingsInfo && (
           <div className="grid gap-1">
             <p className="text-2xl font-bold text-neutral-700">
-              {`# ${rankings[0].Dashboard_2[0].posicionTotal.posicion}`}
+              {`# ${positionTotal}`}
             </p>
 
             <p className="text-xs text-blue-600">
-              {`de ${rankings[0].Dashboard_2[0].totalParticipantes.TotalParticipantes} usuarios`}
+              {`de ${totalParticipants} usuarios`}
             </p>
           </div>
         )}

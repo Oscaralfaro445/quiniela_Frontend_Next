@@ -5,7 +5,7 @@ import { Card } from "@/components/shared/card/Card";
 import { StatisticsCard } from "@/components/processes/quinielaVerification/StatisticsCard";
 import Link from "next/link";
 import { Button } from "@/components/shared/button/Button";
-import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
+import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
 import { Icon } from "@/components/shared/icon/Icon";
 
 export interface Participant {
@@ -80,7 +80,7 @@ export default function QuinielaVerificationPage() {
                         </td>
                         <td className="">
                           {getIcon(
-                            participant.survivor === !!participant.existe
+                            participant.survivor === !!participant.existe,
                           )}
                         </td>
                       </tr>

@@ -8,14 +8,14 @@ import { Paginator } from "../shared/paginator/paginator";
 import { ParticipantSurvivor } from "@/types/participantSurvivor/participantSurvivor";
 
 export const SurvivorReportCard = () => {
-  const { data: me } = useGetMe();
-  const dataUser = me?.data;
-  const { isSuccess, isError, isPending, data } = useGetSurvivorReport();
+  const { isPending, isError, data, error } = useGetSurvivorReport();
+  const { data: user } = useGetMe();
+  const userInfo = user?.data?.[0];
   const survivorData = data?.data;
   const semanas = Object.keys(survivorData?.[0] || {})
     .filter((key) => key.startsWith("NOM_EQ_"))
     .map((key) => parseInt(key.split("_")[2]))
-    .slice(0, parseInt(dataUser?.idPeriodo));
+    .slice(0, parseInt(userInfo?.idPeriodo));
 
   const [rango, setRango] = useState({
     inicio: 0,
@@ -23,13 +23,13 @@ export const SurvivorReportCard = () => {
   });
 
   useEffect(() => {
-    if (isSuccess) {
+    if (semanas.length > 0) {
       setRango({
         inicio: semanas.length - 4,
         fin: semanas.length,
       });
     }
-  }, [isSuccess, semanas.length]);
+  }, [semanas.length]);
 
   const handlePageChange = (page: number) => {
     setRango({
@@ -63,56 +63,54 @@ export const SurvivorReportCard = () => {
 
         {isPending && <p>Cargando datos...</p>}
 
-        {isError && <p>Error cargando datos...</p>}
+        {isError && <p>Error cargando datos... {error?.message}</p>}
 
-        {isSuccess && (
-          <div className="w-full overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="bg-blue-600 text-white text-md leading-normal">
-                  <th>Participante</th>
-                  <th>SUV</th>
-                  <th>Aciertos</th>
-                  <th>Inv($)</th>
-                  {semanasVisibles.map((semana) => (
-                    <th key={`header-${semana}`}>Semana {semana}</th>
-                  ))}
-                </tr>
-              </thead>
+        <div className="w-full overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="bg-blue-600 text-white text-md leading-normal">
+                <th>Participante</th>
+                <th>SUV</th>
+                <th>Aciertos</th>
+                <th>Inv($)</th>
+                {semanasVisibles.map((semana) => (
+                  <th key={`header-${semana}`}>Semana {semana}</th>
+                ))}
+              </tr>
+            </thead>
 
-              <tbody className="text-neutral-600 text-sm">
-                {survivorData?.map(
-                  (participante: ParticipantSurvivor, index: number) => (
-                    <tr key={index}>
-                      <td className="px-1 py-1 border border-gray-300 w-44">
-                        {participante.NOM_PARTICIPANTE}
+            <tbody className="text-neutral-600 text-sm">
+              {survivorData?.map(
+                (participante: ParticipantSurvivor, index: number) => (
+                  <tr key={index}>
+                    <td className="px-1 py-1 border border-gray-300 w-44">
+                      {participante.NOM_PARTICIPANTE}
+                    </td>
+                    <td className="px-1 py-1 border border-gray-300 w-12">
+                      {participante.NUM_SURVIVORS}
+                    </td>
+                    <td className="px-1 py-1 border border-gray-300 w-20">
+                      {participante.NUM_ACIERTOS}
+                    </td>
+                    <td className="px-1 py-1 border border-gray-300 w-20">
+                      {participante.IMP_INVERSION}
+                    </td>
+                    {semanasVisibles.map((semana) => (
+                      <td
+                        key={`row-${participante.ID_PARTICIPANTE}-semana-${semana}`}
+                        className={`px-1 py-1 border border-gray-300 ${getBackgroundColor(
+                          participante[`NOM_EQ_${semana}`],
+                        )}`}
+                      >
+                        {getCleanTeamName(participante[`NOM_EQ_${semana}`])}
                       </td>
-                      <td className="px-1 py-1 border border-gray-300 w-12">
-                        {participante.NUM_SURVIVORS}
-                      </td>
-                      <td className="px-1 py-1 border border-gray-300 w-20">
-                        {participante.NUM_ACIERTOS}
-                      </td>
-                      <td className="px-1 py-1 border border-gray-300 w-20">
-                        {participante.IMP_INVERSION}
-                      </td>
-                      {semanasVisibles.map((semana) => (
-                        <td
-                          key={`row-${participante.ID_PARTICIPANTE}-semana-${semana}`}
-                          className={`py-1 border border-gray-300 ${getBackgroundColor(
-                            participante[`NOM_EQ_${semana}`],
-                          )}`}
-                        >
-                          {getCleanTeamName(participante[`NOM_EQ_${semana}`])}
-                        </td>
-                      ))}
-                    </tr>
-                  ),
-                )}
-              </tbody>
-            </table>
-          </div>
-        )}
+                    ))}
+                  </tr>
+                ),
+              )}
+            </tbody>
+          </table>
+        </div>
 
         <Paginator
           currentPage={rango.inicio + 1}

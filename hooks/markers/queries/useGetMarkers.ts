@@ -1,4 +1,6 @@
 import { axiosInstance } from "@/hooks/axios/axiosInstance";
+import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
+import { DataUser } from "@/types/user/dataUser";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchMarkers = async (payload: {
@@ -11,17 +13,21 @@ const fetchMarkers = async (payload: {
 };
 
 export const useGetMarkers = () => {
-  const { isPending, isError, isSuccess, error, data } = useQuery({
+  const { data: user } = useGetMe();
+  const userInfo: DataUser = user?.data?.[0];
+
+  const { isPending, isError, isSuccess, data, error } = useQuery({
     queryKey: ["markers"],
     queryFn: () =>
       fetchMarkers({
         idProceso: 5,
         idQuery: "6",
         parmRemp: {
-          $1: "2",
+          $1: userInfo?.idPeriodo,
         },
       }),
+    enabled: !!userInfo,
   });
 
-  return { isPending, isError, isSuccess, error, data };
+  return { isPending, isError, isSuccess, data, error };
 };

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AccumulatedEarningsCard } from "@/components/dashboard/AccumulatedEarningsCard";
 import { Button } from "@/components/shared/button/Button";
-import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
+import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
 
 export default function EarningsPage() {
   return (

@@ -5,39 +5,48 @@ import { ProfilePhoto } from "../profilePhoto/ProfilePhoto";
 import { Icon } from "../icon/Icon";
 import { Button } from "@/components/shared/button/Button";
 import { useLogout } from "@/hooks/logout/mutations/useLogout";
+import { DataUser } from "@/types/user/dataUser";
 
 interface ProfileOptionsProps {
-  data?: {
-    cveUsuario: string;
-    cveIdioma: string;
-    cvePerfil: string;
-    nombre: string;
-    idQuiniela: number;
-    idParticipante: number;
-    idPeriodo: string;
-  };
+  user: DataUser;
 }
 
-export const ProfileOptions = ({ data }: ProfileOptionsProps) => {
-  const mutation = useLogout();
+export const ProfileOptions = ({ user }: ProfileOptionsProps) => {
   const [showOptions, setShowOptions] = useState(false);
+  const mutation = useLogout();
 
   const handleLogout = () => {
-    mutation.mutate();
+    if (confirm("¿Estás seguro de que deseas cerrar sesión?")) {
+      mutation.mutate();
+    }
+  };
+
+  const handleShowOptions = () => {
+    setShowOptions((prev) => !prev);
   };
 
   return (
-    <div className="relative">
-      <ProfilePhoto onClick={() => setShowOptions(!showOptions)} />
+    <div>
+      <ProfilePhoto onClick={handleShowOptions} />
 
       {showOptions ? (
-        <div className="absolute z-50 w-60 sm:w-96  p-4 border -right-10 top-[64px] border-neutral-300 bg-white rounded-lg">
+        <div className="fixed right-16 top-18 z-50 w-60 sm:w-96 p-4 border border-neutral-300 bg-white rounded-lg">
+          <div className="absolute top-2 right-2" onClick={handleShowOptions}>
+            <Icon
+              name="x"
+              className="hover:text-red-600 hover:cursor-pointer"
+            />
+          </div>
+
           <div className="flex gap-4 items-center">
             <ProfilePhoto />
+
             <div>
-              <p className="text-neutral-700 font-semibold">{data?.nombre}</p>
-              <p className="text-neutral-700 text-sm">{data?.cvePerfil}</p>
-              <p className="text-neutral-700 text-xs">{data?.cveUsuario}</p>
+              <p className="text-neutral-700 font-semibold">
+                {user?.nombreCompleto}
+              </p>
+              <p className="text-neutral-700 text-sm">{user?.cvePerfil}</p>
+              <p className="text-neutral-700 text-xs">{user?.cveUsuario}</p>
             </div>
           </div>
 
@@ -74,6 +83,7 @@ export const ProfileOptions = ({ data }: ProfileOptionsProps) => {
             <Button
               type="button"
               title="Cerrar sesión"
+              theme="danger"
               onClick={handleLogout}
             />
           </div>

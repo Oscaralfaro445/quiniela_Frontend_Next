@@ -7,14 +7,15 @@ import { usePostSurvivorPayment } from "@/hooks/survivorPayment/mutations/usePos
 import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
 import { Participant } from "@/types/participant/participant";
 import { Button } from "@/components/shared/button/Button";
-import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
+import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
 import { SurvivorPaymentStatusCard } from "@/components/captures/survivorPayment/SurvivorPaymentStatusCard";
+import { DataUser } from "@/types/user/dataUser";
 
 export default function SurvivorPaymentPage() {
-  const { data: me } = useGetMe();
-  const dataUser = me?.data;
   const { isSuccess, data } = useGetSurvivorPayment();
   const survivorPayment = usePostSurvivorPayment();
+  const { data: user } = useGetMe();
+  const userInfo: DataUser = user?.data?.[0];
 
   const [participantsData, setParticipantsData] = useState<Participant[]>([]);
 
@@ -37,9 +38,9 @@ export default function SurvivorPaymentPage() {
 
   const handleSubmit = () => {
     const participantsDataUpdated = participantsData.map((participant) => ({
-      ID_QUINIELA: dataUser!.idQuiniela,
+      ID_QUINIELA: userInfo!.idQuiniela,
       ID_PARTICIPANTE: participant.ID_PARTICIPANTE,
-      ID_PERIODO: dataUser!.idPeriodo,
+      ID_PERIODO: userInfo!.idPeriodo,
       B_PAGO: participant.B_PAGO,
     }));
 

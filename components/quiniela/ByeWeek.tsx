@@ -5,7 +5,7 @@ import { useGetMatches } from "@/hooks/matches/queries/useGetMatches";
 import { Icon } from "../shared/icon/Icon";
 
 export const ByeWeek = () => {
-  const { isPending, isError, isSuccess, data } = useGetMatches();
+  const { isPending, isError, data } = useGetMatches();
 
   return (
     <section>
@@ -30,9 +30,9 @@ export const ByeWeek = () => {
             </div>
           )}
 
-          {isSuccess && data.data[0].bye !== null ? (
+          {data?.data[0].bye !== null ? (
             <div className="grid lg:grid-cols-2 w-full gap-4 items-center">
-              {data.data[0].bye.map((team: ByeWeekTeam) => (
+              {data?.data[0].bye.map((team: ByeWeekTeam) => (
                 <Card key={team.IdEquipo}>
                   <div className="flex w-full gap-2 justify-start items-center">
                     <TeamLogo teamName={team.NomEquipo} />

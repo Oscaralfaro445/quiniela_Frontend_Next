@@ -1,5 +1,5 @@
-import { TextBody } from "../../shared/text/TextBody";
-import { Title } from "../../shared/text/Title";
+import { TextBody } from "../text/TextBody";
+import { Title } from "../text/Title";
 
 interface HeaderPageProps {
   title: string;

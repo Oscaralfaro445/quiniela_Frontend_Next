@@ -1,5 +1,7 @@
 import { axiosInstance } from "@/hooks/axios/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
+import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
+import { DataUser } from "@/types/user/dataUser";
 import { useAlert } from "@/context/alert/AlertContext";
 import { AlertState } from "@/types/alert/alert";
 import { useHandleRequestStatus } from "@/utils/showRequestStatus/showRequestStatus";
@@ -14,6 +16,8 @@ const postPeriodOpening = async (payload: {
 };
 
 export const usePostPeriodOpening = () => {
+  const { data: user } = useGetMe();
+  const userInfo: DataUser = user?.data?.[0];
   const { showAlert } = useAlert();
   const { handleRequestStatus } = useHandleRequestStatus();
 
@@ -23,7 +27,7 @@ export const usePostPeriodOpening = () => {
       postPeriodOpening({
         idProceso: 9,
         idProcedure: 6,
-        parmRemp: { $1: 1, $2: "2" },
+        parmRemp: { $1: userInfo?.idQuiniela, $2: userInfo?.idPeriodo },
       }),
     onError: () => {
       showAlert(
@@ -40,6 +44,5 @@ export const usePostPeriodOpening = () => {
         mensajeExito: "Inicio de sesión exitoso",
       });
     },
-    onSettled: () => {},
   });
 };

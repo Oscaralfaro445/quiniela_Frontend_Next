@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
+import { DataUser } from "@/types/user/dataUser";
 import { Card } from "../card/Card";
 import { Icon } from "../icon/Icon";
 
@@ -14,8 +15,8 @@ interface TimeRemaining {
 }
 
 export const Timer = () => {
-  const { data } = useGetMe();
-  const dataUser = data?.data;
+  const { data: user } = useGetMe();
+  const userInfo: DataUser = user?.data?.[0];
   const [timeRemaining, setTimeRemaining] = useState<TimeRemaining>({
     days: 0,
     hours: 0,
@@ -25,13 +26,13 @@ export const Timer = () => {
   });
 
   const calculateTimeRemaining = useCallback((): TimeRemaining => {
-    if (!dataUser?.fLimite || !dataUser?.horaLimite) {
+    if (!userInfo?.fLimite || !userInfo?.horaLimite) {
       return { days: 0, hours: 0, minutes: 0, seconds: 0, total: 0 };
     }
 
     try {
       const fechaLimite = new Date(
-        `${dataUser.fLimite}T${dataUser.horaLimite}`,
+        `${userInfo.fLimite}T${userInfo.horaLimite}`,
       );
       const ahora = new Date();
       const diferencia = fechaLimite.getTime() - ahora.getTime();
@@ -52,7 +53,7 @@ export const Timer = () => {
       console.error("Error calculando tiempo restante:", error);
       return { days: 0, hours: 0, minutes: 0, seconds: 0, total: 0 };
     }
-  }, [dataUser?.fLimite, dataUser?.horaLimite]);
+  }, [userInfo?.fLimite, userInfo?.horaLimite]);
 
   useEffect(() => {
     const updateTimer = () => {
@@ -64,7 +65,7 @@ export const Timer = () => {
 
     const interval = setInterval(updateTimer, 1000);
     return () => clearInterval(interval);
-  }, [dataUser?.fLimite, dataUser?.horaLimite, calculateTimeRemaining]);
+  }, [userInfo?.fLimite, userInfo?.horaLimite, calculateTimeRemaining]);
 
   const isWithinTimeLimit = (): boolean => {
     return timeRemaining.total > 0;
@@ -139,13 +140,15 @@ export const Timer = () => {
             </div>
           )}
 
-          <p
-            className={`text-xs ${
-              isTimeExpired ? "text-red-600" : "text-green-600"
-            }`}
-          >
-            Límite: {dataUser?.fLimite} {dataUser?.horaLimite}
-          </p>
+          {userInfo?.fLimite && userInfo?.horaLimite && (
+            <p
+              className={`text-xs ${
+                isTimeExpired ? "text-red-600" : "text-green-600"
+              }`}
+            >
+              {`Límite: ${userInfo?.fLimite} ${userInfo?.horaLimite}`}
+            </p>
+          )}
         </div>
       </Card>
     </section>

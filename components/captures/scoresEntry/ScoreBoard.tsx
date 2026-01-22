@@ -6,7 +6,7 @@ interface ScoreBoardProps {
   handleScoreChange: (
     partido: number,
     team: "away" | "home",
-    value: string
+    value: string,
   ) => void;
 }
 
@@ -29,7 +29,7 @@ export const ScoreBoard = ({
 
   return (
     <div className="grid lg:grid-cols-2 max-w-[1280px] mx-auto px-10 py-8 gap-4">
-      {gameResults.map((game, index) => (
+      {gameResults?.map((game, index) => (
         <ScoreCard
           key={index}
           game={game}

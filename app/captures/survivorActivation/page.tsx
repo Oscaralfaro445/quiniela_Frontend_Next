@@ -6,7 +6,7 @@ import { usePostSurvivorActivation } from "@/hooks/survivorActivation/mutations/
 import { Button } from "@/components/shared/button/Button";
 import { Card } from "@/components/shared/card/Card";
 import { TeamLogo } from "@/components/shared/teamLogo/TeamLogo";
-import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
+import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
 
 export default function SurvivorActivationPage() {
   const { isPending, isError, isSuccess, data } = useGetSurvivorStatus();
@@ -14,13 +14,13 @@ export default function SurvivorActivationPage() {
 
   const handleSurvivorActivation = () => {
     survivorActivation.mutate({
-      idEquipo: data.data[0].idEquipoSuv,
-      bResucita: !data.data[0].bResucita,
+      idEquipo: data?.data?.[0]?.idEquipoSuv,
+      bResucita: !data?.data?.[0]?.bResucita,
     });
   };
 
   return (
-    <div className="flex flex-col h-screen justify-center">
+    <div className="min-h-screen pt-16">
       <PageHeader
         title="Gestión de Activación de Survivor"
         text="Aquí podrás darle una segunda oportunidad a tu survivor"
@@ -44,17 +44,17 @@ export default function SurvivorActivationPage() {
             <p className="text-neutral-600">Error al cargar los datos...</p>
           )}
 
-          {isSuccess && data.data.length > 0 ? (
+          {isSuccess && data?.data?.length > 0 ? (
             <div className="flex flex-wrap items-center justify-between p-4 border border-gray-400 rounded-lg hover:bg-gray-50 transition-colors">
               <div className="flex gap-4 items-center">
-                <TeamLogo teamName={data.data[0].nomEquipo} />
+                <TeamLogo teamName={data?.data?.[0].nomEquipo} />
 
                 <div>
                   <h3 className="font-semibold text-neutral-700">
-                    {data.data[0].nomEquipo}
+                    {data?.data?.[0].nomEquipo}
                   </h3>
                   <p className="text-sm text-neutral-600">
-                    {`ID: ${data.data[0].idEquipoSuv}`}
+                    {`ID: ${data?.data?.[0].idEquipoSuv}`}
                   </p>
                 </div>
               </div>
@@ -62,7 +62,7 @@ export default function SurvivorActivationPage() {
               <div className="flex items-center space-x-4">
                 <div className="flex flex-col text-right">
                   <p className="font-semibold text-lg text-neutral-700">
-                    ${data.data[0].costoSurvivor}
+                    ${data?.data?.[0].costoSurvivor}
                   </p>
 
                   <p className="text-sm text-neutral-600">Costo</p>

@@ -72,6 +72,5 @@ export const usePostUser = () => {
         window.location.href = "/login";
       }, 2000);
     },
-    onSettled: () => {},
   });
 };

@@ -10,7 +10,7 @@ export default function LoginPage() {
       <div className="grid w-full max-w-[768px] mx-auto px-4 py-8 gap-4 lg:border border-neutral-300 rounded-xl lg:shadow-xs">
         <div className="grid gap-2 justify-items-center items-center">
           <Image
-            src="/images/logoNFL.gif"
+            src="/images/logoNFL.png"
             alt="Logo NFL"
             width={50}
             height={50}

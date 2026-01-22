@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { StandingsGridSimulator } from "./StandingsGridSimulator";
-import { ParticipantStatistics } from "@/types/participantStatistics/participantStatistics";
-import { PeriodTabs } from "../standings/PeriodTabs";
 import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
+import { ParticipantStatistics } from "@/types/participantStatistics/participantStatistics";
+import { DataUser } from "@/types/user/dataUser";
+import { StandingsGridSimulator } from "./StandingsGridSimulator";
+import { PeriodTabs } from "../standings/PeriodTabs";
 
 type TabType = "weekly" | "global";
 
@@ -25,12 +26,11 @@ interface StandingsSimulatorProps {
 export const StandingsSimulator = ({
   quinielaAlta,
 }: StandingsSimulatorProps) => {
-  const { data: me } = useGetMe();
-
-  const dataUser = me?.data;
+  const { data: user } = useGetMe();
+  const userInfo: DataUser = user?.data?.[0];
   const { isPending, isError, isSuccess, data } = quinielaAlta;
   const participantData = data?.[0];
-  const currentWeek = dataUser?.idPeriodo;
+  const currentWeek = userInfo?.idPeriodo;
   const weeklyLeaderboard: ParticipantStatistics[] =
     participantData?.puntosPeriodo;
   const globalLeaderboard: ParticipantStatistics[] =

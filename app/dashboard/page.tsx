@@ -7,26 +7,27 @@ import { UpcomingGamesCard } from "@/components/dashboard/UpcomingGamesCard";
 import { SurvivorCard } from "@/components/dashboard/SurvivorCard";
 import { AccumulatedBagCard } from "@/components/dashboard/AccumulatedBagCard";
 import { SeasonProgressCard } from "@/components/dashboard/SeasonProgressCard";
-import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
+import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
 import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
+import { DataUser } from "@/types/user/dataUser";
 
 export default function DashboardPage() {
-  const { isLoading, isError, data, error } = useGetMe();
-  const currentWeek = "17";
+  const { data: user } = useGetMe();
+  const userInfo: DataUser = user?.data[0];
 
   return (
     <div className="pt-16">
       <PageHeader
-        title={`¡Bienvenido de vuelta ${""}!`}
+        title={`¡Bienvenido de vuelta ${userInfo?.nombreCompleto}!`}
         text="Aquí tienes un resumen de tu rendimiento en la temporada."
       />
 
-      <StatisticsCard currentWeek={currentWeek ?? ""} />
+      <StatisticsCard />
 
       <Timer />
 
       <div className="grid lg:grid-cols-2 w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 ">
-        <SwiftActionsCard currentWeek={currentWeek ?? ""} />
+        <SwiftActionsCard />
 
         <AccumulatedBagCard />
 
@@ -34,7 +35,7 @@ export default function DashboardPage() {
 
         <SurvivorCard />
 
-        <UpcomingGamesCard currentWeek={currentWeek ?? ""} />
+        <UpcomingGamesCard />
       </div>
     </div>
   );

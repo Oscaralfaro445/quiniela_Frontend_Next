@@ -2,6 +2,8 @@ import { axiosInstance } from "@/hooks/axios/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
 import { AlertState } from "@/types/alert/alert";
 import { useAlert } from "@/context/alert/AlertContext";
+import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
+import { DataUser } from "@/types/user/dataUser";
 
 const postSurvivorTeam = async (payload: {
   idProceso: number;
@@ -22,6 +24,8 @@ const postSurvivorTeam = async (payload: {
 };
 
 export const usePostSurvivorTeam = () => {
+  const { data: user } = useGetMe();
+  const userInfo: DataUser = user?.data?.[0];
   const { showAlert } = useAlert();
 
   return useMutation({
@@ -31,9 +35,9 @@ export const usePostSurvivorTeam = () => {
         idProceso: 2,
         model: "Q_SURVIVOR",
         data: {
-          ID_QUINIELA: 1,
-          ID_PARTICIPANTE: 3,
-          ID_PERIODO: "2",
+          ID_QUINIELA: userInfo?.idQuiniela,
+          ID_PARTICIPANTE: userInfo?.idParticipante,
+          ID_PERIODO: userInfo?.idPeriodo,
           ID_EQUIPO_SUV: idSurvivor,
           SITUACION: "P",
           SITUACION_R: "",
@@ -44,8 +48,8 @@ export const usePostSurvivorTeam = () => {
     onError: () => {
       showAlert(
         AlertState.ERROR,
-        "Error de autenticación",
-        "Usuario o contraseña incorrectos",
+        "Error al procesar la solicitud",
+        "Tuvimos un problema al registrar al usuario",
       );
     },
     onSuccess: () => {

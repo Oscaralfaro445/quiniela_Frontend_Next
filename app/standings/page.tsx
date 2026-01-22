@@ -8,19 +8,20 @@ import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
 import { ParticipantStatistics } from "@/types/participantStatistics/participantStatistics";
 import { Button } from "@/components/shared/button/Button";
 import { StatisticsCard } from "@/components/standings/StatisticsCard";
-import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
+import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
 import { PeriodTabs } from "@/components/standings/PeriodTabs";
 import { StandingsCard } from "@/components/standings/StandingsCard";
+import { DataUser } from "@/types/user/dataUser";
 
 export type TabType = "weekly" | "global";
 
 export default function StandingsPage() {
   const router = useRouter();
-  const { data: me } = useGetMe();
-  const dataUser = me?.data;
-  const { isPending, isError, isSuccess, data } = useGetParticipantPositions();
+  const { data: user } = useGetMe();
+  const userInfo: DataUser = user?.data?.[0];
+  const { isPending, isError, data } = useGetParticipantPositions();
   const participantData = data?.data[0];
-  const currentWeek = dataUser?.idPeriodo;
+  const currentWeek = userInfo?.idPeriodo;
   const weeklyLeaderboard: ParticipantStatistics[] =
     participantData?.puntosPeriodo;
   const globalLeaderboard: ParticipantStatistics[] =
@@ -28,7 +29,7 @@ export default function StandingsPage() {
   const [activeTab, setActiveTab] = useState<TabType>("weekly");
 
   return (
-    <div className="pt-18">
+    <div className="min-h-screen pt-18">
       <PageHeader
         title="Clasificación"
         text="Consulta las posiciones semanales y globales de todos los participantes"
@@ -48,7 +49,6 @@ export default function StandingsPage() {
             period={`semana ${currentWeek}`}
             isPending={isPending}
             isError={isError}
-            isSuccess={isSuccess}
             leaderboard={weeklyLeaderboard}
           />
         )}
@@ -59,7 +59,6 @@ export default function StandingsPage() {
               period="global"
               isPending={isPending}
               isError={isError}
-              isSuccess={isSuccess}
               leaderboard={globalLeaderboard}
             />
           </div>

@@ -11,8 +11,8 @@ interface SidebarProps {
 
 export const Sidebar = ({ toggleSidebar, isSidebarOpen }: SidebarProps) => {
   const currentRoute = usePathname();
-  const menu = useGetMenu();
-  const menuData = menu?.data?.data[0];
+  const { data } = useGetMenu();
+  const menuData = data?.data?.[0];
 
   return (
     <div

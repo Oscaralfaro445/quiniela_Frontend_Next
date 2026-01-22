@@ -2,7 +2,7 @@ export interface DataUser {
   cveUsuario: string;
   cveIdioma: string;
   cvePerfil: string;
-  nombre: string;
+  nombreCompleto: string;
   idQuiniela: number;
   idParticipante: number;
   idPeriodo: string;

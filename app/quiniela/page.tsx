@@ -18,34 +18,35 @@ import { Title } from "@/components/shared/text/Title";
 import { TextBody } from "@/components/shared/text/TextBody";
 import { SurvivorSelector } from "@/components/quiniela/SurvivorSelector";
 import { Icon } from "@/components/shared/icon/Icon";
-import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
+import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
 import { QuinielaProgressBarCard } from "@/components/quiniela/QuinielaProgressCard";
+import { DataUser } from "@/types/user/dataUser";
 
 export default function QuinielaPage() {
-  const { data: me } = useGetMe();
-  const dataUser = me?.data;
+  const { isPending, isError, data, error } = useGetMatches();
+  const { data: user } = useGetMe();
+  const userInfo: DataUser = user?.data?.[0];
+  const currentWeek = userInfo?.idPeriodo;
   const { showAlert } = useAlert();
-  const { isPending, isError, isSuccess, data } = useGetMatches();
   const survivorAlta = usePostSurvivorTeam();
   const quinielaAlta = usePostQuiniela();
-  const currentWeek = dataUser?.idPeriodo;
   const isQuinielaEnabled =
     data?.data[0]?.extraData?.bQuiniela === 1 ? false : true;
 
   const [selectedSurvivor, setSelectedSurvivor] = useState<number>(0);
   const [quinielaData, setQuinielaData] = useState<QuinielaItem[]>([]);
   const totalGames = data?.data[0]?.quiniela?.length || 0;
-  const completedPicks = quinielaData.filter(
+  const completedPicks = quinielaData?.filter(
     (game) => game.partGanador !== " ",
   ).length;
 
   useEffect(() => {
-    if (isSuccess) {
+    if (data?.data) {
       const quinielaInitialData = data.data[0].quiniela;
       setSelectedSurvivor(0);
       setQuinielaData(quinielaInitialData);
     }
-  }, [isSuccess, data]);
+  }, [data]);
 
   const handleChangeSurvivor = (
     event: React.ChangeEvent<HTMLSelectElement>,
@@ -67,7 +68,7 @@ export default function QuinielaPage() {
   const handleSubmit = () => {
     const fechaActual = new Date();
     const fechaLimite = new Date(
-      `${dataUser?.fLimite}T${dataUser?.horaLimite}`,
+      `${userInfo?.fLimite}T${userInfo?.horaLimite}`,
     );
 
     if (!isQuinielaEnabled) {
@@ -80,7 +81,7 @@ export default function QuinielaPage() {
       return;
     }
 
-    if (dataUser?.bSurvivor) {
+    if (userInfo?.bSurvivor) {
       if (selectedSurvivor < 1 || completedPicks !== totalGames) {
         showAlert(
           AlertState.WARNING,
@@ -112,14 +113,14 @@ export default function QuinielaPage() {
     }
 
     const quinielaDataUpdated = quinielaData.map((game: QuinielaItem) => ({
-      ID_QUINIELA: dataUser!.idQuiniela,
-      ID_PARTICIPANTE: dataUser!.idParticipante,
-      ID_PERIODO: dataUser!.idPeriodo,
+      ID_QUINIELA: userInfo!.idQuiniela,
+      ID_PARTICIPANTE: userInfo!.idParticipante,
+      ID_PERIODO: userInfo!.idPeriodo,
       ID_PARTIDO: game.Partido,
       CVE_GANADOR: game.partGanador,
     }));
 
-    if (dataUser?.bSurvivor && selectedSurvivor > 0) {
+    if (userInfo?.bSurvivor && selectedSurvivor > 0) {
       survivorAlta.mutate(selectedSurvivor);
     }
     quinielaAlta.mutate(quinielaDataUpdated);
@@ -168,11 +169,11 @@ export default function QuinielaPage() {
 
           {isPending && <p>Loading...</p>}
 
-          {isError && <p>Error al cargar los datos...</p>}
+          {isError && <p>Error al cargar los datos... {error?.message}</p>}
 
-          {isSuccess && (
+          {
             <div className="grid lg:grid-cols-2 py-4 gap-4 overflow-y-auto max-h-[600px] ">
-              {quinielaData.map((game: QuinielaItem) => (
+              {quinielaData?.map((game: QuinielaItem) => (
                 <GroupRadio
                   key={game.Partido}
                   disabled={!isQuinielaEnabled}
@@ -182,11 +183,11 @@ export default function QuinielaPage() {
                 />
               ))}
             </div>
-          )}
+          }
         </Card>
       </div>
 
-      {dataUser?.bSurvivor && (
+      {userInfo?.bSurvivor && (
         <SurvivorSelector
           disabled={!isQuinielaEnabled}
           selectedSurvivor={selectedSurvivor}

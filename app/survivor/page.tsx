@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/shared/button/Button";
 import { SurvivorReportCard } from "@/components/survivor/SurvivorReportCard";
-import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
+import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
 
 export default function SurvivorPage() {
   return (

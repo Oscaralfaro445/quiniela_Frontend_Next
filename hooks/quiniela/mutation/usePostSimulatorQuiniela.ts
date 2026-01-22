@@ -1,4 +1,6 @@
 import { axiosInstance } from "@/hooks/axios/axiosInstance";
+import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
+import { DataUser } from "@/types/user/dataUser";
 import { useMutation } from "@tanstack/react-query";
 
 const postQuinielaSimulator = async (payload: {
@@ -15,6 +17,9 @@ const postQuinielaSimulator = async (payload: {
 };
 
 export const usePostSimulatorQuiniela = () => {
+  const { data: user } = useGetMe();
+  const userInfo: DataUser = user?.data?.[0];
+
   return useMutation({
     mutationKey: ["quiniela-simulator"],
     mutationFn: (quinielaDataSimulated: string) =>
@@ -22,8 +27,8 @@ export const usePostSimulatorQuiniela = () => {
         idProceso: 17,
         idProcedure: 8,
         parmRemp: {
-          $1: 1,
-          $2: "2",
+          $1: userInfo?.idQuiniela,
+          $2: userInfo?.idPeriodo,
           $3: quinielaDataSimulated,
         },
       }),

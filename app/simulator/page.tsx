@@ -14,25 +14,26 @@ import { TextBody } from "@/components/shared/text/TextBody";
 import { Modal } from "@/components/shared/modal/Modal";
 import { StandingsSimulator } from "@/components/simulator/StandingsSimulator";
 import { GroupRadioSimulator } from "@/components/simulator/GroupRadioSimulator";
-import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
+import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
 import { QuinielaProgressBarCard } from "@/components/quiniela/QuinielaProgressCard";
+import { DataUser } from "@/types/user/dataUser";
 
 export default function SimulatorPage() {
-  const { data: me } = useGetMe();
-  const dataUser = me?.data;
-  const { isPending, isError, isSuccess, data } = useGetSimulatorMatches();
-  const quinielaAlta = usePostSimulatorQuiniela();
-  const currentWeek = dataUser?.idPeriodo;
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [quinielaData, setQuinielaData] = useState<QuinielaItem[]>([]);
+  const { isPending, isError, data, error } = useGetSimulatorMatches();
+  const quinielaAlta = usePostSimulatorQuiniela();
+  const { data: user } = useGetMe();
+  const userInfo: DataUser = user?.data?.[0];
+  const currentWeek = userInfo?.idPeriodo;
   const totalGames = data?.data?.length || 0;
+
   const completedPicks = quinielaData.filter(
     (game) => game.partGanador !== " ",
   ).length;
 
   useEffect(() => {
-    if (isSuccess && data.data) {
+    if (data?.data) {
       const quinielaInitialData = data.data.map(
         (game: SimulatedQuinielaData[]) => ({
           ...game,
@@ -41,7 +42,7 @@ export default function SimulatorPage() {
       );
       setQuinielaData(quinielaInitialData);
     }
-  }, [isSuccess, data]);
+  }, [data]);
 
   const handleChangeQuiniela = (idGame: number, team: string) => {
     setQuinielaData((prev) => {
@@ -60,7 +61,7 @@ export default function SimulatorPage() {
 
   const handleSubmit = () => {
     const quinielaDataUpdated = quinielaData.map((game: QuinielaItem) => ({
-      ID_PERIODO: dataUser!.idPeriodo,
+      ID_PERIODO: userInfo!.idPeriodo,
       ID_PARTIDO: game.Partido,
       CVE_GANADOR: game.partGanador,
     }));
@@ -92,9 +93,9 @@ export default function SimulatorPage() {
 
           {isPending && <p>Cargando...</p>}
 
-          {isError && <p>Error al cargar los datos...</p>}
+          {isError && <p>Error al cargar los datos... {error?.message}</p>}
 
-          {isSuccess && quinielaData && (
+          {quinielaData && (
             <div className="grid lg:grid-cols-2 gap-4">
               {quinielaData.map((game: QuinielaItem) => (
                 <GroupRadioSimulator

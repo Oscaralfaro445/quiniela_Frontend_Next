@@ -1,7 +1,9 @@
 import { axiosInstance } from "@/hooks/axios/axiosInstance";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAlert } from "@/context/alert/AlertContext";
+import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
+import { DataUser } from "@/types/user/dataUser";
 import { AlertState } from "@/types/alert/alert";
+import { useAlert } from "@/context/alert/AlertContext";
 import { useHandleRequestStatus } from "@/utils/showRequestStatus/showRequestStatus";
 
 const postSurvivorActivation = async (payload: {
@@ -20,6 +22,8 @@ const postSurvivorActivation = async (payload: {
 };
 
 export const usePostSurvivorActivation = () => {
+  const { data: user } = useGetMe();
+  const userInfo: DataUser = user?.data?.[0];
   const queryClient = useQueryClient();
   const { showAlert } = useAlert();
   const { handleRequestStatus } = useHandleRequestStatus();
@@ -37,9 +41,9 @@ export const usePostSurvivorActivation = () => {
         idProceso: 6,
         model: "Q_SURVIVOR",
         data: {
-          ID_QUINIELA: 1,
-          ID_PARTICIPANTE: 3,
-          ID_PERIODO: "2",
+          ID_QUINIELA: userInfo?.idQuiniela,
+          ID_PARTICIPANTE: userInfo?.idParticipante,
+          ID_PERIODO: userInfo?.idPeriodo,
           ID_EQUIPO_SUV: idEquipo,
           B_RESUCITA: bResucita,
         },

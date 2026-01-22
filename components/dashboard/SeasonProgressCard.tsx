@@ -3,7 +3,10 @@ import { Card } from "../shared/card/Card";
 import { ProgressBar } from "../shared/progressBar/ProgressBar";
 
 export const SeasonProgressCard = () => {
-  const { isPending, isError, isSuccess, data } = useGetPrecision();
+  const { isPending, isError, data, error } = useGetPrecision();
+  const targetInfo = data?.data?.[0]?.Dashboard_1?.[0];
+  const porcentTotal = targetInfo?.posicionTotal?.pjeTemporada || 0;
+  const matchesTotal = targetInfo?.posicionTotal?.partidosTemporada || 0;
 
   return (
     <Card>
@@ -16,39 +19,27 @@ export const SeasonProgressCard = () => {
 
       {isPending && <p>Cargando...</p>}
 
-      {isError && <p>Error al cargar los datos...</p>}
+      {isError && <p>Error al cargar los datos... {error?.message}</p>}
 
-      {isSuccess && (
-        <div>
-          <div className="flex justify-between text-sm mb-2">
-            <p className="text-neutral-600">Precisión general</p>
-            <p className="font-medium text-neutral-600">
-              {`${Math.trunc(
-                data.data[0].Dashboard_1[0].posicionTotal.pjeTemporada
-              )} %`}
-            </p>
-          </div>
-
-          <ProgressBar
-            max={100}
-            value={Math.trunc(
-              data.data[0].Dashboard_1[0].posicionTotal.pjeTemporada
-            )}
-          />
-
-          <div className="flex justify-between text-sm mb-2">
-            <p className="text-neutral-600">Juegos completados</p>
-            <p className="font-medium text-neutral-600">
-              {`${data.data[0].Dashboard_1[0].posicionTotal.partidosTemporada} / ${data.data[0].Dashboard_1[0].posicionTotal.partidosTemporada}`}
-            </p>
-          </div>
-
-          <ProgressBar
-            max={data.data[0].Dashboard_1[0].posicionTotal.partidosTemporada}
-            value={data.data[0].Dashboard_1[0].posicionTotal.partidosTemporada}
-          />
+      <div>
+        <div className="flex justify-between text-sm mb-2">
+          <p className="text-neutral-600">Precisión general</p>
+          <p className="font-medium text-neutral-600">
+            {`${Math.trunc(porcentTotal)} %`}
+          </p>
         </div>
-      )}
+
+        <ProgressBar max={100} value={Math.trunc(porcentTotal)} />
+
+        <div className="flex justify-between text-sm mb-2">
+          <p className="text-neutral-600">Juegos completados</p>
+          <p className="font-medium text-neutral-600">
+            {`${matchesTotal} / ${matchesTotal}`}
+          </p>
+        </div>
+
+        <ProgressBar max={matchesTotal} value={matchesTotal} />
+      </div>
     </Card>
   );
 };

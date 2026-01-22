@@ -1,13 +1,15 @@
+import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
+import { DataUser } from "@/types/user/dataUser";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";
 import { PrescisionCard } from "./statistics/PrecisionCard";
 import { RankingCard } from "./statistics/RankingCard";
 
-interface StatisticsCard {
-  currentWeek: string;
-}
+export const StatisticsCard = () => {
+  const { data: user } = useGetMe();
+  const userInfo: DataUser = user?.data?.[0];
+  const currentWeek = userInfo?.idPeriodo;
 
-export const StatisticsCard = ({ currentWeek }: StatisticsCard) => {
   return (
     <section className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4">
       <PrescisionCard />

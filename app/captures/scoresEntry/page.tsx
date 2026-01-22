@@ -9,13 +9,14 @@ import { GameResult } from "@/types/gameResult/gameResult";
 import { Button } from "@/components/shared/button/Button";
 import { StatisticsCard } from "@/components/scores/StatisticsCard";
 import { ScoreBoard } from "@/components/captures/scoresEntry/ScoreBoard";
-import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
+import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
+import { DataUser } from "@/types/user/dataUser";
 
 export default function ScoresEntryPage() {
-  const { data: me } = useGetMe();
-  const dataUser = me?.data;
   const { isPending, isError, isSuccess, data } = useGetMarkers();
   const markersUpdate = usePostMarkers();
+  const { data: user } = useGetMe();
+  const dataUser: DataUser = user?.data?.[0];
   const week = dataUser?.idPeriodo;
 
   const [gameResults, setGameResults] = useState<GameResult[]>([]);

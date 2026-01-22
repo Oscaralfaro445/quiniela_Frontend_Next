@@ -1,5 +1,6 @@
 import { axiosInstance } from "@/hooks/axios/axiosInstance";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 const logout = async () => {
   const response = await axiosInstance.post("/Login/Logout");
@@ -7,6 +8,7 @@ const logout = async () => {
 };
 
 export const useLogout = () => {
+  const router = useRouter();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -14,8 +16,8 @@ export const useLogout = () => {
     mutationFn: () => logout(),
     onSuccess: (data) => {
       if (data.estatus === 1) {
-        queryClient.invalidateQueries({ queryKey: ["getMe"] });
-        window.location.href = "/";
+        queryClient.removeQueries();
+        router.push("/");
       }
     },
   });

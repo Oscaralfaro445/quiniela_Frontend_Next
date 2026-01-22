@@ -49,6 +49,5 @@ export const usePostMarkers = () => {
         mensajeExito: "Actualización de marcadores realizada de forma correcta",
       });
     },
-    onSettled: () => {},
   });
 };

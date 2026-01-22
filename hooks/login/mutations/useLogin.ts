@@ -1,6 +1,7 @@
 import { axiosInstance } from "@/hooks/axios/axiosInstance";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { LoginFormValues, PostLoginData } from "@/types/login/login";
+import { useRouter } from "next/navigation";
 
 const login = async (payload: PostLoginData) => {
   const response = await axiosInstance.post("/Login/Autentica", payload);
@@ -8,6 +9,7 @@ const login = async (payload: PostLoginData) => {
 };
 
 export const useLogin = () => {
+  const router = useRouter();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -22,7 +24,7 @@ export const useLogin = () => {
     onSuccess: (data) => {
       if (data.estatus === 1) {
         queryClient.invalidateQueries({ queryKey: ["getMe"] });
-        window.location.href = "/dashboard";
+        router.push("/dashboard");
       }
     },
   });

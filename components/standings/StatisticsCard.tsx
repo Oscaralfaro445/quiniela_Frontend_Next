@@ -4,16 +4,17 @@ import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
 import { ParticipantStatistics } from "@/types/participantStatistics/participantStatistics";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";
+import { DataUser } from "@/types/user/dataUser";
 
 interface StatisticsCardProps {
   activeTab: "weekly" | "global";
 }
 
 export const StatisticsCard = ({ activeTab }: StatisticsCardProps) => {
-  const { data: me } = useGetMe();
-  const dataUser = me?.data;
   const { data } = useGetParticipantPositions();
   const { data: precisionData } = useGetPrecision();
+  const { data: user } = useGetMe();
+  const userInfo: DataUser = user?.data?.[0];
 
   return (
     <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4">
@@ -46,29 +47,29 @@ export const StatisticsCard = ({ activeTab }: StatisticsCardProps) => {
             <div className="text-2xl font-bold text-gray-900">
               {activeTab === "weekly"
                 ? (Math.trunc(
-                    precisionData?.data[0].Dashboard_1[0].posicionPeriodo
-                      .pjeSemana,
+                    precisionData?.data?.[0]?.Dashboard_1[0]?.posicionPeriodo
+                      ?.pjeSemana,
                   ) ?? 0)
                 : (Math.trunc(
-                    precisionData?.data[0].Dashboard_1[0].posicionTotal
-                      .pjeTemporada,
+                    precisionData?.data?.[0]?.Dashboard_1[0]?.posicionTotal
+                      ?.pjeTemporada,
                   ) ?? 0)}
               %
             </div>
 
             <p className="text-xs text-gray-600">
               {activeTab === "weekly"
-                ? precisionData?.data[0].Dashboard_1[0].posicionPeriodo
-                    .puntosPeriodo +
+                ? precisionData?.data?.[0]?.Dashboard_1[0]?.posicionPeriodo
+                    ?.puntosPeriodo +
                   "/" +
-                  precisionData?.data[0].Dashboard_1[0].posicionPeriodo
-                    .partidosPeriodo +
+                  precisionData?.data?.[0]?.Dashboard_1?.[0]?.posicionPeriodo
+                    ?.partidosPeriodo +
                   " correctas"
-                : precisionData?.data[0].Dashboard_1[0].posicionTotal
-                    .puntosTemporada +
+                : precisionData?.data?.[0]?.Dashboard_1[0]?.posicionTotal
+                    ?.puntosTemporada +
                   "/" +
-                  precisionData?.data[0].Dashboard_1[0].posicionTotal
-                    .partidosTemporada +
+                  precisionData?.data?.[0]?.Dashboard_1[0]?.posicionTotal
+                    ?.partidosTemporada +
                   " correctas"}
             </p>
           </div>
@@ -86,11 +87,11 @@ export const StatisticsCard = ({ activeTab }: StatisticsCardProps) => {
             activeTab === "weekly"
               ? (data?.data[0]?.puntosPeriodo?.find(
                   (item: ParticipantStatistics) =>
-                    item.ID_PARTICIPANTE === dataUser?.idParticipante,
+                    item.ID_PARTICIPANTE === userInfo?.idParticipante,
                 )?.Posicion ?? "0")
               : (data?.data[0]?.puntosTotal?.find(
                   (item: ParticipantStatistics) =>
-                    item.ID_PARTICIPANTE === dataUser?.idParticipante,
+                    item.ID_PARTICIPANTE === userInfo?.idParticipante,
                 )?.Posicion ?? "0")
           }`}</div>
           <p className="text-xs text-gray-600">{`de ${
