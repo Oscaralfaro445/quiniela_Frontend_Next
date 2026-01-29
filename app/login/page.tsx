@@ -9,12 +9,15 @@ export default function LoginPage() {
     <div className="flex min-h-screen pt-16 items-center">
       <div className="grid w-full max-w-[768px] mx-auto px-4 py-8 gap-4 lg:border border-neutral-300 rounded-xl lg:shadow-xs">
         <div className="grid gap-2 justify-items-center items-center">
-          <Image
-            src="/images/logoNFL.png"
-            alt="Logo NFL"
-            width={50}
-            height={50}
-          />
+          <div className="relative w-20 h-20">
+            <Image
+              className="object-contain"
+              fill
+              src="/images/logos/logoNFL.jpg"
+              alt="Logo NFL"
+              unoptimized
+            />
+          </div>
           <Title className="text-center" title="Iniciar Sesión" color="blue" />
           <TextBody
             className="text-center"

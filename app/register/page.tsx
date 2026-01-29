@@ -13,12 +13,12 @@ export default function RegisterPage() {
 
   return (
     <>
-      {mutation.isIdle ||
+      {/* {mutation.isIdle ||
       mutation.isError ||
       !mutation.data?.data[0].bExisteQuin ? (
         <KeyValidationSection onValidated={handleValidated} />
-      ) : null}
-      {mutation.isSuccess && (
+      ) : null} */}
+      {true && (
         <RegisterSection idQuiniela={mutation.data?.data[0]?.idQuiniela} />
       )}
     </>

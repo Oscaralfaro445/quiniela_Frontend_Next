@@ -3,7 +3,7 @@ export interface LoginFormValues {
   password: string;
 }
 
-export interface PostLoginData extends LoginFormValues {
+export interface LoginProps extends LoginFormValues {
   idProceso: number;
   cveAplicacion: string;
 }

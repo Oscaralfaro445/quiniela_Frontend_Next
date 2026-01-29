@@ -1,9 +1,9 @@
 import { axiosInstance } from "@/hooks/axios/axiosInstance";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { LoginFormValues, PostLoginData } from "@/types/login/login";
+import { LoginFormValues, LoginProps } from "@/types/login/login";
 import { useRouter } from "next/navigation";
 
-const login = async (payload: PostLoginData) => {
+const login = async (payload: LoginProps) => {
   const response = await axiosInstance.post("/Login/Autentica", payload);
   return response.data;
 };

@@ -37,7 +37,7 @@ export const ScoreBoard = ({ gameResults }: ScoreBoardProps) => {
 
   return (
     <>
-      <div className="grid lg:grid-cols-2 max-w-[1280px] mx-auto px-10 py-8 gap-4">
+      <div className="grid lg:grid-cols-2 gap-4">
         {gameResults.map((game, index) => (
           <ScoreCard
             key={index}

@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useGetSimulatorMatches } from "@/hooks/matches/queries/useGetSimulatorMatches";
-import { usePostSimulatorQuiniela } from "@/hooks/quiniela/mutation/usePostSimulatorQuiniela";
+import { useGetSimulatorMatches } from "@/hooks/quiniela/queries/useGetSimulatorMatches";
+import { usePostSimulatorQuiniela } from "@/hooks/quiniela/mutations/usePostSimulatorQuiniela";
 import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
 import { SimulatedQuinielaData } from "@/types/SimulatedQuinielaData/simulatedQuinielaData";
 import { QuinielaItem } from "@/types/quiniela/quinielaItem";

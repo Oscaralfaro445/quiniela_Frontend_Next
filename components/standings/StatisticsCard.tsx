@@ -5,9 +5,10 @@ import { ParticipantStatistics } from "@/types/participantStatistics/participant
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";
 import { DataUser } from "@/types/user/dataUser";
+import { TabType } from "../shared/tabs/TabSelector";
 
 interface StatisticsCardProps {
-  activeTab: "weekly" | "global";
+  activeTab: TabType;
 }
 
 export const StatisticsCard = ({ activeTab }: StatisticsCardProps) => {
@@ -17,7 +18,7 @@ export const StatisticsCard = ({ activeTab }: StatisticsCardProps) => {
   const userInfo: DataUser = user?.data?.[0];
 
   return (
-    <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4">
+    <div className="grid lg:flex gap-4">
       <Card className="border-gray-200">
         <div className="flex flex-row items-center justify-between space-y-0 pb-2">
           <div className="text-sm font-medium text-gray-600">
@@ -45,7 +46,7 @@ export const StatisticsCard = ({ activeTab }: StatisticsCardProps) => {
         {true && (
           <div className="grid gap-1">
             <div className="text-2xl font-bold text-gray-900">
-              {activeTab === "weekly"
+              {activeTab === 0
                 ? (Math.trunc(
                     precisionData?.data?.[0]?.Dashboard_1[0]?.posicionPeriodo
                       ?.pjeSemana,
@@ -58,7 +59,7 @@ export const StatisticsCard = ({ activeTab }: StatisticsCardProps) => {
             </div>
 
             <p className="text-xs text-gray-600">
-              {activeTab === "weekly"
+              {activeTab === 0
                 ? precisionData?.data?.[0]?.Dashboard_1[0]?.posicionPeriodo
                     ?.puntosPeriodo +
                   "/" +
@@ -84,7 +85,7 @@ export const StatisticsCard = ({ activeTab }: StatisticsCardProps) => {
 
         <div>
           <div className="text-2xl font-bold text-gray-900">{`#${
-            activeTab === "weekly"
+            activeTab === 0
               ? (data?.data[0]?.puntosPeriodo?.find(
                   (item: ParticipantStatistics) =>
                     item.ID_PARTICIPANTE === userInfo?.idParticipante,
@@ -95,7 +96,7 @@ export const StatisticsCard = ({ activeTab }: StatisticsCardProps) => {
                 )?.Posicion ?? "0")
           }`}</div>
           <p className="text-xs text-gray-600">{`de ${
-            activeTab === "weekly"
+            activeTab === 0
               ? (data?.data[0]?.puntosPeriodo?.length ?? "0")
               : (data?.data[0]?.puntosTotal?.length ?? "0")
           } participantes`}</p>

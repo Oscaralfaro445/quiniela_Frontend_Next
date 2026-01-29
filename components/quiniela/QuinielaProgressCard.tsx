@@ -1,5 +1,5 @@
-import { Card } from "../shared/card/Card";
 import { ProgressBar } from "../shared/progressBar/ProgressBar";
+import { Card } from "../shared/card/Card";
 
 interface QuinielaProgressBarCardProps {
   title?: string;
@@ -15,20 +15,17 @@ export const QuinielaProgressBarCard = ({
   value,
 }: QuinielaProgressBarCardProps) => {
   return (
-    <div className="max-w-[1280px] mx-auto px-10 py-8">
-      <Card>
-        <div className="flex flex-col gap-2 pb-2">
-          <p className="text-lg text-blue-600 font-semibold">{title}</p>
+    <Card>
+      <div className="flex flex-col gap-2">
+        <p className="text-lg text-blue-600 font-semibold">{title}</p>
 
-          <div className="flex gap-2 justify-between">
-            <p className=" text-sm text-neutral-600">{description}</p>
+        <div className="flex gap-2 justify-between">
+          <p className=" text-sm text-neutral-600">{description}</p>
 
-            <p className="text-sm">{`${value}/${max}`}</p>
-          </div>
+          <p className="text-sm">{`${value}/${max}`}</p>
         </div>
-
-        <ProgressBar value={value} max={max} />
-      </Card>
-    </div>
+      </div>
+      <ProgressBar value={value} max={max} />
+    </Card>
   );
 };

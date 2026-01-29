@@ -74,83 +74,81 @@ export const Timer = () => {
   const isTimeExpired = !isWithinTimeLimit();
 
   return (
-    <section className="w-full max-w-[1280px] mx-auto px-10 py-8">
-      <Card
-        className={`${isTimeExpired ? "border-red-500" : "border-green-500"}`}
-      >
-        <div className="flex flex-col items-center gap-2">
-          <div className="flex items-center gap-2">
-            <Icon name={isTimeExpired ? "clock-alert" : "clock"} />
+    <Card
+      className={`${isTimeExpired ? "border-red-500" : "border-green-500"}`}
+    >
+      <div className="flex flex-col items-center gap-2">
+        <div className="flex items-center gap-2">
+          <Icon name={isTimeExpired ? "clock-alert" : "clock"} />
 
-            <p
-              className={`text-sm font-medium ${
-                isTimeExpired ? "text-red-700" : "text-green-700"
-              }`}
-            >
-              {isTimeExpired ? "Tiempo agotado" : "Tiempo restante"}
-            </p>
-          </div>
-
-          {!isTimeExpired ? (
-            <div className="bg-neutral-900 rounded-lg px-4 py-2 font-mono">
-              <div className="flex items-center justify-center space-x-1 text-green-400">
-                {timeRemaining.days > 0 && (
-                  <>
-                    <div className="text-center">
-                      <div className="text-lg font-bold">
-                        {timeRemaining.days.toString().padStart(2, "0")}
-                      </div>
-                      <div className="text-xs">días</div>
-                    </div>
-                    <div className="text-lg font-bold">:</div>
-                  </>
-                )}
-
-                <div className="text-center">
-                  <div className="text-lg font-bold">
-                    {timeRemaining.hours.toString().padStart(2, "0")}
-                  </div>
-                  <div className="text-xs">hrs</div>
-                </div>
-
-                <div className="text-lg font-bold">:</div>
-
-                <div className="text-center">
-                  <div className="text-lg font-bold">
-                    {timeRemaining.minutes.toString().padStart(2, "0")}
-                  </div>
-                  <div className="text-xs">min</div>
-                </div>
-
-                <div className="text-lg font-bold">:</div>
-
-                <div className="text-center">
-                  <div className="text-lg font-bold">
-                    {timeRemaining.seconds.toString().padStart(2, "0")}
-                  </div>
-                  <div className="text-xs">seg</div>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="bg-red-900 rounded-lg px-4 py-2 font-mono">
-              <div className="text-red-400 text-center text-lg font-bold">
-                00:00:00:00
-              </div>
-            </div>
-          )}
-
-          {userInfo?.fLimite && userInfo?.horaLimite && (
-            <p
-              className={`text-xs ${
-                isTimeExpired ? "text-red-600" : "text-green-600"
-              }`}
-            >
-              {`Límite: ${userInfo?.fLimite} ${userInfo?.horaLimite}`}
-            </p>
-          )}
+          <p
+            className={`text-sm font-medium ${
+              isTimeExpired ? "text-red-700" : "text-green-700"
+            }`}
+          >
+            {isTimeExpired ? "Tiempo agotado" : "Tiempo restante"}
+          </p>
         </div>
-      </Card>
-    </section>
+
+        {!isTimeExpired ? (
+          <div className="bg-neutral-900 rounded-lg px-4 py-2 font-mono">
+            <div className="flex items-center justify-center space-x-1 text-green-400">
+              {timeRemaining.days > 0 && (
+                <>
+                  <div className="text-center">
+                    <div className="text-lg font-bold">
+                      {timeRemaining.days.toString().padStart(2, "0")}
+                    </div>
+                    <div className="text-xs">días</div>
+                  </div>
+                  <div className="text-lg font-bold">:</div>
+                </>
+              )}
+
+              <div className="text-center">
+                <div className="text-lg font-bold">
+                  {timeRemaining.hours.toString().padStart(2, "0")}
+                </div>
+                <div className="text-xs">hrs</div>
+              </div>
+
+              <div className="text-lg font-bold">:</div>
+
+              <div className="text-center">
+                <div className="text-lg font-bold">
+                  {timeRemaining.minutes.toString().padStart(2, "0")}
+                </div>
+                <div className="text-xs">min</div>
+              </div>
+
+              <div className="text-lg font-bold">:</div>
+
+              <div className="text-center">
+                <div className="text-lg font-bold">
+                  {timeRemaining.seconds.toString().padStart(2, "0")}
+                </div>
+                <div className="text-xs">seg</div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="bg-red-900 rounded-lg px-4 py-2 font-mono">
+            <div className="text-red-400 text-center text-lg font-bold">
+              00:00:00:00
+            </div>
+          </div>
+        )}
+
+        {userInfo?.fLimite && userInfo?.horaLimite && (
+          <p
+            className={`text-xs ${
+              isTimeExpired ? "text-red-600" : "text-green-600"
+            }`}
+          >
+            {`Límite: ${userInfo?.fLimite} ${userInfo?.horaLimite}`}
+          </p>
+        )}
+      </div>
+    </Card>
   );
 };

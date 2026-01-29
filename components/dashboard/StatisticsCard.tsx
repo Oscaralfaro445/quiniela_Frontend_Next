@@ -11,7 +11,7 @@ export const StatisticsCard = () => {
   const currentWeek = userInfo?.idPeriodo;
 
   return (
-    <section className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4">
+    <section className="grid lg:flex gap-4">
       <PrescisionCard />
 
       <RankingCard />

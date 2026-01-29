@@ -101,7 +101,7 @@ export const StatisticsCard = ({ gameResults, week }: StatisticsCardProps) => {
   return (
     <>
       {gameResults && (
-        <div className="grid lg:flex max-w-[1280px] mx-auto px-10 py-8 gap-4">
+        <div className="grid lg:flex gap-4">
           {infoCards.map((card, index) => (
             <Card key={index}>
               <div className="flex items justify-between">

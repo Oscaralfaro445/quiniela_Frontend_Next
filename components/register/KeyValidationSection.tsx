@@ -30,7 +30,7 @@ export const KeyValidationSection = ({
 
   const handleKeyDown = (
     index: number,
-    event: React.KeyboardEvent<HTMLInputElement>
+    event: React.KeyboardEvent<HTMLInputElement>,
   ) => {
     if (event.key === "Backspace" && !code[index] && index > 0) {
       inputRefs.current[index - 1]?.focus();
@@ -66,12 +66,7 @@ export const KeyValidationSection = ({
     <section className="flex min-h-screen pt-16 items-center">
       <div className="grid w-full max-w-[768px] mx-auto px-4 py-8 gap-6 lg:border border-neutral-300 rounded-2xl lg:shadow-xs">
         <div className="grid gap-2 justify-items-center items-center">
-          <Image
-            src="/images/logoNFL.gif"
-            alt="Logo NFL"
-            width={50}
-            height={50}
-          />
+          <Image src="/images/NFL.png" alt="Logo NFL" width={50} height={50} />
           <Title
             className="text-center"
             title="Clave de Confirmación"

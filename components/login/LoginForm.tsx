@@ -16,7 +16,9 @@ const initialValues: LoginFormValues = {
 };
 
 const validationSchema = Yup.object({
-  cveUsuario: Yup.string().required("Campo requerido").email("Email inválido"),
+  cveUsuario: Yup.string()
+    .required("Campo requerido")
+    .email("Clave de usuario inválida"),
   password: Yup.string()
     .required("Campo requerido")
     .min(4, "Mínimo 4 caracteres"),
@@ -42,14 +44,14 @@ export const LoginForm = () => {
           <Input
             type="email"
             name="cveUsuario"
-            label="Nombre de usuario"
-            placeholder="Ingresa tu nombre de usuario "
+            label="Correo electrónico"
+            placeholder="nfl@quiniela.com"
           />
 
           <Input
             type="password"
             label="Contraseña"
-            placeholder="Ingresa tu contraseña"
+            placeholder="••••••••"
             name="password"
           />
 
@@ -61,7 +63,7 @@ export const LoginForm = () => {
 
           <Button type="submit" title="Iniciar sesión" />
 
-          <Link href="/">
+          <Link href="/recovery">
             <p className="text-center text-blue-600 hover:underline hover:text-blue-700">
               ¿Olvidaste tu contraseña?
             </p>

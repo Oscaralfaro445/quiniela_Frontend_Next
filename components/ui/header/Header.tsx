@@ -1,14 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 import { usePathname } from "next/navigation";
+import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
 import { Icon } from "../../shared/icon/Icon";
 import { Button } from "../../shared/button/Button";
 import { ProfileOptions } from "../../shared/profileOptions.tsx/ProfileOptions";
 import { Sidebar } from "../sidebar/Sidebar";
-import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
 
 export const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -24,15 +24,18 @@ export const Header = () => {
     <>
       <header className="fixed top-0 z-40 flex w-full h-16 px-4 py-2 justify-between items-center bg-white border-b border-neutral-400">
         <Link
-          href={isLoged ? "/dashboard" : "/"}
           className="flex gap-4 items-center"
+          href={isLoged ? "/dashboard" : "/"}
         >
-          <Image
-            src="/images/logoNFL.gif"
-            alt="Logo NFL"
-            width={30}
-            height={30}
-          />
+          <div className="relative w-10 h-10">
+            <Image
+              className="object-contain"
+              fill
+              src="/images/logos/logoNFL.jpg"
+              alt="Logo NFL"
+              unoptimized
+            />
+          </div>
 
           <p className="hidden sm:block text-3xl font-semibold">
             {isLoged ? user?.data[0]?.titQuiniela : "Quiniela NFL"}

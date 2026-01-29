@@ -6,30 +6,29 @@ import { useRouter } from "next/navigation";
 import { useGetParticipantPositions } from "@/hooks/participantPositions/queries/useGetParticipantPositions";
 import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
 import { ParticipantStatistics } from "@/types/participantStatistics/participantStatistics";
+import { DataUser } from "@/types/user/dataUser";
+import { MainContainer } from "@/components/ui/containers/MainContainer";
 import { Button } from "@/components/shared/button/Button";
 import { StatisticsCard } from "@/components/standings/StatisticsCard";
 import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
-import { PeriodTabs } from "@/components/standings/PeriodTabs";
 import { StandingsCard } from "@/components/standings/StandingsCard";
-import { DataUser } from "@/types/user/dataUser";
-
-export type TabType = "weekly" | "global";
+import { TabSelector, TabType } from "@/components/shared/tabs/TabSelector";
 
 export default function StandingsPage() {
+  const { isPending, isError, data } = useGetParticipantPositions();
+  const [activeTab, setActiveTab] = useState<TabType>(0);
   const router = useRouter();
   const { data: user } = useGetMe();
   const userInfo: DataUser = user?.data?.[0];
-  const { isPending, isError, data } = useGetParticipantPositions();
   const participantData = data?.data[0];
   const currentWeek = userInfo?.idPeriodo;
   const weeklyLeaderboard: ParticipantStatistics[] =
     participantData?.puntosPeriodo;
   const globalLeaderboard: ParticipantStatistics[] =
     participantData?.puntosTotal;
-  const [activeTab, setActiveTab] = useState<TabType>("weekly");
 
   return (
-    <div className="min-h-screen pt-18">
+    <MainContainer>
       <PageHeader
         title="Clasificación"
         text="Consulta las posiciones semanales y globales de todos los participantes"
@@ -37,35 +36,31 @@ export default function StandingsPage() {
 
       <StatisticsCard activeTab={activeTab} />
 
-      <div className="grid max-w-[1280px] mx-auto px-10 py-8 gap-4">
-        <PeriodTabs
+      <div className="grid gap-4">
+        <TabSelector
           activeTab={activeTab}
           setActiveTab={setActiveTab}
-          currentWeek={currentWeek}
+          text={["Semanal", "Global"]}
         />
 
-        {activeTab === "weekly" && (
+        {activeTab === 0 ? (
           <StandingsCard
             period={`semana ${currentWeek}`}
             isPending={isPending}
             isError={isError}
             leaderboard={weeklyLeaderboard}
           />
-        )}
-
-        {activeTab === "global" && (
-          <div className="">
-            <StandingsCard
-              period="global"
-              isPending={isPending}
-              isError={isError}
-              leaderboard={globalLeaderboard}
-            />
-          </div>
+        ) : (
+          <StandingsCard
+            period="global"
+            isPending={isPending}
+            isError={isError}
+            leaderboard={globalLeaderboard}
+          />
         )}
       </div>
 
-      <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
+      <div className="flex w-full gap-4 justify-center">
         <Link href="/dashboard">
           <Button type="button" title="Volver al Dashboard" theme="normal" />
         </Link>
@@ -76,6 +71,6 @@ export default function StandingsPage() {
           onClick={() => router.push("/quiniela")}
         />
       </div>
-    </div>
+    </MainContainer>
   );
 }
