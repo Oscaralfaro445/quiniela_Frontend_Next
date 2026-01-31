@@ -34,7 +34,7 @@ export const StatisticsCard = () => {
       {isPending && <StatisticsCardSkeleton />}
 
       {isSuccess && (
-        <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4">
+        <div className="grid lg:flex w-full gap-4">
           <ParticipantCard
             icon="list"
             title="Total Participantes"

@@ -38,7 +38,7 @@ export const SurvivorSelector = ({
         <InputCombo
           name="survivor"
           data={data?.data}
-          selectedSurvivor={selectedSurvivor}
+          selected={selectedSurvivor}
           value={value}
           disabled={disabled}
           onChange={handleSelectedSurvivor}

@@ -3,6 +3,9 @@ import { GameResult } from "@/types/gameResult/gameResult";
 import { Modal } from "../shared/modal/Modal";
 import { MatchPredictionCard } from "./MatchPredictionCard";
 import { ScoreCard } from "./ScoreCard";
+import { Card } from "../shared/card/Card";
+import { Title } from "../shared/text/Title";
+import { TextBody } from "../shared/text/TextBody";
 
 interface ScoreBoardProps {
   gameResults: GameResult[];
@@ -36,8 +39,13 @@ export const ScoreBoard = ({ gameResults }: ScoreBoardProps) => {
   };
 
   return (
-    <>
-      <div className="grid lg:grid-cols-2 gap-4">
+    <Card>
+      <div className="grid gap-2">
+        <Title title="Marcadores" />
+        <TextBody text="Consulta los resultados de los partidos y las elecciones de cada participante." />
+      </div>
+
+      <div className="grid lg:grid-cols-2 max-h-[600px] py-4 gap-4 overflow-y-auto">
         {gameResults.map((game, index) => (
           <ScoreCard
             key={index}
@@ -51,6 +59,6 @@ export const ScoreBoard = ({ gameResults }: ScoreBoardProps) => {
       <Modal isOpen={isModalOpen} onClose={handleModalOpen}>
         <MatchPredictionCard gameId={selectedGame} />
       </Modal>
-    </>
+    </Card>
   );
 };

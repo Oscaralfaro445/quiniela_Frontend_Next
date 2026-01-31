@@ -15,13 +15,15 @@ export default function QuinielaPage() {
 
   return (
     <MainContainer>
-      <PageHeader
-        title={`Quiniela - Semana ${currentWeek}`}
-        text="Selecciona el ganador de cada juego"
-      />
-      <ByeWeek />
-      <Timer />
-      <MatchPrediction />
+      <div className="grid gap-4">
+        <PageHeader
+          title={`Quiniela - Semana ${currentWeek}`}
+          text="Selecciona el ganador de cada juego"
+        />
+        <ByeWeek />
+        <Timer />
+        <MatchPrediction />
+      </div>
     </MainContainer>
   );
 }

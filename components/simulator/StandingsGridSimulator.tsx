@@ -37,7 +37,7 @@ export const StandingsGridSimulator = ({
   };
 
   return (
-    <Card className="border-gray-200">
+    <Card>
       <p className="text-neutral-700">{`Clasificación ${typeTab}`}</p>
 
       {isPending && (

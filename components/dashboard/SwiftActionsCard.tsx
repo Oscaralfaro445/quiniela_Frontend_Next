@@ -20,7 +20,7 @@ export const SwiftActionsCard = () => {
   const currentWeek = userInfo?.idPeriodo;
 
   return (
-    <Card className="space-y-4">
+    <Card>
       <div>
         <p className="text-lg text-blue-600 font-semibold">Acciones Rápidas</p>
         <p className=" text-sm text-neutral-600">

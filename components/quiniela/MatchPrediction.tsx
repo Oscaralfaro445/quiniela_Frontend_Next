@@ -153,19 +153,17 @@ export const MatchPrediction = () => {
 
         {isError && <p>Error al cargar los datos... {error?.message}</p>}
 
-        {
-          <div className="grid lg:grid-cols-2 py-4 gap-4 overflow-y-auto max-h-[600px] ">
-            {quinielaData?.map((game: QuinielaItem) => (
-              <GroupRadio
-                key={game.Partido}
-                disabled={!isQuinielaEnabled}
-                game={game}
-                quinielaData={quinielaData}
-                handleChangeQuiniela={handleChangeQuiniela}
-              />
-            ))}
-          </div>
-        }
+        <div className="grid lg:grid-cols-2 py-4 gap-4 overflow-y-auto max-h-[600px] ">
+          {quinielaData?.map((game: QuinielaItem) => (
+            <GroupRadio
+              key={game.Partido}
+              disabled={!isQuinielaEnabled}
+              game={game}
+              quinielaData={quinielaData}
+              handleChangeQuiniela={handleChangeQuiniela}
+            />
+          ))}
+        </div>
       </Card>
 
       {userInfo?.bSurvivor && (

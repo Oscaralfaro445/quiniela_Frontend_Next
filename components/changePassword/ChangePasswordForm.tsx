@@ -2,8 +2,7 @@
 
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import { usePostUser } from "@/hooks/register/mutations/usePostUser";
-import { RegisterFormValues } from "@/types/register/register";
+// import { usePostUser } from "@/hooks/register/mutations/usePostUser";
 import { ChangePasswordFormValues } from "@/types/changePassword/changePassword";
 import { Input } from "../shared/input/Input";
 import { Button } from "../shared/button/Button";
@@ -21,10 +20,11 @@ const validationSchema = Yup.object({
 });
 
 export const ChangePasswordForm = () => {
-  const register = usePostUser();
+  // const register = usePostUser();
 
   const handleSubmit = (values: ChangePasswordFormValues) => {
-    register.mutate(values);
+    // register.mutate(values);
+    console.log(values);
   };
 
   return (
@@ -38,17 +38,17 @@ export const ChangePasswordForm = () => {
           type="password"
           name="password"
           label="Nueva contraseña"
-          placeholder="Ingresa tu nueva contraseña"
+          placeholder="••••••••"
         />
 
         <Input
           type="password"
           name="passwordConfirm"
-          label="Confirma tu contraseña"
-          placeholder="Confirma tu contraseña"
+          label="Confirma tu nueva contraseña"
+          placeholder="••••••••"
         />
 
-        <Button type="submit" title="Cambiar contraseña." />
+        <Button type="submit" title="Cambiar contraseña" />
       </Form>
     </Formik>
   );

@@ -3,9 +3,5 @@ interface MainContainerProps {
 }
 
 export const MainContainer = ({ children }: MainContainerProps) => {
-  return (
-    <div className="space-y-6 mx-8 mt-16 pt-8 mb-8 min-h-screen">
-      {children}
-    </div>
-  );
+  return <div className="grid py-4 mx-4 lg:mx-24">{children}</div>;
 };

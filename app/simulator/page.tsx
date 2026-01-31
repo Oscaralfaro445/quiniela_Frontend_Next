@@ -17,11 +17,12 @@ import { GroupRadioSimulator } from "@/components/simulator/GroupRadioSimulator"
 import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
 import { QuinielaProgressBarCard } from "@/components/quiniela/QuinielaProgressCard";
 import { DataUser } from "@/types/user/dataUser";
+import { MainContainer } from "@/components/ui/containers/MainContainer";
 
 export default function SimulatorPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [quinielaData, setQuinielaData] = useState<QuinielaItem[]>([]);
-  const { isPending, isError, data, error } = useGetSimulatorMatches();
+  const { isPending, isError, data } = useGetSimulatorMatches();
   const quinielaAlta = usePostSimulatorQuiniela();
   const { data: user } = useGetMe();
   const userInfo: DataUser = user?.data?.[0];
@@ -71,20 +72,20 @@ export default function SimulatorPage() {
   };
 
   return (
-    <div className="min-h-screen pt-16">
-      <PageHeader
-        title={`Simulador de quiniela - semana ${currentWeek}`}
-        text="En este apartado podrás simular los resultados de los partidos y ver la clasificación semanal y global"
-      />
+    <MainContainer>
+      <div className="grid gap-4">
+        <PageHeader
+          title={`Simulador de quiniela semana ${currentWeek}`}
+          text="En este apartado podrás simular los resultados de los partidos y ver la clasificación semanal y global"
+        />
 
-      <QuinielaProgressBarCard
-        title="Progreso del simulador"
-        description="Partidos completados"
-        value={completedPicks}
-        max={totalGames}
-      />
+        <QuinielaProgressBarCard
+          title="Progreso del simulador"
+          description="Partidos completados"
+          value={completedPicks}
+          max={totalGames}
+        />
 
-      <div className="max-w-[1280px] mx-auto px-10 py-8">
         <Card>
           <div className="grid gap-2">
             <Title title="Quiniela" />
@@ -93,7 +94,7 @@ export default function SimulatorPage() {
 
           {isPending && <p>Cargando...</p>}
 
-          {isError && <p>Error al cargar los datos... {error?.message}</p>}
+          {isError && <p>Error al cargar los datos...</p>}
 
           {quinielaData && (
             <div className="grid lg:grid-cols-2 gap-4">
@@ -109,26 +110,30 @@ export default function SimulatorPage() {
             </div>
           )}
         </Card>
+
+        <div className="flex w-full gap-4 justify-center items-center">
+          <Link href="/dashboard">
+            <Button type="button" title="Volver al Dashboard" theme="normal" />
+          </Link>
+
+          <Button
+            type="submit"
+            title="Simular Quiniela"
+            onClick={handleSubmit}
+          />
+        </div>
+
+        <Modal isOpen={isModalOpen} onClose={handleModalOpen}>
+          <StandingsSimulator
+            quinielaAlta={{
+              data: quinielaAlta?.data?.data,
+              isPending: quinielaAlta.isPending,
+              isError: quinielaAlta.isError,
+              isSuccess: quinielaAlta.isSuccess,
+            }}
+          />
+        </Modal>
       </div>
-
-      <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
-        <Link href="/dashboard">
-          <Button type="button" title="Volver al Dashboard" theme="normal" />
-        </Link>
-
-        <Button type="submit" title="Simular Quiniela" onClick={handleSubmit} />
-      </div>
-
-      <Modal isOpen={isModalOpen} onClose={handleModalOpen}>
-        <StandingsSimulator
-          quinielaAlta={{
-            data: quinielaAlta?.data?.data,
-            isPending: quinielaAlta.isPending,
-            isError: quinielaAlta.isError,
-            isSuccess: quinielaAlta.isSuccess,
-          }}
-        />
-      </Modal>
-    </div>
+    </MainContainer>
   );
 }

@@ -11,6 +11,7 @@ import { AccumulatedBagCard } from "@/components/dashboard/AccumulatedBagCard";
 import { SeasonProgressCard } from "@/components/dashboard/SeasonProgressCard";
 import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
 import { MainContainer } from "@/components/ui/containers/MainContainer";
+import { ConferenceCard } from "@/components/dashboard/ConferenceCard";
 
 export default function DashboardPage() {
   const { data: user } = useGetMe();
@@ -18,25 +19,22 @@ export default function DashboardPage() {
 
   return (
     <MainContainer>
-      <PageHeader
-        title={`¡Bienvenido de vuelta ${userInfo?.nombreCompleto}!`}
-        text="Aquí tienes un resumen de tu rendimiento en la temporada."
-      />
+      <div className="grid gap-4">
+        <PageHeader
+          title={`¡Bienvenido de vuelta ${userInfo?.nombreCompleto}!`}
+          text="Aquí tienes un resumen de tu rendimiento en la temporada."
+        />
+        <StatisticsCard />
+        <Timer />
 
-      <StatisticsCard />
-
-      <Timer />
-
-      <div className="grid lg:grid-cols-2 w-full gap-4 ">
-        <SwiftActionsCard />
-
-        <AccumulatedBagCard />
-
-        <SeasonProgressCard />
-
-        <SurvivorCard />
-
-        <UpcomingGamesCard />
+        <div className="grid lg:grid-cols-2 w-full gap-4 ">
+          <SwiftActionsCard />
+          <AccumulatedBagCard />
+          <ConferenceCard />
+          <SeasonProgressCard />
+          <SurvivorCard />
+          <UpcomingGamesCard />
+        </div>
       </div>
     </MainContainer>
   );

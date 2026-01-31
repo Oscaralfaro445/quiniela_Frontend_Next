@@ -19,11 +19,11 @@ export const GroupRadio = ({
   // quinielaData,
   handleChangeQuiniela,
 }: GroupRadioProps) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState<{
     id: number;
     name: string;
   }>({ id: 0, name: "" });
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleModalOpen = () => {
     setIsModalOpen((prev) => !prev);
@@ -31,36 +31,38 @@ export const GroupRadio = ({
 
   return (
     <>
-      <Card className="hover:shadow-lg transition-shadow bg-blue-50">
-        <div className="grid sm:flex w-full gap-4 justify-start items-center">
-          <div className="flex gap-2">
-            <Icon name="clock" size={18} />
-            <p className="text-sm">{game.Fecha}</p>
+      <Card>
+        <div className="grid gap-4">
+          <div className="grid sm:flex w-full gap-4 justify-start items-center">
+            <div className="flex gap-2">
+              <Icon name="clock" size={18} />
+              <p className="text-sm">{game.Fecha}</p>
+            </div>
+
+            <div className="flex gap-2">
+              <Icon name="map-pin" size={18} />
+              <p className="text-sm">{game.Estadio}</p>
+            </div>
           </div>
 
-          <div className="flex gap-2">
-            <Icon name="map-pin" size={18} />
-            <p className="text-sm">{game.Estadio}</p>
-          </div>
+          <TeamQuinielaCard
+            team="V"
+            game={game}
+            disabled={disabled}
+            setSelectedTeam={setSelectedTeam}
+            handleChangeQuiniela={handleChangeQuiniela}
+            handleModalOpen={handleModalOpen}
+          />
+
+          <TeamQuinielaCard
+            team="L"
+            game={game}
+            disabled={disabled}
+            setSelectedTeam={setSelectedTeam}
+            handleChangeQuiniela={handleChangeQuiniela}
+            handleModalOpen={handleModalOpen}
+          />
         </div>
-
-        <TeamQuinielaCard
-          team="V"
-          game={game}
-          disabled={disabled}
-          setSelectedTeam={setSelectedTeam}
-          handleChangeQuiniela={handleChangeQuiniela}
-          handleModalOpen={handleModalOpen}
-        />
-
-        <TeamQuinielaCard
-          team="L"
-          game={game}
-          disabled={disabled}
-          setSelectedTeam={setSelectedTeam}
-          handleChangeQuiniela={handleChangeQuiniela}
-          handleModalOpen={handleModalOpen}
-        />
       </Card>
 
       <Modal isOpen={isModalOpen} onClose={handleModalOpen}>

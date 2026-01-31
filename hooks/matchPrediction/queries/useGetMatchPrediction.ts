@@ -16,7 +16,7 @@ export const useGetMatchPrediction = (idPartido: number) => {
   const { data: user } = useGetMe();
   const userInfo: DataUser = user?.data?.[0];
 
-  const { isPending, isError, isSuccess, error, data } = useQuery({
+  const { isPending, isError, data, error } = useQuery({
     queryKey: ["matchPrediction", idPartido],
     queryFn: () =>
       fetchMatchPredictionv({
@@ -31,5 +31,5 @@ export const useGetMatchPrediction = (idPartido: number) => {
     enabled: !!userInfo,
   });
 
-  return { isPending, isError, isSuccess, error, data };
+  return { isPending, isError, data, error };
 };

@@ -34,7 +34,9 @@ export default function RootLayout({
         <ReactQueryProvider>
           <AlertProvider>
             <Header />
-            <main>{children}</main>
+            <main className="grid min-h-screen pt-16 bg-neutral-50">
+              {children}
+            </main>
             <Footer />
           </AlertProvider>
         </ReactQueryProvider>

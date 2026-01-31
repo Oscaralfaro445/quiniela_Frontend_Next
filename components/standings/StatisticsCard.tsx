@@ -19,7 +19,7 @@ export const StatisticsCard = ({ activeTab }: StatisticsCardProps) => {
 
   return (
     <div className="grid lg:flex gap-4">
-      <Card className="border-gray-200">
+      <Card>
         <div className="flex flex-row items-center justify-between space-y-0 pb-2">
           <div className="text-sm font-medium text-gray-600">
             Total Participantes
@@ -77,7 +77,7 @@ export const StatisticsCard = ({ activeTab }: StatisticsCardProps) => {
         )}
       </Card>
 
-      <Card className="border-gray-200">
+      <Card>
         <div className="flex flex-row items-center justify-between space-y-0 pb-2">
           <div className="text-sm font-medium text-gray-600">Tu Posición</div>
           <Icon name="medal" className="text-blue-700" />

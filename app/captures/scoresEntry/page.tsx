@@ -11,6 +11,7 @@ import { StatisticsCard } from "@/components/scores/StatisticsCard";
 import { ScoreBoard } from "@/components/captures/scoresEntry/ScoreBoard";
 import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
 import { DataUser } from "@/types/user/dataUser";
+import { MainContainer } from "@/components/ui/containers/MainContainer";
 
 export default function ScoresEntryPage() {
   const { isPending, isError, isSuccess, data } = useGetMarkers();
@@ -59,37 +60,39 @@ export default function ScoresEntryPage() {
   };
 
   return (
-    <div className="min-h-screen pt-16">
-      <PageHeader
-        title={`Marcadores Semana ${week}`}
-        text="Edita los marcadores de los partidos de la semana"
-      />
-
-      {isPending && <p>Cargando...</p>}
-
-      {isError && <p>Error al cargar los datos...</p>}
-
-      {isSuccess && (
-        <>
-          <StatisticsCard gameResults={data.data} week={week} />
-          <ScoreBoard
-            gameResults={gameResults}
-            handleScoreChange={handleScoreChange}
-          />
-        </>
-      )}
-
-      <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
-        <Link href="/dashboard">
-          <Button type="button" title="Volver al Dashboard" theme="normal" />
-        </Link>
-
-        <Button
-          type="submit"
-          title="Actualizar Marcadores"
-          onClick={handleSubmitScores}
+    <MainContainer>
+      <div className="grid gap-4">
+        <PageHeader
+          title={`Marcadores Semana ${week}`}
+          text="Edita los marcadores de los partidos de la semana"
         />
+
+        {isPending && <p>Cargando...</p>}
+
+        {isError && <p>Error al cargar los datos...</p>}
+
+        {isSuccess && (
+          <>
+            <StatisticsCard gameResults={data.data} week={week} />
+            <ScoreBoard
+              gameResults={gameResults}
+              handleScoreChange={handleScoreChange}
+            />
+          </>
+        )}
+
+        <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
+          <Link href="/dashboard">
+            <Button type="button" title="Volver al Dashboard" theme="normal" />
+          </Link>
+
+          <Button
+            type="submit"
+            title="Actualizar Marcadores"
+            onClick={handleSubmitScores}
+          />
+        </div>
       </div>
-    </div>
+    </MainContainer>
   );
 }

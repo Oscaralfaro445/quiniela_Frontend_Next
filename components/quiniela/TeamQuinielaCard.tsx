@@ -29,7 +29,7 @@ export const TeamQuinielaCard = ({
   };
 
   return (
-    <Card className="bg-white">
+    <Card>
       <div className="flex flex-wrap w-full gap-4 justify-between items-center">
         <div className="flex flex-wrap gap-4 justify-start items-center">
           <div className="flex gap-4 items-center">

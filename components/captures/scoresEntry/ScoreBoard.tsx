@@ -1,5 +1,8 @@
 import { GameResult } from "@/types/gameResult/gameResult";
 import { ScoreCard } from "./ScoreCard";
+import { Card } from "@/components/shared/card/Card";
+import { Title } from "@/components/shared/text/Title";
+import { TextBody } from "@/components/shared/text/TextBody";
 
 interface ScoreBoardProps {
   gameResults: GameResult[];
@@ -28,15 +31,22 @@ export const ScoreBoard = ({
   };
 
   return (
-    <div className="grid lg:grid-cols-2 max-w-[1280px] mx-auto px-10 py-8 gap-4">
-      {gameResults?.map((game, index) => (
-        <ScoreCard
-          key={index}
-          game={game}
-          getWinner={getWinner}
-          handleScoreChange={handleScoreChange}
-        />
-      ))}
-    </div>
+    <Card>
+      <div className="grid gap-2">
+        <Title title="Marcadores" />
+        <TextBody text="Consulta los resultados de los partidos y las elecciones de cada participante." />
+      </div>
+
+      <div className="grid lg:grid-cols-2 py-4 gap-4">
+        {gameResults?.map((game, index) => (
+          <ScoreCard
+            key={index}
+            game={game}
+            getWinner={getWinner}
+            handleScoreChange={handleScoreChange}
+          />
+        ))}
+      </div>
+    </Card>
   );
 };

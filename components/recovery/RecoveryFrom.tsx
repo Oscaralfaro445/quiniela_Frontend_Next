@@ -45,8 +45,8 @@ export const RecoveryForm = () => {
           />
 
           <StatusMessage
-            validText="Inicio de sesión exitoso"
-            invalidText="Credenciales inválidas"
+            validText="Instrucciones de restablecimiento enviadas"
+            invalidText="Error al enviar las instrucciones"
             mutation={mutation}
           />
 

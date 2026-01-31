@@ -18,34 +18,36 @@ export default function ScoresPage() {
 
   return (
     <MainContainer>
-      <PageHeader
-        title={`Resultados semana ${week}`}
-        text="Marcadores de los juegos de la semana"
-      />
+      <div className="grid gap-4">
+        <PageHeader
+          title={`Resultados semana ${week}`}
+          text="Marcadores de los juegos de la semana"
+        />
 
-      {isPending && <p>Cargando...</p>}
+        {isPending && <p>Cargando...</p>}
 
-      {isError && <p>Error al cargar los datos...</p>}
+        {isError && <p>Error al cargar los datos...</p>}
 
-      {data?.data && data?.data.length > 0 ? (
-        <>
-          <StatisticsCard gameResults={data?.data} week={week} />
-          <ScoreBoard gameResults={data?.data} />
-        </>
-      ) : (
-        <div className="grid lg:flex gap-4">
-          <p>No hay datos disponibles...</p>
+        {data?.data && data?.data.length > 0 ? (
+          <>
+            <StatisticsCard gameResults={data?.data} week={week} />
+            <ScoreBoard gameResults={data?.data} />
+          </>
+        ) : (
+          <div className="grid lg:flex gap-4">
+            <p>No hay datos disponibles...</p>
+          </div>
+        )}
+
+        <div className="flex w-full gap-4 justify-center">
+          <Link href="/dashboard">
+            <Button type="button" title="Volver al Dashboard" theme="normal" />
+          </Link>
+
+          <Link href={"/quiniela"}>
+            <Button type="submit" title="Ver Quiniela" />
+          </Link>
         </div>
-      )}
-
-      <div className="flex w-full gap-4 justify-center">
-        <Link href="/dashboard">
-          <Button type="button" title="Volver al Dashboard" theme="normal" />
-        </Link>
-
-        <Link href={"/quiniela"}>
-          <Button type="submit" title="Ver Quiniela" />
-        </Link>
       </div>
     </MainContainer>
   );

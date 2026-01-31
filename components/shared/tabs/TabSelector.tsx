@@ -12,7 +12,7 @@ export const TabSelector = ({
   text,
 }: TabSelectorProps) => {
   return (
-    <div className="flex lg:w-96 h-12 p-1 rounded-md bg-neutral-100">
+    <div className="flex w-full lg:w-96 h-12 p-1 rounded-md bg-neutral-100">
       {Array.from({ length: 2 }).map((_, index) => (
         <button
           key={index}

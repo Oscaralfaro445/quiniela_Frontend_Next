@@ -6,6 +6,7 @@ import { Card } from "@/components/shared/card/Card";
 import { Button } from "@/components/shared/button/Button";
 import { BusinessErrorPanel } from "@/components/ui/errors/BusinessErrorPanel";
 import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
+import { MainContainer } from "@/components/ui/containers/MainContainer";
 
 export default function PeriodOpeningPage() {
   const mutation = usePostPeriodClosing();
@@ -15,15 +16,15 @@ export default function PeriodOpeningPage() {
   };
 
   return (
-    <div className="min-h-screen pt-16">
-      <PageHeader
-        title="Proceso de carga de información"
-        text="Gestiona la carga y procesamiento de datos de participantes y quinielas"
-      />
+    <MainContainer>
+      <div className="grid gap-4 content-start">
+        <PageHeader
+          title="Proceso de carga de información"
+          text="Gestiona la carga y procesamiento de datos de participantes y quinielas"
+        />
 
-      <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center lg:justify-between">
         <Card>
-          <div className="flex flex-col gap-2 pb-4">
+          <div className="grid gap-4 py-4">
             <div className="flex gap-4 items-center">
               <Icon name="database" className="h-5 w-5 text-blue-700" />
               <p>Estado del Proceso</p>
@@ -69,11 +70,11 @@ export default function PeriodOpeningPage() {
             )}
           </div>
         </Card>
-      </div>
 
-      {mutation.isSuccess && mutation.data?.errorNeg && (
-        <BusinessErrorPanel errorNeg={mutation.data.errorNeg} />
-      )}
-    </div>
+        {mutation.isSuccess && mutation.data?.errorNeg && (
+          <BusinessErrorPanel errorNeg={mutation.data.errorNeg} />
+        )}
+      </div>
+    </MainContainer>
   );
 }

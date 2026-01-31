@@ -13,8 +13,14 @@ export const ConferenceSection = ({ activeTab }: ConferenceSectionProps) => {
   const conference: Conference = data?.data?.[0]?.NFL?.[activeTab];
   const divisions = conference?.divisiones;
 
+  if (isPending) {
+    return <p>Cargando...</p>;
+  } else if (isError) {
+    return <p>Error al cargar los datos de la conferencia.</p>;
+  }
+
   return (
-    <div className="grid grid-cols-2 gap-8">
+    <div className="grid lg:grid-cols-2 gap-8">
       {divisions?.map((division) => (
         <Card key={division?.DIVISION}>
           <DivisionSection division={division} />
@@ -45,7 +51,7 @@ const DivisionSection = ({ division }: DivisionSectionProps) => {
           <tr key={equipo.nombre}>
             <td className="flex gap-2 items-center">
               <TeamLogo teamName={equipo?.nombre} />
-              {equipo.nombre}
+              <p className="hidden sm:block">{equipo.nombre}</p>
             </td>
             <td>{equipo.ganados}</td>
             <td>{equipo.perdidos}</td>

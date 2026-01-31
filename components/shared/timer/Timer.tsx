@@ -74,9 +74,7 @@ export const Timer = () => {
   const isTimeExpired = !isWithinTimeLimit();
 
   return (
-    <Card
-      className={`${isTimeExpired ? "border-red-500" : "border-green-500"}`}
-    >
+    <Card>
       <div className="flex flex-col items-center gap-2">
         <div className="flex items-center gap-2">
           <Icon name={isTimeExpired ? "clock-alert" : "clock"} />

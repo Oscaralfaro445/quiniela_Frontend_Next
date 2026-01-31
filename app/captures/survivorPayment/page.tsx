@@ -10,6 +10,7 @@ import { Button } from "@/components/shared/button/Button";
 import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
 import { SurvivorPaymentStatusCard } from "@/components/captures/survivorPayment/SurvivorPaymentStatusCard";
 import { DataUser } from "@/types/user/dataUser";
+import { MainContainer } from "@/components/ui/containers/MainContainer";
 
 export default function SurvivorPaymentPage() {
   const { isSuccess, data } = useGetSurvivorPayment();
@@ -48,26 +49,32 @@ export default function SurvivorPaymentPage() {
   };
 
   return (
-    <div className="min-h-screen pt-18">
-      <PageHeader
-        title="Pagos Survivor"
-        text="Gestiona los pagos de los participantes en la quiniela."
-      />
-
-      {isSuccess && (
-        <SurvivorPaymentStatusCard
-          participantsData={participantsData}
-          togglePaymentStatus={togglePaymentStatus}
+    <MainContainer>
+      <div className="grid gap-4 content-start">
+        <PageHeader
+          title="Pagos Survivor"
+          text="Gestiona los pagos de los participantes en la quiniela."
         />
-      )}
 
-      <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
-        <Link href="/dashboard">
-          <Button type="button" title="Volver al dashboard" theme="normal" />
-        </Link>
+        {isSuccess && (
+          <SurvivorPaymentStatusCard
+            participantsData={participantsData}
+            togglePaymentStatus={togglePaymentStatus}
+          />
+        )}
 
-        <Button type="button" title="Actualizar pagos" onClick={handleSubmit} />
+        <div className="flex w-full gap-4 justify-center">
+          <Link href="/dashboard">
+            <Button type="button" title="Volver al dashboard" theme="normal" />
+          </Link>
+
+          <Button
+            type="button"
+            title="Actualizar pagos"
+            onClick={handleSubmit}
+          />
+        </div>
       </div>
-    </div>
+    </MainContainer>
   );
 }

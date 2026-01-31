@@ -8,7 +8,7 @@ interface ScoreCardProps {
   handleScoreChange: (
     partido: number,
     team: "away" | "home",
-    value: string
+    value: string,
   ) => void;
 }
 
@@ -20,7 +20,7 @@ export const ScoreCard = ({
   const partidoPendiente = game.marcVisita === 0 && game.marLocal === 0;
 
   return (
-    <Card key={game.partido} className="hover:shadow-md transition-shadow">
+    <Card key={game.partido}>
       <div className="flex gap-4 items-center justify-between">
         <div className="grid w-full items-center gap-4">
           <div
@@ -103,7 +103,7 @@ export const ScoreCard = ({
         <div className="hidden sm:block text-center">
           <p className="text-sm text-neutral-600">Diferencia</p>
           <p className="text-sm text-neutral-600">{`${Math.abs(
-            game.marcVisita - game.marLocal
+            game.marcVisita - game.marLocal,
           )} pts`}</p>
         </div>
       </div>

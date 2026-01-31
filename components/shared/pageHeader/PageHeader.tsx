@@ -1,6 +1,3 @@
-import { TextBody } from "../text/TextBody";
-import { Title } from "../text/Title";
-
 interface HeaderPageProps {
   title: string;
   text: string;
@@ -8,17 +5,11 @@ interface HeaderPageProps {
 
 export const PageHeader = ({ title, text }: HeaderPageProps) => {
   return (
-    <section className="grid lg:flex w-full gap-4 lg:justify-between">
-      <div className="grid gap-2 items-center">
-        <Title title={title} />
-        <TextBody text={text} />
-      </div>
-
-      <div className="flex h-fit justify-center items-center border-2 border-blue-600 rounded-2xl">
-        <p className="px-2 py-1 text-sm font-semibold text-blue-700">
-          NFL temporada 2025
-        </p>
-      </div>
+    <section className="grid gap-4">
+      <h1 className="text-center text-5xl lg:text-7xl font-extrabold text-blue-600">
+        {title}
+      </h1>
+      <p className="text-center">{text}</p>
     </section>
   );
 };

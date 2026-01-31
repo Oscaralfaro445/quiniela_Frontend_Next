@@ -9,7 +9,7 @@ interface Option {
 interface InputComboProps {
   data: Option[];
   name?: string;
-  selectedSurvivor?: number;
+  selected?: number;
   value?: string | number;
   disabled?: boolean;
   onChange?: (event: ChangeEvent<HTMLSelectElement>) => void;
@@ -18,7 +18,7 @@ interface InputComboProps {
 export const InputCombo = ({
   data,
   name,
-  selectedSurvivor,
+  selected,
   value,
   disabled,
   onChange = () => {},
@@ -46,9 +46,7 @@ export const InputCombo = ({
     setIsOpen(false);
   };
 
-  const survivorName = options.find(
-    (option) => option.llave === selectedSurvivor
-  )?.valor;
+  const optionName = options.find((option) => option.llave === selected)?.valor;
 
   return (
     <div className="relative w-full">
@@ -62,9 +60,9 @@ export const InputCombo = ({
       >
         <p className="text-sm font-medium text-neutral-700">
           {value === " "
-            ? selectedSurvivor === 0
+            ? selected === 0
               ? "Selecciona una opcion..."
-              : survivorName
+              : optionName
             : value}
         </p>
 
@@ -75,17 +73,18 @@ export const InputCombo = ({
       </div>
 
       {isOpen && (
-        <div className="absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
+        <div className="absolute z-10 top-12 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
           {!options || options.length === 0 ? (
-            <div className="px-4 py-2 text-sm text-gray-500">
+            <p className="px-4 py-2 text-sm text-gray-500">
               No hay opciones disponibles
-            </div>
+            </p>
           ) : (
-            <ul>
+            <ul className="grid divide-y divide-neutral-200 px-2 ">
               {options.map((option, index) => {
                 const optionValue = option["llave"];
-                const isSelected =
-                  optionValue?.toString() === value?.toString();
+                const isSelected = optionValue === selected;
+
+                console.log(optionValue);
 
                 return (
                   <li
