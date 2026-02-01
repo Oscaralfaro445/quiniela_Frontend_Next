@@ -10,6 +10,11 @@ interface TeamQuinielaCardProps {
   setSelectedTeam: (team: { id: number; name: string }) => void;
   handleChangeQuiniela: (idGame: number, team: string) => void;
   handleModalOpen: () => void;
+  handleScoreChange: (
+    partido: number,
+    team: "away" | "home",
+    score: number,
+  ) => void;
 }
 
 export const TeamQuinielaCard = ({
@@ -19,6 +24,7 @@ export const TeamQuinielaCard = ({
   setSelectedTeam,
   handleChangeQuiniela,
   handleModalOpen,
+  handleScoreChange,
 }: TeamQuinielaCardProps) => {
   const handleSelectedTeam = () => {
     setSelectedTeam({
@@ -31,7 +37,7 @@ export const TeamQuinielaCard = ({
   return (
     <Card>
       <div className="flex flex-wrap w-full gap-4 justify-between items-center">
-        <div className="flex flex-wrap gap-4 justify-start items-center">
+        <div className="flex flex-wrap w-1/2 gap-4 justify-start items-center">
           <div className="flex gap-4 items-center">
             <input
               className="h-4 w-4"
@@ -68,18 +74,37 @@ export const TeamQuinielaCard = ({
           </div>
         </div>
 
-        <div className="flex gap-2">
-          {team === "V" && game.partGanador === "V" && (
-            <Icon className="text-green-600" name="check" size={25} />
-          )}
-          {team === "L" && game.partGanador === "L" && (
-            <Icon className="text-green-600" name="check" size={25} />
-          )}
-          {team === "V" && game.survEquipoV === "TRUE" && (
-            <Icon className="text-red-500" name="swords" size={25} />
-          )}
-          {team === "L" && game.survEquipoL === "TRUE" && (
-            <Icon className="text-red-500" name="swords" size={25} />
+        <div className="flex gap-4 items-center">
+          <div className="flex gap-2">
+            {team === "V" && game.partGanador === "V" && (
+              <Icon className="text-green-600" name="check" size={25} />
+            )}
+            {team === "L" && game.partGanador === "L" && (
+              <Icon className="text-green-600" name="check" size={25} />
+            )}
+            {team === "V" && game.survEquipoV === "TRUE" && (
+              <Icon className="text-red-500" name="swords" size={25} />
+            )}
+            {team === "L" && game.survEquipoL === "TRUE" && (
+              <Icon className="text-red-500" name="swords" size={25} />
+            )}
+          </div>
+
+          {game.bMarcador && (
+            <input
+              type="number"
+              min="0"
+              max="70"
+              value={team === "V" ? game.ID_SCORE_1 : game.ID_SCORE_2}
+              onChange={(event) => {
+                handleScoreChange(
+                  game.Partido,
+                  team === "V" ? "away" : "home",
+                  Number(event.target.value),
+                );
+              }}
+              className={`w-12 h-10 text-2xl text-neutral-600 font-semibold text-center border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+            />
           )}
         </div>
       </div>

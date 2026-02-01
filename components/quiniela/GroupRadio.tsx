@@ -1,16 +1,21 @@
 import { useState } from "react";
 import { QuinielaItem } from "@/types/quiniela/quinielaItem";
+import { TeamQuinielaCard } from "./TeamQuinielaCard";
+import { ScoresCard } from "./ScoresCard";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";
-import { ScoresCard } from "./ScoresCard";
 import { Modal } from "../shared/modal/Modal";
-import { TeamQuinielaCard } from "./TeamQuinielaCard";
 
 interface GroupRadioProps {
   disabled: boolean;
   game: QuinielaItem;
   quinielaData: QuinielaItem[];
   handleChangeQuiniela: (idGame: number, team: string) => void;
+  handleScoreChange: (
+    partido: number,
+    team: "away" | "home",
+    score: number,
+  ) => void;
 }
 
 export const GroupRadio = ({
@@ -18,6 +23,7 @@ export const GroupRadio = ({
   game,
   // quinielaData,
   handleChangeQuiniela,
+  handleScoreChange,
 }: GroupRadioProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState<{
@@ -45,23 +51,25 @@ export const GroupRadio = ({
             </div>
           </div>
 
-          <TeamQuinielaCard
-            team="V"
-            game={game}
-            disabled={disabled}
-            setSelectedTeam={setSelectedTeam}
-            handleChangeQuiniela={handleChangeQuiniela}
-            handleModalOpen={handleModalOpen}
-          />
+          {game.bMarcador && (
+            <p className="text-blue-600">
+              Este partido se utilizará para diferenciar posiciones en caso de
+              empate. Ingresa tu pronóstico del marcador.
+            </p>
+          )}
 
-          <TeamQuinielaCard
-            team="L"
-            game={game}
-            disabled={disabled}
-            setSelectedTeam={setSelectedTeam}
-            handleChangeQuiniela={handleChangeQuiniela}
-            handleModalOpen={handleModalOpen}
-          />
+          {Array.from({ length: 2 }).map((_, index) => (
+            <TeamQuinielaCard
+              key={index}
+              team={index === 0 ? "V" : "L"}
+              game={game}
+              disabled={disabled}
+              setSelectedTeam={setSelectedTeam}
+              handleChangeQuiniela={handleChangeQuiniela}
+              handleModalOpen={handleModalOpen}
+              handleScoreChange={handleScoreChange}
+            />
+          ))}
         </div>
       </Card>
 

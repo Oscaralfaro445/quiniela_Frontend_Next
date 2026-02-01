@@ -63,63 +63,68 @@ export const KeyValidationSection = ({
   };
 
   return (
-    <section className="flex min-h-screen pt-16 items-center">
-      <div className="grid w-full max-w-[768px] mx-auto px-4 py-8 gap-6 lg:border border-neutral-300 rounded-2xl lg:shadow-xs">
-        <div className="grid gap-2 justify-items-center items-center">
-          <Image src="/images/NFL.png" alt="Logo NFL" width={50} height={50} />
-          <Title
-            className="text-center"
-            title="Clave de Confirmación"
-            color="blue"
-          />
-          <TextBody
-            className="text-center"
-            text="Ingresa los 5 dígitos que recibiste para verificar tu cuenta."
+    <div className="grid w-full max-w-[768px] mx-auto px-4 py-8 gap-6 lg:border border-neutral-300 rounded-2xl lg:shadow-xs">
+      <div className="grid gap-2 justify-items-center items-center">
+        <div className="relative w-36 h-36">
+          <Image
+            className="object-contain"
+            fill
+            src="/images/logoNFL.png"
+            alt="Logo NFL"
           />
         </div>
-
-        <div className="flex justify-center gap-2">
-          {code.map((digit, index) => (
-            <input
-              key={index}
-              ref={(el) => {
-                if (el) inputRefs.current[index] = el;
-              }}
-              type="text"
-              inputMode="numeric"
-              maxLength={1}
-              value={digit}
-              onChange={(event) => handleInputChange(index, event.target.value)}
-              onKeyDown={(event) => handleKeyDown(index, event)}
-              onPaste={handlePaste}
-              className="w-12 h-14 text-center text-2xl font-bold border-2 border-neutral-300 rounded-lg focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-200 transition-all"
-              placeholder="-"
-            />
-          ))}
-        </div>
-
-        <button
-          onClick={handleSubmit}
-          disabled={concatenatedCode.length !== 5}
-          className={`w-full py-2 px-4 rounded-lg font-semibold transition-all ${
-            concatenatedCode.length === 5
-              ? "bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
-              : "bg-neutral-200 text-neutral-400 cursor-not-allowed"
-          }`}
-        >
-          Verificar Código
-        </button>
-
-        <div className="grid md:flex gap-2 items-center justify-center">
-          <p className="text-neutral-600">¿Ya tienes una cuenta?</p>
-
-          <Link href="/login">
-            <p className="text-center md:text-end text-blue-600 hover:underline">
-              Inicia sesión
-            </p>
-          </Link>
-        </div>
+        <Title
+          className="text-center"
+          title="Clave de Confirmación"
+          color="blue"
+        />
+        <TextBody
+          className="text-center"
+          text="Ingresa los 5 dígitos que recibiste para verificar tu cuenta."
+        />
       </div>
-    </section>
+
+      <div className="flex justify-center gap-2">
+        {code.map((digit, index) => (
+          <input
+            key={index}
+            ref={(el) => {
+              if (el) inputRefs.current[index] = el;
+            }}
+            type="text"
+            inputMode="numeric"
+            maxLength={1}
+            value={digit}
+            onChange={(event) => handleInputChange(index, event.target.value)}
+            onKeyDown={(event) => handleKeyDown(index, event)}
+            onPaste={handlePaste}
+            className="w-12 h-14 text-center text-2xl font-bold border-2 border-neutral-300 rounded-lg focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-200 transition-all"
+            placeholder="-"
+          />
+        ))}
+      </div>
+
+      <button
+        onClick={handleSubmit}
+        disabled={concatenatedCode.length !== 5}
+        className={`w-full py-2 px-4 rounded-lg font-semibold transition-all ${
+          concatenatedCode.length === 5
+            ? "bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
+            : "bg-neutral-200 text-neutral-400 cursor-not-allowed"
+        }`}
+      >
+        Verificar código
+      </button>
+
+      <div className="grid md:flex gap-2 items-center justify-center">
+        <p className="text-neutral-600">¿Ya tienes una cuenta?</p>
+
+        <Link href="/login">
+          <p className="text-center md:text-end text-blue-600 hover:underline">
+            Inicia sesión
+          </p>
+        </Link>
+      </div>
+    </div>
   );
 };

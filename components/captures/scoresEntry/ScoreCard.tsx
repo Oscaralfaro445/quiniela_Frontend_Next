@@ -41,7 +41,7 @@ export const ScoreCard = ({
               </div>
             </div>
 
-            <div className="flex items-center">
+            <div className="flex justify-center items-center">
               <input
                 type="number"
                 min="0"

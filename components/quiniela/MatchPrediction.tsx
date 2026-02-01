@@ -35,7 +35,13 @@ export const MatchPrediction = () => {
 
   useEffect(() => {
     if (data?.data) {
-      const quinielaInitialData = data.data[0].quiniela;
+      const quinielaInitialData = data.data[0].quiniela.map(
+        (game: QuinielaItem) => ({
+          ...game,
+          ID_SCORE_1: 0,
+          ID_SCORE_2: 0,
+        }),
+      );
       setSelectedSurvivor(0);
       setQuinielaData(quinielaInitialData);
     }
@@ -50,6 +56,23 @@ export const MatchPrediction = () => {
       );
       return quinielaUpdated;
     });
+  };
+
+  const handleScoreChange = (
+    partido: number,
+    team: "away" | "home",
+    score: number,
+  ) => {
+    setQuinielaData((prevGames) =>
+      prevGames.map((game) =>
+        game.Partido === partido
+          ? {
+              ...game,
+              [team === "away" ? "ID_SCORE_1" : "ID_SCORE_2"]: score,
+            }
+          : game,
+      ),
+    );
   };
 
   const handleChangeSurvivor = (
@@ -110,12 +133,16 @@ export const MatchPrediction = () => {
       ID_PARTICIPANTE: userInfo!.idParticipante,
       ID_PERIODO: userInfo!.idPeriodo,
       ID_PARTIDO: game.Partido,
+      ID_SCORE_1: game.ID_SCORE_1,
+      ID_SCORE_2: game.ID_SCORE_2,
       CVE_GANADOR: game.partGanador,
+      B_MARCARDOR: game.bMarcador,
     }));
 
     if (userInfo?.bSurvivor && selectedSurvivor > 0) {
       survivorAlta.mutate(selectedSurvivor);
     }
+    console.log(quinielaDataUpdated);
     quinielaAlta.mutate(quinielaDataUpdated);
   };
 
@@ -161,6 +188,7 @@ export const MatchPrediction = () => {
               game={game}
               quinielaData={quinielaData}
               handleChangeQuiniela={handleChangeQuiniela}
+              handleScoreChange={handleScoreChange}
             />
           ))}
         </div>

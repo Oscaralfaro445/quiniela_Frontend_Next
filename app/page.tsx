@@ -56,7 +56,7 @@ export default function HomePage() {
             </Link>
 
             <Link href="/login">
-              <Button type="button" title="Iniciar Sesión" />
+              <Button type="button" title="Iniciar sesión" />
             </Link>
           </div>
         </div>
@@ -90,7 +90,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      <section className="bg-neutral-50">
+      <section className="bg-white">
         <div className="grid max-w-[1280px] mx-auto px-10 py-20 lg:py-32 gap-4">
           <div className="grid gap-2 justify-items-center items-center">
             <Title

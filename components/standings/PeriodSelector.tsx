@@ -29,8 +29,8 @@ export const PeriodSelector = ({ period, setPeriod }: PeriodSelectorProps) => {
 
       <div>
         <p className="text-base text-gray-600">
-          Selecciona el periodo para consultar al quiniela registrada por
-          participante.
+          Selecciona el periodo para consultar la quiniela registrada
+          previviamente por cada participante.
         </p>
 
         <InputCombo

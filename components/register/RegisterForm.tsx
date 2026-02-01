@@ -81,7 +81,7 @@ export const RegisterForm = () => {
           placeholder="••••••••"
         />
 
-        <Button type="submit" title="Terminar Registro" />
+        <Button type="submit" title="Terminar registro" />
       </Form>
     </Formik>
   );

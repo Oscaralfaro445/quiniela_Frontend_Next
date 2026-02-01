@@ -15,6 +15,7 @@ export function middleware(request: NextRequest) {
   if (
     pathname.startsWith("/api") ||
     pathname.startsWith("/_next") ||
+    pathname.startsWith("/_next/image") ||
     pathname === "/favicon.ico"
   ) {
     return NextResponse.next();
