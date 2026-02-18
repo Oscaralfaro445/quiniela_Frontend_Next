@@ -8,7 +8,7 @@ export default function ChangePasswordPage() {
   return (
     <MainContainer>
       <div className="grid h-full items-center">
-        <div className="grid w-full max-w-[768px] mx-auto px-4 py-8 gap-4 lg:border border-neutral-300 rounded-xl lg:shadow-xs">
+        <div className="grid w-full max-w-[768px] mx-auto px-4 py-8 gap-4 border border-neutral-300 rounded-xl lg:shadow-xs">
           <div className="grid gap-2 justify-items-center items-center">
             <div className="relative w-36 h-36">
               <Image

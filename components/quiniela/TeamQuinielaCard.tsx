@@ -36,8 +36,34 @@ export const TeamQuinielaCard = ({
 
   return (
     <Card>
-      <div className="flex flex-wrap w-full gap-4 justify-between items-center">
-        <div className="flex flex-wrap w-1/2 gap-4 justify-start items-center">
+      {/* <div className="relative w-full h-20 border rounded-xl overflow-hidden bg-white">
+        <div
+          className="absolute left-0 top-0 h-full bg-green-100 transition-all duration-500"
+          style={{ width: `${40}%` }}
+        />
+
+        <div className="relative z-10 flex items-center justify-between h-full px-4">
+          <div className="flex items-center gap-3">
+            <div className="w-4 h-4 rounded-full border-2 border-green-500 bg-white" />
+
+            <div>
+              <p className="font-semibold">Green Bay Packers</p>
+              <p className="text-sm text-red-500">8-3-1</p>
+            </div>
+          </div>
+
+          <div className="text-right">
+            <p className="text-xl font-bold">{40}%</p>
+            <p className="text-sm text-gray-500">1,247 votos</p>
+          </div>
+        </div>
+      </div> */}
+      <div className="relative flex flex-wrap w-full gap-4 justify-between items-center">
+        <div
+          className="absolute left-0 top-0 h-full bg-green-100 transition-all duration-500"
+          style={{ width: `${40}%` }}
+        />
+        <div className="relative z-10 flex flex-wrap w-1/2 gap-4 justify-start items-center">
           <div className="flex gap-4 items-center">
             <input
               className="h-4 w-4"
@@ -95,7 +121,8 @@ export const TeamQuinielaCard = ({
               type="number"
               min="0"
               max="70"
-              value={team === "V" ? game.ID_SCORE_1 : game.ID_SCORE_2}
+              disabled={disabled}
+              value={team === "V" ? game.ID_SCORE_E1 : game.ID_SCORE_E2}
               onChange={(event) => {
                 handleScoreChange(
                   game.Partido,

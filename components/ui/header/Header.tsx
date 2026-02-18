@@ -23,15 +23,17 @@ export const Header = () => {
   return (
     <>
       <header className="fixed top-0 z-40 flex w-full h-16 px-4 py-2 justify-between items-center bg-white border-b border-neutral-400">
-        <Link className="flex items-center" href={isLoged ? "/dashboard" : "/"}>
-          <div className="relative w-12 h-12">
-            <Image
-              className="object-contain"
-              fill
-              src="/images/logoNFL.png"
-              alt="Logo NFL"
-            />
-          </div>
+        <Link
+          className="flex gap-2 items-center"
+          href={isLoged ? "/dashboard" : "/"}
+        >
+          <Image
+            src="/images/logoNFL.png"
+            width={30}
+            height={30}
+            priority
+            alt="Logo NFL"
+          />
 
           <p className="hidden sm:block text-3xl font-semibold">
             {isLoged ? user?.data[0]?.titQuiniela : "Quiniela NFL"}

@@ -2,11 +2,11 @@
 
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import { useRecovery } from "@/hooks/recovery/mutations/useRecovery";
 import { Input } from "../shared/input/Input";
 import { Button } from "../shared/button/Button";
 import { Loader } from "../shared/loader/Loader";
 import { StatusMessage } from "../ui/statusMessage/StatusMessage";
+import { useSendEmail } from "@/hooks/email/mutations/useSendEmail";
 
 interface RecoveryFormValues {
   cveUsuario: string;
@@ -21,10 +21,10 @@ const validationSchema = Yup.object({
 });
 
 export const RecoveryForm = () => {
-  const mutation = useRecovery();
+  const mutation = useSendEmail();
 
   const handleSubmit = (values: RecoveryFormValues) => {
-    mutation.mutate(values);
+    mutation.mutate(values.cveUsuario);
   };
 
   return (
@@ -48,6 +48,7 @@ export const RecoveryForm = () => {
             validText="Instrucciones de restablecimiento enviadas"
             invalidText="Error al enviar las instrucciones"
             mutation={mutation}
+            mutationData={mutation?.data}
           />
 
           <Button type="submit" title="Restablecer Contraseña" />

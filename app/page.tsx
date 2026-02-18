@@ -36,7 +36,7 @@ const cardDetails: CardDetails[] = [
 export default function HomePage() {
   return (
     <div>
-      <section className="w-full pt-16 bg-blue-700">
+      <section className="bg-blue-700">
         <div className="grid max-w-[1280px] mx-auto px-10 py-10 lg:py-32 gap-4">
           <div className="grid gap-4 justify-items-center items-center">
             <Title
@@ -62,7 +62,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <div className="grid max-w-[1280px] mx-auto px-10 py-20 lg:py-32 gap-4">
+      <section className="grid max-w-[1280px] mx-auto px-10 py-20 lg:py-32 gap-4">
         <div className="grid gap-4 justify-items-center items-center">
           <Title
             className="text-center"
@@ -88,7 +88,7 @@ export default function HomePage() {
             </Card>
           ))}
         </div>
-      </div>
+      </section>
 
       <section className="bg-white">
         <div className="grid max-w-[1280px] mx-auto px-10 py-20 lg:py-32 gap-4">

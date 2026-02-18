@@ -15,6 +15,7 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Quiniela - Predicciones Deportivas</title>
+        <link rel="icon" href="/favicon.ico" />
         <meta
           name="description"
           content="Plataforma de quinielas deportivas. Haz tus predicciones, compite con otros usuarios y gana premios en cada temporada."
@@ -24,7 +25,6 @@ export default function RootLayout({
           content="quiniela, predicciones deportivas, apuestas, football, NFL, competencia, premios, temporada"
         />
         <meta name="author" content="Oscar Alfaro" />
-
         <meta name="robots" content="index, follow" />
         <meta name="language" content="Spanish" />
         <meta name="revisit-after" content="7 days" />

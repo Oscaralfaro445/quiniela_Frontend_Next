@@ -17,16 +17,14 @@ export const RegisterSection = ({ idQuiniela }: RegisterSectionProps) => {
   return (
     <MainContainer>
       <section className="grid items-center">
-        <div className="grid w-full max-w-[768px] mx-auto px-4 py-8 gap-4 lg:border border-neutral-300 rounded-2xl lg:shadow-xs">
+        <div className="grid w-full max-w-[768px] mx-auto px-4 py-8 gap-4 border border-neutral-300 rounded-2xl lg:shadow-xs">
           <div className="grid gap-2 justify-items-center items-center">
-            <div className="relative w-36 h-36">
-              <Image
-                className="object-contain"
-                fill
-                src="/images/logoNFL.png"
-                alt="Logo NFL"
-              />
-            </div>
+            <Image
+              className="object-contain"
+              fill
+              src="/images/logoNFL.png"
+              alt="Logo NFL"
+            />
             <Title className="text-center" title="Crear Cuenta" color="blue" />
             <TextBody
               className="text-center"

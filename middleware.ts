@@ -7,6 +7,7 @@ const PUBLIC_ROUTES = [
   "/register",
   "/recovery",
   "/changePassword",
+  "/not-found",
 ];
 
 export function middleware(request: NextRequest) {
@@ -15,7 +16,6 @@ export function middleware(request: NextRequest) {
   if (
     pathname.startsWith("/api") ||
     pathname.startsWith("/_next") ||
-    pathname.startsWith("/_next/image") ||
     pathname === "/favicon.ico"
   ) {
     return NextResponse.next();

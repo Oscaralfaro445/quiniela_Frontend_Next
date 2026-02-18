@@ -4,6 +4,7 @@ import { usePostUser } from "@/hooks/register/mutations/usePostUser";
 import { RegisterFormValues } from "@/types/register/register";
 import { Input } from "../shared/input/Input";
 import { Button } from "../shared/button/Button";
+import { CodeVerificationRow } from "@/hooks/register/mutations/useCodeValidation";
 
 const initialValues: RegisterFormValues = {
   cveUsuario: "",
@@ -15,7 +16,9 @@ const initialValues: RegisterFormValues = {
 };
 
 const validationSchema = Yup.object({
-  cveUsuario: Yup.string().required("Campo requerido"),
+  cveUsuario: Yup.string()
+    .email("Correo electrónico inválido")
+    .required("Campo requerido"),
   apellidoPaterno: Yup.string().required("Campo requerido"),
   apellidoMaterno: Yup.string().required("Campo requerido"),
   nombre: Yup.string().required("Campo requerido"),
@@ -25,11 +28,15 @@ const validationSchema = Yup.object({
     .required("Campo requerido"),
 });
 
-export const RegisterForm = () => {
-  const register = usePostUser();
+interface RegisterFormProps {
+  data: CodeVerificationRow | undefined;
+}
+
+export const RegisterForm = ({ data }: RegisterFormProps) => {
+  const mutation = usePostUser();
 
   const handleSubmit = (values: RegisterFormValues) => {
-    register.mutate({ registerData: values, identificador: "1" });
+    mutation.mutate({ registerData: values, identificador: data?.idQuiniela });
   };
 
   return (
@@ -38,7 +45,7 @@ export const RegisterForm = () => {
       onSubmit={handleSubmit}
       validationSchema={validationSchema}
     >
-      <Form className="grid w-full gap-4">
+      <Form className="grid gap-4">
         <Input
           type="email"
           name="cveUsuario"
@@ -81,7 +88,17 @@ export const RegisterForm = () => {
           placeholder="••••••••"
         />
 
-        <Button type="submit" title="Terminar registro" />
+        {/* <StatusMessage
+          validText="Inicio de sesión exitoso"
+          invalidText="Credenciales inválidas"
+          mutation={mutation}
+        /> */}
+
+        <Button
+          type="submit"
+          title={mutation?.isPending ? "Registrando..." : "Terminar registro"}
+          disabled={mutation?.isPending}
+        />
       </Form>
     </Formik>
   );

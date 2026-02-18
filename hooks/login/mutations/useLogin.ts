@@ -1,7 +1,27 @@
+import { useRouter } from "next/navigation";
 import { axiosInstance } from "@/hooks/axios/axiosInstance";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useHandleRequestStatus } from "@/utils/showRequestStatus/showRequestStatus";
 import { LoginFormValues, LoginProps } from "@/types/login/login";
-import { useRouter } from "next/navigation";
+import { AxiosError } from "axios";
+
+interface ErrorResponse {
+  estatus: number;
+  errorUs?: string | null;
+  errorNeg?: string[] | null;
+}
+
+export interface CodeVerificationRow {
+  bExisteQuin: boolean;
+  idQuiniela: number;
+}
+
+export interface CodeVerificationResponse {
+  data: CodeVerificationRow[];
+  errorNeg: string[] | null;
+  errorUs: string | null;
+  estatus: number;
+}
 
 const login = async (payload: LoginProps) => {
   const response = await axiosInstance.post("/Login/Autentica", payload);
@@ -9,10 +29,15 @@ const login = async (payload: LoginProps) => {
 };
 
 export const useLogin = () => {
-  const router = useRouter();
+  const { handleRequestStatus } = useHandleRequestStatus();
   const queryClient = useQueryClient();
+  const router = useRouter();
 
-  return useMutation({
+  return useMutation<
+    CodeVerificationResponse,
+    AxiosError<ErrorResponse>,
+    LoginFormValues
+  >({
     mutationKey: ["login"],
     mutationFn: (loginData: LoginFormValues) =>
       login({
@@ -23,9 +48,19 @@ export const useLogin = () => {
       }),
     onSuccess: (data) => {
       if (data.estatus === 1) {
-        queryClient.invalidateQueries({ queryKey: ["getMe"] });
+        queryClient.invalidateQueries();
         router.push("/dashboard");
       }
+    },
+    onSettled: (data, error) => {
+      const requestData = data || error?.response?.data;
+      handleRequestStatus({
+        estatus: requestData?.estatus,
+        errorUs: requestData?.errorUs ?? "",
+        errorNeg: requestData?.errorNeg ?? [],
+        error: error?.message ?? "",
+        mensajeExito: "Login exitoso",
+      });
     },
   });
 };

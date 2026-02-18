@@ -37,7 +37,7 @@ export const Button = ({
 
   return (
     <button
-      className={`flex h-10 gap-2 justify-between ${themes[theme]} cursor-pointer`}
+      className={`flex h-10 gap-2 justify-between transition duration-500 ease-in-out ${themes[theme]} ${disabled ? "opacity-30 cursor-not-allowed grayscale-100" : "cursor-pointer"}`}
       type={type}
       onClick={onClick}
       disabled={disabled}

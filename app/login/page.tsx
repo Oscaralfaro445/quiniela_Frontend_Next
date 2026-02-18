@@ -9,16 +9,14 @@ export default function LoginPage() {
   return (
     <MainContainer>
       <div className="grid h-full items-center">
-        <div className="grid w-full max-w-[768px] mx-auto px-4 py-8 gap-4 lg:border border-neutral-300 rounded-xl lg:shadow-xs">
+        <div className="grid w-full max-w-[768px] mx-auto px-4 py-8 gap-4 border border-neutral-300 rounded-xl lg:shadow-xs">
           <div className="grid gap-2 justify-items-center items-center">
-            <div className="relative w-36 h-36">
-              <Image
-                className="object-contain"
-                fill
-                src="/images/logoNFL.png"
-                alt="Logo NFL"
-              />
-            </div>
+            <Image
+              src="/images/logoNFL.png"
+              width={100}
+              height={130}
+              alt="Logo NFL"
+            />
             <Title
               className="text-center"
               title="Iniciar sesión"

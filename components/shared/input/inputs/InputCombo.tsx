@@ -84,8 +84,6 @@ export const InputCombo = ({
                 const optionValue = option["llave"];
                 const isSelected = optionValue === selected;
 
-                console.log(optionValue);
-
                 return (
                   <li
                     key={optionValue?.toString() || index}

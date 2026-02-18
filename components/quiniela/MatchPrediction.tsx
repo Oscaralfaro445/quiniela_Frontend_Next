@@ -38,8 +38,8 @@ export const MatchPrediction = () => {
       const quinielaInitialData = data.data[0].quiniela.map(
         (game: QuinielaItem) => ({
           ...game,
-          ID_SCORE_1: 0,
-          ID_SCORE_2: 0,
+          ID_SCORE_E1: 0,
+          ID_SCORE_E2: 0,
         }),
       );
       setSelectedSurvivor(0);
@@ -68,7 +68,7 @@ export const MatchPrediction = () => {
         game.Partido === partido
           ? {
               ...game,
-              [team === "away" ? "ID_SCORE_1" : "ID_SCORE_2"]: score,
+              [team === "away" ? "ID_SCORE_E1" : "ID_SCORE_E2"]: score,
             }
           : game,
       ),
@@ -133,8 +133,8 @@ export const MatchPrediction = () => {
       ID_PARTICIPANTE: userInfo!.idParticipante,
       ID_PERIODO: userInfo!.idPeriodo,
       ID_PARTIDO: game.Partido,
-      ID_SCORE_1: game.ID_SCORE_1,
-      ID_SCORE_2: game.ID_SCORE_2,
+      ID_SCORE_E1: game.ID_SCORE_E1,
+      ID_SCORE_E2: game.ID_SCORE_E2,
       CVE_GANADOR: game.partGanador,
       B_MARCARDOR: game.bMarcador,
     }));

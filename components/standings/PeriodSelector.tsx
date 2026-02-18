@@ -19,7 +19,7 @@ export const PeriodSelector = ({ period, setPeriod }: PeriodSelectorProps) => {
   return (
     <Card>
       <div className="flex w-full items-center justify-between">
-        <p className="text-lg font-semibold">Selección de periodo</p>
+        <p className="text-lg">Selección de periodo</p>
         <Icon className="text-blue-600" name="shield-check" strokeWidth={2} />
       </div>
 
@@ -28,7 +28,7 @@ export const PeriodSelector = ({ period, setPeriod }: PeriodSelectorProps) => {
       {isError && <p>Error: {error?.message}</p>}
 
       <div>
-        <p className="text-base text-gray-600">
+        <p className="text-base text-neutral-500">
           Selecciona el periodo para consultar la quiniela registrada
           previviamente por cada participante.
         </p>

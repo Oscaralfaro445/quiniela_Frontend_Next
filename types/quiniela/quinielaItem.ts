@@ -18,7 +18,7 @@ export interface QuinielaItem {
   numEmpatadosL: number;
   survEquipoV: string;
   survEquipoL: string;
-  ID_SCORE_1: number;
-  ID_SCORE_2: number;
+  ID_SCORE_E1: number;
+  ID_SCORE_E2: number;
   bMarcador: boolean;
 }

@@ -51,13 +51,6 @@ export const GroupRadio = ({
             </div>
           </div>
 
-          {game.bMarcador && (
-            <p className="text-blue-600">
-              Este partido se utilizará para diferenciar posiciones en caso de
-              empate. Ingresa tu pronóstico del marcador.
-            </p>
-          )}
-
           {Array.from({ length: 2 }).map((_, index) => (
             <TeamQuinielaCard
               key={index}
@@ -70,6 +63,13 @@ export const GroupRadio = ({
               handleScoreChange={handleScoreChange}
             />
           ))}
+
+          {game.bMarcador && (
+            <p className="text-blue-600">
+              Este partido se utilizará para diferenciar posiciones en caso de
+              empate. Ingresa tu pronóstico del marcador.
+            </p>
+          )}
         </div>
       </Card>
 

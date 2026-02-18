@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetParticipantPositions } from "@/hooks/participantPositions/queries/useGetParticipantPositions";
 import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
 import { ParticipantStatistics } from "@/types/participantStatistics/participantStatistics";
@@ -16,7 +16,7 @@ export const StandingsCard = ({ activeTab }: StandingsCardProps) => {
   const [period, setPeriod] = useState<number>(0);
   const { isPending, isError, data } = useGetParticipantPositions();
   const { data: user } = useGetMe();
-  const currentWeek = user?.data?.[0].idPeriodo;
+  const currentWeek = user?.data?.[0]?.idPeriodo;
   const participantData = data?.data[0];
   const weeklyLeaderboard: ParticipantStatistics[] =
     participantData?.puntosPeriodo;
@@ -24,11 +24,17 @@ export const StandingsCard = ({ activeTab }: StandingsCardProps) => {
     participantData?.puntosTotal;
   const leaderboard = activeTab === 0 ? weeklyLeaderboard : globalLeaderboard;
 
+  useEffect(() => {
+    if (currentWeek) {
+      setPeriod(Number(currentWeek));
+    }
+  }, [currentWeek]);
+
   return (
     <Card>
       <div className="grid gap-4">
         <div>
-          <p className="text-lg font-semibold text-neutral-700">
+          <p className="text-xl font-semibold text-red-600">
             {`Clasificación ${activeTab === 0 ? `semana ${currentWeek}` : "global"}`}
           </p>
           <p className="text-md text-neutral-600">
@@ -36,7 +42,9 @@ export const StandingsCard = ({ activeTab }: StandingsCardProps) => {
           </p>
         </div>
 
-        <PeriodSelector period={period} setPeriod={setPeriod} />
+        {activeTab === 0 && (
+          <PeriodSelector period={period} setPeriod={setPeriod} />
+        )}
 
         {isPending && (
           <div className="flex justify-center items-center mt-10">
@@ -59,6 +67,7 @@ export const StandingsCard = ({ activeTab }: StandingsCardProps) => {
               key={player.ID_PARTICIPANTE}
               player={player}
               period={period}
+              activeTab={activeTab}
             />
           ))}
         </div>

@@ -1,20 +1,19 @@
 "use client";
 
+import { useCodeVerification } from "@/hooks/register/mutations/useCodeValidation";
 import { useRef, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { Title } from "../shared/text/Title";
-import { TextBody } from "../shared/text/TextBody";
+import { Button } from "../shared/button/Button";
 
-interface KeyValidationSectionProps {
-  onValidated: (code: string) => void;
+interface CodeVerificationFormProps {
+  mutation: ReturnType<typeof useCodeVerification>;
 }
 
-export const KeyValidationSection = ({
-  onValidated,
-}: KeyValidationSectionProps) => {
+export const CodeVerificationForm = ({
+  mutation,
+}: CodeVerificationFormProps) => {
   const [code, setCode] = useState<string[]>(["", "", "", "", ""]);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const concatenatedCode = code.join("");
 
   const handleInputChange = (index: number, value: string) => {
     if (!/^\d*$/.test(value)) return;
@@ -54,36 +53,15 @@ export const KeyValidationSection = ({
     }
   };
 
-  const concatenatedCode = code.join("");
-
-  const handleSubmit = () => {
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
     if (concatenatedCode.length === 5) {
-      onValidated(concatenatedCode);
+      mutation.mutate(concatenatedCode);
     }
   };
 
   return (
-    <div className="grid w-full max-w-[768px] mx-auto px-4 py-8 gap-6 lg:border border-neutral-300 rounded-2xl lg:shadow-xs">
-      <div className="grid gap-2 justify-items-center items-center">
-        <div className="relative w-36 h-36">
-          <Image
-            className="object-contain"
-            fill
-            src="/images/logoNFL.png"
-            alt="Logo NFL"
-          />
-        </div>
-        <Title
-          className="text-center"
-          title="Clave de Confirmación"
-          color="blue"
-        />
-        <TextBody
-          className="text-center"
-          text="Ingresa los 5 dígitos que recibiste para verificar tu cuenta."
-        />
-      </div>
-
+    <form className="grid gap-6">
       <div className="flex justify-center gap-2">
         {code.map((digit, index) => (
           <input
@@ -104,27 +82,12 @@ export const KeyValidationSection = ({
         ))}
       </div>
 
-      <button
-        onClick={handleSubmit}
-        disabled={concatenatedCode.length !== 5}
-        className={`w-full py-2 px-4 rounded-lg font-semibold transition-all ${
-          concatenatedCode.length === 5
-            ? "bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
-            : "bg-neutral-200 text-neutral-400 cursor-not-allowed"
-        }`}
-      >
-        Verificar código
-      </button>
-
-      <div className="grid md:flex gap-2 items-center justify-center">
-        <p className="text-neutral-600">¿Ya tienes una cuenta?</p>
-
-        <Link href="/login">
-          <p className="text-center md:text-end text-blue-600 hover:underline">
-            Inicia sesión
-          </p>
-        </Link>
-      </div>
-    </div>
+      <Button
+        type="submit"
+        title={mutation?.isPending ? "Verificando..." : "Verificar código"}
+        disabled={mutation?.isPending || concatenatedCode.length !== 5}
+        onClick={(event) => handleSubmit(event)}
+      />
+    </form>
   );
 };
