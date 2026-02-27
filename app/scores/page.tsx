@@ -2,19 +2,18 @@
 
 import Link from "next/link";
 import { useGetMarkers } from "@/hooks/markers/queries/useGetMarkers";
-import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
-import { DataUser } from "@/types/user/dataUser";
 import { MainContainer } from "@/components/ui/containers/MainContainer";
 import { Button } from "@/components/shared/button/Button";
 import { StatisticsCard } from "@/components/scores/StatisticsCard";
 import { ScoreBoard } from "@/components/scores/ScoreBoard";
 import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
 
 export default function ScoresPage() {
   const { isPending, isError, data } = useGetMarkers();
-  const { data: user } = useGetMe();
-  const dataUser: DataUser = user?.data?.[0];
-  const week = dataUser?.idPeriodo;
+  const { data: userData } = useGetMe();
+  const user = userData?.data?.[0];
+  const week = user?.idPeriodo;
 
   return (
     <MainContainer>
@@ -28,7 +27,7 @@ export default function ScoresPage() {
 
         {isError && <p>Error al cargar los datos...</p>}
 
-        {data?.data && data?.data.length > 0 ? (
+        {data?.data && data?.data?.length > 0 ? (
           <>
             <StatisticsCard gameResults={data?.data} week={week} />
             <ScoreBoard gameResults={data?.data} />

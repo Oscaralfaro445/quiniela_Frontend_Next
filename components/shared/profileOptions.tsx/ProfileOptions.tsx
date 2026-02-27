@@ -4,25 +4,25 @@ import { useState } from "react";
 import { ProfilePhoto } from "../profilePhoto/ProfilePhoto";
 import { Icon } from "../icon/Icon";
 import { Button } from "@/components/shared/button/Button";
-import { useLogout } from "@/hooks/logout/mutations/useLogout";
-import { DataUser } from "@/types/user/dataUser";
+import { useLogout } from "@/hooks/mutations/user/useLogout";
+import { GetMeResponse } from "@/types/user/user.types";
 
 interface ProfileOptionsProps {
-  user: DataUser;
+  user: GetMeResponse | undefined;
 }
 
 export const ProfileOptions = ({ user }: ProfileOptionsProps) => {
   const [showOptions, setShowOptions] = useState(false);
   const mutation = useLogout();
 
+  const handleShowOptions = () => {
+    setShowOptions((prev) => !prev);
+  };
+
   const handleLogout = () => {
     if (confirm("¿Estás seguro de que deseas cerrar sesión?")) {
       mutation.mutate();
     }
-  };
-
-  const handleShowOptions = () => {
-    setShowOptions((prev) => !prev);
   };
 
   return (
@@ -43,10 +43,14 @@ export const ProfileOptions = ({ user }: ProfileOptionsProps) => {
 
             <div>
               <p className="text-neutral-700 font-semibold">
-                {user?.nombreCompleto}
+                {user?.nombreCompleto ?? ""}
               </p>
-              <p className="text-neutral-700 text-sm">{user?.cvePerfil}</p>
-              <p className="text-neutral-700 text-xs">{user?.cveUsuario}</p>
+              <p className="text-neutral-700 text-sm">
+                {user?.cvePerfil ?? ""}
+              </p>
+              <p className="text-neutral-700 text-xs">
+                {user?.cveUsuario ?? ""}
+              </p>
             </div>
           </div>
 

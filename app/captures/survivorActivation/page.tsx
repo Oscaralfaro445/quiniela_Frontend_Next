@@ -49,14 +49,14 @@ export default function SurvivorActivationPage() {
             {isSuccess && data?.data?.length > 0 ? (
               <div className="flex flex-wrap items-center justify-between p-4 border border-gray-400 rounded-lg hover:bg-gray-50 transition-colors">
                 <div className="flex gap-4 items-center">
-                  <TeamLogo teamName={data?.data?.[0].nomEquipo} />
+                  <TeamLogo teamName={data?.data?.[0]?.nomEquipo} />
 
                   <div>
                     <h3 className="font-semibold text-neutral-700">
-                      {data?.data?.[0].nomEquipo}
+                      {data?.data?.[0]?.nomEquipo}
                     </h3>
                     <p className="text-sm text-neutral-600">
-                      {`ID: ${data?.data?.[0].idEquipoSuv}`}
+                      {`ID: ${data?.data?.[0]?.idEquipoSuv}`}
                     </p>
                   </div>
                 </div>
@@ -64,7 +64,7 @@ export default function SurvivorActivationPage() {
                 <div className="flex items-center space-x-4">
                   <div className="flex flex-col text-right">
                     <p className="font-semibold text-lg text-neutral-700">
-                      ${data?.data?.[0].costoSurvivor}
+                      ${data?.data?.[0]?.costoSurvivor}
                     </p>
 
                     <p className="text-sm text-neutral-600">Costo</p>
@@ -72,8 +72,8 @@ export default function SurvivorActivationPage() {
 
                   <Button
                     type="button"
-                    title={data.data[0].bResucita ? "Cancelar" : "Activar"}
-                    theme={data.data[0].bResucita ? "danger" : "primary"}
+                    title={data?.data?.[0]?.bResucita ? "Cancelar" : "Activar"}
+                    theme={data?.data?.[0]?.bResucita ? "danger" : "primary"}
                     onClick={handleSurvivorActivation}
                   />
                 </div>

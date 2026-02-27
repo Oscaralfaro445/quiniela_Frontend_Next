@@ -1,6 +1,5 @@
-import { axiosInstance } from "@/hooks/axios/axiosInstance";
-import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
-import { DataUser } from "@/types/user/dataUser";
+import { axiosInstance } from "@/api/axiosInstance";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchAvailablePeriods = async (payload: {
@@ -16,7 +15,7 @@ const fetchAvailablePeriods = async (payload: {
 
 export const useGetAvailablePeriods = () => {
   const { data: user } = useGetMe();
-  const userInfo: DataUser = user?.data?.[0];
+  const userInfo: any = user?.data?.[0];
 
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["availablePeriods"],

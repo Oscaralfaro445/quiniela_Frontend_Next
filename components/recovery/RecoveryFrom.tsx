@@ -2,11 +2,11 @@
 
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import { Input } from "../shared/input/Input";
+import { useSendEmail } from "@/hooks/mutations/user/useSendEmail";
 import { Button } from "../shared/button/Button";
 import { Loader } from "../shared/loader/Loader";
+import { Input } from "../shared/input/Input";
 import { StatusMessage } from "../ui/statusMessage/StatusMessage";
-import { useSendEmail } from "@/hooks/email/mutations/useSendEmail";
 
 interface RecoveryFormValues {
   cveUsuario: string;

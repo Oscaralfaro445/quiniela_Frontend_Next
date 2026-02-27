@@ -1,16 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import { useLogin } from "@/hooks/login/mutations/useLogin";
-import { LoginFormValues } from "@/types/login/login";
+import { Form, Formik } from "formik";
+import { useLogin } from "@/hooks/mutations/user/useLogin";
+import { LoginVariables } from "@/types/user/user.types";
 import { Input } from "../shared/input/Input";
 import { Button } from "../shared/button/Button";
 import { Loader } from "../shared/loader/Loader";
-import { StatusMessage } from "../ui/statusMessage/StatusMessage";
 
-const initialValues: LoginFormValues = {
+const initialValues: LoginVariables = {
   cveUsuario: "",
   password: "",
 };
@@ -27,7 +26,7 @@ const validationSchema = Yup.object({
 export const LoginForm = () => {
   const mutation = useLogin();
 
-  const handleSubmit = (values: LoginFormValues) => {
+  const handleSubmit = (values: LoginVariables) => {
     mutation.mutate(values);
   };
 
@@ -55,11 +54,11 @@ export const LoginForm = () => {
             name="password"
           />
 
-          <StatusMessage
+          {/*  <StatusMessage
             validText="Inicio de sesión exitoso"
             invalidText="Credenciales inválidas"
             mutation={mutation}
-          />
+          /> */}
 
           <Button type="submit" title="Iniciar sesión" />
 

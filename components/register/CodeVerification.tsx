@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useCodeVerification } from "@/hooks/register/mutations/useCodeValidation";
+import { useCodeVerification } from "@/hooks/mutations/user/useCodeVerification";
 import { CodeVerificationForm } from "./CodeVerificationForm";
 import { RegisterForm } from "./RegisterForm";
-import { Title } from "../shared/text/Title";
 import { TextBody } from "../shared/text/TextBody";
+import { Title } from "../shared/text/Title";
 
 type Status = "code" | "register";
 
@@ -17,7 +17,7 @@ export const CodeVerification = () => {
     if (mutation?.isIdle || mutation?.isError) {
       setStatus("code");
     } else if (mutation?.isSuccess) {
-      if (mutation?.data?.estatus === 1) {
+      if (true) {
         setStatus("register");
       }
     }
@@ -29,16 +29,16 @@ export const CodeVerification = () => {
   ]);
 
   return (
-    <div className="grid gap-4">
+    <div className="grid w-full gap-4">
       <div className="grid gap-2">
         <Title
           className="text-center"
-          title="Clave de confirmación"
+          title={`${status === "code" ? "Clave de confirmación" : "Registro"}`}
           color="blue"
         />
         <TextBody
           className="text-center"
-          text="Ingresa el código proporcionado para poder registrar tu nueva cuenta."
+          text={`${status === "code" ? "Ingresa el código proporcionado para poder registrar tu nueva cuenta." : "Completa el formulario para finalizar tu registro."}`}
         />
       </div>
 

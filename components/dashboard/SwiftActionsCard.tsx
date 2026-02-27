@@ -1,6 +1,5 @@
 import { useRouter } from "next/navigation";
-import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
-import { DataUser } from "@/types/user/dataUser";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
 import { Button } from "../shared/button/Button";
 import { Card } from "../shared/card/Card";
 
@@ -15,9 +14,9 @@ const infoButtons = [
 
 export const SwiftActionsCard = () => {
   const router = useRouter();
-  const { data: user } = useGetMe();
-  const userInfo: DataUser = user?.data?.[0];
-  const currentWeek = userInfo?.idPeriodo;
+  const { data } = useGetMe();
+  const user = data?.data?.[0];
+  const currentWeek = user?.idPeriodo;
 
   return (
     <Card>
@@ -30,7 +29,7 @@ export const SwiftActionsCard = () => {
 
       <Button
         type="button"
-        title={`Hacer Quiniela Semana ${currentWeek}`}
+        title={`Quiniela semana ${currentWeek ?? ""}`}
         icon="play"
         onClick={() => router.push("/quiniela")}
       />

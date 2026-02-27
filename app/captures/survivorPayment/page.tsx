@@ -2,21 +2,20 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
 import { useGetSurvivorPayment } from "@/hooks/survivorPayment/queries/useGetSurvivorPayment";
 import { usePostSurvivorPayment } from "@/hooks/survivorPayment/mutations/usePostSurvivorPayment";
-import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
 import { Participant } from "@/types/participant/participant";
+import { SurvivorPaymentStatusCard } from "@/components/captures/survivorPayment/SurvivorPaymentStatusCard";
 import { Button } from "@/components/shared/button/Button";
 import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
-import { SurvivorPaymentStatusCard } from "@/components/captures/survivorPayment/SurvivorPaymentStatusCard";
-import { DataUser } from "@/types/user/dataUser";
 import { MainContainer } from "@/components/ui/containers/MainContainer";
 
 export default function SurvivorPaymentPage() {
   const { isSuccess, data } = useGetSurvivorPayment();
   const survivorPayment = usePostSurvivorPayment();
-  const { data: user } = useGetMe();
-  const userInfo: DataUser = user?.data?.[0];
+  const { data: userData } = useGetMe();
+  const user = userData?.data?.[0];
 
   const [participantsData, setParticipantsData] = useState<Participant[]>([]);
 
@@ -39,9 +38,9 @@ export default function SurvivorPaymentPage() {
 
   const handleSubmit = () => {
     const participantsDataUpdated = participantsData.map((participant) => ({
-      ID_QUINIELA: userInfo!.idQuiniela,
+      ID_QUINIELA: user!.idQuiniela,
       ID_PARTICIPANTE: participant.ID_PARTICIPANTE,
-      ID_PERIODO: userInfo!.idPeriodo,
+      ID_PERIODO: user!.idPeriodo,
       B_PAGO: participant.B_PAGO,
     }));
 

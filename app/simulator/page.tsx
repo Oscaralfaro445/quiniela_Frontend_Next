@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useGetSimulatorMatches } from "@/hooks/quiniela/queries/useGetSimulatorMatches";
 import { usePostSimulatorQuiniela } from "@/hooks/quiniela/mutations/usePostSimulatorQuiniela";
-import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
 import { SimulatedQuinielaData } from "@/types/SimulatedQuinielaData/simulatedQuinielaData";
 import { QuinielaItem } from "@/types/quiniela/quinielaItem";
 import { Card } from "@/components/shared/card/Card";
@@ -16,16 +15,16 @@ import { StandingsSimulator } from "@/components/simulator/StandingsSimulator";
 import { GroupRadioSimulator } from "@/components/simulator/GroupRadioSimulator";
 import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
 import { QuinielaProgressBarCard } from "@/components/quiniela/QuinielaProgressCard";
-import { DataUser } from "@/types/user/dataUser";
 import { MainContainer } from "@/components/ui/containers/MainContainer";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
 
 export default function SimulatorPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [quinielaData, setQuinielaData] = useState<QuinielaItem[]>([]);
   const { isPending, isError, data } = useGetSimulatorMatches();
   const quinielaAlta = usePostSimulatorQuiniela();
-  const { data: user } = useGetMe();
-  const userInfo: DataUser = user?.data?.[0];
+  const { data: userData } = useGetMe();
+  const userInfo = userData?.data?.[0];
   const currentWeek = userInfo?.idPeriodo;
   const totalGames = data?.data?.length || 0;
 

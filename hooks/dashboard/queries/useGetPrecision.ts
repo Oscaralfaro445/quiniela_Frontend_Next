@@ -1,6 +1,5 @@
-import { axiosInstance } from "@/hooks/axios/axiosInstance";
-import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
-import { DataUser } from "@/types/user/dataUser";
+import { axiosInstance } from "@/api/axiosInstance";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchPrecision = async (payload: {
@@ -18,22 +17,21 @@ const fetchPrecision = async (payload: {
 };
 
 export const useGetPrecision = () => {
-  const { data: user } = useGetMe();
-  const userInfo: DataUser = user?.data?.[0];
+  const { data } = useGetMe();
+  const user = data?.data?.[0];
 
-  const { isPending, isError, data, error } = useQuery({
+  return useQuery({
     queryKey: ["precision"],
     queryFn: () =>
       fetchPrecision({
         idProceso: 14,
         idQuery: 10,
         parmRemp: {
-          $1: userInfo?.idQuiniela,
-          $2: userInfo?.idPeriodo,
-          $3: userInfo?.idParticipante,
+          $1: user!.idQuiniela,
+          $2: user!.idPeriodo,
+          $3: user!.idParticipante,
         },
       }),
-    enabled: !!userInfo,
+    enabled: !!user,
   });
-  return { isPending, isError, data, error };
 };

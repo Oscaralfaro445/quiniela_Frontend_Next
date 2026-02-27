@@ -1,10 +1,9 @@
 import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import { ApiResponse } from "@/types/api/ApiResponse";
-import { PostUserVariables } from "@/types/register/register.types";
-import { UserCreateResponse } from "@/types/user/user.types";
-import { postUserService } from "@/services/user/postUser.service";
+import { ApiError } from "@/types/api/ApiError";
+import { PostUserVariables, UserCreateResponse } from "@/types/user/user.types";
+import { postUser } from "@/services/user/postUser.service";
 import { useHandleRequestStatus } from "@/utils/showRequestStatus/showRequestStatus";
 
 export const usePostUser = () => {
@@ -14,11 +13,11 @@ export const usePostUser = () => {
 
   return useMutation<
     ApiResponse<UserCreateResponse>,
-    AxiosError<ApiResponse<null>>,
+    ApiError,
     PostUserVariables
   >({
     mutationKey: ["postUser"],
-    mutationFn: postUserService,
+    mutationFn: postUser,
     onSuccess: (data) => {
       if (data?.estatus === 1) {
         queryClient.invalidateQueries();

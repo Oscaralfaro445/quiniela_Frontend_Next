@@ -1,6 +1,6 @@
-import { axiosInstance } from "@/hooks/axios/axiosInstance";
-import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
-import { DataUser } from "@/types/user/dataUser";
+import { axiosInstance } from "@/api/axiosInstance";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
+
 import { useMutation } from "@tanstack/react-query";
 
 const postQuinielaSimulator = async (payload: {
@@ -18,7 +18,7 @@ const postQuinielaSimulator = async (payload: {
 
 export const usePostSimulatorQuiniela = () => {
   const { data: user } = useGetMe();
-  const userInfo: DataUser = user?.data?.[0];
+  const userInfo: any = user?.data?.[0];
 
   return useMutation({
     mutationKey: ["quiniela-simulator"],

@@ -1,10 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
-import { DataUser } from "@/types/user/dataUser";
 import { Card } from "../card/Card";
 import { Icon } from "../icon/Icon";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
 
 interface TimeRemaining {
   days: number;
@@ -15,8 +14,8 @@ interface TimeRemaining {
 }
 
 export const Timer = () => {
-  const { data: user } = useGetMe();
-  const userInfo: DataUser = user?.data?.[0];
+  const { data } = useGetMe();
+  const user = data?.data?.[0];
   const [timeRemaining, setTimeRemaining] = useState<TimeRemaining>({
     days: 0,
     hours: 0,
@@ -26,14 +25,12 @@ export const Timer = () => {
   });
 
   const calculateTimeRemaining = useCallback((): TimeRemaining => {
-    if (!userInfo?.fLimite || !userInfo?.horaLimite) {
+    if (!user?.fLimite || !user?.horaLimite) {
       return { days: 0, hours: 0, minutes: 0, seconds: 0, total: 0 };
     }
 
     try {
-      const fechaLimite = new Date(
-        `${userInfo.fLimite}T${userInfo.horaLimite}`,
-      );
+      const fechaLimite = new Date(`${user.fLimite}T${user.horaLimite}`);
       const ahora = new Date();
       const diferencia = fechaLimite.getTime() - ahora.getTime();
 
@@ -53,7 +50,7 @@ export const Timer = () => {
       console.error("Error calculando tiempo restante:", error);
       return { days: 0, hours: 0, minutes: 0, seconds: 0, total: 0 };
     }
-  }, [userInfo?.fLimite, userInfo?.horaLimite]);
+  }, [user?.fLimite, user?.horaLimite]);
 
   useEffect(() => {
     const updateTimer = () => {
@@ -65,7 +62,7 @@ export const Timer = () => {
 
     const interval = setInterval(updateTimer, 1000);
     return () => clearInterval(interval);
-  }, [userInfo?.fLimite, userInfo?.horaLimite, calculateTimeRemaining]);
+  }, [user?.fLimite, user?.horaLimite, calculateTimeRemaining]);
 
   const isWithinTimeLimit = (): boolean => {
     return timeRemaining.total > 0;
@@ -137,13 +134,13 @@ export const Timer = () => {
           </div>
         )}
 
-        {userInfo?.fLimite && userInfo?.horaLimite && (
+        {user?.fLimite && user?.horaLimite && (
           <p
             className={`text-xs ${
               isTimeExpired ? "text-red-600" : "text-green-600"
             }`}
           >
-            {`Límite: ${userInfo?.fLimite} ${userInfo?.horaLimite}`}
+            {`Límite: ${user?.fLimite} ${user?.horaLimite}`}
           </p>
         )}
       </div>

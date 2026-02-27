@@ -1,4 +1,4 @@
-import { axiosInstance } from "@/hooks/axios/axiosInstance";
+import { axiosInstance } from "@/api/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
 
 const sendEmail = async (email: string) => {

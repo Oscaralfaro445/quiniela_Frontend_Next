@@ -1,9 +1,8 @@
 import { ApiResponse } from "@/types/api/ApiResponse";
-import { PostUserVariables } from "../../types/register/register.types";
-import { UserCreateResponse } from "@/types/user/user.types";
+import { PostUserVariables, UserCreateResponse } from "@/types/user/user.types";
 import { axiosInstance } from "@/api/axiosInstance";
 
-export const postUserService = async (
+export const postUser = async (
   variables: PostUserVariables,
 ): Promise<ApiResponse<UserCreateResponse>> => {
   const { registerData, identificador } = variables;

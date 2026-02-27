@@ -1,8 +1,8 @@
-import { axiosInstance } from "@/hooks/axios/axiosInstance";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useAlert } from "@/context/alert/AlertContext";
 import { AlertState } from "@/types/alert/alert";
 import { useHandleRequestStatus } from "@/utils/showRequestStatus/showRequestStatus";
+import { axiosInstance } from "@/api/axiosInstance";
 
 interface Marker {
   ID_PERIODO: string;

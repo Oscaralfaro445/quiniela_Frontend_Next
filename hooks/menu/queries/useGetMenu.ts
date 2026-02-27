@@ -1,6 +1,6 @@
-import { axiosInstance } from "@/hooks/axios/axiosInstance";
-import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
-import { DataUser } from "@/types/user/dataUser";
+import { axiosInstance } from "@/api/axiosInstance";
+// import { useGetMe } from "@/hooks/queries/user/useGetMe";
+// import { GetMeResponse } from "@/types/user/user.types";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchMenu = async (payload: {
@@ -15,8 +15,8 @@ const fetchMenu = async (payload: {
 };
 
 export const useGetMenu = () => {
-  const { data: user } = useGetMe();
-  const userInfo: DataUser = user?.data?.[0];
+  // const { data: user } = useGetMe();
+  //const userInfo: GetMeResponse = user?.data?.[0];
 
   const { isPending, isError, isSuccess, data, error } = useQuery({
     queryKey: ["menu"],
@@ -25,10 +25,10 @@ export const useGetMenu = () => {
         idProceso: 12,
         idProcedure: 7,
         parmRemp: {
-          $1: userInfo?.cveUsuario,
+          $1: "1",
         },
       }),
-    enabled: !!userInfo,
+    // enabled: !!userInfo,
   });
   return { isPending, isError, isSuccess, data, error };
 };

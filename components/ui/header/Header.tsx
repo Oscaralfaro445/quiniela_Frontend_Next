@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
 import { Icon } from "../../shared/icon/Icon";
 import { Button } from "../../shared/button/Button";
 import { ProfileOptions } from "../../shared/profileOptions.tsx/ProfileOptions";
@@ -12,8 +12,9 @@ import { Sidebar } from "../sidebar/Sidebar";
 
 export const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const { data: user, isLoading } = useGetMe();
-  const isLoged = Boolean(user?.data);
+  const { data } = useGetMe();
+  const user = data?.data?.[0];
+  const isLoged = Boolean(user);
   const pathname = usePathname();
 
   const toggleSidebar = () => {
@@ -30,19 +31,18 @@ export const Header = () => {
           <Image
             src="/images/logoNFL.png"
             width={30}
-            height={30}
-            priority
+            height={22}
             alt="Logo NFL"
           />
 
           <p className="hidden sm:block text-3xl font-semibold">
-            {isLoged ? user?.data[0]?.titQuiniela : "Quiniela NFL"}
+            {isLoged ? user?.titQuiniela : "Quiniela NFL"}
           </p>
         </Link>
 
-        {isLoading ? null : isLoged ? (
+        {isLoged ? (
           <div className="flex gap-2 items-center">
-            <ProfileOptions user={user?.data[0]} />
+            <ProfileOptions user={user} />
 
             <div className="h-10 mx-2 border-l border-neutral-400" />
 

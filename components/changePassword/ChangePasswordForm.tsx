@@ -6,6 +6,8 @@ import * as Yup from "yup";
 import { ChangePasswordFormValues } from "@/types/changePassword/changePassword";
 import { Input } from "../shared/input/Input";
 import { Button } from "../shared/button/Button";
+import { Title } from "../shared/text/Title";
+import { TextBody } from "../shared/text/TextBody";
 
 const initialValues: ChangePasswordFormValues = {
   password: "",
@@ -28,28 +30,36 @@ export const ChangePasswordForm = () => {
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-      validationSchema={validationSchema}
-    >
-      <Form className="grid w-full gap-4">
-        <Input
-          type="password"
-          name="password"
-          label="Nueva contraseña"
-          placeholder="••••••••"
-        />
+    <div>
+      <Title
+        className="text-center"
+        title="Cambia tu contraseña"
+        color="blue"
+      />
+      <TextBody className="text-center" text="Ingresa tu nueva contraseña." />
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={validationSchema}
+      >
+        <Form className="grid w-full gap-4">
+          <Input
+            type="password"
+            name="password"
+            label="Nueva contraseña"
+            placeholder="••••••••"
+          />
 
-        <Input
-          type="password"
-          name="passwordConfirm"
-          label="Confirma tu nueva contraseña"
-          placeholder="••••••••"
-        />
+          <Input
+            type="password"
+            name="passwordConfirm"
+            label="Confirma tu nueva contraseña"
+            placeholder="••••••••"
+          />
 
-        <Button type="submit" title="Cambiar contraseña" />
-      </Form>
-    </Formik>
+          <Button type="submit" title="Cambiar contraseña" />
+        </Form>
+      </Formik>
+    </div>
   );
 };

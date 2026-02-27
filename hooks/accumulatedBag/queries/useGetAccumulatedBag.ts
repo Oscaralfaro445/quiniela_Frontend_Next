@@ -1,6 +1,5 @@
-import { axiosInstance } from "@/hooks/axios/axiosInstance";
-import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
-import { DataUser } from "@/types/user/dataUser";
+import { axiosInstance } from "@/api/axiosInstance";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchAccumulatedBag = async (payload: {
@@ -15,18 +14,17 @@ const fetchAccumulatedBag = async (payload: {
 };
 
 export const useGetAccumulatedBag = () => {
-  const { data: user } = useGetMe();
-  const userInfo: DataUser = user?.data?.[0];
+  const { data } = useGetMe();
+  const user = data?.data?.[0];
 
-  const { isPending, isError, data, error } = useQuery({
+  return useQuery({
     queryKey: ["bolsa"],
     queryFn: () =>
       fetchAccumulatedBag({
         idProceso: 14,
         idQuery: 13,
-        parmRemp: { $1: userInfo?.idQuiniela },
+        parmRemp: { $1: user!.idQuiniela },
       }),
-    enabled: !!userInfo,
+    enabled: !!user,
   });
-  return { isPending, isError, data, error };
 };

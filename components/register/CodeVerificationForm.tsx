@@ -1,8 +1,8 @@
 "use client";
 
-import { useCodeVerification } from "@/hooks/register/mutations/useCodeValidation";
 import { useRef, useState } from "react";
 import { Button } from "../shared/button/Button";
+import { useCodeVerification } from "@/hooks/mutations/user/useCodeVerification";
 
 interface CodeVerificationFormProps {
   mutation: ReturnType<typeof useCodeVerification>;
@@ -56,7 +56,7 @@ export const CodeVerificationForm = ({
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     if (concatenatedCode.length === 5) {
-      mutation.mutate(concatenatedCode);
+      mutation.mutate({ code: concatenatedCode });
     }
   };
 

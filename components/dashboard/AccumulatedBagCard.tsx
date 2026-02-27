@@ -2,7 +2,7 @@ import { useGetAccumulatedBag } from "@/hooks/accumulatedBag/queries/useGetAccum
 import { Card } from "../shared/card/Card";
 
 export const AccumulatedBagCard = () => {
-  const { isPending, isError, data, error } = useGetAccumulatedBag();
+  const { isPending, isError, data } = useGetAccumulatedBag();
   const bagInfo = data?.data?.[0];
   const totalQuiniela = bagInfo?.totalQuiniela || 0;
   const totalSurvivor = bagInfo?.totalSurvivor || 0;
@@ -20,14 +20,14 @@ export const AccumulatedBagCard = () => {
 
       {isPending && <p>Cargando...</p>}
 
-      {isError && <p>Error al cargar los datos... {error?.message}</p>}
+      {isError && <p>Error al cargar los datos...</p>}
 
       <div className="space-y-4">
         <Card>
           <div className="flex flex-col items-center justify-between text-center text-sm">
             <p className="text-neutral-600">Bolsa acumulada</p>
             <p className="text-lg font-semibold text-blue-600">
-              {`$ ${accumulatedBag}`}
+              {`$ ${accumulatedBag ?? "-"}`}
             </p>
             <p className="text-neutral-600">Recaudación total</p>
           </div>
@@ -38,7 +38,7 @@ export const AccumulatedBagCard = () => {
             <div className="flex flex-col justify-between text-sm">
               <p className="text-neutral-600">Total quiniela</p>
               <p className="text-lg font-semibold text-blue-600">
-                {`$ ${totalQuiniela}`}
+                {`$ ${totalQuiniela ?? "-"}`}
               </p>
               <p className="text-neutral-600">Recaudación quiniela</p>
             </div>
@@ -48,7 +48,7 @@ export const AccumulatedBagCard = () => {
             <div className="flex flex-col justify-between text-sm">
               <p className="text-neutral-600">Total survivor</p>
               <p className="text-lg font-semibold text-blue-600">
-                {`$ ${totalSurvivor}`}
+                {`$ ${totalSurvivor ?? "-"}`}
               </p>
               <p className="text-neutral-600">Recaudación survivor</p>
             </div>
@@ -58,7 +58,7 @@ export const AccumulatedBagCard = () => {
             <div className="flex flex-col justify-between text-sm">
               <p className="text-neutral-600">Premios Otorgados</p>
               <p className="text-lg font-semibold text-blue-600">
-                {`$ ${totalPrize}`}
+                {`$ ${totalPrize ?? "-"}`}
               </p>
               <p className="text-neutral-600">Premios entregados</p>
             </div>

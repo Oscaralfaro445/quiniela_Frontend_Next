@@ -1,7 +1,6 @@
 "use client";
 
-import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
-import { DataUser } from "@/types/user/dataUser";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
 import { StatisticsCard } from "@/components/dashboard/StatisticsCard";
 import { Timer } from "@/components/shared/timer/Timer";
 import { SwiftActionsCard } from "@/components/dashboard/SwiftActionsCard";
@@ -14,14 +13,14 @@ import { MainContainer } from "@/components/ui/containers/MainContainer";
 import { ConferenceCard } from "@/components/dashboard/ConferenceCard";
 
 export default function DashboardPage() {
-  const { data: user } = useGetMe();
-  const userInfo: DataUser = user?.data[0];
+  const { data } = useGetMe();
+  const userInfo = data?.data?.[0];
 
   return (
     <MainContainer>
       <div className="grid gap-4">
         <PageHeader
-          title={`¡Bienvenido de vuelta ${userInfo?.nombreCompleto}!`}
+          title={`¡Bienvenido de vuelta ${userInfo?.nombreCompleto ?? ""}!`}
           text="Aquí tienes un resumen de tu rendimiento en la temporada."
         />
         <StatisticsCard />

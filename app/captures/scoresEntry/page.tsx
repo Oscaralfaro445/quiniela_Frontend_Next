@@ -4,30 +4,29 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useGetMarkers } from "@/hooks/markers/queries/useGetMarkers";
 import { usePostMarkers } from "@/hooks/markers/mutations/usePostMarkers";
-import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
 import { GameResult } from "@/types/gameResult/gameResult";
 import { Button } from "@/components/shared/button/Button";
 import { StatisticsCard } from "@/components/scores/StatisticsCard";
 import { ScoreBoard } from "@/components/captures/scoresEntry/ScoreBoard";
 import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
-import { DataUser } from "@/types/user/dataUser";
 import { MainContainer } from "@/components/ui/containers/MainContainer";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
 
 export default function ScoresEntryPage() {
   const { isPending, isError, isSuccess, data } = useGetMarkers();
   const markersUpdate = usePostMarkers();
-  const { data: user } = useGetMe();
-  const dataUser: DataUser = user?.data?.[0];
-  const week = dataUser?.idPeriodo;
+  const { data: userData } = useGetMe();
+  const user = userData?.data?.[0];
+  const week = user?.idPeriodo;
 
   const [gameResults, setGameResults] = useState<GameResult[]>([]);
 
   useEffect(() => {
     if (isSuccess) {
-      const gameResults = data.data;
+      const gameResults = data?.data;
       setGameResults(gameResults);
     }
-  }, [isSuccess, data, dataUser]);
+  }, [isSuccess, data, user]);
 
   const handleScoreChange = (
     partido: number,
@@ -50,7 +49,7 @@ export default function ScoresEntryPage() {
 
   const handleSubmitScores = () => {
     const gameResultsUpdated = gameResults.map((game: GameResult) => ({
-      ID_PERIODO: dataUser!.idPeriodo,
+      ID_PERIODO: user!.idPeriodo,
       ID_PARTIDO: game.partido,
       ID_SCORE_E1: game.marcVisita,
       ID_SCORE_E2: game.marLocal,

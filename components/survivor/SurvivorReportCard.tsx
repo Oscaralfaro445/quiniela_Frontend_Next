@@ -1,21 +1,21 @@
 "use client";
 
 import { useGetSurvivorReport } from "@/hooks/survivorReport/queries/useGetSurvivorReport";
-import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
 import { Card } from "../shared/card/Card";
 import { useEffect, useState } from "react";
 import { Paginator } from "../shared/paginator/paginator";
 import { ParticipantSurvivor } from "@/types/participantSurvivor/participantSurvivor";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
 
 export const SurvivorReportCard = () => {
-  const { isPending, isError, data, error } = useGetSurvivorReport();
-  const { data: user } = useGetMe();
-  const userInfo = user?.data?.[0];
+  const { isPending, isError, data } = useGetSurvivorReport();
+  const { data: userData } = useGetMe();
+  const user = userData?.data?.[0];
   const survivorData = data?.data;
-  const semanas = Object.keys(survivorData?.[0] || {})
+  const semanas = Object.keys(survivorData?.[0] ?? {})
     .filter((key) => key.startsWith("NOM_EQ_"))
     .map((key) => parseInt(key.split("_")[2]))
-    .slice(0, parseInt(userInfo?.idPeriodo));
+    .slice(0, parseInt(user?.idPeriodo ?? ""));
 
   const [rango, setRango] = useState({
     inicio: 0,
@@ -62,7 +62,7 @@ export const SurvivorReportCard = () => {
 
       {isPending && <p>Cargando datos...</p>}
 
-      {isError && <p>Error cargando datos... {error?.message}</p>}
+      {isError && <p>Error cargando datos...</p>}
 
       <div className="w-full overflow-x-auto">
         <table className="w-full">

@@ -1,10 +1,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useGetMatches } from "@/hooks/quiniela/queries/useGetMatches";
-import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
 import { usePostSurvivorTeam } from "@/hooks/survivor/mutations/usePostSurvivorTeam";
 import { usePostQuiniela } from "@/hooks/quiniela/mutations/usePostQuiniela";
-import { DataUser } from "@/types/user/dataUser";
 import { QuinielaItem } from "@/types/quiniela/quinielaItem";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";
@@ -16,16 +14,17 @@ import { QuinielaProgressBarCard } from "./QuinielaProgressCard";
 import { Button } from "../shared/button/Button";
 import { AlertState } from "@/types/alert/alert";
 import { useAlert } from "@/context/alert/AlertContext";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
 
 export const MatchPrediction = () => {
-  const [quinielaData, setQuinielaData] = useState<QuinielaItem[]>([]);
   const [selectedSurvivor, setSelectedSurvivor] = useState<number>(0);
+  const [quinielaData, setQuinielaData] = useState<QuinielaItem[]>([]);
   const { isPending, isError, data, error } = useGetMatches();
   const survivorAlta = usePostSurvivorTeam();
   const quinielaAlta = usePostQuiniela();
-  const { data: user } = useGetMe();
+  const { data: userData } = useGetMe();
   const { showAlert } = useAlert();
-  const userInfo: DataUser = user?.data?.[0];
+  const user = userData?.data?.[0];
   const totalGames = data?.data[0]?.quiniela?.length || 0;
   const isQuinielaEnabled =
     data?.data[0]?.extraData?.bQuiniela === 1 ? false : true;
@@ -35,7 +34,7 @@ export const MatchPrediction = () => {
 
   useEffect(() => {
     if (data?.data) {
-      const quinielaInitialData = data.data[0].quiniela.map(
+      const quinielaInitialData = data?.data?.[0]?.quiniela?.map(
         (game: QuinielaItem) => ({
           ...game,
           ID_SCORE_E1: 0,
@@ -83,9 +82,7 @@ export const MatchPrediction = () => {
 
   const handleSubmit = () => {
     const fechaActual = new Date();
-    const fechaLimite = new Date(
-      `${userInfo?.fLimite}T${userInfo?.horaLimite}`,
-    );
+    const fechaLimite = new Date(`${user?.fLimite}T${user?.horaLimite}`);
 
     if (!isQuinielaEnabled) {
       showAlert(
@@ -97,7 +94,7 @@ export const MatchPrediction = () => {
       return;
     }
 
-    if (userInfo?.bSurvivor) {
+    if (user?.bSurvivor) {
       if (selectedSurvivor < 1 || completedPicks !== totalGames) {
         showAlert(
           AlertState.WARNING,
@@ -129,9 +126,9 @@ export const MatchPrediction = () => {
     }
 
     const quinielaDataUpdated = quinielaData.map((game: QuinielaItem) => ({
-      ID_QUINIELA: userInfo!.idQuiniela,
-      ID_PARTICIPANTE: userInfo!.idParticipante,
-      ID_PERIODO: userInfo!.idPeriodo,
+      ID_QUINIELA: user!.idQuiniela,
+      ID_PARTICIPANTE: user!.idParticipante,
+      ID_PERIODO: user!.idPeriodo,
       ID_PARTIDO: game.Partido,
       ID_SCORE_E1: game.ID_SCORE_E1,
       ID_SCORE_E2: game.ID_SCORE_E2,
@@ -139,7 +136,7 @@ export const MatchPrediction = () => {
       B_MARCARDOR: game.bMarcador,
     }));
 
-    if (userInfo?.bSurvivor && selectedSurvivor > 0) {
+    if (user?.bSurvivor && selectedSurvivor > 0) {
       survivorAlta.mutate(selectedSurvivor);
     }
     console.log(quinielaDataUpdated);
@@ -194,7 +191,7 @@ export const MatchPrediction = () => {
         </div>
       </Card>
 
-      {userInfo?.bSurvivor && (
+      {user?.bSurvivor && (
         <SurvivorSelector
           disabled={!isQuinielaEnabled}
           selectedSurvivor={selectedSurvivor}

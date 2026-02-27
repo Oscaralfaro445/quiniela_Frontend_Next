@@ -10,16 +10,19 @@ const PUBLIC_ROUTES = [
   "/not-found",
 ];
 
+/* const PUBLIC_FILE = /\.(.*)$/; */
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if (
+  /*  if (
     pathname.startsWith("/api") ||
     pathname.startsWith("/_next") ||
-    pathname === "/favicon.ico"
+    pathname === "/favicon.ico" ||
+    PUBLIC_FILE.test(pathname)
   ) {
     return NextResponse.next();
-  }
+  } */
 
   if (PUBLIC_ROUTES.includes(pathname)) {
     return NextResponse.next();
@@ -33,3 +36,7 @@ export function middleware(request: NextRequest) {
 
   return NextResponse.next();
 }
+
+export const config = {
+  matcher: ["/((?!api|_next|.*\\..*).*)"],
+};

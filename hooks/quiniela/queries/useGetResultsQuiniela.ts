@@ -1,5 +1,4 @@
-import { axiosInstance } from "@/hooks/axios/axiosInstance";
-
+import { axiosInstance } from "@/api/axiosInstance";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchResultsQuiniela = async (payload: {

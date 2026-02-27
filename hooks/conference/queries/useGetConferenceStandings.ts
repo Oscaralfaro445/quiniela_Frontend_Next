@@ -1,4 +1,4 @@
-import { axiosInstance } from "@/hooks/axios/axiosInstance";
+import { axiosInstance } from "@/api/axiosInstance";
 import { useQuery } from "@tanstack/react-query";
 
 const getConferenceStandings = async () => {
@@ -10,9 +10,8 @@ const getConferenceStandings = async () => {
 };
 
 export const useGetConferenceStandings = () => {
-  const { isPending, isError, data, error } = useQuery({
+  return useQuery({
     queryKey: ["conferenceStandings"],
     queryFn: getConferenceStandings,
   });
-  return { isPending, isError, data, error };
 };

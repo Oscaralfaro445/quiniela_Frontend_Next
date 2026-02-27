@@ -1,8 +1,8 @@
-import { axiosInstance } from "@/hooks/axios/axiosInstance";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AlertState } from "@/types/alert/alert";
 import { useAlert } from "@/context/alert/AlertContext";
 import { useHandleRequestStatus } from "@/utils/showRequestStatus/showRequestStatus";
+import { axiosInstance } from "@/api/axiosInstance";
 
 export interface survivorPayment {
   ID_QUINIELA: number;

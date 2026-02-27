@@ -1,10 +1,12 @@
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import { usePostUser } from "@/hooks/register/mutations/usePostUser";
-import { RegisterFormValues } from "@/types/register/register";
 import { Input } from "../shared/input/Input";
 import { Button } from "../shared/button/Button";
-import { CodeVerificationRow } from "@/hooks/register/mutations/useCodeValidation";
+import { usePostUser } from "@/hooks/mutations/user/usePostUser";
+import {
+  RegisterFormValues,
+  UserCreateResponse,
+} from "@/types/user/user.types";
 
 const initialValues: RegisterFormValues = {
   cveUsuario: "",
@@ -29,7 +31,7 @@ const validationSchema = Yup.object({
 });
 
 interface RegisterFormProps {
-  data: CodeVerificationRow | undefined;
+  data: UserCreateResponse | undefined;
 }
 
 export const RegisterForm = ({ data }: RegisterFormProps) => {

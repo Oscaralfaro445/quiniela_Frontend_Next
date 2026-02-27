@@ -1,11 +1,10 @@
 import { useGetParticipantPositions } from "@/hooks/participantPositions/queries/useGetParticipantPositions";
 import { useGetPrecision } from "@/hooks/dashboard/queries/useGetPrecision";
-import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
 import { ParticipantStatistics } from "@/types/participantStatistics/participantStatistics";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";
-import { DataUser } from "@/types/user/dataUser";
 import { TabType } from "../shared/tabs/TabSelector";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
 
 interface StatisticsCardProps {
   activeTab: TabType;
@@ -14,8 +13,8 @@ interface StatisticsCardProps {
 export const StatisticsCard = ({ activeTab }: StatisticsCardProps) => {
   const { data } = useGetParticipantPositions();
   const { data: precisionData } = useGetPrecision();
-  const { data: user } = useGetMe();
-  const userInfo: DataUser = user?.data?.[0];
+  const { data: userData } = useGetMe();
+  const userInfo = userData?.data?.[0];
 
   return (
     <div className="grid lg:flex gap-4">

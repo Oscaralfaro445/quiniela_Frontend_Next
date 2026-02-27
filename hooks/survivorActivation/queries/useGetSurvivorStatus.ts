@@ -1,6 +1,5 @@
-import { axiosInstance } from "@/hooks/axios/axiosInstance";
-import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
-import { DataUser } from "@/types/user/dataUser";
+import { axiosInstance } from "@/api/axiosInstance";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchSurvivorStatus = async (payload: {
@@ -17,23 +16,21 @@ const fetchSurvivorStatus = async (payload: {
 };
 
 export const useGetSurvivorStatus = () => {
-  const { data: user } = useGetMe();
-  const userInfo: DataUser = user?.data?.[0];
+  const { data } = useGetMe();
+  const user = data?.data?.[0];
 
-  const { isPending, isError, isSuccess, error, data } = useQuery({
+  return useQuery({
     queryKey: ["survivorStatus"],
     queryFn: () =>
       fetchSurvivorStatus({
         idProceso: 6,
         idProcedure: 3,
         parmRemp: {
-          $1: userInfo?.idQuiniela,
-          $2: userInfo?.idParticipante,
-          $3: userInfo?.idPeriodo,
+          $1: user!.idQuiniela,
+          $2: user!.idParticipante,
+          $3: user!.idPeriodo,
         },
       }),
-    enabled: !!userInfo,
+    enabled: !!user,
   });
-
-  return { isPending, isError, isSuccess, error, data };
 };

@@ -1,14 +1,13 @@
-import { useGetMe } from "@/hooks/getMe/queries/useGetMe";
-import { DataUser } from "@/types/user/dataUser";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";
 import { PrescisionCard } from "./statistics/PrecisionCard";
 import { RankingCard } from "./statistics/RankingCard";
 
 export const StatisticsCard = () => {
-  const { data: user } = useGetMe();
-  const userInfo: DataUser = user?.data?.[0];
-  const currentWeek = userInfo?.idPeriodo;
+  const { data } = useGetMe();
+  const user = data?.data?.[0];
+  const week = user?.idPeriodo;
 
   return (
     <section className="grid lg:flex gap-4">
@@ -23,12 +22,10 @@ export const StatisticsCard = () => {
         </div>
 
         <div className="grid gap-1">
-          <p className="text-2xl font-bold text-neutral-700">
-            Semana {currentWeek}
-          </p>
+          <p className="text-2xl font-bold text-neutral-700">Semana {week}</p>
 
           <p className="text-xs text-blue-600">{`${
-            18 - Number(currentWeek)
+            18 - Number(week)
           } semanas restantes`}</p>
         </div>
       </Card>
