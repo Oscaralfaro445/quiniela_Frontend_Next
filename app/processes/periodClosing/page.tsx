@@ -1,6 +1,6 @@
 "use client";
 
-import { usePostPeriodClosing } from "@/hooks/periodClosing/mutations/usePostPeriodClosing";
+import { usePostPeriodClosing } from "@/hooks/mutations/usePostPeriodClosing";
 import { Icon } from "@/components/shared/icon/Icon";
 import { Card } from "@/components/shared/card/Card";
 import { Button } from "@/components/shared/button/Button";

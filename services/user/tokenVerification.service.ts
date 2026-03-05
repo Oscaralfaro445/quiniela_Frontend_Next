@@ -4,7 +4,7 @@ import { TokenVerificationVariables } from "@/types/changePassword/changePasswor
 
 export const tokenVerification = async (
   variables: TokenVerificationVariables,
-): Promise<ApiResponse<null>> => {
+): Promise<ApiResponse<{ usuario: string }>> => {
   const { token } = variables;
   const payload = {
     idProceso: 21,
@@ -13,8 +13,9 @@ export const tokenVerification = async (
       $1: token,
     },
   };
-  const response = await axiosInstance.post<ApiResponse<null>>(
-    "/Query/Consulta",
+
+  const response = await axiosInstance.post<ApiResponse<{ usuario: string }>>(
+    "/Query/Procedure",
     payload,
   );
 

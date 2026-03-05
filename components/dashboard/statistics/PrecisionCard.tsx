@@ -1,4 +1,4 @@
-import { useGetPrecision } from "@/hooks/dashboard/queries/useGetPrecision";
+import { useGetPrecision } from "@/hooks/queries/useGetPrecision";
 import { Card } from "@/components/shared/card/Card";
 import { Icon } from "@/components/shared/icon/Icon";
 

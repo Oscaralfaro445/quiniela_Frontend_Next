@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useGetMarkers } from "@/hooks/markers/queries/useGetMarkers";
-import { usePostMarkers } from "@/hooks/markers/mutations/usePostMarkers";
+import { useGetMarkers } from "@/hooks/queries/useGetMarkers";
+import { usePostMarkers } from "@/hooks/mutations/usePostMarkers";
 import { GameResult } from "@/types/gameResult/gameResult";
 import { Button } from "@/components/shared/button/Button";
 import { StatisticsCard } from "@/components/scores/StatisticsCard";

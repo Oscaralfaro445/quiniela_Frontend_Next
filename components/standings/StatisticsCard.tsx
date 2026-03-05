@@ -1,5 +1,5 @@
-import { useGetParticipantPositions } from "@/hooks/participantPositions/queries/useGetParticipantPositions";
-import { useGetPrecision } from "@/hooks/dashboard/queries/useGetPrecision";
+import { useGetParticipantPositions } from "@/hooks/queries/useGetParticipantPositions";
+import { useGetPrecision } from "@/hooks/queries/useGetPrecision";
 import { ParticipantStatistics } from "@/types/participantStatistics/participantStatistics";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";

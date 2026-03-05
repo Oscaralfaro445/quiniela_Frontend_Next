@@ -1,4 +1,4 @@
-import { useGetScores } from "@/hooks/scores/queries/useGetScores";
+import { useGetScores } from "@/hooks/queries/useGetScores";
 
 interface CardScoresProps {
   teamId: number;
@@ -102,7 +102,7 @@ export const ScoresCard = ({ teamId, teamName }: CardScoresProps) => {
                       {match.equipo}
                     </td>
                   </tr>
-                )
+                ),
               )}
             </tbody>
           </table>

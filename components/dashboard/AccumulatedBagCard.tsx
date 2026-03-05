@@ -1,4 +1,4 @@
-import { useGetAccumulatedBag } from "@/hooks/accumulatedBag/queries/useGetAccumulatedBag";
+import { useGetAccumulatedBag } from "@/hooks/queries/useGetAccumulatedBag";
 import { Card } from "../shared/card/Card";
 
 export const AccumulatedBagCard = () => {
@@ -19,7 +19,6 @@ export const AccumulatedBagCard = () => {
       </div>
 
       {isPending && <p>Cargando...</p>}
-
       {isError && <p>Error al cargar los datos...</p>}
 
       <div className="space-y-4">

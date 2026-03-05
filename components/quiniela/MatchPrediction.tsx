@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useGetMatches } from "@/hooks/quiniela/queries/useGetMatches";
-import { usePostSurvivorTeam } from "@/hooks/survivor/mutations/usePostSurvivorTeam";
-import { usePostQuiniela } from "@/hooks/quiniela/mutations/usePostQuiniela";
+import { useGetMatches } from "@/hooks/queries/useGetMatches";
+import { usePostSurvivorTeam } from "@/hooks/mutations/usePostSurvivorTeam";
+import { usePostQuiniela } from "@/hooks/mutations/usePostQuiniela";
 import { QuinielaItem } from "@/types/quiniela/quinielaItem";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";

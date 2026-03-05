@@ -10,7 +10,7 @@ interface StatusMessageProps {
     isSuccess: boolean;
     isError: boolean;
   };
-  mutationData?: Response;
+  mutationData?: Response | undefined;
 }
 export const StatusMessage = ({
   validText,

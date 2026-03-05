@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useGetParticipantPositions } from "@/hooks/participantPositions/queries/useGetParticipantPositions";
+import { useGetParticipantPositions } from "@/hooks/queries/useGetParticipantPositions";
 import { ParticipantStatistics } from "@/types/participantStatistics/participantStatistics";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";

@@ -1,5 +1,5 @@
 import { useAlert } from "@/context/alert/AlertContext";
-import { useGetQuinielaVerification } from "@/hooks/quinielaVerification/queries/useGetQuinielaVerification";
+import { useGetQuinielaVerification } from "@/hooks/queries/useGetQuinielaVerification";
 import { Participant } from "@/app/processes/quinielaVerification/page";
 import { ParticipantCard } from "./ParticipantsCard";
 import { AlertState } from "@/types/alert/alert";

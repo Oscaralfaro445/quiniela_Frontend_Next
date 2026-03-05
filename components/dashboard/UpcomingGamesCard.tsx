@@ -1,4 +1,4 @@
-import { useGetUpcomingGames } from "@/hooks/dashboard/queries/useGetUpcomingGames";
+import { useGetUpcomingGames } from "@/hooks/queries/useGetUpcomingGames";
 
 import { Game } from "@/types/games/game";
 import { Card } from "../shared/card/Card";

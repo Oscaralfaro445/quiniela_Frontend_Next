@@ -1,4 +1,4 @@
-import { useGetMatches } from "@/hooks/quiniela/queries/useGetMatches";
+import { useGetMatches } from "@/hooks/queries/useGetMatches";
 import { ByeWeekTeam } from "@/types/quiniela/byeWeekTeam";
 import { Card } from "../shared/card/Card";
 import { TeamLogo } from "../shared/teamLogo/TeamLogo";

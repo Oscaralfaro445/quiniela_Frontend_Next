@@ -1,4 +1,4 @@
-import { useGetSurvivorPayment } from "@/hooks/survivorPayment/queries/useGetSurvivorPayment";
+import { useGetSurvivorPayment } from "@/hooks/queries/useGetSurvivorPayment";
 import { Participant } from "@/types/participant/participant";
 import { Card } from "@/components/shared/card/Card";
 import { Icon } from "@/components/shared/icon/Icon";

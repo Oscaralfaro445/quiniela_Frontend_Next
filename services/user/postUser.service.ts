@@ -1,6 +1,6 @@
+import { axiosInstance } from "@/api/axiosInstance";
 import { ApiResponse } from "@/types/api/ApiResponse";
 import { PostUserVariables, UserCreateResponse } from "@/types/user/user.types";
-import { axiosInstance } from "@/api/axiosInstance";
 
 export const postUser = async (
   variables: PostUserVariables,
@@ -8,7 +8,7 @@ export const postUser = async (
   const { registerData, identificador } = variables;
 
   const payload = {
-    idProceso: 9999,
+    idProceso: 1,
     model: "FC_SEG_USUARIO",
     data: {
       CVE_USUARIO: registerData.cveUsuario,
@@ -17,7 +17,7 @@ export const postUser = async (
       NOMBRE: registerData.nombre,
       PASSWORD: registerData.password,
       B_BLOQUEADO: 1,
-      SIT_USUARIO: "I",
+      SIT_USUARIO: "A",
       CVE_IDIOMA: "ES",
       CVE_PERFIL: "PARTICIPANTE",
       IDENTIFICADOR: identificador,

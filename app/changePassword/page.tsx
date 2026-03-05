@@ -23,6 +23,7 @@ export default async function ChangePasswordPage({
               alt="Logo NFL"
             />
           </div>
+
           <TokenVerification token={token} />
         </div>
       </div>

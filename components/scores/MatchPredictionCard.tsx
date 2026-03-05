@@ -1,4 +1,4 @@
-import { useGetMatchPrediction } from "@/hooks/matchPrediction/queries/useGetMatchPrediction";
+import { useGetMatchPrediction } from "@/hooks/queries/useGetMatchPrediction";
 import { TeamLogo } from "../shared/teamLogo/TeamLogo";
 import { Icon } from "../shared/icon/Icon";
 

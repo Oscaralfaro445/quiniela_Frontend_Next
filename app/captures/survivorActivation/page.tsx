@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useGetSurvivorStatus } from "@/hooks/survivorActivation/queries/useGetSurvivorStatus";
-import { usePostSurvivorActivation } from "@/hooks/survivorActivation/mutations/usePostSurvicorActivation";
+import { useGetSurvivorStatus } from "@/hooks/queries/useGetSurvivorStatus";
+import { usePostSurvivorActivation } from "@/hooks/mutations/usePostSurvicorActivation";
 import { Button } from "@/components/shared/button/Button";
 import { Card } from "@/components/shared/card/Card";
 import { TeamLogo } from "@/components/shared/teamLogo/TeamLogo";

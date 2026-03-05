@@ -1,4 +1,4 @@
-import { useGetPrecision } from "@/hooks/dashboard/queries/useGetPrecision";
+import { useGetPrecision } from "@/hooks/queries/useGetPrecision";
 import { Card } from "../shared/card/Card";
 import { ProgressBar } from "../shared/progressBar/ProgressBar";
 

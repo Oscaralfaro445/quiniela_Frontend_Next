@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetQuinielaVerification } from "@/hooks/quinielaVerification/queries/useGetQuinielaVerification";
+import { useGetQuinielaVerification } from "@/hooks/queries/useGetQuinielaVerification";
 import { Card } from "@/components/shared/card/Card";
 import { StatisticsCard } from "@/components/processes/quinielaVerification/StatisticsCard";
 import Link from "next/link";

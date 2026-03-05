@@ -1,4 +1,4 @@
-import { useGetRanking } from "@/hooks/dashboard/queries/useGetRanking";
+import { useGetRanking } from "@/hooks/queries/useGetRanking";
 import { Card } from "@/components/shared/card/Card";
 import { Icon } from "@/components/shared/icon/Icon";
 

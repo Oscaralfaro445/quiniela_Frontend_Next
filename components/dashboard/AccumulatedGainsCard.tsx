@@ -1,4 +1,4 @@
-import { useGetGainsPayments } from "@/hooks/gainsPayments/queries/useGetGainsPayments";
+import { useGetGainsPayments } from "@/hooks/queries/useGetGainsPayments";
 import { Card } from "../shared/card/Card";
 
 interface Participant {

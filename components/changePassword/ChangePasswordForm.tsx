@@ -1,13 +1,17 @@
 "use client";
 
-import { Form, Formik } from "formik";
 import * as Yup from "yup";
-// import { usePostUser } from "@/hooks/register/mutations/usePostUser";
+import { Form, Formik } from "formik";
+import { useChangePassword } from "@/hooks/mutations/user/useChangePassword";
 import { ChangePasswordFormValues } from "@/types/changePassword/changePassword";
 import { Input } from "../shared/input/Input";
 import { Button } from "../shared/button/Button";
 import { Title } from "../shared/text/Title";
 import { TextBody } from "../shared/text/TextBody";
+
+interface ChangePasswordFormProps {
+  user: string;
+}
 
 const initialValues: ChangePasswordFormValues = {
   password: "",
@@ -21,11 +25,11 @@ const validationSchema = Yup.object({
     .required("Campo requerido"),
 });
 
-export const ChangePasswordForm = () => {
-  // const register = usePostUser();
+export const ChangePasswordForm = ({ user }: ChangePasswordFormProps) => {
+  const register = useChangePassword();
 
   const handleSubmit = (values: ChangePasswordFormValues) => {
-    // register.mutate(values);
+    register.mutate({ user, newPassword: values.password });
     console.log(values);
   };
 

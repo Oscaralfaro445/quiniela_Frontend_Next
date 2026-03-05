@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useGetMe } from "@/hooks/queries/user/useGetMe";
-import { useGetSurvivorPayment } from "@/hooks/survivorPayment/queries/useGetSurvivorPayment";
-import { usePostSurvivorPayment } from "@/hooks/survivorPayment/mutations/usePostSurvivorPayment";
+import { useGetSurvivorPayment } from "@/hooks/queries/useGetSurvivorPayment";
+import { usePostSurvivorPayment } from "@/hooks/mutations/usePostSurvivorPayment";
 import { Participant } from "@/types/participant/participant";
 import { SurvivorPaymentStatusCard } from "@/components/captures/survivorPayment/SurvivorPaymentStatusCard";
 import { Button } from "@/components/shared/button/Button";

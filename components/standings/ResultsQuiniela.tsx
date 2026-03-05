@@ -1,4 +1,4 @@
-import { useGetResultsQuiniela } from "@/hooks/quiniela/queries/useGetResultsQuiniela";
+import { useGetResultsQuiniela } from "@/hooks/queries/useGetResultsQuiniela";
 import { Icon } from "../shared/icon/Icon";
 import { Loader } from "../shared/loader/Loader";
 

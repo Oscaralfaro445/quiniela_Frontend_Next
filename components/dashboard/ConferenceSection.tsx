@@ -1,4 +1,4 @@
-import { useGetConferenceStandings } from "@/hooks/conference/queries/useGetConferenceStandings";
+import { useGetConferenceStandings } from "@/hooks/queries/useGetConferenceStandings";
 import { Conference, Division } from "@/types/conference/conference";
 import { Card } from "../shared/card/Card";
 import { TabType } from "../shared/tabs/TabSelector";

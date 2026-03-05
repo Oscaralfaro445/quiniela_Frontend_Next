@@ -11,6 +11,7 @@ import { SeasonProgressCard } from "@/components/dashboard/SeasonProgressCard";
 import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
 import { MainContainer } from "@/components/ui/containers/MainContainer";
 import { ConferenceCard } from "@/components/dashboard/ConferenceCard";
+import { MatchVotesCard } from "@/components/dashboard/MatchVotesCard";
 
 export default function DashboardPage() {
   const { data } = useGetMe();
@@ -30,6 +31,7 @@ export default function DashboardPage() {
           <SwiftActionsCard />
           <AccumulatedBagCard />
           <ConferenceCard />
+          <MatchVotesCard />
           <SeasonProgressCard />
           <SurvivorCard />
           <UpcomingGamesCard />

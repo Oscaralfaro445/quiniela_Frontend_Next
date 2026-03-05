@@ -1,4 +1,4 @@
-import { useGetSurvivor } from "@/hooks/dashboard/queries/useGetSurvivor";
+import { useGetSurvivor } from "@/hooks/queries/useGetSurvivor";
 import { TeamLogo } from "../shared/teamLogo/TeamLogo";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";

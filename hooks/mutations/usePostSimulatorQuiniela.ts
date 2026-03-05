@@ -17,8 +17,8 @@ const postQuinielaSimulator = async (payload: {
 };
 
 export const usePostSimulatorQuiniela = () => {
-  const { data: user } = useGetMe();
-  const userInfo: any = user?.data?.[0];
+  const { data } = useGetMe();
+  const user = data?.data?.[0];
 
   return useMutation({
     mutationKey: ["quiniela-simulator"],
@@ -27,8 +27,8 @@ export const usePostSimulatorQuiniela = () => {
         idProceso: 17,
         idProcedure: 8,
         parmRemp: {
-          $1: userInfo?.idQuiniela,
-          $2: userInfo?.idPeriodo,
+          $1: user!.idQuiniela,
+          $2: user!.idPeriodo,
           $3: quinielaDataSimulated,
         },
       }),

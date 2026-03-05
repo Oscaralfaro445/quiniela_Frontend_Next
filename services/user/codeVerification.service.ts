@@ -8,7 +8,7 @@ export const codeVerification = async (
   const { code } = variables;
   const payload = {
     idProceso: 20,
-    idQuery: "20",
+    idQuery: 20,
     parmRemp: { $1: code },
   };
 

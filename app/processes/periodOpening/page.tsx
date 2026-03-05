@@ -1,6 +1,6 @@
 "use client";
 
-import { usePostPeriodOpening } from "@/hooks/periodOpening/mutations/usePostPeriodOpening";
+import { usePostPeriodOpening } from "@/hooks/mutations/usePostPeriodOpening";
 import { Icon } from "@/components/shared/icon/Icon";
 import { Card } from "@/components/shared/card/Card";
 import { Button } from "@/components/shared/button/Button";

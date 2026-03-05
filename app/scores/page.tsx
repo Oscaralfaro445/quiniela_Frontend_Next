@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useGetMarkers } from "@/hooks/markers/queries/useGetMarkers";
+import { useGetMarkers } from "@/hooks/queries/useGetMarkers";
 import { MainContainer } from "@/components/ui/containers/MainContainer";
 import { Button } from "@/components/shared/button/Button";
 import { StatisticsCard } from "@/components/scores/StatisticsCard";

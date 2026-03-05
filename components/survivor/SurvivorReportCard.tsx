@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetSurvivorReport } from "@/hooks/survivorReport/queries/useGetSurvivorReport";
+import { useGetSurvivorReport } from "@/hooks/queries/useGetSurvivorReport";
 import { Card } from "../shared/card/Card";
 import { useEffect, useState } from "react";
 import { Paginator } from "../shared/paginator/paginator";

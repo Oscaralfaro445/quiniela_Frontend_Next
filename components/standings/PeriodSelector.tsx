@@ -1,4 +1,4 @@
-import { useGetAvailablePeriods } from "@/hooks/availablePerios/queries/useGetAvailablePeriods";
+import { useGetAvailablePeriods } from "@/hooks/queries/useGetAvailablePeriods";
 import { Card } from "../shared/card/Card";
 import { InputCombo } from "../shared/input/inputs/InputCombo";
 import { Icon } from "../shared/icon/Icon";

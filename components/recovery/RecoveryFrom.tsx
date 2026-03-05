@@ -1,12 +1,12 @@
 "use client";
 
-import { Form, Formik } from "formik";
 import * as Yup from "yup";
+import { Form, Formik } from "formik";
 import { useSendEmail } from "@/hooks/mutations/user/useSendEmail";
 import { Button } from "../shared/button/Button";
 import { Loader } from "../shared/loader/Loader";
 import { Input } from "../shared/input/Input";
-import { StatusMessage } from "../ui/statusMessage/StatusMessage";
+// import { StatusMessage } from "../ui/statusMessage/StatusMessage";
 
 interface RecoveryFormValues {
   cveUsuario: string;
@@ -44,12 +44,12 @@ export const RecoveryForm = () => {
             placeholder="nfl@quiniela.com"
           />
 
-          <StatusMessage
+          {/* <StatusMessage
             validText="Instrucciones de restablecimiento enviadas"
-            invalidText="Error al enviar las instrucciones"
+            invalidText="Error al enviar las instrucciones, intenta de nuevo más tarde"
             mutation={mutation}
             mutationData={mutation?.data}
-          />
+          /> */}
 
           <Button type="submit" title="Restablecer Contraseña" />
         </Form>

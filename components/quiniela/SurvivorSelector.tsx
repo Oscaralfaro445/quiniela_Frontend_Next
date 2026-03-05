@@ -1,4 +1,4 @@
-import { useGetSurvivorTeams } from "@/hooks/survivor/queries/useGetSurvivorTeams";
+import { useGetSurvivorTeams } from "@/hooks/queries/useGetSurvivorTeams";
 import { InputCombo } from "../shared/input/inputs/InputCombo";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";

@@ -9,15 +9,14 @@ interface TokenVerificationProps {
 
 export const TokenVerification = ({ token }: TokenVerificationProps) => {
   const { isPending, isError, data } = useTokenVerification({ token });
-  console.log({ isPending, isError, data });
 
   if (isPending) {
-    return <div>Verificando token...</div>;
+    return <p className="text-center">Verificando token...</p>;
   }
 
-  if (isError || !data || data.estatus !== 1) {
-    return <div>Token inválido o expirado.</div>;
+  if (isError || !data.data || data.estatus !== 1) {
+    return <p className="text-center">Token inválido o expirado.</p>;
   }
 
-  return <ChangePasswordForm />;
+  return <ChangePasswordForm user={data.data[0].usuario} />;
 };
