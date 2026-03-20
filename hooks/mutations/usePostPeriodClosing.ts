@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAlert } from "@/context/alert/AlertContext";
 import { AlertState } from "@/types/alert/alert";
 import { useHandleRequestStatus } from "@/utils/showRequestStatus/showRequestStatus";
@@ -19,6 +19,7 @@ export const usePostPeriodClosing = () => {
   const user = data?.data?.[0];
   const { showAlert } = useAlert();
   const { handleRequestStatus } = useHandleRequestStatus();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: ["periodClosing"],
@@ -32,16 +33,16 @@ export const usePostPeriodClosing = () => {
       showAlert(
         AlertState.ERROR,
         "Error al procesar la solicitud",
-        "Tuvimos un problema al iniciar sesión",
+        "Tuvimos un problema al cerrar el período",
       );
     },
     onSuccess: (data) => {
-      console.log("Response data:", data);
+      queryClient.invalidateQueries();
       handleRequestStatus({
         estatus: data.estatus,
         errorUs: data.errorUs,
         errorNeg: data.errorNeg,
-        mensajeExito: "Inicio de sesión exitoso",
+        mensajeExito: "Cierre del período realizado exitosamente",
       });
     },
   });

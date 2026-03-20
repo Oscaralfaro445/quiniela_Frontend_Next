@@ -27,7 +27,6 @@ export interface LoginVariables extends Pick<GetMeResponse, "cveUsuario"> {
 }
 
 export interface UserCreateResponse {
-  bExisteQuin: boolean;
   idQuiniela: number;
 }
 
@@ -47,4 +46,24 @@ export interface PostUserVariables {
 
 export interface CodeVerificationVariables {
   code: string;
+}
+
+export interface UserProfileEditResponse {
+  APELLIDO_PATERNO: string;
+  APELLIDO_MATERNO: string;
+  NOMBRE: string;
+}
+
+export interface FavoriteTeamOption {
+  llave: number;
+  valor: string;
+}
+
+export interface ProfileEditUpdateVariables {
+  idQuiniela: number;
+  cveUsuario: string;
+  apellidoPaterno: string;
+  apellidoMaterno: string;
+  nombre: string;
+  idEquipoFav: number;
 }

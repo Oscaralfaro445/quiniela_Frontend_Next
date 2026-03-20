@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { ParticipantStatistics } from "@/types/participantStatistics/participantStatistics";
+import { participante } from "@/hooks/queries/useGetParticipantPositions";
 import { Icon } from "../shared/icon/Icon";
 import { ResultsQuiniela } from "./ResultsQuiniela";
 import { TabType } from "../shared/tabs/TabSelector";
 
 interface ParticipantCardProps {
-  player: ParticipantStatistics;
+  player: participante;
   period: number;
   activeTab: TabType;
 }
@@ -76,11 +76,15 @@ export const ParticipantCard = ({
           <p className="font-medium text-neutral-600">{player.Nombre}</p>
         </div>
 
-        <div className="flex gap-2 items-center">
-          <p className="text-lg font-semibold text-neutral-600">
-            {`${player.Puntos} puntos`}
+        {player.B_GANADOR && (
+          <p className="text-lg font-semibold text-red-600">
+            {`Ganador por ${player.DIFERENCIAL} puntos`}
           </p>
-        </div>
+        )}
+
+        <p className="text-lg font-semibold text-neutral-600">
+          {`${player.Puntos} puntos`}
+        </p>
       </div>
 
       {showPredictions && activeTab === 0 && (

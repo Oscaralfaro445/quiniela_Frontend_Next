@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { MainContainer } from "@/components/ui/containers/MainContainer";
 import { Button } from "@/components/shared/button/Button";
 import { StatisticsCard } from "@/components/standings/StatisticsCard";
@@ -12,7 +11,6 @@ import { TabSelector, TabType } from "@/components/shared/tabs/TabSelector";
 
 export default function StandingsPage() {
   const [activeTab, setActiveTab] = useState<TabType>(0);
-  const router = useRouter();
 
   return (
     <MainContainer>
@@ -37,11 +35,9 @@ export default function StandingsPage() {
             <Button type="button" title="Volver al Dashboard" theme="normal" />
           </Link>
 
-          <Button
-            type="button"
-            title="Ver Quiniela"
-            onClick={() => router.push("/quiniela")}
-          />
+          <Link href="/quiniela">
+            <Button type="button" title="Ver Quiniela" theme="primary" />
+          </Link>
         </div>
       </div>
     </MainContainer>

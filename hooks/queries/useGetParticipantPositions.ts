@@ -1,16 +1,26 @@
 import { axiosInstance } from "@/api/axiosInstance";
-import { useGetMe } from "@/hooks/queries/user/useGetMe";
 import { useQuery } from "@tanstack/react-query";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
+import { ApiResponse } from "@/types/api/ApiResponse";
 
-const fetchParticipantPositions = async (payload: {
-  idProceso: number;
-  idQuery: string;
-  parmRemp: {
-    $1: number;
-    $2: string;
+const fetchParticipantPositions = async (variables: {
+  idQuiniela: number;
+  idPeriodo: string;
+}): Promise<ApiResponse<participantes>> => {
+  const { idQuiniela, idPeriodo } = variables;
+  const payload = {
+    idProceso: 3,
+    idQuery: 4,
+    parmRemp: {
+      $1: idQuiniela,
+      $2: "12",
+    },
   };
-}) => {
-  const response = await axiosInstance.post("/Query/Consulta", payload);
+  const response = await axiosInstance.post<ApiResponse<participantes>>(
+    "/Query/Consulta",
+    payload,
+  );
+
   return response.data;
 };
 
@@ -22,13 +32,25 @@ export const useGetParticipantPositions = () => {
     queryKey: ["participantPositions"],
     queryFn: () =>
       fetchParticipantPositions({
-        idProceso: 3,
-        idQuery: "4",
-        parmRemp: {
-          $1: user!.idQuiniela,
-          $2: user!.idPeriodo,
-        },
+        idQuiniela: user!.idQuiniela,
+        idPeriodo: user!.idPeriodo,
       }),
     enabled: !!user,
   });
 };
+
+export interface participante {
+  Posicion: number;
+  ID_QUINIELA: number;
+  ID_PARTICIPANTE: number;
+  periodo: string;
+  Nombre: string;
+  Puntos: number;
+  B_GANADOR?: boolean;
+  DIFERENCIAL?: number;
+}
+
+interface participantes {
+  puntosPeriodo: participante[];
+  puntosTotal: participante[];
+}

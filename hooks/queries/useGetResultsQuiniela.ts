@@ -1,16 +1,28 @@
 import { axiosInstance } from "@/api/axiosInstance";
+import { ApiError } from "@/types/api/ApiError";
+import { ApiResponse } from "@/types/api/ApiResponse";
 import { useQuery } from "@tanstack/react-query";
 
-const fetchResultsQuiniela = async (payload: {
-  idProceso: number;
-  idQuery: string;
-  parmRemp: {
-    $1: number;
-    $2: number;
-    $3: number;
+const fetchResultsQuiniela = async (variables: {
+  idQuiniela: number;
+  idPeriodo: number;
+  idParticipante: number;
+}): Promise<ApiResponse<Game>> => {
+  const { idQuiniela, idPeriodo, idParticipante } = variables;
+  const payload = {
+    idProceso: 23,
+    idQuery: "21",
+    parmRemp: {
+      $1: idQuiniela,
+      $2: idPeriodo,
+      $3: idParticipante,
+    },
   };
-}) => {
-  const response = await axiosInstance.post("/Query/Consulta", payload);
+  const response = await axiosInstance.post<ApiResponse<Game>>(
+    "/Query/Consulta",
+    payload,
+  );
+
   return response.data;
 };
 
@@ -19,7 +31,7 @@ export const useGetResultsQuiniela = (participant: {
   idQuiniela: number;
   periodo: number;
 }) => {
-  const { isPending, isError, data, error } = useQuery({
+  return useQuery<ApiResponse<Game>, ApiError>({
     queryKey: [
       "resultsQuiniela",
       participant.periodo,
@@ -27,14 +39,19 @@ export const useGetResultsQuiniela = (participant: {
     ],
     queryFn: () =>
       fetchResultsQuiniela({
-        idProceso: 23,
-        idQuery: "21",
-        parmRemp: {
-          $1: participant.idQuiniela,
-          $2: participant.periodo,
-          $3: participant.idParticipante,
-        },
+        idQuiniela: participant.idQuiniela,
+        idPeriodo: participant.periodo,
+        idParticipante: participant.idParticipante,
       }),
   });
-  return { isPending, isError, data, error };
 };
+
+interface Game {
+  equipo1: string;
+  scoreEquipo1: number;
+  equipo2: string;
+  scoreEquipo2: number;
+  cveGanador: string;
+  puntos: number;
+  totalGeneralPuntos: number;
+}

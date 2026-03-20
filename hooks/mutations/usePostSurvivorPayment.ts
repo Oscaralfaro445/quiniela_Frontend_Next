@@ -3,6 +3,7 @@ import { AlertState } from "@/types/alert/alert";
 import { useAlert } from "@/context/alert/AlertContext";
 import { useHandleRequestStatus } from "@/utils/showRequestStatus/showRequestStatus";
 import { axiosInstance } from "@/api/axiosInstance";
+import { ApiError } from "@/types/api/ApiError";
 
 export interface survivorPayment {
   ID_QUINIELA: number;
@@ -42,10 +43,14 @@ export const usePostSurvivorPayment = () => {
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["survivorPayment"] });
+    },
+    onSettled: (data, error: ApiError | null) => {
+      const requestData = data || error?.response?.data;
       handleRequestStatus({
-        estatus: data.estatus,
-        errorUs: data.errorUs,
-        errorNeg: data.errorNeg,
+        estatus: requestData?.estatus,
+        errorUs: requestData?.errorUs ?? "",
+        errorNeg: requestData?.errorNeg ?? [],
+        error: error?.message ?? "",
         mensajeExito: "La actualización de los pagos se realizó con éxito",
       });
     },

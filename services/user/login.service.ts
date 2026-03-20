@@ -7,7 +7,7 @@ export const login = async (
 ): Promise<ApiResponse<null>> => {
   const { cveUsuario, password } = variables;
   const payload = {
-    idProceso: 1,
+    idProceso: 23,
     cveAplicacion: "NFL",
     cveUsuario,
     password,

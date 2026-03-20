@@ -8,7 +8,7 @@ export const postUser = async (
   const { registerData, identificador } = variables;
 
   const payload = {
-    idProceso: 1,
+    idProceso: 9999,
     model: "FC_SEG_USUARIO",
     data: {
       CVE_USUARIO: registerData.cveUsuario,

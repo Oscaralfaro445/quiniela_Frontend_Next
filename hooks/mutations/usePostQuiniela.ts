@@ -3,6 +3,7 @@ import { useAlert } from "@/context/alert/AlertContext";
 import { AlertState } from "@/types/alert/alert";
 import { useHandleRequestStatus } from "@/utils/showRequestStatus/showRequestStatus";
 import { axiosInstance } from "@/api/axiosInstance";
+import { ApiError } from "@/types/api/ApiError";
 
 interface QuinielaData {
   ID_QUINIELA: number;
@@ -26,7 +27,7 @@ export const usePostQuiniela = () => {
   const { showAlert } = useAlert();
   const { handleRequestStatus } = useHandleRequestStatus();
 
-  return useMutation({
+  return useMutation<ApiResponse<any>, ApiError, QuinielaData[]>({
     mutationKey: ["quiniela"],
     mutationFn: (quinielaData: QuinielaData[]) =>
       postQuiniela({
@@ -44,10 +45,14 @@ export const usePostQuiniela = () => {
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["matches"] });
+    },
+    onSettled: (data, error: ApiError | null) => {
+      const requestData = data || error?.response?.data;
       handleRequestStatus({
-        estatus: data.estatus,
-        errorUs: data.errorUs,
-        errorNeg: data.errorNeg,
+        estatus: requestData?.estatus,
+        errorUs: requestData?.errorUs ?? "",
+        errorNeg: requestData?.errorNeg ?? [],
+        error: error?.message ?? "",
         mensajeExito: "Tu quiniela ha sido actualizada correctamente",
       });
     },

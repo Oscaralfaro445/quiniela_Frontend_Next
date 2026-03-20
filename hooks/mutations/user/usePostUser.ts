@@ -26,7 +26,6 @@ export const usePostUser = () => {
     },
     onSettled: (data, error) => {
       const response = data ?? error?.response?.data;
-
       handleRequestStatus({
         estatus: response?.estatus,
         errorUs: response?.errorUs ?? "",

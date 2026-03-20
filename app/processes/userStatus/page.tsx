@@ -2,25 +2,39 @@
 
 import Link from "next/link";
 import { useGetUsers } from "@/hooks/queries/useGetUsers";
+import { useUnlockUser } from "@/hooks/mutations/useUnlockUser";
 import { Button } from "@/components/shared/button/Button";
 import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
 import { MainContainer } from "@/components/ui/containers/MainContainer";
 
-export default function UserActivationPage() {
+export default function UserStatusPage() {
   const { isPending, isError, data } = useGetUsers();
+  const mutation = useUnlockUser();
   const users = data?.data?.[0].participantes;
+
+  const handleUnlockUser = (user: string, status: boolean) => {
+    mutation.mutate({ user });
+    if (status) {
+      alert("El usuario ya se encuentra desbloqueado.");
+    } else {
+    }
+  };
+
+  if (isPending) {
+    return <p>Cargando datos...</p>;
+  }
+
+  if (isError || !users) {
+    return <p>Error al cargar los datos...</p>;
+  }
 
   return (
     <MainContainer>
       <div className="grid gap-4 content-start">
         <PageHeader
-          title="Gestión de estado de usuarios"
-          text="Gestiona el estado de usaurio, permitiendo activar o bloquear usuarios"
+          title="Gestión de estatus de los usuarios"
+          text="Gestiona el estatus de los usuarios, permitiendo desbloquear aquellos usuarios nuevos."
         />
-
-        {isPending && <p>Cargando datos...</p>}
-
-        {(isError || !users) && <p>Error al cargar los datos...</p>}
 
         <div className="h-full bg-red-200">
           {data?.data?.[0].indicador === "A" ? (
@@ -39,7 +53,12 @@ export default function UserActivationPage() {
                   <tr key={CVE_USUARIO} className="hover:bg-neutral-200">
                     <td className="px-4 py-2">{CVE_USUARIO}</td>
                     <td className="px-4 py-2">{NOMBRE_COMPLETO}</td>
-                    <td className="px-4 py-2">{`${B_BLOQUEADO ? "Bloqueado" : "Activo"}`}</td>
+                    <td
+                      className="px-4 py-2 hover:cursor-pointer"
+                      onClick={() =>
+                        handleUnlockUser(CVE_USUARIO, !B_BLOQUEADO)
+                      }
+                    >{`${B_BLOQUEADO ? "Bloqueado" : "Activo"}`}</td>
                   </tr>
                 ))}
               </tbody>
@@ -57,7 +76,9 @@ export default function UserActivationPage() {
             <Button type="button" title="Volver al Dashboard" theme="normal" />
           </Link>
 
-          <Button type="submit" title="Enviar Quiniela" onClick={() => {}} />
+          <Link href="/quiniela">
+            <Button type="submit" title="Enviar Quiniela" theme="primary" />
+          </Link>
         </div>
       </div>
     </MainContainer>

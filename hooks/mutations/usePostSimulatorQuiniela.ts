@@ -1,7 +1,10 @@
 import { axiosInstance } from "@/api/axiosInstance";
 import { useGetMe } from "@/hooks/queries/user/useGetMe";
+import { ApiError } from "@/types/api/ApiError";
+import { ApiResponse } from "@/types/api/ApiResponse";
+import { useHandleRequestStatus } from "@/utils/showRequestStatus/showRequestStatus";
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const postQuinielaSimulator = async (payload: {
   idProceso: number;
@@ -19,8 +22,10 @@ const postQuinielaSimulator = async (payload: {
 export const usePostSimulatorQuiniela = () => {
   const { data } = useGetMe();
   const user = data?.data?.[0];
+  const queryClient = useQueryClient();
+  const { handleRequestStatus } = useHandleRequestStatus();
 
-  return useMutation({
+  return useMutation<ApiResponse<any>, ApiError, string>({
     mutationKey: ["quiniela-simulator"],
     mutationFn: (quinielaDataSimulated: string) =>
       postQuinielaSimulator({
@@ -32,5 +37,26 @@ export const usePostSimulatorQuiniela = () => {
           $3: quinielaDataSimulated,
         },
       }),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries();
+      handleRequestStatus({
+        estatus: data.estatus,
+        errorUs: data.errorUs,
+        errorNeg: data.errorNeg,
+        mensajeExito: "Simulador de quiniela guardado correctamente",
+      });
+    },
+    onSettled: (data, error) => {
+      if (error) {
+        const requestData = data || error?.response?.data;
+        handleRequestStatus({
+          estatus: requestData?.estatus,
+          errorUs: requestData?.errorUs ?? "",
+          errorNeg: requestData?.errorNeg ?? [],
+          error: error?.message ?? "",
+          mensajeExito: "",
+        });
+      }
+    },
   });
 };

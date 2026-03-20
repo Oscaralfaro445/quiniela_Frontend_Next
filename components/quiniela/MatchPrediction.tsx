@@ -125,6 +125,20 @@ export const MatchPrediction = () => {
       return;
     }
 
+    if (
+      quinielaData.some(
+        (game) =>
+          game.bMarcador && game.ID_SCORE_E1 === 0 && game.ID_SCORE_E2 === 0,
+      )
+    ) {
+      showAlert(
+        AlertState.ERROR,
+        "Marcadores incompletos",
+        "Ingresa los marcadores correspondientes al partido de desempate.",
+      );
+      return;
+    }
+
     const quinielaDataUpdated = quinielaData.map((game: QuinielaItem) => ({
       ID_QUINIELA: user!.idQuiniela,
       ID_PARTICIPANTE: user!.idParticipante,
@@ -167,7 +181,7 @@ export const MatchPrediction = () => {
 
               <div className="flex gap-2">
                 <Icon className="text-red-500" name="swords" />
-                <p>Survivor usado</p>
+                <p>Survivor utilizado</p>
               </div>
             </div>
           </div>

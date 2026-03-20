@@ -10,25 +10,24 @@ const fetchAvailablePeriods = async (payload: {
   };
 }) => {
   const response = await axiosInstance.post("/Query/Consulta", payload);
+
   return response.data;
 };
 
 export const useGetAvailablePeriods = () => {
   const { data: user } = useGetMe();
-  const userInfo: any = user?.data?.[0];
+  const userInfo = user?.data?.[0];
 
-  const { isPending, isError, data, error } = useQuery({
+  return useQuery({
     queryKey: ["availablePeriods"],
     queryFn: () =>
       fetchAvailablePeriods({
         idProceso: 23,
         idQuery: "22",
         parmRemp: {
-          $1: userInfo?.idQuiniela,
+          $1: userInfo!.idQuiniela,
         },
       }),
     enabled: !!userInfo,
   });
-
-  return { isPending, isError, data, error };
 };

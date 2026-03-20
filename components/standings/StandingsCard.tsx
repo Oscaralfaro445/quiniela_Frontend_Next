@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
 import { useGetParticipantPositions } from "@/hooks/queries/useGetParticipantPositions";
-import { ParticipantStatistics } from "@/types/participantStatistics/participantStatistics";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";
 import { TabType } from "../shared/tabs/TabSelector";
 import { PeriodSelector } from "./PeriodSelector";
 import { ParticipantCard } from "./ParticipantCard";
-import { useGetMe } from "@/hooks/queries/user/useGetMe";
 
 interface StandingsCardProps {
   activeTab: TabType;
@@ -17,11 +16,9 @@ export const StandingsCard = ({ activeTab }: StandingsCardProps) => {
   const { isPending, isError, data } = useGetParticipantPositions();
   const { data: userData } = useGetMe();
   const week = userData?.data?.[0]?.idPeriodo;
-  const participantData = data?.data[0];
-  const weeklyLeaderboard: ParticipantStatistics[] =
-    participantData?.puntosPeriodo;
-  const globalLeaderboard: ParticipantStatistics[] =
-    participantData?.puntosTotal;
+  const participantData = data?.data?.[0];
+  const weeklyLeaderboard = participantData?.puntosPeriodo;
+  const globalLeaderboard = participantData?.puntosTotal;
   const leaderboard = activeTab === 0 ? weeklyLeaderboard : globalLeaderboard;
 
   useEffect(() => {

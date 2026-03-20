@@ -3,6 +3,7 @@ import { useAlert } from "@/context/alert/AlertContext";
 import { AlertState } from "@/types/alert/alert";
 import { useHandleRequestStatus } from "@/utils/showRequestStatus/showRequestStatus";
 import { axiosInstance } from "@/api/axiosInstance";
+import { ApiError } from "@/types/api/ApiError";
 
 interface Marker {
   ID_PERIODO: string;
@@ -42,10 +43,14 @@ export const usePostMarkers = () => {
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["markers"] });
+    },
+    onSettled: (data, error: ApiError | null) => {
+      const requestData = data || error?.response?.data;
       handleRequestStatus({
-        estatus: data.estatus,
-        errorUs: data.errorUs,
-        errorNeg: data.errorNeg,
+        estatus: requestData?.estatus,
+        errorUs: requestData?.errorUs ?? "",
+        errorNeg: requestData?.errorNeg ?? [],
+        error: error?.message ?? "",
         mensajeExito: "Actualización de marcadores realizada de forma correcta",
       });
     },

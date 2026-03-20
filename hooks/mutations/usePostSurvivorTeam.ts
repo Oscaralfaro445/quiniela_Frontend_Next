@@ -24,7 +24,7 @@ const postSurvivorTeam = async (payload: {
 
 export const usePostSurvivorTeam = () => {
   const { data: user } = useGetMe();
-  const userInfo: any = user?.data?.[0];
+  const userInfo = user?.data?.[0];
   const { showAlert } = useAlert();
 
   return useMutation({
@@ -34,9 +34,9 @@ export const usePostSurvivorTeam = () => {
         idProceso: 2,
         model: "Q_SURVIVOR",
         data: {
-          ID_QUINIELA: userInfo?.idQuiniela,
-          ID_PARTICIPANTE: userInfo?.idParticipante,
-          ID_PERIODO: userInfo?.idPeriodo,
+          ID_QUINIELA: userInfo!.idQuiniela,
+          ID_PARTICIPANTE: userInfo!.idParticipante,
+          ID_PERIODO: userInfo!.idPeriodo,
           ID_EQUIPO_SUV: idSurvivor,
           SITUACION: "P",
           SITUACION_R: "",

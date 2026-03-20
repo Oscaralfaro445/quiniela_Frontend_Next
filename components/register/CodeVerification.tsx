@@ -17,9 +17,7 @@ export const CodeVerification = () => {
     if (mutation?.isIdle || mutation?.isError) {
       setStatus("code");
     } else if (mutation?.isSuccess) {
-      if (true) {
-        setStatus("register");
-      }
+      if (mutation?.data?.estatus === 1) setStatus("register");
     }
   }, [
     mutation?.isIdle,

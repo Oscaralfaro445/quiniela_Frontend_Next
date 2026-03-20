@@ -5,6 +5,7 @@ import { useHandleRequestStatus } from "@/utils/showRequestStatus/showRequestSta
 import { axiosInstance } from "@/api/axiosInstance";
 import { useGetMe } from "@/hooks/queries/user/useGetMe";
 import { AlertState } from "@/types/alert/alert";
+import { ApiError } from "@/types/api/ApiError";
 
 const postSurvivorActivation = async (payload: {
   idProceso: number;
@@ -63,6 +64,18 @@ export const usePostSurvivorActivation = () => {
         errorNeg: data.errorNeg,
         mensajeExito: "Activación del survivor realizada de forma correcta",
       });
+    },
+    onSettled: (data, error: ApiError | null) => {
+      if (error) {
+        const requestData = error?.response?.data;
+        handleRequestStatus({
+          estatus: requestData?.estatus,
+          errorUs: requestData?.errorUs ?? "",
+          errorNeg: requestData?.errorNeg ?? [],
+          error: error?.message ?? "",
+          mensajeExito: "",
+        });
+      }
     },
   });
 };
