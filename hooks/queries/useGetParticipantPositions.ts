@@ -13,7 +13,7 @@ const fetchParticipantPositions = async (variables: {
     idQuery: 4,
     parmRemp: {
       $1: idQuiniela,
-      $2: "12",
+      $2: idPeriodo,
     },
   };
   const response = await axiosInstance.post<ApiResponse<participantes>>(
@@ -24,18 +24,26 @@ const fetchParticipantPositions = async (variables: {
   return response.data;
 };
 
-export const useGetParticipantPositions = () => {
+export const useGetParticipantPositions = (periodOverride?: number) => {
   const { data } = useGetMe();
   const user = data?.data?.[0];
+  const effectivePeriod =
+    typeof periodOverride === "number" && periodOverride > 0
+      ? String(periodOverride)
+      : user?.idPeriodo;
 
   return useQuery({
-    queryKey: ["participantPositions"],
+    queryKey: [
+      "participantPositions",
+      user?.idQuiniela ?? "unknown",
+      effectivePeriod ?? "unknown",
+    ],
     queryFn: () =>
       fetchParticipantPositions({
         idQuiniela: user!.idQuiniela,
-        idPeriodo: user!.idPeriodo,
+        idPeriodo: effectivePeriod!,
       }),
-    enabled: !!user,
+    enabled: !!user && !!effectivePeriod,
   });
 };
 

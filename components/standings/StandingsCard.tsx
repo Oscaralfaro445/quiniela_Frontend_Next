@@ -13,7 +13,7 @@ interface StandingsCardProps {
 
 export const StandingsCard = ({ activeTab }: StandingsCardProps) => {
   const [period, setPeriod] = useState<number>(0);
-  const { isPending, isError, data } = useGetParticipantPositions();
+  const { isPending, isError, data } = useGetParticipantPositions(period);
   const { data: userData } = useGetMe();
   const week = userData?.data?.[0]?.idPeriodo;
   const participantData = data?.data?.[0];
@@ -25,6 +25,7 @@ export const StandingsCard = ({ activeTab }: StandingsCardProps) => {
     if (week) {
       setPeriod(Number(week));
     }
+    console.log(week);
   }, [week]);
 
   return (

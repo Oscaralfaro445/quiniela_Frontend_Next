@@ -18,16 +18,18 @@ export const updateUserProfileEdit = async (
     idProceso: 25,
     idProcedure: 10,
     parmRemp: {
-      $1: {
+      $1: JSON.stringify({
         idQuiniela,
         cveUsuario,
         apellidoPaterno,
         apellidoMaterno,
         nombre,
         idEquipoFav,
-      },
+      }),
     },
   };
+
+  console.log("Payload for updateUserProfileEdit:", payload);
 
   const response = await axiosInstance.post<ApiResponse<null>>(
     "/Query/Procedure",

@@ -192,10 +192,10 @@ export default function ProfilePage() {
                     selected={profileForm.equipoFavorito}
                     value={
                       profileForm.equipoFavorito === 0
-                        ? ""
+                        ? " "
                         : availableTeams.find(
                             (team) => team.llave === profileForm.equipoFavorito,
-                          )?.valor || ""
+                          )?.valor || " "
                     }
                     disabled={!editProfile}
                     onChange={handleChangeTeam}

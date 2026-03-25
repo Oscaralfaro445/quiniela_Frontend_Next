@@ -35,13 +35,8 @@ export const TeamQuinielaCard = ({
 
   return (
     <div className="flex gap-2">
-      <div className="relative grid w-full items-center border border-neutral-400 rounded-lg bg-white">
-        <div
-          className="absolute z-10 left-0 top-0 h-full bg-green-100 rounded-lg transition-all duration-500"
-          style={{
-            width: `${team === "V" ? game.pjeVisitante : game.pjeLocal}%`,
-          }}
-        />
+      <div className="grid w-full items-center border border-neutral-400 rounded-lg bg-white">
+        <div className="h-full bg-green-100 rounded-lg transition-all duration-500" />
         <div className="flex flex-wrap z-20 w-full p-4 gap-4 justify-between items-center">
           <div className="relative z-10 flex flex-wrap w-1/2 gap-4 justify-start items-center">
             <div className="flex gap-4 items-center">

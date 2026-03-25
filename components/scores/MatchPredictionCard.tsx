@@ -50,7 +50,9 @@ export const MatchPredictionCard = ({ gameId }: MatchPredictionCardProps) => {
                   {prediction?.nomParticipante}
                 </td>
                 <td className="p-2 border-b border-gray-200">
-                  <TeamLogo teamName={prediction?.nomEquipoPronost} />
+                  {prediction?.pronostico !== " " && (
+                    <TeamLogo teamName={prediction?.nomEquipoPronost} />
+                  )}
                 </td>
                 <td className="p-2 border-b border-gray-200 font-bold text-blue-600">
                   {prediction?.acerto === "si" ? (

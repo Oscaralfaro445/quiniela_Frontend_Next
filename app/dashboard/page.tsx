@@ -30,8 +30,8 @@ export default function DashboardPage() {
         <div className="grid lg:grid-cols-2 w-full gap-4 ">
           <SwiftActionsCard />
           <AccumulatedBagCard />
-          <ConferenceCard />
           <MatchVotesCard />
+          <ConferenceCard />
           <SeasonProgressCard />
           <SurvivorCard />
           <UpcomingGamesCard />
