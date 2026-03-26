@@ -50,5 +50,3 @@ export const useAlert = () => {
 
   return context;
 };
-
-export default AlertProvider;

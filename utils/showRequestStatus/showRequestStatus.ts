@@ -1,4 +1,5 @@
 import { useAlert } from "@/context/alert/AlertContext";
+import { useModal } from "@/context/ModalContext";
 import { AlertState } from "@/types/alert/alert";
 
 type RequestStatus = {
@@ -11,6 +12,7 @@ type RequestStatus = {
 
 export const useHandleRequestStatus = () => {
   const { showAlert } = useAlert();
+  const { openModal } = useModal();
 
   const handleRequestStatus = ({
     estatus,
@@ -38,7 +40,12 @@ export const useHandleRequestStatus = () => {
         break;
 
       case 3:
-        console.warn("Aqui va el modal.", errorNeg);
+        openModal({
+          title: "Error en la solicitud",
+          body: errorNeg || [
+            "Tuvimos un problema al procesar tu solicitud. Inténtalo más tarde.",
+          ],
+        });
         break;
 
       default:
