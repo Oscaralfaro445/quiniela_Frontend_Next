@@ -10,6 +10,8 @@ import { Icon } from "@/components/shared/icon/Icon";
 import { Card } from "@/components/shared/card/Card";
 import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
 import { InputCombo } from "@/components/shared/input/inputs/InputCombo";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 export default function ProfilePage() {
   const [editProfile, setEditProfile] = useState<boolean>(false);
@@ -17,7 +19,6 @@ export default function ProfilePage() {
     nombre: "",
     apellidoPaterno: "",
     apellidoMaterno: "",
-    correo: "",
     equipoFavorito: 0,
   });
 
@@ -37,9 +38,10 @@ export default function ProfilePage() {
 
     setProfileForm((prev) => ({
       ...prev,
-      nombre: profileData.NOMBRE ?? "",
-      apellidoPaterno: profileData.APELLIDO_PATERNO ?? "",
-      apellidoMaterno: profileData.APELLIDO_MATERNO ?? "",
+      nombre: profileData.nombre ?? "",
+      apellidoPaterno: profileData.apellidoPaterno ?? "",
+      apellidoMaterno: profileData.apellidoMaterno ?? "",
+      equipoFavorito: profileData.idEquipoFav ?? 0,
     }));
   }, [profileData]);
 
@@ -47,9 +49,10 @@ export default function ProfilePage() {
     if (editProfile && profileData) {
       setProfileForm((prev) => ({
         ...prev,
-        nombre: profileData.NOMBRE ?? "",
-        apellidoPaterno: profileData.APELLIDO_PATERNO ?? "",
-        apellidoMaterno: profileData.APELLIDO_MATERNO ?? "",
+        nombre: profileData.nombre ?? "",
+        apellidoPaterno: profileData.apellidoPaterno ?? "",
+        apellidoMaterno: profileData.apellidoMaterno ?? "",
+        equipoFavorito: profileData.idEquipoFav ?? 0,
       }));
     }
 
@@ -80,6 +83,14 @@ export default function ProfilePage() {
 
   return (
     <div className="w-full px-4 py-8 max-w-4xl mx-auto">
+      <Link
+        className="flex gap-2 items-center hover:text-blue-600 transition duration-200"
+        href={"/dashboard"}
+      >
+        <ArrowLeft />
+        Dashboard
+      </Link>
+
       <PageHeader
         title="Mi Perfil"
         text="Administra tu información personal y preferencias de la cuenta"

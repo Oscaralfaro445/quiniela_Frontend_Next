@@ -6,6 +6,7 @@ export const getMe = async (): Promise<ApiResponse<GetMeResponse>> => {
   const payload = {
     idProceso: 21,
   };
+
   const response = await axiosInstance.post<ApiResponse<GetMeResponse>>(
     "/Query/GetMe",
     payload,

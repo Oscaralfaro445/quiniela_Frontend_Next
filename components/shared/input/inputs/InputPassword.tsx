@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FormikValues, useFormikContext } from "formik";
-import { InputProps } from "@/types/input/input";
+import { InputV2Props } from "@/types/input/input";
 import { Icon } from "../../icon/Icon";
 
 export const InputPassword = ({
@@ -8,7 +8,7 @@ export const InputPassword = ({
   name,
   placeholder,
   disabled,
-}: InputProps) => {
+}: InputV2Props) => {
   const [showPassword, setShowPassword] = useState(false);
   const { values, touched, errors, handleChange, handleBlur } =
     useFormikContext<FormikValues>();

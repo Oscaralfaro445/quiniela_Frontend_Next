@@ -33,8 +33,8 @@ export const LoginForm = () => {
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={handleSubmit}
       validationSchema={validationSchema}
+      onSubmit={handleSubmit}
     >
       {mutation.isPending ? (
         <Loader />

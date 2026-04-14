@@ -1,24 +1,38 @@
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface GridProps {
-  children?: ReactNode;
-  gridData: { [key: string]: string | number }[];
+  gridData: {
+    gridColumns: string[];
+    gridRows: { [key: string]: string | number }[];
+  };
+  selectedRow: {
+    index: number;
+    row: { [key: string]: string | number };
+  } | null;
+  handleSelectedRow: (
+    index: number,
+    row: { [key: string]: string | number },
+  ) => void;
 }
 
 const initialState = {
-  columns: [] as string[],
-  rows: [] as { [key: string]: string | number }[],
+  gridColumns: [] as string[],
+  gridRows: [] as { [key: string]: string | number }[],
 };
 
-export const Grid = ({ children, gridData }: GridProps) => {
-  const [table, setTable] = useState(initialState);
+export const Grid = ({
+  gridData,
+  selectedRow,
+  handleSelectedRow,
+}: GridProps) => {
+  const [table, setTable] = useState<{
+    gridColumns: string[];
+    gridRows: { [key: string]: string | number }[];
+  }>(initialState);
 
   useEffect(() => {
-    if (gridData && gridData.length > 0) {
-      setTable({
-        columns: Object.keys(gridData[0]),
-        rows: gridData,
-      });
+    if (gridData) {
+      setTable(gridData);
     } else {
       console.log("No data or gridData received in Grid component");
       setTable(initialState);
@@ -28,12 +42,12 @@ export const Grid = ({ children, gridData }: GridProps) => {
   // console.log("Table state in Grid component:", table);
 
   return (
-    <div className="p-4 align-middle inline-block min-w-full">
-      <div className="overflow-x-auto sm:rounded-lg">
+    <div className="align-middle inline-block min-w-full">
+      <div className="overflow-x-auto rounded-md">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-blue-600 text-white">
             <tr>
-              {table.columns?.map((column) => (
+              {table.gridColumns?.map((column) => (
                 <th
                   scope="col"
                   key={`col-${column}`}
@@ -46,27 +60,22 @@ export const Grid = ({ children, gridData }: GridProps) => {
           </thead>
 
           <tbody className="bg-white divide-y divide-gray-200">
-            {children
-              ? children
-              : table.rows?.map((row, index) => (
-                  <tr
-                    key={index}
-                    /* className={`cursor-pointer ${
-                  selectedRow === index ? "bg-indigo-50 text-white" : ""
-                } `}
+            {table.gridRows?.map((row, index) => (
+              <tr
+                key={index}
+                className={`hover:cursor-pointer ${selectedRow?.index === index ? "bg-blue-100" : ""}`}
                 onClick={() => {
                   handleSelectedRow(index, row);
-                }} */
-                  >
-                    {Object.values(row).map((value, i) => (
-                      <td key={i} className="px-6 py-3 text-center">
-                        <div className="text-xs text-gray-500">
-                          {String(value)}
-                        </div>
-                      </td>
-                    ))}
-                  </tr>
+                  alert(`Registro seleccionado: ${JSON.stringify(row)}`);
+                }}
+              >
+                {Object.values(row).map((value, i) => (
+                  <td key={i} className="px-6 py-3 text-center">
+                    <div className="text-xs text-gray-500">{String(value)}</div>
+                  </td>
                 ))}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

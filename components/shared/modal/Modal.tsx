@@ -11,7 +11,7 @@ export const Modal = ({ children, isOpen, onClose }: ModalProps) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-10 py-8 bg-neutral-700/40 backdrop-blur-xs">
-      <div className="relative max-w-[1280px] max-h-[90vh] p-4 rounded-2xl shadow-2xl bg-white opacity-100 ">
+      <div className="relative max-w-[1280px] w-full max-h-[90vh] p-8 rounded-2xl shadow-2xl bg-white opacity-100 ">
         <button className="absolute top-4 right-4" onClick={onClose}>
           <Icon
             className="hover:text-red-500 transition-colors duration-200 cursor-pointer"
@@ -20,7 +20,7 @@ export const Modal = ({ children, isOpen, onClose }: ModalProps) => {
           />
         </button>
 
-        <div className="pt-6">{children}</div>
+        {children}
       </div>
     </div>
   );

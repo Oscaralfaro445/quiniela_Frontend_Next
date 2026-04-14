@@ -49,9 +49,10 @@ export interface CodeVerificationVariables {
 }
 
 export interface UserProfileEditResponse {
-  APELLIDO_PATERNO: string;
-  APELLIDO_MATERNO: string;
-  NOMBRE: string;
+  apellidoPaterno: string;
+  apellidoMaterno: string;
+  nombre: string;
+  idEquipoFav: number;
 }
 
 export interface FavoriteTeamOption {

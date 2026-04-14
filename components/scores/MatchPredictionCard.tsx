@@ -31,7 +31,7 @@ export const MatchPredictionCard = ({ gameId }: MatchPredictionCardProps) => {
 
       {isError && <div>Error al cargar la información...</div>}
 
-      <div className="w-full max-h-[70vh] overflow-auto">
+      <div className="w-full max-h-[70vh] overflow-auto rounded-2xl">
         <table className="w-full">
           <thead className="bg-blue-600 text-white text-sm font-semibold sticky top-0 z-10">
             <tr>
@@ -55,7 +55,9 @@ export const MatchPredictionCard = ({ gameId }: MatchPredictionCardProps) => {
                   )}
                 </td>
                 <td className="p-2 border-b border-gray-200 font-bold text-blue-600">
-                  {prediction?.acerto === "si" ? (
+                  {prediction?.acerto === "Pendiente" ? (
+                    <Icon name="calendar-clock" />
+                  ) : prediction?.acerto === "si" ? (
                     <Icon name="check" color="green" />
                   ) : (
                     <Icon name="x" color="red" />

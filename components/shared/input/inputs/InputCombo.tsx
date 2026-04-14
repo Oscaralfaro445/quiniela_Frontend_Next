@@ -73,7 +73,7 @@ export const InputCombo = ({
       </div>
 
       {isOpen && (
-        <div className="absolute z-10 top-12 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
+        <div className="absolute z-10 top-12 w-full bg-white border border-gray-300 rounded-md shadow-xs max-h-60 overflow-auto">
           {!options || options.length === 0 ? (
             <p className="px-4 py-2 text-sm text-gray-500">
               No hay opciones disponibles

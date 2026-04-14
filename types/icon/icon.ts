@@ -4,6 +4,7 @@ export type IconName =
   | "bell"
   | "bus"
   | "calendar"
+  | "calendar-clock"
   | "calendar-search"
   | "chart-bar"
   | "check"

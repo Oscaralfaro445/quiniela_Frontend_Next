@@ -58,7 +58,7 @@ export const ProfileOptions = ({ user }: ProfileOptionsProps) => {
             <div className="border-b border-neutral-300 pb-2">
               <Link href="/profile">
                 <button
-                  className="w-full p-2 rounded-lg flex items-center gap-2 hover:bg-neutral-100 ease-in-out duration-300 bg-white"
+                  className="w-full p-2 rounded-lg flex items-center gap-2 hover:bg-neutral-100 ease-in-out duration-300 bg-white hover:cursor-pointer"
                   onClick={() => setShowOptions(false)}
                 >
                   <Icon name="user" />
@@ -70,7 +70,7 @@ export const ProfileOptions = ({ user }: ProfileOptionsProps) => {
             <div className="border-b border-neutral-300 pb-2">
               <Link href="/profile">
                 <button
-                  className="w-full p-2 rounded-lg flex items-center gap-2 hover:bg-neutral-100 ease-in-out duration-300 bg-white"
+                  className="w-full p-2 rounded-lg flex items-center gap-2 hover:bg-neutral-100 ease-in-out duration-300 bg-white hover:cursor-pointer"
                   onClick={() => setShowOptions(false)}
                 >
                   <Icon name="circle-question-mark" />
