@@ -38,6 +38,7 @@ export const RecoveryForm = () => {
       ) : (
         <Form className="grid w-full gap-4">
           <Input
+            id="email"
             type="email"
             name="cveUsuario"
             label="Correo electrónico"

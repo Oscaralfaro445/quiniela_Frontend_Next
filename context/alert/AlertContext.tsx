@@ -11,10 +11,10 @@ interface AlertContextProps {
 const AlertContext = createContext<AlertContextProps | undefined>(undefined);
 
 export const AlertProvider = ({ children }: { children: React.ReactNode }) => {
-  const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
   const [type, setType] = useState<AlertState>(AlertState.SUCCESS);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState<string>("");
+  const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
+  const [description, setDescription] = useState<string>("");
 
   const showAlert = (type: AlertState, title: string, description: string) => {
     setType(type);
@@ -35,7 +35,7 @@ export const AlertProvider = ({ children }: { children: React.ReactNode }) => {
         title={title}
         description={description}
         isAlertOpen={isAlertOpen}
-        toggleAlert={() => setIsAlertOpen(false)}
+        closeAlert={() => setIsAlertOpen(false)}
       />
     </AlertContext.Provider>
   );

@@ -1,63 +1,61 @@
 import { Form, Formik } from "formik";
+import { Component } from "@/types/form/infoForm";
+import { FieldValue, generateValidationSchema } from "@/utils/catalog/catalog";
 import { Input } from "../shared/input/Input";
-import { Modal } from "../shared/modal/Modal";
+import { Button } from "../shared/button/Button";
 
 interface Props {
-  isModalOpen: boolean;
+  fields: Component[] | undefined;
+  initialValues: Record<string, FieldValue>;
+  validateForm: boolean;
   handleCancel: () => void;
-  handleAccept: (values: any) => void;
-  // initialValues: { [key: string]: string | number } | undefined;
-  data: any;
+  handleAccept: (data: Record<string, FieldValue>) => void;
 }
 
 export const CatalogForm = ({
-  isModalOpen,
+  fields,
+  initialValues,
+  validateForm,
   handleCancel,
   handleAccept,
-  // initialValues,
-  data,
 }: Props) => {
-  const initialValues = {
-    DESCRIPCION: 45348.02,
-    idEmpleado: 32,
-    nombre_cliente: "Luis Cruz",
-    tipoCliente: "B",
-  };
-  console.log("Initial values in CatalogForm:", initialValues);
+  const validationSchema = validateForm
+    ? generateValidationSchema(fields || [])
+    : null;
 
   return (
-    <Modal isOpen={isModalOpen} onClose={handleCancel}>
+    <div className="px-2">
       <Formik
         initialValues={initialValues || {}}
-        //validationSchema={Yup.object(initialValues)}
+        validationSchema={validationSchema}
         onSubmit={(values) => {
           handleAccept(values);
         }}
       >
         <Form className="grid w-full gap-2">
-          {data?.map((componente: any) => (
+          {fields?.map((component) => (
             <Input
-              key={componente.NOM_COMPONENTE}
-              name={componente.NOM_COMPONENTE}
-              type={componente.CVE_TIPO_COMPON}
-              label={componente.TX_ETIQUETA}
-              placeholder={componente.TX_AYUDA}
+              key={component?.nomComponente}
+              id={component?.nomCampoBd ?? component?.nomComponente}
+              name={component?.nomCampoBd ?? component?.nomComponente}
+              type={component?.cveTipoCompon}
+              label={component?.txEtiqueta}
+              placeholder={component?.txAyuda}
             />
           ))}
-          <button className="w-fit px-2 py-1 border rounded-sm" type="submit">
-            Enviar
-          </button>
-          <button
-            className="w-fit px-2 py-1 border rounded-sm cursor-pointer"
-            type="button"
-            onClick={() => {
-              handleCancel();
-            }}
-          >
-            Cancelar
-          </button>
+
+          <div className="flex gap-2 pt-4 justify-end">
+            <Button
+              type="button"
+              theme="danger"
+              title="Cancelar"
+              onClick={handleCancel}
+            />
+
+            <Button type="submit" theme="primary" title="Enviar" />
+          </div>
         </Form>
       </Formik>
-    </Modal>
+    </div>
   );
 };

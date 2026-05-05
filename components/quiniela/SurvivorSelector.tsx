@@ -6,14 +6,12 @@ import { Icon } from "../shared/icon/Icon";
 interface SurvivorSelectorProps {
   disabled: boolean;
   selectedSurvivor: number;
-  value: string;
   handleSelectedSurvivor: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 export const SurvivorSelector = ({
   disabled,
   selectedSurvivor,
-  value,
   handleSelectedSurvivor,
 }: SurvivorSelectorProps) => {
   const { isPending, isError, data, error } = useGetSurvivorTeams();
@@ -36,10 +34,10 @@ export const SurvivorSelector = ({
         </p>
 
         <InputCombo
+          id="survivor"
           name="survivor"
           data={data?.data}
           selected={selectedSurvivor}
-          value={value}
           disabled={disabled}
           onChange={handleSelectedSurvivor}
         />

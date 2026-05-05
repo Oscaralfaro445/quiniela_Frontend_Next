@@ -3,7 +3,8 @@ import { AlertProvider } from "@/context/alert/AlertContext";
 import { Header } from "@/components/ui/header/Header";
 import { Footer } from "@/components/ui/footer/Footer";
 import "./globals.css";
-import { ModalProvider } from "@/context/ModalContext";
+import { ModalProvider } from "@/context/modal/ModalContext";
+import { ModalErrorProvider } from "@/context/modalError/ModalErrorContext";
 
 export default function RootLayout({
   children,
@@ -34,13 +35,15 @@ export default function RootLayout({
       <body>
         <ReactQueryProvider>
           <AlertProvider>
-            <ModalProvider>
-              <Header />
-              <main className="grid min-h-screen pt-16 bg-neutral-50">
-                {children}
-              </main>
-              <Footer />
-            </ModalProvider>
+            <ModalErrorProvider>
+              <ModalProvider>
+                <Header />
+                <main className="grid min-h-screen pt-16 bg-neutral-50">
+                  {children}
+                </main>
+                <Footer />
+              </ModalProvider>
+            </ModalErrorProvider>
           </AlertProvider>
         </ReactQueryProvider>
       </body>

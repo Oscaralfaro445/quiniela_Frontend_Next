@@ -29,8 +29,6 @@ export const updateUserProfileEdit = async (
     },
   };
 
-  console.log("Payload for updateUserProfileEdit:", payload);
-
   const response = await axiosInstance.post<ApiResponse<null>>(
     "/Query/Procedure",
     payload,

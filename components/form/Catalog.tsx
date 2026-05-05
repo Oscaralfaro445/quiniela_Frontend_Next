@@ -1,36 +1,41 @@
 "use client";
 
 import { useState } from "react";
+import { useModal } from "@/context/modal/ModalContext";
+import {
+  createForm,
+  editForm,
+  FieldValue,
+  filterForm,
+  initialValues,
+} from "@/utils/catalog/catalog";
 import { useGetInfoForm } from "@/hooks/queries/form/useGetInfoForm";
-import { createForm, editForm, initialValues } from "@/utils/Catalog/catalog";
+import { CrudAction } from "@/types/form/form";
+import { useDeleteRecord } from "@/hooks/mutations/form/useDeleteRecord";
+import { useCreateRecord } from "@/hooks/mutations/form/useCreateRecord";
+import { useUpdateRecord } from "@/hooks/mutations/form/useUpdateRecord";
 import { Table } from "@/components/shared/table/Table";
 import { SectionHeader } from "./SectionHeader";
 import { CatalogForm } from "./CatalogForm";
-import { useModal } from "@/context/ModalContext";
-
-enum CrudAction {
-  CREATE,
-  UPDATE,
-}
+import { ModalLateral } from "../shared/modalLateral/ModalLateral";
 
 interface Props {
   formKey: string;
 }
 
 export const Catalog = ({ formKey }: Props) => {
-  console.log(formKey);
-
-  const { openModal } = useModal();
-
+  console.log("FormKey received in Catalog component:", formKey);
+  const { openModal, closeModal } = useModal();
+  const mutation = useDeleteRecord();
+  const mutationCreate = useCreateRecord();
+  const mutationUpdate = useUpdateRecord();
   const { isPending, isError, data } = useGetInfoForm();
+  const [isModalLAteralOpen, setIsModalLateralOpen] = useState<boolean>(false);
   const [action, setAction] = useState<CrudAction>(CrudAction.CREATE);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedRow, setSelectedRow] = useState<{
     index: number;
     row: { [key: string]: string | number };
   } | null>(null);
-
-  console.log("SELECTED ROW", selectedRow);
 
   const handleSelectedRow = (
     index: number,
@@ -38,20 +43,31 @@ export const Catalog = ({ formKey }: Props) => {
   ) => {
     if (index === selectedRow?.index) {
       setSelectedRow(null);
+      setAction(CrudAction.CREATE);
     } else {
       setSelectedRow({ index, row });
+      setAction(CrudAction.UPDATE);
     }
   };
 
-  const handleCreate = () => {};
+  const handleCreate = (data: Record<string, FieldValue>) => {
+    mutationCreate.mutate(data);
+  };
 
-  const handleUpdate = () => {};
+  const handleUpdate = (data: Record<string, FieldValue>) => {
+    mutationUpdate.mutate(data);
+  };
 
-  const handleDelete = () => {};
+  const handleDelete = () => {
+    if (window.confirm("¿Estás seguro de que deseas eliminar este registro?")) {
+      if (selectedRow) {
+        mutation.mutate(selectedRow?.row?.NUM_CLIENTE);
+      }
+    }
+  };
 
   const handleCancel = () => {
-    // setSelectedRow(null);
-    setIsModalOpen(false);
+    closeModal();
   };
 
   if (isPending) return <div>Cargando...</div>;
@@ -61,25 +77,51 @@ export const Catalog = ({ formKey }: Props) => {
   const getCrudHandler =
     action === CrudAction.CREATE ? handleCreate : handleUpdate;
 
+  const getCrudInfo =
+    action === CrudAction.CREATE
+      ? createForm(data?.data?.[0]?.infComponente)
+      : editForm(data?.data?.[0]?.infComponente);
+
+  const handleOpenForm = () => {
+    openModal(
+      <CatalogForm
+        fields={getCrudInfo}
+        initialValues={initialValues(
+          data?.data?.[0]?.infComponente,
+          selectedRow?.row,
+        )}
+        validateForm={true}
+        handleAccept={getCrudHandler}
+        handleCancel={handleCancel}
+      />,
+    );
+  };
+
   return (
     <div>
       <SectionHeader
         selectedRow={selectedRow}
-        setModalOpen={setIsModalOpen}
         setAction={setAction}
+        handleOpenForm={handleOpenForm}
         handleDelete={handleDelete}
+        setModalLateralOpen={setIsModalLateralOpen}
       />
-      <button type="button" onClick={openModal}>
-        Abrir Modal
-      </button>
       <Table selectedRow={selectedRow} handleSelectedRow={handleSelectedRow} />
-      <CatalogForm
-        isModalOpen={isModalOpen}
-        handleAccept={getCrudHandler}
-        handleCancel={handleCancel}
-        initialValues={selectedRow?.row}
-        data={data?.data?.[0]?.componentes}
-      />
+      <ModalLateral
+        isModalLateralOpen={isModalLAteralOpen}
+        setIsModalLateralOpen={setIsModalLateralOpen}
+      >
+        <CatalogForm
+          fields={filterForm(data?.data?.[0]?.infComponente)}
+          initialValues={initialValues(
+            data?.data?.[0]?.infComponente,
+            selectedRow?.row,
+          )}
+          validateForm={false}
+          handleAccept={() => {}}
+          handleCancel={() => setIsModalLateralOpen(false)}
+        />
+      </ModalLateral>
     </div>
   );
 };

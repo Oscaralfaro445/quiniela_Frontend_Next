@@ -2,17 +2,18 @@
 
 import { InputType } from "@/types/input/input";
 import { InputV2Props } from "@/types/input/input";
-import { InputV2 } from "./inputs/InputV2";
+import { InputBasic } from "./inputs/InputBasic";
 import { useField } from "formik";
-import { InputPasswordV2 } from "./inputs/InputPasswordV2";
+import { InputPassword } from "./inputs/InputPassword";
 import { InputArea } from "./inputs/InputArea";
 import { InputCombo } from "./inputs/InputCombo";
 import { InputSwitch } from "./inputs/InputSwitch";
+import { InputSeparator } from "./inputs/InputSeparator";
 
 export const Input = ({
   id,
-  type,
   name,
+  type,
   label,
   placeholder,
   disabled,
@@ -35,17 +36,18 @@ export const Input = ({
     switch (type) {
       case InputType.TEXTO:
       case "text":
-        return <InputV2 type={"text"} {...commonProps} />;
+        return <InputBasic type={"text"} {...commonProps} />;
 
       case InputType.FECHA:
       case "date":
-        return <InputV2 type={"date"} {...commonProps} />;
+        return <InputBasic type={"date"} {...commonProps} />;
 
       case InputType.NUMERO:
       case "number":
-        return <InputV2 type={"number"} {...commonProps} />;
+        return <InputBasic type={"number"} {...commonProps} />;
 
       case "email":
+        return <InputBasic type={"email"} {...commonProps} />;
 
       case InputType.AREA:
       case "area":
@@ -53,19 +55,43 @@ export const Input = ({
 
       case InputType.SWITCH:
       case "switch":
-        return <InputSwitch />;
+        return (
+          <InputSwitch
+            id={id}
+            name={name}
+            value={field.value}
+            label={label}
+            onChange={field.onChange}
+          />
+        );
 
       case InputType.COMBO:
       case "combo":
-        return <InputCombo data={[]} />;
+        return (
+          <InputCombo
+            id={id}
+            name={name}
+            selected={field.value}
+            label={label}
+            data={
+              JSON.parse(
+                '{"infComp":{"nomComponente":"tipoCliente","nomCampoValor":"cveTipoCte","nomCampoEtiqueta":"tipoCliente"},"infValida":null,"infData":[{"llave":"ADMON","valor":"ADMINISTRADOR"},{"llave":"PARTICIPANTE","valor":"PARTICIPANTE"},{"llave":"SISTEMAS","valor":"SISTEMAS"},{"llave":"TEMPORAL","valor":"TEMPORAL"}]}',
+              ).infData
+            }
+            onChange={field.onChange}
+          />
+        );
 
       case "password":
-        return <InputPasswordV2 type={type} {...commonProps} />;
+        return <InputPassword type={type} {...commonProps} />;
+
+      case InputType.SEPARADOR:
+        return <InputSeparator />;
     }
   };
 
   return (
-    <div className="relative flex flex-col w-full gap-2 items-center justify-start">
+    <div className="relative flex w-full gap-2 items-center justify-start">
       {renderInput()}
     </div>
   );

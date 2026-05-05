@@ -41,7 +41,8 @@ export const MatchPrediction = () => {
           ID_SCORE_E2: 0,
         }),
       );
-      setSelectedSurvivor(0);
+      const initialSurvivor = data?.data?.[0]?.extraData?.idSurvivor;
+      setSelectedSurvivor(initialSurvivor);
       setQuinielaData(quinielaInitialData);
     }
   }, [data]);
@@ -153,7 +154,6 @@ export const MatchPrediction = () => {
     if (user?.bSurvivor && selectedSurvivor > 0) {
       survivorAlta.mutate(selectedSurvivor);
     }
-    console.log(quinielaDataUpdated);
     quinielaAlta.mutate(quinielaDataUpdated);
   };
 
@@ -209,7 +209,6 @@ export const MatchPrediction = () => {
         <SurvivorSelector
           disabled={!isQuinielaEnabled}
           selectedSurvivor={selectedSurvivor}
-          value={data?.data[0].extraData.nomSurvivor}
           handleSelectedSurvivor={handleChangeSurvivor}
         />
       )}

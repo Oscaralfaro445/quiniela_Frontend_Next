@@ -1,30 +1,34 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { Icon } from "../../icon/Icon";
+import { ChevronDown } from "lucide-react";
 
 interface Option {
-  llave: number;
+  llave: number | string;
   valor: string;
 }
 
 interface InputComboProps {
-  data: Option[];
+  id: string;
   name?: string;
-  selected?: number;
-  value?: string | number;
+  selected: number | string;
+  label?: string;
   disabled?: boolean;
-  onChange?: (event: ChangeEvent<HTMLSelectElement>) => void;
+  data: Option[];
+  onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
 
 export const InputCombo = ({
-  data,
+  id,
   name,
   selected,
-  value,
+  label,
   disabled,
-  onChange = () => {},
+  data,
+  onChange,
 }: InputComboProps) => {
   const [options, setOptions] = useState<Option[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isComboOpen, setIsComboOpen] = useState<boolean>(false);
+
+  console.log(data);
 
   useEffect(() => {
     if (data && Array.isArray(data)) {
@@ -43,65 +47,74 @@ export const InputCombo = ({
     } as ChangeEvent<HTMLSelectElement>;
 
     onChange(event);
-    setIsOpen(false);
+    setIsComboOpen(false);
   };
 
-  const optionName = options.find((option) => option.llave === selected)?.valor;
+  const optionValue = options.find(
+    (option) => option.llave === selected,
+  )?.valor;
 
   return (
-    <div className="relative w-full">
-      <div
-        className={`mt-1 px-4 py-2 flex justify-between items-center rounded-md border border-gray-300 bg-white shadow-sm cursor-pointer transition-colors ${
-          disabled ? "bg-gray-100 cursor-not-allowed" : "hover:border-gray-400"
-        }`}
-        onClick={() => !disabled && setIsOpen(!isOpen)}
-        id={name}
-        tabIndex={0}
-      >
-        <p className="text-sm font-medium text-neutral-700">
-          {value === " "
-            ? selected === 0
-              ? "Selecciona una opcion..."
-              : optionName
-            : value}
-        </p>
-
-        <Icon
-          name="chevron-down"
-          className={`transition-transform ${isOpen ? "rotate-180" : ""}`}
-        />
-      </div>
-
-      {isOpen && (
-        <div className="absolute z-10 top-12 w-full bg-white border border-gray-300 rounded-md shadow-xs max-h-60 overflow-auto">
-          {!options || options.length === 0 ? (
-            <p className="px-4 py-2 text-sm text-gray-500">
-              No hay opciones disponibles
-            </p>
-          ) : (
-            <ul className="grid divide-y divide-neutral-200 px-2 ">
-              {options.map((option, index) => {
-                const optionValue = option["llave"];
-                const isSelected = optionValue === selected;
-
-                return (
-                  <li
-                    key={optionValue?.toString() || index}
-                    className={`px-4 py-2 text-sm cursor-pointer transition-colors ${
-                      isSelected
-                        ? "bg-blue-100 text-blue-900 font-medium"
-                        : "hover:bg-gray-100 text-gray-900"
-                    }`}
-                    onClick={() => handleSelect(option)}
-                  >
-                    {option["valor"]}
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-        </div>
+    <div className="grid w-full gap-1">
+      {label && (
+        <label htmlFor={id} className="text-md text-neutral-600">
+          {label}
+        </label>
       )}
+
+      <div className="relative w-full">
+        <div
+          id={id}
+          tabIndex={0}
+          onClick={() => !disabled && setIsComboOpen(!isComboOpen)}
+          className={`mt-1 p-2 flex justify-between items-center rounded-md border border-gray-300 bg-white shadow-xs cursor-pointer transition-colors ${
+            disabled
+              ? "bg-gray-100 cursor-not-allowed"
+              : "hover:border-gray-400"
+          }`}
+        >
+          {selected === 0 || selected === "" ? (
+            <p className="text-neutral-400">Selecciona una opcion...</p>
+          ) : (
+            <p className="text-neutral-700">{optionValue}</p>
+          )}
+
+          <ChevronDown
+            className={`transition-transform ${isComboOpen ? "rotate-180" : ""}`}
+          />
+        </div>
+
+        {isComboOpen && (
+          <div className="absolute z-10 top-14 w-full bg-white border border-neutral-500 rounded-md shadow-xs max-h-60 overflow-auto">
+            {!options || options.length === 0 ? (
+              <p className="px-4 py-2 text-sm text-neutral-600">
+                No hay opciones disponibles
+              </p>
+            ) : (
+              <ul className="grid divide-y divide-neutral-300 ">
+                {options.map((option, index) => {
+                  const optionValue = option["llave"];
+                  const isSelected = optionValue === selected;
+
+                  return (
+                    <li
+                      key={optionValue?.toString() || index}
+                      onClick={() => handleSelect(option)}
+                      className={`p-2 text-sm cursor-pointer transition-colors ${
+                        isSelected
+                          ? "bg-blue-600 text-white font-medium"
+                          : "hover:bg-gray-100 text-neutral-700"
+                      }`}
+                    >
+                      {option["valor"]}
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

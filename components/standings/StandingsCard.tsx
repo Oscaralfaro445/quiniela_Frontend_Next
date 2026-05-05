@@ -25,7 +25,6 @@ export const StandingsCard = ({ activeTab }: StandingsCardProps) => {
     if (week) {
       setPeriod(Number(week));
     }
-    console.log(week);
   }, [week]);
 
   return (

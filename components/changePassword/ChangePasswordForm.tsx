@@ -30,7 +30,6 @@ export const ChangePasswordForm = ({ user }: ChangePasswordFormProps) => {
 
   const handleSubmit = (values: ChangePasswordFormValues) => {
     register.mutate({ user, newPassword: values.password });
-    console.log(values);
   };
 
   return (
@@ -48,6 +47,7 @@ export const ChangePasswordForm = ({ user }: ChangePasswordFormProps) => {
       >
         <Form className="grid w-full gap-4">
           <Input
+            id="password"
             type="password"
             name="password"
             label="Nueva contraseña"
@@ -55,6 +55,7 @@ export const ChangePasswordForm = ({ user }: ChangePasswordFormProps) => {
           />
 
           <Input
+            id="passwordConfirm"
             type="password"
             name="passwordConfirm"
             label="Confirma tu nueva contraseña"

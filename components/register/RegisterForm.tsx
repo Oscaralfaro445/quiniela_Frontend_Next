@@ -49,43 +49,49 @@ export const RegisterForm = ({ data }: RegisterFormProps) => {
     >
       <Form className="grid gap-4">
         <Input
-          type="email"
+          id="email"
           name="cveUsuario"
+          type="email"
           label="Correo electrónico"
           placeholder="nfl@quiniela.com"
         />
 
         <Input
-          type="text"
+          id="nombre"
           name="nombre"
+          type="text"
           label="Nombre(s)"
           placeholder="Juan Carlos"
         />
 
         <Input
-          type="text"
+          id="apellidoPaterno"
           name="apellidoPaterno"
+          type="text"
           label="Apellido Paterno"
           placeholder="López"
         />
 
         <Input
-          type="text"
+          id="apellidoMaterno"
           name="apellidoMaterno"
+          type="text"
           label="Apellido Materno"
           placeholder="Hernández"
         />
 
         <Input
-          type="password"
+          id="password"
           name="password"
+          type="password"
           label="Contraseña"
           placeholder="••••••••"
         />
 
         <Input
-          type="password"
+          id="passwordConfirm"
           name="passwordConfirm"
+          type="password"
           label="Confirma tu contraseña"
           placeholder="••••••••"
         />

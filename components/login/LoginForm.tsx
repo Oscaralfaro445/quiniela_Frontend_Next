@@ -41,6 +41,7 @@ export const LoginForm = () => {
       ) : (
         <Form className="grid w-full gap-4">
           <Input
+            id="email"
             type="email"
             name="cveUsuario"
             label="Correo electrónico"
@@ -48,6 +49,7 @@ export const LoginForm = () => {
           />
 
           <Input
+            id="password"
             type="password"
             label="Contraseña"
             placeholder="••••••••"
