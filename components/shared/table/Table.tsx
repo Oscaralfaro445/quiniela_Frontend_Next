@@ -4,6 +4,8 @@ import { useGetInfoForm } from "@/hooks/queries/form/useGetInfoForm";
 import { TableHeader } from "./TableHeader";
 import { Grid } from "../grid/Grid";
 import { useGetDataGrid } from "@/hooks/queries/grid/useGetDataGrid";
+import { Paginator } from "../paginator/paginator";
+import { useState } from "react";
 
 interface Props {
   selectedRow: {
@@ -19,6 +21,7 @@ interface Props {
 export const Table = ({ selectedRow, handleSelectedRow }: Props) => {
   const { data } = useGetInfoForm();
   const { data: gridData } = useGetDataGrid();
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const gridHeaders = data?.data?.[0]?.infComponente
     ?.filter((component) => component?.bGrid)
@@ -27,8 +30,6 @@ export const Table = ({ selectedRow, handleSelectedRow }: Props) => {
     }));
 
   if (!data) return <div>Cargando...</div>;
-
-  console.log(gridData);
 
   return (
     <div className="grid py-4 gap-2">
@@ -40,6 +41,11 @@ export const Table = ({ selectedRow, handleSelectedRow }: Props) => {
         }}
         selectedRow={selectedRow}
         handleSelectedRow={handleSelectedRow}
+      />
+      <Paginator
+        currentPage={currentPage}
+        totalPages={100}
+        onPageChange={setCurrentPage}
       />
     </div>
   );

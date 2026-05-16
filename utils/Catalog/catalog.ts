@@ -119,6 +119,8 @@ export function generateValidationSchema(fields: Component[]) {
     const validationRules = infdetComp
       ? JSON.parse(JSON.parse(infdetComp).infValida)
       : null;
+
+    console.log(validationRules);
     console.log(
       "Validation rules for field",
       field.nomComponente,

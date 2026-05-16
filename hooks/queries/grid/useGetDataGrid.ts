@@ -14,7 +14,9 @@ export interface GetDataGridVariables {
   skip?: number;
 }
 
-const getDataGrid = async (): Promise<ApiResponse<any>> => {
+const getDataGrid = async (): Promise<
+  ApiResponse<Record<string, string | number>>
+> => {
   /*  const payload = {
     idProces: 23,
     idQuery: 100,
@@ -28,29 +30,23 @@ const getDataGrid = async (): Promise<ApiResponse<any>> => {
   const payload = {
     idProceso: 23,
     idQuery: 100,
-    parmRemp: { $1: ">20", $99: "IN_PRUEBA" },
-    /*  campos: [
-      "NUM_CLIENTE as idEmpleado",
-      "NOMBRE_CLIENTE as nombreCliente",
-      "TIPO_CLIENTE as tipoCliente",
-      "IMP_SUELDO as impSueldo",
-    ], */
-    where: ["NUM_CLIENTE"],
+    parmRemp: { $99: "IN_PRUEBA" },
+    /*     campos: ["NUM_CLIENTE"],*/
+    where: [],
     orderBy: ["NUM_CLIENTE", "NOMBRE_CLIENTE"],
     numReg: 30,
     skip: 70,
   };
 
-  const response = await axiosInstance.post<ApiResponse<any>>(
-    "/Query/Consulta",
-    payload,
-  );
+  const response = await axiosInstance.post<
+    ApiResponse<Record<string, string | number>>
+  >("/Query/Consulta", payload);
 
   return response.data;
 };
 
 export const useGetDataGrid = () => {
-  return useQuery<ApiResponse<any>, ApiError>({
+  return useQuery<ApiResponse<Record<string, string | number>>, ApiError>({
     queryKey: ["getDataGrid"],
     queryFn: getDataGrid,
   });

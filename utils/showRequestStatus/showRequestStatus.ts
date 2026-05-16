@@ -12,7 +12,7 @@ type RequestStatus = {
 
 export const useHandleRequestStatus = () => {
   const { showAlert } = useAlert();
-  const { openError } = useError();
+  const { openModalError } = useError();
 
   const handleRequestStatus = ({
     estatus,
@@ -40,7 +40,7 @@ export const useHandleRequestStatus = () => {
         break;
 
       case 3:
-        openError(errorNeg || null);
+        openModalError(errorNeg || null);
         break;
 
       default:

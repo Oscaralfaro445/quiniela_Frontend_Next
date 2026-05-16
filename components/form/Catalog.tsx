@@ -18,6 +18,266 @@ import { Table } from "@/components/shared/table/Table";
 import { SectionHeader } from "./SectionHeader";
 import { CatalogForm } from "./CatalogForm";
 import { ModalLateral } from "../shared/modalLateral/ModalLateral";
+import { useGetDataGrid } from "@/hooks/queries/grid/useGetDataGrid";
+
+const json = {
+  idPeriodo: "12",
+  totalCierre: 1,
+  totalApertura: 1,
+  cierre: {
+    bQuiniela: {
+      estatus: 1,
+      detalle: [
+        {
+          idQuiniela: 1,
+          idParticipante: 1,
+          nomParticipante: "Efren Avila Prueba",
+        },
+        {
+          idQuiniela: 1,
+          idParticipante: 2,
+          nomParticipante: "LUIS O. ALVAREZ",
+        },
+        {
+          idQuiniela: 1,
+          idParticipante: 3,
+          nomParticipante: "DUSTIN CRUZ",
+        },
+        {
+          idQuiniela: 1,
+          idParticipante: 4,
+          nomParticipante: "DANIEL LOPEZ",
+        },
+        {
+          idQuiniela: 1,
+          idParticipante: 5,
+          nomParticipante: "GUSTAVO SOLIS",
+        },
+        {
+          idQuiniela: 1,
+          idParticipante: 6,
+          nomParticipante: "HECTOR ALVAREZ",
+        },
+        {
+          idQuiniela: 1,
+          idParticipante: 7,
+          nomParticipante: "JONATAN PARRA",
+        },
+        {
+          idQuiniela: 1,
+          idParticipante: 8,
+          nomParticipante: "mario lopez pacheco",
+        },
+        {
+          idQuiniela: 1,
+          idParticipante: 9,
+          nomParticipante: "NATALIA CASTILLO",
+        },
+        {
+          idQuiniela: 1,
+          idParticipante: 10,
+          nomParticipante: "ALEJANDRO ORTEGA",
+        },
+      ],
+    },
+    bResultado: {
+      estatus: 1,
+      detalle: [
+        {
+          idQuiniela: 1,
+          idParticipante: 2,
+          nomParticipante: "LUIS O. ALVAREZ",
+        },
+      ],
+    },
+    bSurvivor: {
+      estatus: 1,
+      detalle: [
+        {
+          idQuiniela: 1,
+          idParticipante: 1,
+          nomParticipante: "Efren Avila Prueba",
+        },
+        {
+          idQuiniela: 1,
+          idParticipante: 2,
+          nomParticipante: "LUIS O. ALVAREZ",
+        },
+        {
+          idQuiniela: 1,
+          idParticipante: 4,
+          nomParticipante: "DANIEL LOPEZ",
+        },
+        {
+          idQuiniela: 1,
+          idParticipante: 6,
+          nomParticipante: "HECTOR ALVAREZ",
+        },
+        {
+          idQuiniela: 1,
+          idParticipante: 8,
+          nomParticipante: "mario lopez pacheco",
+        },
+      ],
+    },
+    bExiste: {
+      estatus: 1,
+      detalle: [
+        {
+          idQuiniela: 1,
+          idParticipante: 2,
+          nomParticipante: "LUIS O. ALVAREZ",
+        },
+        {
+          idQuiniela: 1,
+          idParticipante: 4,
+          nomParticipante: "DANIEL LOPEZ",
+        },
+        {
+          idQuiniela: 1,
+          idParticipante: 6,
+          nomParticipante: "HECTOR ALVAREZ",
+        },
+        {
+          idQuiniela: 1,
+          idParticipante: 8,
+          nomParticipante: "mario lopez pacheco",
+        },
+        {
+          idQuiniela: 1,
+          idParticipante: 11,
+          nomParticipante: "PEDRO CANEDO",
+        },
+        {
+          idQuiniela: 1,
+          idParticipante: 13,
+          nomParticipante: "MISAEL LOPEZ",
+        },
+      ],
+    },
+    bPago: {
+      estatus: 1,
+      detalle: [
+        {
+          idQuiniela: 1,
+          idParticipante: 1,
+          nomParticipante: "Efren Avila Prueba",
+        },
+        {
+          idQuiniela: 1,
+          idParticipante: 2,
+          nomParticipante: "LUIS O. ALVAREZ",
+        },
+        {
+          idQuiniela: 1,
+          idParticipante: 4,
+          nomParticipante: "DANIEL LOPEZ",
+        },
+        {
+          idQuiniela: 1,
+          idParticipante: 6,
+          nomParticipante: "HECTOR ALVAREZ",
+        },
+        {
+          idQuiniela: 1,
+          idParticipante: 8,
+          nomParticipante: "mario lopez pacheco",
+        },
+      ],
+    },
+  },
+  apertura: {
+    bQuinTot: {
+      estatus: 1,
+      detalle: [
+        {
+          idQuiniela: 1,
+          titQuiniela: "LOS PUBLICISTAS",
+        },
+      ],
+    },
+    bQuinPer: {
+      estatus: 1,
+      detalle: [
+        {
+          idQuiniela: 1,
+          titQuiniela: "LOS PUBLICISTAS",
+        },
+      ],
+    },
+    bApertura: {
+      estatus: 1,
+      detalle: [
+        {
+          idParticipante: 1000,
+          nomParticipante: " ",
+        },
+      ],
+    },
+    bCierre: {
+      estatus: 1,
+      detalle: [
+        {
+          idParticipante: 1000,
+          nomParticipante: " ",
+        },
+      ],
+    },
+  },
+  monitores: [
+    {
+      cveMonitor: "1",
+      descMonitor: "MONITOR PRUEBA",
+      ultimaFechaEjecucion: "2026-05-13",
+      bCorrecto: true,
+      detalle: [
+        {
+          fOperacion: "2026-05-13",
+          idProceso: 1000,
+          nombreProceso: "Prueba 1",
+          horaInicio: "21:42:59",
+          horaFinal: "21:42:59",
+          sitProceso: "CO",
+        },
+        {
+          fOperacion: "2026-05-13",
+          idProceso: 1001,
+          nombreProceso: "Prueba 2",
+          horaInicio: "21:42:59",
+          horaFinal: "21:42:59",
+          sitProceso: "CO",
+          listaErrores: [
+            {
+              msgError:
+                "PRUEBA 1001: DatabaseError en Query/By Id (Service): . SQL: SELECT * FROM IN_PRUEBA  WHERE NOM_CLIENTE  LIKE Fernando Morales  ORDER BY NUM_CLIENTE, NOMBRE_CLIENTE OFFSET 70 ROWS FETCH NEXT 30 ROWS ONLY",
+            },
+          ],
+        },
+        {
+          fOperacion: "2026-05-13",
+          idProceso: 1002,
+          nombreProceso: "Prueba3",
+          horaInicio: "21:42:59",
+          horaFinal: "21:42:59",
+          sitProceso: "CO",
+          listaErrores: [
+            {
+              msgError: "PRUEBA 1002: Error ejecucion Proceso",
+            },
+          ],
+        },
+        {
+          fOperacion: "2026-05-13",
+          idProceso: 1003,
+          nombreProceso: "Prueba4",
+          horaInicio: "21:42:59",
+          horaFinal: "21:42:59",
+          sitProceso: "CO",
+        },
+      ],
+    },
+  ],
+};
 
 interface Props {
   formKey: string;
@@ -29,6 +289,8 @@ export const Catalog = ({ formKey }: Props) => {
   const mutation = useDeleteRecord();
   const mutationCreate = useCreateRecord();
   const mutationUpdate = useUpdateRecord();
+  const { data: gridData } = useGetDataGrid();
+  console.log(gridData);
   const { isPending, isError, data } = useGetInfoForm();
   const [isModalLAteralOpen, setIsModalLateralOpen] = useState<boolean>(false);
   const [action, setAction] = useState<CrudAction>(CrudAction.CREATE);
@@ -113,10 +375,7 @@ export const Catalog = ({ formKey }: Props) => {
       >
         <CatalogForm
           fields={filterForm(data?.data?.[0]?.infComponente)}
-          initialValues={initialValues(
-            data?.data?.[0]?.infComponente,
-            selectedRow?.row,
-          )}
+          initialValues={initialValues(data?.data?.[0]?.infComponente)}
           validateForm={false}
           handleAccept={() => {}}
           handleCancel={() => setIsModalLateralOpen(false)}

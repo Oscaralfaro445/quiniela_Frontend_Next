@@ -103,7 +103,7 @@ export const InputCombo = ({
                       className={`p-2 text-sm cursor-pointer transition-colors ${
                         isSelected
                           ? "bg-blue-600 text-white font-medium"
-                          : "hover:bg-gray-100 text-neutral-700"
+                          : "hover:bg-blue-200 text-neutral-700"
                       }`}
                     >
                       {option["valor"]}

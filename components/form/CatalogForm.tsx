@@ -19,6 +19,8 @@ export const CatalogForm = ({
   handleCancel,
   handleAccept,
 }: Props) => {
+  console.log(fields);
+
   const validationSchema = validateForm
     ? generateValidationSchema(fields || [])
     : null;
