@@ -19,6 +19,7 @@ import { useGetMe } from "@/hooks/queries/user/useGetMe";
 export const MatchPrediction = () => {
   const [selectedSurvivor, setSelectedSurvivor] = useState<number>(0);
   const [quinielaData, setQuinielaData] = useState<QuinielaItem[]>([]);
+  console.log(quinielaData);
   const { isPending, isError, data, error } = useGetMatches();
   const survivorAlta = usePostSurvivorTeam();
   const quinielaAlta = usePostQuiniela();
@@ -37,8 +38,8 @@ export const MatchPrediction = () => {
       const quinielaInitialData = data?.data?.[0]?.quiniela?.map(
         (game: QuinielaItem) => ({
           ...game,
-          ID_SCORE_E1: 0,
-          ID_SCORE_E2: 0,
+          ID_SCORE_E1: game.ID_SCORE_E1 ? game.ID_SCORE_E1 : 0,
+          ID_SCORE_E2: game.ID_SCORE_E2 ? game.ID_SCORE_E2 : 0,
         }),
       );
       const initialSurvivor = data?.data?.[0]?.extraData?.idSurvivor;

@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const createRecord = async (
   data: Record<string, FieldValue>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<ApiResponse<any>> => {
   const payload = {
     idProceso: 26,
@@ -14,6 +15,7 @@ const createRecord = async (
     data,
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const response = await axiosInstance.post<ApiResponse<any>>(
     "/CRUD/Crea",
     payload,
@@ -26,7 +28,13 @@ export const useCreateRecord = () => {
   const queryClient = useQueryClient();
   const { handleRequestStatus } = useHandleRequestStatus();
 
-  return useMutation<ApiResponse<any>, ApiError, Record<string, FieldValue>>({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return useMutation<
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ApiResponse<any>,
+    ApiError,
+    Record<string, FieldValue>
+  >({
     mutationKey: ["createRecord"],
     mutationFn: createRecord,
     onSuccess: (data) => {

@@ -9,7 +9,7 @@ const unlockUser = async (variables: { user: string }) => {
     model: "FC_SEG_USUARIO",
     data: {
       CVE_USUARIO: user,
-      B_BLOQUEADO: 0,
+      B_BLOQUEADO: 1,
     },
   };
 

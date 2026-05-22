@@ -24,7 +24,7 @@ export const ModalError = ({
           />
         </button>
 
-        <p className="text-xl text-blue-600 font-semibold">
+        <p className="text-2xl text-blue-600 font-semibold">
           Errores de validación
         </p>
 
@@ -32,8 +32,8 @@ export const ModalError = ({
           {modalErrorContent?.map((error, index) => {
             return (
               <div key={index} className="flex gap-2 items-center mt-2">
-                <TriangleAlert size={16} color="red" />{" "}
-                <p className="">{error}</p>
+                <TriangleAlert size={20} color="red" />{" "}
+                <p className="text-lg">{error}</p>
               </div>
             );
           })}

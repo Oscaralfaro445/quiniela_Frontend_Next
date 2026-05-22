@@ -14,7 +14,7 @@ const defaultByTypes: Record<string, FieldValue> = {
 
 export const initialValues = (
   data: Component[] | undefined,
-  values?: { [key: string]: string | number } | undefined,
+  values?: { [key: string]: string | number | boolean } | undefined,
 ): Record<string, FieldValue> => {
   const initialValues = data?.reduce<Record<string, FieldValue>>(
     (acc, component) => {
@@ -99,6 +99,7 @@ function applyCrossValidation(yupField, fnValida: string, msgValida: string) {
 }
 
 export function generateValidationSchema(fields: Component[]) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const shape: Record<string, any> = {};
   const filteredFields = fields.filter(
     (field) => field.cveTipoCompon !== "SEPARADOR",

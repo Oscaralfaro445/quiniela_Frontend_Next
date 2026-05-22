@@ -20,7 +20,7 @@ import { CatalogForm } from "./CatalogForm";
 import { ModalLateral } from "../shared/modalLateral/ModalLateral";
 import { useGetDataGrid } from "@/hooks/queries/grid/useGetDataGrid";
 
-const json = {
+/* const json = {
   idPeriodo: "12",
   totalCierre: 1,
   totalApertura: 1,
@@ -277,7 +277,7 @@ const json = {
       ],
     },
   ],
-};
+}; */
 
 interface Props {
   formKey: string;
@@ -296,12 +296,12 @@ export const Catalog = ({ formKey }: Props) => {
   const [action, setAction] = useState<CrudAction>(CrudAction.CREATE);
   const [selectedRow, setSelectedRow] = useState<{
     index: number;
-    row: { [key: string]: string | number };
+    row: { [key: string]: string | number | boolean };
   } | null>(null);
 
   const handleSelectedRow = (
     index: number,
-    row: { [key: string]: string | number },
+    row: { [key: string]: string | number | boolean },
   ) => {
     if (index === selectedRow?.index) {
       setSelectedRow(null);

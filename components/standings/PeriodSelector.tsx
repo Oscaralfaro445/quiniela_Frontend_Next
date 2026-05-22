@@ -34,10 +34,10 @@ export const PeriodSelector = ({ period, setPeriod }: PeriodSelectorProps) => {
         </p>
 
         <InputCombo
+          id="period"
           name="period"
           data={periods}
           selected={period}
-          value={" "}
           onChange={handleChangePeriod}
         />
       </div>

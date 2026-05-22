@@ -122,10 +122,10 @@ export default function SimulatorPage() {
           />
         </div>
 
-        <Modal isOpen={isModalOpen} onClose={handleModalOpen}>
+        <Modal isModalOpen={isModalOpen} closeModal={handleModalOpen}>
           <StandingsSimulator
             quinielaAlta={{
-              data: quinielaAlta?.data?.data,
+              data: quinielaAlta?.data?.data ?? [],
               isPending: quinielaAlta.isPending,
               isError: quinielaAlta.isError,
               isSuccess: quinielaAlta.isSuccess,

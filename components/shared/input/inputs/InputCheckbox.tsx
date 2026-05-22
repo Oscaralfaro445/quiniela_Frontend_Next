@@ -1,12 +1,12 @@
-import { FormikValues, useFormikContext } from "formik";
-import { InputProps } from "@/types/input/input";
+/* import { FormikValues, useFormikContext } from "formik";
+import { InputV2Props } from "@/types/input/input";
 
 export const InputCheckbox = ({
   // type
   name,
   // placeholder,
   disabled,
-}: InputProps) => {
+}: InputV2Props) => {
   const { values, touched, errors, handleChange, handleBlur } =
     useFormikContext<FormikValues>();
   const error = touched[name] && errors[name];
@@ -29,3 +29,4 @@ export const InputCheckbox = ({
     </div>
   );
 };
+ */

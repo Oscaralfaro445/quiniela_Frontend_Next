@@ -38,6 +38,7 @@ export const InputPassword = ({
         />
 
         <button
+          type="button"
           className="absolute right-2 top-2 cursor-pointer"
           onClick={() => setShowPassword((prev) => !prev)}
         >

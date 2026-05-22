@@ -73,7 +73,7 @@ export const InputCombo = ({
               : "hover:border-gray-400"
           }`}
         >
-          {selected === 0 || selected === "" ? (
+          {selected === 0 || selected === " " ? (
             <p className="text-neutral-400">Selecciona una opcion...</p>
           ) : (
             <p className="text-neutral-700">{optionValue}</p>

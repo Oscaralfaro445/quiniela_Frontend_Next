@@ -56,7 +56,7 @@ export const ScoreBoard = ({ gameResults }: ScoreBoardProps) => {
         ))}
       </div>
 
-      <Modal isOpen={isModalOpen} onClose={handleModalOpen}>
+      <Modal isModalOpen={isModalOpen} closeModal={handleModalOpen}>
         <MatchPredictionCard gameId={selectedGame} />
       </Modal>
     </Card>

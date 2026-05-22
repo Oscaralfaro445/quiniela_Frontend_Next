@@ -7,12 +7,12 @@ import { TabSelector, TabType } from "../shared/tabs/TabSelector";
 
 interface StandingsSimulatorProps {
   quinielaAlta: {
-    data: [
-      {
-        puntosPeriodo: ParticipantStatistics[];
-        puntosTotal: ParticipantStatistics[];
-      },
-    ];
+    data:
+      | {
+          puntosPeriodo: ParticipantStatistics[];
+          puntosTotal: ParticipantStatistics[];
+        }[]
+      | null;
     isPending: boolean;
     isError: boolean;
     isSuccess: boolean;
@@ -26,9 +26,9 @@ export const StandingsSimulator = ({
   const { isPending, isError, isSuccess, data } = quinielaAlta;
   const participantData = data?.[0];
   const weeklyLeaderboard: ParticipantStatistics[] =
-    participantData?.puntosPeriodo;
+    participantData?.puntosPeriodo ?? [];
   const globalLeaderboard: ParticipantStatistics[] =
-    participantData?.puntosTotal;
+    participantData?.puntosTotal ?? [];
 
   return (
     <div className="space-y-4">

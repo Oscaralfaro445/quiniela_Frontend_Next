@@ -1,31 +1,45 @@
 import { axiosInstance } from "@/api/axiosInstance";
 import { ApiResponse } from "@/types/api/ApiResponse";
 import { useQuery } from "@tanstack/react-query";
+import { useGetMe } from "./user/useGetMe";
 
-const fetchUsers = async () => {
+// Pasar a servicios
+const fetchUsers = async (
+  idQuiniela: number,
+): Promise<ApiResponse<fetchUsersResponse>> => {
   const payload = {
     idProceso: 24,
     idQuery: 23,
     parmRemp: {
-      $1: 1,
+      $1: idQuiniela,
     },
   };
-  const response = await axiosInstance.post<
-    ApiResponse<{ indicador: string; participantes: User[] }>
-  >("/Query/Consulta", payload);
+  const response = await axiosInstance.post<ApiResponse<fetchUsersResponse>>(
+    "/Query/Consulta",
+    payload,
+  );
 
   return response.data;
 };
 
 export const useGetUsers = () => {
+  const { data: user } = useGetMe();
+  const userInfo = user?.data?.[0];
+
   return useQuery({
     queryKey: ["getUsers"],
-    queryFn: fetchUsers,
+    queryFn: () => fetchUsers(userInfo!.idQuiniela),
+    enabled: !!userInfo?.idPeriodo,
   });
 };
 
-interface User {
+interface Participant {
   CVE_USUARIO: string;
   NOMBRE_COMPLETO: string;
   B_BLOQUEADO: boolean;
+}
+
+interface fetchUsersResponse {
+  indicador: string;
+  participantes: Participant[];
 }

@@ -4,6 +4,7 @@ import { AlertState } from "@/types/alert/alert";
 import { useHandleRequestStatus } from "@/utils/showRequestStatus/showRequestStatus";
 import { axiosInstance } from "@/api/axiosInstance";
 import { ApiError } from "@/types/api/ApiError";
+import { ApiResponse } from "@/types/api/ApiResponse";
 
 interface QuinielaData {
   ID_QUINIELA: number;
@@ -27,6 +28,7 @@ export const usePostQuiniela = () => {
   const { showAlert } = useAlert();
   const { handleRequestStatus } = useHandleRequestStatus();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return useMutation<ApiResponse<any>, ApiError, QuinielaData[]>({
     mutationKey: ["quiniela"],
     mutationFn: (quinielaData: QuinielaData[]) =>
@@ -43,7 +45,7 @@ export const usePostQuiniela = () => {
           error.message,
       );
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["matches"] });
     },
     onSettled: (data, error: ApiError | null) => {

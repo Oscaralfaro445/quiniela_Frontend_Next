@@ -13,11 +13,8 @@ export default function UserStatusPage() {
   const users = data?.data?.[0].participantes;
 
   const handleUnlockUser = (user: string, status: boolean) => {
+    console.log("User:", user, "Status:", status);
     mutation.mutate({ user });
-    if (status) {
-      alert("El usuario ya se encuentra desbloqueado.");
-    } else {
-    }
   };
 
   if (isPending) {

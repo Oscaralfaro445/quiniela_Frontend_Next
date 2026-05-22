@@ -105,7 +105,7 @@ export const TeamQuinielaCard = ({
           )}
         </div>
 
-        {game?.bMarcador && (
+        {game?.bMarcador ? (
           <input
             type="number"
             min="0"
@@ -121,7 +121,7 @@ export const TeamQuinielaCard = ({
             }}
             className={`w-12 h-10 text-2xl text-neutral-600 font-semibold text-center border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white`}
           />
-        )}
+        ) : null}
       </div>
     </div>
   );

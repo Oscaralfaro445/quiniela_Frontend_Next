@@ -7,7 +7,7 @@ import { Button } from "../shared/button/Button";
 interface Props {
   selectedRow: {
     index: number;
-    row: { [key: string]: string | number };
+    row: { [key: string]: string | number | boolean };
   } | null;
   setAction: (action: CrudAction) => void;
   handleOpenForm: () => void;

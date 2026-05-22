@@ -10,11 +10,11 @@ import { useState } from "react";
 interface Props {
   selectedRow: {
     index: number;
-    row: { [key: string]: string | number };
+    row: { [key: string]: string | number | boolean };
   } | null;
   handleSelectedRow: (
     index: number,
-    row: { [key: string]: string | number },
+    row: { [key: string]: string | number | boolean },
   ) => void;
 }
 

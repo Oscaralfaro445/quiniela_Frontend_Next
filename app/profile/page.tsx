@@ -88,7 +88,7 @@ export default function ProfilePage() {
         href={"/dashboard"}
       >
         <ArrowLeft />
-        Dashboard
+        Volver
       </Link>
 
       <PageHeader
@@ -198,16 +198,10 @@ export default function ProfilePage() {
                     Equipo Favorito
                   </label>
                   <InputCombo
+                    id="equipoFavorito"
                     name="equipoFavorito"
                     data={availableTeams}
                     selected={profileForm.equipoFavorito}
-                    value={
-                      profileForm.equipoFavorito === 0
-                        ? " "
-                        : availableTeams.find(
-                            (team) => team.llave === profileForm.equipoFavorito,
-                          )?.valor || " "
-                    }
                     disabled={!editProfile}
                     onChange={handleChangeTeam}
                   />

@@ -35,6 +35,8 @@ export const GroupRadio = ({
     setIsModalOpen((prev) => !prev);
   };
 
+  console.log(game);
+
   return (
     <>
       <Card>
@@ -64,16 +66,16 @@ export const GroupRadio = ({
             />
           ))}
 
-          {game.bMarcador && (
+          {game?.bMarcador ? (
             <p className="text-blue-600">
               Este partido se utilizará para diferenciar posiciones en caso de
               empate. Ingresa tu pronóstico del marcador.
             </p>
-          )}
+          ) : null}
         </div>
       </Card>
 
-      <Modal isOpen={isModalOpen} onClose={handleModalOpen}>
+      <Modal isModalOpen={isModalOpen} closeModal={handleModalOpen}>
         <ScoresCard teamId={selectedTeam.id} teamName={selectedTeam.name} />
       </Modal>
     </>

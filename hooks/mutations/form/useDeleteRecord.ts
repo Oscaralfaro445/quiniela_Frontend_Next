@@ -4,7 +4,10 @@ import { ApiResponse } from "@/types/api/ApiResponse";
 import { axiosInstance } from "@/api/axiosInstance";
 import { useHandleRequestStatus } from "@/utils/showRequestStatus/showRequestStatus";
 
-const deleteRecord = async (id: string | number): Promise<ApiResponse<any>> => {
+const deleteRecord = async (
+  id: string | number | boolean,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): Promise<ApiResponse<any>> => {
   const payload = {
     idProceso: 26,
     model: "IN_PRUEBA",
@@ -12,7 +15,7 @@ const deleteRecord = async (id: string | number): Promise<ApiResponse<any>> => {
       NUM_CLIENTE: id,
     },
   };
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const response = await axiosInstance.post<ApiResponse<any>>(
     "/CRUD/Borra",
     payload,
@@ -25,7 +28,8 @@ export const useDeleteRecord = () => {
   const { handleRequestStatus } = useHandleRequestStatus();
   const queryClient = useQueryClient();
 
-  return useMutation<ApiResponse<any>, ApiError, string | number>({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return useMutation<ApiResponse<any>, ApiError, string | number | boolean>({
     mutationKey: ["deleteRecord"],
     mutationFn: deleteRecord,
     onSuccess: (data) => {

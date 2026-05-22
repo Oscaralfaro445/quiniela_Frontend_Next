@@ -7,11 +7,11 @@ interface GridProps {
   };
   selectedRow: {
     index: number;
-    row: { [key: string]: string | number };
+    row: { [key: string]: string | number | boolean };
   } | null;
   handleSelectedRow: (
     index: number,
-    row: { [key: string]: string | number },
+    row: { [key: string]: string | number | boolean },
   ) => void;
 }
 
@@ -27,7 +27,7 @@ export const Grid = ({
 }: GridProps) => {
   const [table, setTable] = useState<{
     gridColumns: { [key: string]: string }[];
-    gridRows: { [key: string]: string | number }[];
+    gridRows: { [key: string]: string | number | boolean }[];
   }>(initialState);
 
   useEffect(() => {
@@ -47,6 +47,7 @@ export const Grid = ({
               {table.gridColumns?.map((column, index) => {
                 const key = Object.keys(column)[0];
                 const value = Object.values(column)[0];
+                console.log("column", column, key, value);
                 return (
                   <th
                     scope="col"

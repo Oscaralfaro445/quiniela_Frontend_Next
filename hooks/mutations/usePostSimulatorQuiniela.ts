@@ -25,6 +25,7 @@ export const usePostSimulatorQuiniela = () => {
   const queryClient = useQueryClient();
   const { handleRequestStatus } = useHandleRequestStatus();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return useMutation<ApiResponse<any>, ApiError, string>({
     mutationKey: ["quiniela-simulator"],
     mutationFn: (quinielaDataSimulated: string) =>
