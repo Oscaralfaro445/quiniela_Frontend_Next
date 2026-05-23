@@ -14,7 +14,7 @@ export default function UserStatusPage() {
 
   const handleUnlockUser = (user: string, status: boolean) => {
     console.log("User:", user, "Status:", status);
-    mutation.mutate({ user });
+    mutation.mutate({ user, status });
   };
 
   if (isPending) {
@@ -42,7 +42,7 @@ export default function UserStatusPage() {
                     Correo electrónico
                   </th>
                   <th className="text-left px-4 py-2 border-b">Nombre</th>
-                  <th className="px-4 py-2 border-b">Estado</th>
+                  <th className="text-left px-4 py-2 border-b">Estado</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -52,9 +52,7 @@ export default function UserStatusPage() {
                     <td className="px-4 py-2">{NOMBRE_COMPLETO}</td>
                     <td
                       className="px-4 py-2 hover:cursor-pointer"
-                      onClick={() =>
-                        handleUnlockUser(CVE_USUARIO, !B_BLOQUEADO)
-                      }
+                      onClick={() => handleUnlockUser(CVE_USUARIO, B_BLOQUEADO)}
                     >{`${B_BLOQUEADO ? "Bloqueado" : "Activo"}`}</td>
                   </tr>
                 ))}

@@ -1,15 +1,15 @@
 import { axiosInstance } from "@/api/axiosInstance";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const unlockUser = async (variables: { user: string }) => {
-  const { user } = variables;
+const unlockUser = async (variables: { user: string; status: boolean }) => {
+  const { user, status } = variables;
 
   const payload = {
     idProceso: 24,
     model: "FC_SEG_USUARIO",
     data: {
       CVE_USUARIO: user,
-      B_BLOQUEADO: 1,
+      B_BLOQUEADO: status ? 0 : 1, // Si el nuevo estado es activo (true), se envía 0; si es bloqueado (false), se envía 1
     },
   };
 

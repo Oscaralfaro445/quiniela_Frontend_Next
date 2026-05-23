@@ -20,6 +20,10 @@ const initialValues: RegisterFormValues = {
 const validationSchema = Yup.object({
   cveUsuario: Yup.string()
     .email("Correo electrónico inválido")
+    .matches(
+      /^[^A-Z]*$/,
+      "El correo electrónico debe contener solo letras minúsculas (ej: juan@quiniela.com)",
+    )
     .required("Campo requerido"),
   apellidoPaterno: Yup.string().required("Campo requerido"),
   apellidoMaterno: Yup.string().required("Campo requerido"),
