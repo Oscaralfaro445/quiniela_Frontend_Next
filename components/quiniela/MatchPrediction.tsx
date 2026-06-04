@@ -19,7 +19,6 @@ import { useGetMe } from "@/hooks/queries/user/useGetMe";
 export const MatchPrediction = () => {
   const [selectedSurvivor, setSelectedSurvivor] = useState<number>(0);
   const [quinielaData, setQuinielaData] = useState<QuinielaItem[]>([]);
-  console.log(quinielaData);
   const { isPending, isError, data, error } = useGetMatches();
   const survivorAlta = usePostSurvivorTeam();
   const quinielaAlta = usePostQuiniela();

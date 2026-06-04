@@ -76,7 +76,7 @@ export const GroupRadio = ({
       </Card>
 
       <Modal isModalOpen={isModalOpen} closeModal={handleModalOpen}>
-        <ScoresCard teamId={selectedTeam.id} teamName={selectedTeam.name} />
+        <ScoresCard teamId={selectedTeam?.id} teamName={selectedTeam?.name} />
       </Modal>
     </>
   );

@@ -27,47 +27,53 @@ export const MatchPredictionCard = ({ gameId }: MatchPredictionCardProps) => {
         <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full" />
       </div>
 
-      {isPending && <div>Cargando...</div>}
-
-      {isError && <div>Error al cargar la información...</div>}
-
-      <div className="w-full max-h-[70vh] overflow-auto rounded-2xl">
-        <table className="w-full">
-          <thead className="bg-blue-600 text-white text-sm font-semibold sticky top-0 z-10">
-            <tr>
-              <th className="p-2 border-b border-gray-200 text-left">Nombre</th>
-              <th className="p-2 border-b border-gray-200 text-left">Equipo</th>
-              <th className="p-2 border-b border-gray-200 text-left">
-                Estatus
-              </th>
-            </tr>
-          </thead>
-
-          <tbody className="text-gray-700 text-sm">
-            {data?.data?.map((prediction: MatchPrediction, index: number) => (
-              <tr key={index} className="hover:bg-gray-50 transition-colors">
-                <td className="p-2 border-b border-gray-200 font-medium">
-                  {prediction?.nomParticipante}
-                </td>
-                <td className="p-2 border-b border-gray-200">
-                  {prediction?.pronostico !== " " && (
-                    <TeamLogo teamName={prediction?.nomEquipoPronost} />
-                  )}
-                </td>
-                <td className="p-2 border-b border-gray-200 font-bold text-blue-600">
-                  {prediction?.acerto === "Pendiente" ? (
-                    <Icon name="calendar-clock" />
-                  ) : prediction?.acerto === "si" ? (
-                    <Icon name="check" color="green" />
-                  ) : (
-                    <Icon name="x" color="red" />
-                  )}
-                </td>
+      {isPending ? (
+        <div>Cargando...</div>
+      ) : isError ? (
+        <div>Error al cargar la información...</div>
+      ) : (
+        <div className="w-full max-h-[70vh] overflow-auto rounded-lg">
+          <table className="w-full">
+            <thead className="bg-blue-600 text-white text-sm font-semibold sticky top-0 z-10">
+              <tr>
+                <th className="p-2 border-b border-gray-200 text-left">
+                  Nombre
+                </th>
+                <th className="p-2 border-b border-gray-200 text-left">
+                  Equipo
+                </th>
+                <th className="p-2 border-b border-gray-200 text-left">
+                  Estatus
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+
+            <tbody className="text-gray-700 text-sm">
+              {data?.data?.map((prediction: MatchPrediction, index: number) => (
+                <tr key={index} className="hover:bg-gray-50 transition-colors">
+                  <td className="p-2 border-b border-gray-200 font-medium">
+                    {prediction?.nomParticipante}
+                  </td>
+                  <td className="p-2 border-b border-gray-200">
+                    {prediction?.pronostico !== " " && (
+                      <TeamLogo teamName={prediction?.nomEquipoPronost} />
+                    )}
+                  </td>
+                  <td className="p-2 border-b border-gray-200 font-bold text-blue-600">
+                    {prediction?.acerto === "Pendiente" ? (
+                      <Icon name="calendar-clock" />
+                    ) : prediction?.acerto === "si" ? (
+                      <Icon name="check" color="green" />
+                    ) : (
+                      <Icon name="x" color="red" />
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };

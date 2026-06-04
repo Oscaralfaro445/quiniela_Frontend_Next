@@ -19,9 +19,9 @@ export const Modal = ({ children, isModalOpen, closeModal }: ModalProps) => {
           />
         </button>
 
-        <p className="text-xl text-blue-600 font-semibold">
+        {/* <p className="text-2xl text-blue-600 font-bold">
           Errores de validación
-        </p>
+        </p> */}
 
         <div className="flex-1 overflow-y-auto">{children}</div>
       </div>
