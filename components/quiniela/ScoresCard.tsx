@@ -13,7 +13,15 @@ interface match {
 }
 
 export const ScoresCard = ({ teamId, teamName }: CardScoresProps) => {
-  const { isPending, isError, isSuccess, data } = useGetScores(teamId);
+  const { isPending, isError, data } = useGetScores(teamId);
+
+  if (isPending) {
+    return <p>Cargando...</p>;
+  }
+
+  if (isError) {
+    return <p>Error al cargar los datos.</p>;
+  }
 
   return (
     <div className="grid gap-4">
@@ -24,11 +32,7 @@ export const ScoresCard = ({ teamId, teamName }: CardScoresProps) => {
         <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full" />
       </div>
 
-      {isPending && <p>Cargando...</p>}
-
-      {isError && <p>Error al cargar los datos</p>}
-
-      {isSuccess && (
+      {data?.data ? (
         <div className="w-full max-h-[70vh] overflow-auto">
           <table className="w-full">
             <thead>
@@ -107,6 +111,8 @@ export const ScoresCard = ({ teamId, teamName }: CardScoresProps) => {
             </tbody>
           </table>
         </div>
+      ) : (
+        <p>No hay datos disponibles, la temporada aún no ha comenzado.</p>
       )}
     </div>
   );

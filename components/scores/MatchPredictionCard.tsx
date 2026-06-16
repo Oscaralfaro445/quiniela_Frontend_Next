@@ -18,6 +18,14 @@ interface MatchPrediction {
 export const MatchPredictionCard = ({ gameId }: MatchPredictionCardProps) => {
   const { isPending, isError, data } = useGetMatchPrediction(gameId);
 
+  if (isPending) {
+    return <p>Cargando...</p>;
+  }
+
+  if (isError) {
+    return <p>Error al cargar los datos...</p>;
+  }
+
   return (
     <div className="grid gap-4">
       <div className="text-center">
@@ -27,11 +35,7 @@ export const MatchPredictionCard = ({ gameId }: MatchPredictionCardProps) => {
         <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full" />
       </div>
 
-      {isPending ? (
-        <div>Cargando...</div>
-      ) : isError ? (
-        <div>Error al cargar la información...</div>
-      ) : (
+      {data?.data ? (
         <div className="w-full max-h-[70vh] overflow-auto rounded-lg">
           <table className="w-full">
             <thead className="bg-blue-600 text-white text-sm font-semibold sticky top-0 z-10">
@@ -73,6 +77,8 @@ export const MatchPredictionCard = ({ gameId }: MatchPredictionCardProps) => {
             </tbody>
           </table>
         </div>
+      ) : (
+        <p>No hay datos disponibles.</p>
       )}
     </div>
   );
