@@ -373,7 +373,7 @@ const MonitorRow = ({ monitor }: { monitor: MonitorItem }) => {
 export default function MonitorPage() {
   const { data, isLoading } = useGetProcessStatus();
   const status = data?.data?.[0] as ProcessStatusData | undefined;
-  console.log("Process Status:", status);
+  // console.log("Process Status:", status);
 
   return (
     <MainContainer>

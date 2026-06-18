@@ -16,6 +16,7 @@ export interface GetMeResponse {
   idQuiniela: number;
   nombreCompleto: string;
   titQuiniela: string;
+  nomEquipoFav: string;
 }
 
 /*

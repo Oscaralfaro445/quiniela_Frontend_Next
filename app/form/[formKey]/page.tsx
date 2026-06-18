@@ -1,4 +1,4 @@
-import { Catalog } from "@/components/form/Catalog";
+/* import { Catalog } from "@/components/form/Catalog";
 import { MainContainer } from "@/components/ui/containers/MainContainer";
 
 interface Props {
@@ -12,5 +12,14 @@ export default async function FormPage({ params }: Props) {
     <MainContainer>
       <Catalog formKey={formKey} />
     </MainContainer>
+  );
+}
+ */
+
+export default async function FormPage() {
+  return (
+    <>
+      <></>
+    </>
   );
 }

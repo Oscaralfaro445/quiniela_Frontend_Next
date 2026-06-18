@@ -12,6 +12,7 @@ export default function EarningsPage() {
           title={`Consulta las ganancias de la temporada.`}
           text="Aquí tienes un resumen de las ganancias obtenidas por cada participante."
         />
+
         <AccumulatedEarningsCard />
 
         <div className="flex w-full gap-4 justify-center items-center">

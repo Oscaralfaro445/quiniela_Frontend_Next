@@ -41,7 +41,7 @@ export const usePostMarkers = () => {
         "Tuvimos un problema al actualizar la información de los marcadores",
       );
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["markers"] });
     },
     onSettled: (data, error: ApiError | null) => {

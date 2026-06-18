@@ -43,8 +43,8 @@ export const Paginator = ({
           <ChevronLeft className="text-blue-600 hover:text-blue-700" />
         </div>
 
-        <p className="flex px-2 justify-center">{`${currentPage} - ${totalPages}`}</p>
-
+        {/* <p className="flex px-2 justify-center">{`${currentPage} - ${totalPages}`}</p>
+         */}
         <div onClick={goToNextPage} className="cursor-pointer">
           <ChevronRight className="text-blue-600 hover:text-blue-700" />
         </div>

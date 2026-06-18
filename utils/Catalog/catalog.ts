@@ -1,4 +1,4 @@
-import * as Yup from "yup";
+/* import * as Yup from "yup";
 import { Component } from "@/types/form/infoForm";
 
 export type FieldValue = string | number | boolean | null;
@@ -67,8 +67,8 @@ function applyCrossValidation(yupField, fnValida: string, msgValida: string) {
   if (!parsedFn) return yupField;
 
   const { leftField, operator, rightField } = parsedFn;
-  console.log(operator);
-  console.log(leftField, rightField);
+  //console.log(operator);
+  //console.log(leftField, rightField);
 
   return yupField.test("cross validation", msgValida, function (value) {
     const leftValue = this.parent[leftField];
@@ -83,7 +83,7 @@ function applyCrossValidation(yupField, fnValida: string, msgValida: string) {
       operator,
       "Right value:",
       rightValue,
-    );
+    ); 
 
     switch (operator) {
       case ">":
@@ -127,7 +127,7 @@ export function generateValidationSchema(fields: Component[]) {
       field.nomComponente,
       ":",
       validationRules,
-    );
+    ); 
 
     let yupField;
 
@@ -160,3 +160,4 @@ export function generateValidationSchema(fields: Component[]) {
 
   return Yup.object().shape(shape);
 }
+ */

@@ -27,12 +27,14 @@ export const SwiftActionsCard = () => {
         </p>
       </div>
 
-      <Button
-        type="button"
-        title={`Quiniela semana ${currentWeek ?? ""}`}
-        icon="play"
-        onClick={() => router.push("/quiniela")}
-      />
+      <div className="grid py-4">
+        <Button
+          type="button"
+          title={`Quiniela semana ${currentWeek ?? ""}`}
+          icon="play"
+          onClick={() => router.push("/quiniela")}
+        />
+      </div>
 
       <div className="grid md:grid-cols-2 gap-4">
         {infoButtons.map((button, index) => (

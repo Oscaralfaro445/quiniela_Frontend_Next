@@ -28,7 +28,7 @@ export const InputCombo = ({
   const [options, setOptions] = useState<Option[]>([]);
   const [isComboOpen, setIsComboOpen] = useState<boolean>(false);
 
-  console.log(data);
+  // console.log(data);
 
   useEffect(() => {
     if (data && Array.isArray(data)) {
@@ -85,7 +85,7 @@ export const InputCombo = ({
         </div>
 
         {isComboOpen && (
-          <div className="absolute z-10 top-14 w-full bg-white border border-neutral-500 rounded-md shadow-xs max-h-60 overflow-auto">
+          <div className="absolute z-10 top-14 w-full bg-white border border-neutral-500 rounded-md shadow-xs max-h-40 lg:max-h-60 overflow-auto">
             {!options || options.length === 0 ? (
               <p className="px-4 py-2 text-sm text-neutral-600">
                 No hay opciones disponibles

@@ -1,8 +1,8 @@
-"use client";
+/* "use client";
 
 import { useState } from "react";
 import { useModal } from "@/context/modal/ModalContext";
-import {
+/* import {
   createForm,
   editForm,
   FieldValue,
@@ -20,7 +20,7 @@ import { CatalogForm } from "./CatalogForm";
 import { ModalLateral } from "../shared/modalLateral/ModalLateral";
 import { useGetDataGrid } from "@/hooks/queries/grid/useGetDataGrid";
 
-/* const json = {
+const json = {
   idPeriodo: "12",
   totalCierre: 1,
   totalApertura: 1,
@@ -277,7 +277,7 @@ import { useGetDataGrid } from "@/hooks/queries/grid/useGetDataGrid";
       ],
     },
   ],
-}; */
+};
 
 interface Props {
   formKey: string;
@@ -383,4 +383,10 @@ export const Catalog = ({ formKey }: Props) => {
       </ModalLateral>
     </div>
   );
+};
+ */
+export const Catalog = () => {
+  <>
+    <></>
+  </>;
 };

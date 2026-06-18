@@ -3,7 +3,7 @@ import { Card } from "../shared/card/Card";
 
 export const ConferenceCard = () => {
   return (
-    <div className="grid col-span-2">
+    <div className="lg:col-span-2">
       <Card>
         <div className="grid gap-4">
           <div>

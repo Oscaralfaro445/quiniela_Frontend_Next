@@ -6,12 +6,12 @@ export const getMatchesVotes = async (
   idQuiniela: number,
   idPeriodo: string,
 ): Promise<ApiResponse<GetMatchVotesResponse>> => {
-  console.log(
+  /*  console.log(
     "Fetching match votes with idQuiniela:",
     idQuiniela,
     "and idPeriodo:",
     idPeriodo,
-  );
+  ); */
   const payload = {
     idProceso: 29,
     idQuery: 19,

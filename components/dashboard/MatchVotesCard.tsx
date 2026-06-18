@@ -22,7 +22,7 @@ export const MatchVotesCard = () => {
   }
 
   return (
-    <div className="col-span-2">
+    <div className="lg:col-span-2">
       <Card>
         <div className="rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-4 text-white shadow-sm">
           <p className="text-sm font-semibold uppercase tracking-wide text-white/80">

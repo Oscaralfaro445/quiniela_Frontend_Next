@@ -33,31 +33,37 @@ export default function UserStatusPage() {
           text="Gestiona el estatus de los usuarios, permitiendo desbloquear aquellos usuarios nuevos."
         />
 
-        <div className="h-full bg-red-200">
+        <div className="grid h-full bg-red-200">
           {data?.data?.[0].indicador === "A" ? (
-            <table className="w-full table-auto bg-neutral-100">
-              <thead className="bg-blue-600">
-                <tr className="text-white">
-                  <th className="text-left px-4 py-2 border-b">
-                    Correo electrónico
-                  </th>
-                  <th className="text-left px-4 py-2 border-b">Nombre</th>
-                  <th className="text-left px-4 py-2 border-b">Estado</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {users?.map(({ CVE_USUARIO, NOMBRE_COMPLETO, B_BLOQUEADO }) => (
-                  <tr key={CVE_USUARIO} className="hover:bg-neutral-200">
-                    <td className="px-4 py-2">{CVE_USUARIO}</td>
-                    <td className="px-4 py-2">{NOMBRE_COMPLETO}</td>
-                    <td
-                      className="px-4 py-2 hover:cursor-pointer"
-                      onClick={() => handleUnlockUser(CVE_USUARIO, B_BLOQUEADO)}
-                    >{`${B_BLOQUEADO ? "Bloqueado" : "Activo"}`}</td>
+            <div className="grid overflow-x-auto">
+              <table className="table-auto bg-neutral-100">
+                <thead className="bg-blue-600">
+                  <tr className="text-white">
+                    <th className="text-left px-4 py-2 border-b">
+                      Correo electrónico
+                    </th>
+                    <th className="text-left px-4 py-2 border-b">Nombre</th>
+                    <th className="text-left px-4 py-2 border-b">Estado</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {users?.map(
+                    ({ CVE_USUARIO, NOMBRE_COMPLETO, B_BLOQUEADO }) => (
+                      <tr key={CVE_USUARIO} className="hover:bg-neutral-200">
+                        <td className="px-4 py-2">{CVE_USUARIO}</td>
+                        <td className="px-4 py-2">{NOMBRE_COMPLETO}</td>
+                        <td
+                          className="px-4 py-2 hover:cursor-pointer"
+                          onClick={() =>
+                            handleUnlockUser(CVE_USUARIO, B_BLOQUEADO)
+                          }
+                        >{`${B_BLOQUEADO ? "Bloqueado" : "Activo"}`}</td>
+                      </tr>
+                    ),
+                  )}
+                </tbody>
+              </table>
+            </div>
           ) : (
             <p>
               La quiniela se encuentra cerrada, no se puede modificar el estado

@@ -1,4 +1,4 @@
-import { Form, Formik } from "formik";
+/* import { Form, Formik } from "formik";
 import { Component } from "@/types/form/infoForm";
 import { FieldValue, generateValidationSchema } from "@/utils/catalog/catalog";
 import { Input } from "../shared/input/Input";
@@ -19,7 +19,7 @@ export const CatalogForm = ({
   handleCancel,
   handleAccept,
 }: Props) => {
-  console.log(fields);
+  // console.log(fields);
 
   const validationSchema = validateForm
     ? generateValidationSchema(fields || [])
@@ -59,5 +59,14 @@ export const CatalogForm = ({
         </Form>
       </Formik>
     </div>
+  );
+};
+ */
+
+export const CatalogForm = () => {
+  return (
+    <>
+      <></>
+    </>
   );
 };

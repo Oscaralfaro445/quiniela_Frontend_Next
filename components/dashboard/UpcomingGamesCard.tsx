@@ -9,7 +9,7 @@ export const UpcomingGamesCard = () => {
   const upcomingGames = data?.data;
 
   return (
-    <div className="grid col-span-2">
+    <div className="lg:col-span-2">
       <Card>
         <div className="flex flex-col">
           <p className="text-lg text-blue-600 font-semibold">Próximos juegos</p>

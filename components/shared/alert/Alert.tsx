@@ -20,7 +20,7 @@ export const Alert = ({
 }: AlertProps) => {
   return (
     <div
-      className={`fixed z-50 top-4 right-4 flex h-22 w-86 lg:w-96 p-4 justify-between items-center rounded-lg shadow-lg border border-neutral-400 bg-white transform transition-transform duration-500 ease-in-out  ${
+      className={`fixed z-50 top-4 right-4 flex h-22 w-66 sm:w-86 lg:w-96 p-4 justify-between items-center rounded-lg shadow-lg border border-neutral-400 bg-white transform transition-transform duration-500 ease-in-out  ${
         isAlertOpen ? "" : "translate-x-[110%]"
       }`}
     >

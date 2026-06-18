@@ -12,22 +12,27 @@ import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
 import { MainContainer } from "@/components/ui/containers/MainContainer";
 import { ConferenceCard } from "@/components/dashboard/ConferenceCard";
 import { MatchVotesCard } from "@/components/dashboard/MatchVotesCard";
+// import { TeamLogo } from "@/components/shared/teamLogo/TeamLogo";
 
 export default function DashboardPage() {
   const { data } = useGetMe();
   const userInfo = data?.data?.[0];
+  console.log(data?.data?.[0]);
 
   return (
     <MainContainer>
       <div className="grid gap-4">
+        {/* <div className="flex w-full gap-4 items-center"> */}
         <PageHeader
           title={`¡Bienvenido de vuelta ${userInfo?.nombreCompleto ?? ""}!`}
           text="Aquí tienes un resumen de tu rendimiento en la temporada."
         />
+        {/* <TeamLogo teamName={userInfo?.nomEquipoFav ?? ""} />
+        </div> */}
         <StatisticsCard />
         <Timer />
 
-        <div className="grid lg:grid-cols-2 w-full gap-4 ">
+        <div className="grid w-full gap-4 ">
           <SwiftActionsCard />
           <AccumulatedBagCard />
           <MatchVotesCard />

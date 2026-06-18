@@ -35,7 +35,7 @@ export const GroupRadio = ({
     setIsModalOpen((prev) => !prev);
   };
 
-  console.log(game);
+  // console.log(game);
 
   return (
     <>

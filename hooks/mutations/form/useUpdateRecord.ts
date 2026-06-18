@@ -1,4 +1,4 @@
-import { axiosInstance } from "@/api/axiosInstance";
+/* import { axiosInstance } from "@/api/axiosInstance";
 import { ApiError } from "@/types/api/ApiError";
 import { ApiResponse } from "@/types/api/ApiResponse";
 import { FieldValue } from "@/utils/catalog/catalog";
@@ -46,3 +46,4 @@ export const useUpdateRecord = () => {
     },
   });
 };
+ */
