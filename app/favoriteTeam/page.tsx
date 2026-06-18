@@ -1,5 +1,6 @@
 import { ConferenceCard } from "@/components/favoriteTeam/ConferenceCard";
 import { LastGameCard } from "@/components/favoriteTeam/LastGameCard";
+import { TeamNewsCard } from "@/components/favoriteTeam/TeamNewsCard";
 import { UpcomingGamesCard } from "@/components/favoriteTeam/UpcomingGamesCard";
 import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
 import { MainContainer } from "@/components/ui/containers/MainContainer";
@@ -15,6 +16,7 @@ export default function FavoriteTeamPage() {
 
         <ConferenceCard />
         <LastGameCard />
+        <TeamNewsCard />
         <UpcomingGamesCard />
       </div>
     </MainContainer>

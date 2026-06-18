@@ -9,6 +9,7 @@ import { Icon } from "../../shared/icon/Icon";
 import { Button } from "../../shared/button/Button";
 import { ProfileOptions } from "../../shared/profileOptions.tsx/ProfileOptions";
 import { Sidebar } from "../sidebar/Sidebar";
+import { TeamLogo } from "@/components/shared/teamLogo/TeamLogo";
 
 export const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -42,6 +43,9 @@ export const Header = () => {
 
         {isLoged ? (
           <div className="flex gap-2 items-center">
+            <Link href="/favoriteTeam">
+              <TeamLogo className="scale-75" teamName="Dalas Cowboys" />
+            </Link>
             <ProfileOptions user={user} />
 
             <div className="h-10 mx-2 border-l border-neutral-400" />

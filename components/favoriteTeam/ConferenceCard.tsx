@@ -54,6 +54,7 @@ export const ConferenceCard = () => {
               )}
             </tbody>
           </table>
+
           <div className="text-center">
             <p className="text-sm text-muted-foreground">
               G = Ganados • P = Perdidos • E = Empatados
