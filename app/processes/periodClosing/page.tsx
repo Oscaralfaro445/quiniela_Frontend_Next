@@ -7,6 +7,7 @@ import { Button } from "@/components/shared/button/Button";
 import { BusinessErrorPanel } from "@/components/ui/errors/BusinessErrorPanel";
 import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
 import { MainContainer } from "@/components/ui/containers/MainContainer";
+import Link from "next/link";
 
 export default function PeriodOpeningPage() {
   const mutation = usePostPeriodClosing();
@@ -74,6 +75,12 @@ export default function PeriodOpeningPage() {
         {mutation.isSuccess && mutation.data?.errorNeg && (
           <BusinessErrorPanel errorNeg={mutation.data.errorNeg} />
         )}
+
+        <div className="flex w-full gap-4 justify-center">
+          <Link href="/dashboard">
+            <Button type="button" title="Volver al Dashboard" theme="normal" />
+          </Link>
+        </div>
       </div>
     </MainContainer>
   );

@@ -76,10 +76,6 @@ export default function UserStatusPage() {
           <Link href="/dashboard">
             <Button type="button" title="Volver al Dashboard" theme="normal" />
           </Link>
-
-          <Link href="/quiniela">
-            <Button type="submit" title="Enviar Quiniela" theme="primary" />
-          </Link>
         </div>
       </div>
     </MainContainer>

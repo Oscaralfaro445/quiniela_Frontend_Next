@@ -6,6 +6,8 @@ import { MainContainer } from "@/components/ui/containers/MainContainer";
 import { Modal } from "@/components/shared/modal/Modal";
 import { useGetProcessStatus } from "@/hooks/queries/monitor/useGetProcessStatus";
 import { CalendarRange, ChevronDown, ChevronRight } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/shared/button/Button";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -426,6 +428,12 @@ export default function MonitorPage() {
             )}
           </>
         )}
+
+        <div className="flex w-full gap-4 justify-center">
+          <Link href="/dashboard">
+            <Button type="button" title="Volver al Dashboard" theme="normal" />
+          </Link>
+        </div>
       </div>
     </MainContainer>
   );

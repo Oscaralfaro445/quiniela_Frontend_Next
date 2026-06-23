@@ -15,6 +15,7 @@ export const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { data } = useGetMe();
   const user = data?.data?.[0];
+  console.log(user);
   const isLoged = Boolean(user);
   const pathname = usePathname();
 
@@ -43,9 +44,11 @@ export const Header = () => {
 
         {isLoged ? (
           <div className="flex gap-2 items-center">
-            <Link href="/favoriteTeam">
-              <TeamLogo className="scale-75" teamName="Dalas Cowboys" />
-            </Link>
+            {user?.idEquipoVa && user?.idEquipoVa > 0 ? (
+              <Link href="/favoriteTeam">
+                <TeamLogo className="scale-75" teamName={user?.nomEquipoVa} />
+              </Link>
+            ) : null}
             <ProfileOptions user={user} />
 
             <div className="h-10 mx-2 border-l border-neutral-400" />
