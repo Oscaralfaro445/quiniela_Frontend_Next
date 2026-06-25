@@ -17,7 +17,6 @@ import { MatchVotesCard } from "@/components/dashboard/MatchVotesCard";
 export default function DashboardPage() {
   const { data } = useGetMe();
   const userInfo = data?.data?.[0];
-  console.log(data?.data?.[0]);
 
   return (
     <MainContainer>

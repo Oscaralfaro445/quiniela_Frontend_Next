@@ -10,14 +10,17 @@ import { Button } from "../../shared/button/Button";
 import { ProfileOptions } from "../../shared/profileOptions.tsx/ProfileOptions";
 import { Sidebar } from "../sidebar/Sidebar";
 import { TeamLogo } from "@/components/shared/teamLogo/TeamLogo";
+import { Newspaper } from "lucide-react";
+import { useModal } from "@/context/modal/ModalContext";
+import { NewsCard } from "@/components/shared/news/NewsCard";
 
 export const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { data } = useGetMe();
   const user = data?.data?.[0];
-  console.log(user);
   const isLoged = Boolean(user);
   const pathname = usePathname();
+  const { openModal } = useModal();
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
@@ -44,9 +47,14 @@ export const Header = () => {
 
         {isLoged ? (
           <div className="flex gap-2 items-center">
+            <Newspaper
+              size={32}
+              onClick={() => openModal(<NewsCard />)}
+              className="hover:cursor-pointer"
+            />
             {user?.idEquipoVa && user?.idEquipoVa > 0 ? (
               <Link href="/favoriteTeam">
-                <TeamLogo className="scale-75" teamName={user?.nomEquipoVa} />
+                <TeamLogo className="scale-60" teamName={user?.nomEquipoVa} />
               </Link>
             ) : null}
             <ProfileOptions user={user} />
