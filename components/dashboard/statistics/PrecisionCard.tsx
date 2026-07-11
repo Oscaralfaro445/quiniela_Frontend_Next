@@ -1,10 +1,16 @@
-import { useGetPrecision } from "@/hooks/dashboard/queries/useGetPrecision";
+import { useGetPrecision } from "@/hooks/queries/useGetPrecision";
 import { Card } from "@/components/shared/card/Card";
 import { Icon } from "@/components/shared/icon/Icon";
 
 export const PrescisionCard = () => {
-  const { isError, isPending, isSuccess, data } = useGetPrecision();
-  const target = data?.data;
+  const { isPending, isError, data, error } = useGetPrecision();
+  const targetInfo = data?.data?.[0]?.Dashboard_1?.[0];
+  const porcentWeek = targetInfo?.posicionPeriodo?.pjeSemana || 0;
+  const pointsWeek = targetInfo?.posicionPeriodo?.puntosPeriodo || 0;
+  const matchesWeek = targetInfo?.posicionPeriodo?.partidosPeriodo || 0;
+  const porcentTotal = targetInfo?.posicionTotal?.pjeTemporada || 0;
+  const pointsTotal = targetInfo?.posicionTotal?.puntosTemporada || 0;
+  const matchesTotal = targetInfo?.posicionTotal?.partidosTemporada || 0;
 
   return (
     <>
@@ -18,19 +24,16 @@ export const PrescisionCard = () => {
 
         {isPending && <p>Cargando...</p>}
 
-        {isError && <p>Error al cargar los datos...</p>}
+        {isError && <p>Error al cargar los datos...{error?.message}</p>}
 
-        {isSuccess && target && (
+        {targetInfo && (
           <div className="grid gap-1">
             <p className="text-2xl font-bold text-neutral-700">
-              {`${Math.trunc(
-                target[0].Dashboard_1[0].posicionPeriodo.pjeSemana
-              )} %`}
+              {`${Math.trunc(porcentWeek)} %`}
             </p>
 
             <p className="text-xs text-blue-600">
-              {`${target[0].Dashboard_1[0].posicionPeriodo.puntosPeriodo}/${target[0].Dashboard_1[0].posicionPeriodo.partidosPeriodo}`}
-              correctas
+              {`${pointsWeek}/${matchesWeek} correctas`}
             </p>
           </div>
         )}
@@ -46,19 +49,16 @@ export const PrescisionCard = () => {
 
         {isPending && <p>Cargando...</p>}
 
-        {isError && <p>Error al cargar los datos...</p>}
+        {isError && <p>Error al cargar los datos...{error?.message}</p>}
 
-        {isSuccess && target && (
+        {targetInfo && (
           <div className="grid gap-1">
             <p className="text-2xl font-bold text-neutral-700">
-              {`${Math.trunc(
-                data.data[0].Dashboard_1[0].posicionTotal.pjeTemporada
-              )} %`}
+              {`${Math.trunc(porcentTotal)} %`}
             </p>
 
             <p className="text-xs text-blue-600">
-              {`${target[0].Dashboard_1[0].posicionTotal.puntosTemporada}/${target[0].Dashboard_1[0].posicionTotal.partidosTemporada}`}
-              correctas
+              {`${pointsTotal}/${matchesTotal} correctas`}
             </p>
           </div>
         )}

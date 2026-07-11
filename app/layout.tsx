@@ -1,9 +1,10 @@
-import "./globals.css";
 import { ReactQueryProvider } from "@/components/ui/reactQueryProvider/ReactQueryProvider";
-import { AuthProvider } from "@/context/authContext/AuthContext";
-import { AlertProvider } from "@/context/alertContext/AlertContext";
+import { AlertProvider } from "@/context/alert/AlertContext";
 import { Header } from "@/components/ui/header/Header";
 import { Footer } from "@/components/ui/footer/Footer";
+import "./globals.css";
+import { ModalProvider } from "@/context/modal/ModalContext";
+import { ModalErrorProvider } from "@/context/modalError/ModalErrorContext";
 
 export default function RootLayout({
   children,
@@ -16,6 +17,7 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Quiniela - Predicciones Deportivas</title>
+        <link rel="icon" href="/favicon.ico" />
         <meta
           name="description"
           content="Plataforma de quinielas deportivas. Haz tus predicciones, compite con otros usuarios y gana premios en cada temporada."
@@ -25,7 +27,6 @@ export default function RootLayout({
           content="quiniela, predicciones deportivas, apuestas, football, NFL, competencia, premios, temporada"
         />
         <meta name="author" content="Oscar Alfaro" />
-
         <meta name="robots" content="index, follow" />
         <meta name="language" content="Spanish" />
         <meta name="revisit-after" content="7 days" />
@@ -33,13 +34,17 @@ export default function RootLayout({
 
       <body>
         <ReactQueryProvider>
-          <AuthProvider>
-            <AlertProvider>
-              <Header />
-              <main>{children}</main>
-              <Footer />
-            </AlertProvider>
-          </AuthProvider>
+          <AlertProvider>
+            <ModalErrorProvider>
+              <ModalProvider>
+                <Header />
+                <main className="grid min-h-screen pt-16 bg-neutral-50">
+                  {children}
+                </main>
+                <Footer />
+              </ModalProvider>
+            </ModalErrorProvider>
+          </AlertProvider>
         </ReactQueryProvider>
       </body>
     </html>

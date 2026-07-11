@@ -3,7 +3,7 @@ import { Button } from "@/components/shared/button/Button";
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col min-h-screen pt-16 gap-4 justify-center">
+    <div className="grid gap-4 content-center">
       <div>
         <p className="text-center text-9xl font-bold text-neutral-300">404</p>
 
@@ -13,7 +13,7 @@ export default function NotFound() {
         </p>
       </div>
 
-      <div className="flex w-full justify-center items-center">
+      <div className="flex justify-center">
         <Link href={"/dashboard"}>
           <Button type="button" title="Regresar a Dashboard" />
         </Link>

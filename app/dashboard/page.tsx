@@ -1,7 +1,6 @@
 "use client";
 
-import { useAuth } from "@/context/authContext/AuthContext";
-import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
 import { StatisticsCard } from "@/components/dashboard/StatisticsCard";
 import { Timer } from "@/components/shared/timer/Timer";
 import { SwiftActionsCard } from "@/components/dashboard/SwiftActionsCard";
@@ -9,36 +8,39 @@ import { UpcomingGamesCard } from "@/components/dashboard/UpcomingGamesCard";
 import { SurvivorCard } from "@/components/dashboard/SurvivorCard";
 import { AccumulatedBagCard } from "@/components/dashboard/AccumulatedBagCard";
 import { SeasonProgressCard } from "@/components/dashboard/SeasonProgressCard";
-import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
+import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
+import { MainContainer } from "@/components/ui/containers/MainContainer";
+import { ConferenceCard } from "@/components/dashboard/ConferenceCard";
+import { MatchVotesCard } from "@/components/dashboard/MatchVotesCard";
+// import { TeamLogo } from "@/components/shared/teamLogo/TeamLogo";
 
 export default function DashboardPage() {
-  const { dataUser } = useAuth();
-  const currentWeek = dataUser?.idPeriodo;
+  const { data } = useGetMe();
+  const userInfo = data?.data?.[0];
 
   return (
-    <ProtectedRoute>
-      <div className="pt-16">
+    <MainContainer>
+      <div className="grid gap-4">
+        {/* <div className="flex w-full gap-4 items-center"> */}
         <PageHeader
-          title={`¡Bienvenido de vuelta ${dataUser?.nombre}!`}
+          title={`¡Bienvenido de vuelta ${userInfo?.nombreCompleto ?? ""}!`}
           text="Aquí tienes un resumen de tu rendimiento en la temporada."
         />
-
-        <StatisticsCard currentWeek={currentWeek ?? ""} />
-
+        {/* <TeamLogo teamName={userInfo?.nomEquipoFav ?? ""} />
+        </div> */}
+        <StatisticsCard />
         <Timer />
 
-        <div className="grid lg:grid-cols-2 w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 ">
-          <SwiftActionsCard currentWeek={currentWeek ?? ""} />
-
+        <div className="grid w-full gap-4 ">
+          <SwiftActionsCard />
           <AccumulatedBagCard />
-
+          <MatchVotesCard />
+          <ConferenceCard />
           <SeasonProgressCard />
-
           <SurvivorCard />
-
-          <UpcomingGamesCard currentWeek={currentWeek ?? ""} />
+          <UpcomingGamesCard />
         </div>
       </div>
-    </ProtectedRoute>
+    </MainContainer>
   );
 }

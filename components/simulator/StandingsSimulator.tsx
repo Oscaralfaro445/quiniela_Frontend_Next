@@ -1,21 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { useAuth } from "@/context/authContext/AuthContext";
-import { StandingsGridSimulator } from "./StandingsGridSimulator";
 import { ParticipantStatistics } from "@/types/participantStatistics/participantStatistics";
-import { PeriodTabs } from "../standings/PeriodTabs";
-
-type TabType = "weekly" | "global";
+import { StandingsGridSimulator } from "./StandingsGridSimulator";
+import { TabSelector, TabType } from "../shared/tabs/TabSelector";
 
 interface StandingsSimulatorProps {
   quinielaAlta: {
-    data: [
-      {
-        puntosPeriodo: ParticipantStatistics[];
-        puntosTotal: ParticipantStatistics[];
-      }
-    ];
+    data:
+      | {
+          puntosPeriodo: ParticipantStatistics[];
+          puntosTotal: ParticipantStatistics[];
+        }[]
+      | null;
     isPending: boolean;
     isError: boolean;
     isSuccess: boolean;
@@ -25,15 +22,13 @@ interface StandingsSimulatorProps {
 export const StandingsSimulator = ({
   quinielaAlta,
 }: StandingsSimulatorProps) => {
-  const { dataUser } = useAuth();
+  const [activeTab, setActiveTab] = useState<TabType>(0);
   const { isPending, isError, isSuccess, data } = quinielaAlta;
   const participantData = data?.[0];
-  const currentWeek = dataUser?.idPeriodo;
   const weeklyLeaderboard: ParticipantStatistics[] =
-    participantData?.puntosPeriodo;
+    participantData?.puntosPeriodo ?? [];
   const globalLeaderboard: ParticipantStatistics[] =
-    participantData?.puntosTotal;
-  const [activeTab, setActiveTab] = useState<TabType>("weekly");
+    participantData?.puntosTotal ?? [];
 
   return (
     <div className="space-y-4">
@@ -46,33 +41,19 @@ export const StandingsSimulator = ({
       </div>
 
       <div className="grid max-w-[1280px] mx-auto gap-4">
-        <PeriodTabs
+        <TabSelector
           activeTab={activeTab}
           setActiveTab={setActiveTab}
-          currentWeek={currentWeek}
+          text={["Semanal", "Global"]}
         />
 
-        <div>
-          {activeTab === "weekly" && (
-            <StandingsGridSimulator
-              isPending={isPending}
-              isError={isError}
-              isSuccess={isSuccess}
-              leaderboard={weeklyLeaderboard}
-              typeTab="semanal"
-            />
-          )}
-
-          {activeTab === "global" && (
-            <StandingsGridSimulator
-              isPending={isPending}
-              isError={isError}
-              isSuccess={isSuccess}
-              leaderboard={globalLeaderboard}
-              typeTab="global"
-            />
-          )}
-        </div>
+        <StandingsGridSimulator
+          isPending={isPending}
+          isError={isError}
+          isSuccess={isSuccess}
+          leaderboard={activeTab === 0 ? weeklyLeaderboard : globalLeaderboard}
+          typeTab={activeTab === 0 ? "semanal" : "global"}
+        />
       </div>
     </div>
   );

@@ -12,31 +12,31 @@ interface CardDetails {
   icon: IconName;
 }
 
-export default function HomePage() {
-  const cardDetails: CardDetails[] = [
-    {
-      title: "Competencias semanales",
-      description:
-        "Participa en quinielas semanales y compite por los primeros lugares con otros fanáticos del NFL.",
-      icon: "trophy",
-    },
-    {
-      title: "Estadísticas detalladas",
-      description:
-        "Accede a estadísticas detalladas de tu rendimiento y mejora tus predicciones semana tras semana",
-      icon: "chart-bar",
-    },
-    {
-      title: "Ligas privadas",
-      description:
-        "Crea ligas privadas con tus amigos y familiares para hacer la experiencia más personal y divertida",
-      icon: "users",
-    },
-  ];
+const cardDetails: CardDetails[] = [
+  {
+    title: "Competencias semanales",
+    description:
+      "Participa en quinielas semanales y compite por los primeros lugares con otros fanáticos del NFL.",
+    icon: "trophy",
+  },
+  {
+    title: "Estadísticas detalladas",
+    description:
+      "Accede a estadísticas detalladas de tu rendimiento y mejora tus predicciones semana tras semana",
+    icon: "chart-bar",
+  },
+  {
+    title: "Ligas privadas",
+    description:
+      "Crea ligas privadas con tus amigos y familiares para hacer la experiencia más personal y divertida",
+    icon: "users",
+  },
+];
 
+export default function HomePage() {
   return (
     <div>
-      <section className="w-full pt-18 bg-blue-700">
+      <section className="bg-blue-700">
         <div className="grid max-w-[1280px] mx-auto px-10 py-10 lg:py-32 gap-4">
           <div className="grid gap-4 justify-items-center items-center">
             <Title
@@ -52,17 +52,17 @@ export default function HomePage() {
 
           <div className="flex gap-4 justify-center items-center">
             <Link href="/register">
-              <Button type="button" title="Comenzar Ahora" theme="normal" />
+              <Button type="button" title="Registrarse" theme="normal" />
             </Link>
 
             <Link href="/login">
-              <Button type="button" title="Iniciar Sesión" />
+              <Button type="button" title="Iniciar sesión" />
             </Link>
           </div>
         </div>
       </section>
 
-      <div className="grid max-w-[1280px] mx-auto px-10 py-20 lg:py-32 gap-4">
+      <section className="grid max-w-[1280px] mx-auto px-10 py-20 lg:py-32 gap-4">
         <div className="grid gap-4 justify-items-center items-center">
           <Title
             className="text-center"
@@ -84,15 +84,13 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div>
-                <div className="text-center">{card.description}</div>
-              </div>
+              <div className="text-center">{card.description}</div>
             </Card>
           ))}
         </div>
-      </div>
+      </section>
 
-      <section className="bg-neutral-50">
+      <section className="bg-white">
         <div className="grid max-w-[1280px] mx-auto px-10 py-20 lg:py-32 gap-4">
           <div className="grid gap-2 justify-items-center items-center">
             <Title

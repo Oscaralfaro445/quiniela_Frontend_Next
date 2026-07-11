@@ -1,0 +1,32 @@
+import { ConferenceCard } from "@/components/favoriteTeam/ConferenceCard";
+import { LastGameCard } from "@/components/favoriteTeam/LastGameCard";
+import { TeamNewsCard } from "@/components/favoriteTeam/TeamNewsCard";
+import { UpcomingGamesCard } from "@/components/favoriteTeam/UpcomingGamesCard";
+import { Button } from "@/components/shared/button/Button";
+import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
+import { MainContainer } from "@/components/ui/containers/MainContainer";
+import Link from "next/link";
+
+export default function FavoriteTeamPage() {
+  return (
+    <MainContainer>
+      <div className="grid gap-4">
+        <PageHeader
+          title="Panel de tu equipo favorito"
+          text="Aquí podrás ver toda la información relevante sobre tu equipo favorito, incluyendo estadísticas, próximos partidos y noticias destacadas."
+        />
+
+        <ConferenceCard />
+        <LastGameCard />
+        <TeamNewsCard />
+        <UpcomingGamesCard />
+
+        <div className="flex w-full gap-4 justify-center">
+          <Link href="/dashboard">
+            <Button type="button" title="Volver al Dashboard" theme="normal" />
+          </Link>
+        </div>
+      </div>
+    </MainContainer>
+  );
+}

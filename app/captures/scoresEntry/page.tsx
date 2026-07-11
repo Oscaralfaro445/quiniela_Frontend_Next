@@ -2,35 +2,36 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useGetMarkers } from "@/hooks/markers/queries/useGetMarkers";
-import { usePostMarkers } from "@/hooks/markers/mutations/usePostMarkers";
-import { useAuth } from "@/context/authContext/AuthContext";
+import { useGetMarkers } from "@/hooks/queries/useGetMarkers";
+import { usePostMarkers } from "@/hooks/mutations/usePostMarkers";
 import { GameResult } from "@/types/gameResult/gameResult";
 import { Button } from "@/components/shared/button/Button";
-import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
 import { StatisticsCard } from "@/components/scores/StatisticsCard";
 import { ScoreBoard } from "@/components/captures/scoresEntry/ScoreBoard";
-import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
+import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
+import { MainContainer } from "@/components/ui/containers/MainContainer";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
 
 export default function ScoresEntryPage() {
   const { isPending, isError, isSuccess, data } = useGetMarkers();
   const markersUpdate = usePostMarkers();
-  const { dataUser } = useAuth();
-  const week = dataUser?.idPeriodo;
+  const { data: userData } = useGetMe();
+  const user = userData?.data?.[0];
+  const week = user?.idPeriodo;
 
   const [gameResults, setGameResults] = useState<GameResult[]>([]);
 
   useEffect(() => {
     if (isSuccess) {
-      const gameResults = data.data;
+      const gameResults = data?.data;
       setGameResults(gameResults);
     }
-  }, [isSuccess, data, dataUser]);
+  }, [isSuccess, data, user]);
 
   const handleScoreChange = (
     partido: number,
     team: "away" | "home",
-    value: string
+    value: string,
   ) => {
     const numValue = Number.parseInt(value) || 0;
 
@@ -41,14 +42,14 @@ export default function ScoresEntryPage() {
               ...game,
               [team === "away" ? "marcVisita" : "marLocal"]: numValue,
             }
-          : game
-      )
+          : game,
+      ),
     );
   };
 
   const handleSubmitScores = () => {
     const gameResultsUpdated = gameResults.map((game: GameResult) => ({
-      ID_PERIODO: dataUser!.idPeriodo,
+      ID_PERIODO: user!.idPeriodo,
       ID_PARTIDO: game.partido,
       ID_SCORE_E1: game.marcVisita,
       ID_SCORE_E2: game.marLocal,
@@ -58,8 +59,8 @@ export default function ScoresEntryPage() {
   };
 
   return (
-    <ProtectedRoute>
-      <div className="min-h-screen pt-16">
+    <MainContainer>
+      <div className="grid gap-4">
         <PageHeader
           title={`Marcadores Semana ${week}`}
           text="Edita los marcadores de los partidos de la semana"
@@ -91,6 +92,6 @@ export default function ScoresEntryPage() {
           />
         </div>
       </div>
-    </ProtectedRoute>
+    </MainContainer>
   );
 }

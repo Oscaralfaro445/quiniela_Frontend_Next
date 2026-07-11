@@ -36,9 +36,8 @@ export const MenuItem = ({
           onClick={handleClick}
         >
           <div
-            className={`flex gap-4 justify-start items-center ${
-              itemLevel > 0 ? `pl-12` : ""
-            }`}
+            className="flex gap-4 justify-start items-center"
+            style={{ paddingLeft: itemLevel > 0 ? `${itemLevel * 32}px` : "0" }}
           >
             <Icon name={item.icono} size={18} />
 

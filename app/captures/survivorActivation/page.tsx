@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useGetSurvivorStatus } from "@/hooks/survivorActivation/queries/useGetSurvivorStatus";
-import { usePostSurvivorActivation } from "@/hooks/survivorActivation/mutations/usePostSurvicorActivation";
+import { useGetSurvivorStatus } from "@/hooks/queries/useGetSurvivorStatus";
+import { usePostSurvivorActivation } from "@/hooks/mutations/usePostSurvicorActivation";
 import { Button } from "@/components/shared/button/Button";
 import { Card } from "@/components/shared/card/Card";
 import { TeamLogo } from "@/components/shared/teamLogo/TeamLogo";
-import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
-import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
+import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
+import { MainContainer } from "@/components/ui/containers/MainContainer";
 
 export default function SurvivorActivationPage() {
   const { isPending, isError, isSuccess, data } = useGetSurvivorStatus();
@@ -15,20 +15,20 @@ export default function SurvivorActivationPage() {
 
   const handleSurvivorActivation = () => {
     survivorActivation.mutate({
-      idEquipo: data.data[0].idEquipoSuv,
-      bResucita: !data.data[0].bResucita,
+      idEquipo: data?.data?.[0]?.idEquipoSuv,
+      bResucita: !data?.data?.[0]?.bResucita,
     });
   };
 
   return (
-    <ProtectedRoute>
-      <div className="flex flex-col h-screen justify-center">
+    <MainContainer>
+      <div className="grid gap-4 content-start">
         <PageHeader
           title="Gestión de Activación de Survivor"
           text="Aquí podrás darle una segunda oportunidad a tu survivor"
         />
 
-        <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center lg:justify-between">
+        <div className="grid lg:flex w-full gap-4 justify-center lg:justify-between">
           <Card>
             <div className="flex flex-col">
               <p className="text-lg text-blue-700 font-semibold">
@@ -46,17 +46,17 @@ export default function SurvivorActivationPage() {
               <p className="text-neutral-600">Error al cargar los datos...</p>
             )}
 
-            {isSuccess && data.data.length > 0 ? (
+            {isSuccess && data?.data?.length > 0 ? (
               <div className="flex flex-wrap items-center justify-between p-4 border border-gray-400 rounded-lg hover:bg-gray-50 transition-colors">
                 <div className="flex gap-4 items-center">
-                  <TeamLogo teamName={data.data[0].nomEquipo} />
+                  <TeamLogo teamName={data?.data?.[0]?.nomEquipo} />
 
                   <div>
                     <h3 className="font-semibold text-neutral-700">
-                      {data.data[0].nomEquipo}
+                      {data?.data?.[0]?.nomEquipo}
                     </h3>
                     <p className="text-sm text-neutral-600">
-                      {`ID: ${data.data[0].idEquipoSuv}`}
+                      {`ID: ${data?.data?.[0]?.idEquipoSuv}`}
                     </p>
                   </div>
                 </div>
@@ -64,7 +64,7 @@ export default function SurvivorActivationPage() {
                 <div className="flex items-center space-x-4">
                   <div className="flex flex-col text-right">
                     <p className="font-semibold text-lg text-neutral-700">
-                      ${data.data[0].costoSurvivor}
+                      ${data?.data?.[0]?.costoSurvivor}
                     </p>
 
                     <p className="text-sm text-neutral-600">Costo</p>
@@ -72,8 +72,8 @@ export default function SurvivorActivationPage() {
 
                   <Button
                     type="button"
-                    title={data.data[0].bResucita ? "Cancelar" : "Activar"}
-                    theme={data.data[0].bResucita ? "danger" : "primary"}
+                    title={data?.data?.[0]?.bResucita ? "Cancelar" : "Activar"}
+                    theme={data?.data?.[0]?.bResucita ? "danger" : "primary"}
                     onClick={handleSurvivorActivation}
                   />
                 </div>
@@ -86,16 +86,16 @@ export default function SurvivorActivationPage() {
           </Card>
         </div>
 
-        <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
+        <div className="flex w-full gap-4 justify-center">
           <Link href="/dashboard">
-            <Button type="button" title="Volver al Dashboard" theme="normal" />
+            <Button type="button" title="Volver al dashboard" theme="normal" />
           </Link>
 
           <Link href="/quiniela">
-            <Button type="button" title="Ver Quiniela" />
+            <Button type="button" title="Ver quiniela" />
           </Link>
         </div>
       </div>
-    </ProtectedRoute>
+    </MainContainer>
   );
 }

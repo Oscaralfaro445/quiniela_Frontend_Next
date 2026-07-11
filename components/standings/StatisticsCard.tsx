@@ -1,22 +1,24 @@
-import { useAuth } from "@/context/authContext/AuthContext";
-import { useGetParticipantPositions } from "@/hooks/participantPositions/queries/useGetParticipantPositions";
-import { useGetPrecision } from "@/hooks/dashboard/queries/useGetPrecision";
+import { useGetParticipantPositions } from "@/hooks/queries/useGetParticipantPositions";
+import { useGetPrecision } from "@/hooks/queries/useGetPrecision";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
 import { ParticipantStatistics } from "@/types/participantStatistics/participantStatistics";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";
+import { TabType } from "../shared/tabs/TabSelector";
 
 interface StatisticsCardProps {
-  activeTab: "weekly" | "global";
+  activeTab: TabType;
 }
 
 export const StatisticsCard = ({ activeTab }: StatisticsCardProps) => {
-  const { dataUser } = useAuth();
   const { data } = useGetParticipantPositions();
   const { data: precisionData } = useGetPrecision();
+  const { data: userData } = useGetMe();
+  const userInfo = userData?.data?.[0];
 
   return (
-    <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4">
-      <Card className="border-gray-200">
+    <div className="grid lg:flex gap-4">
+      <Card>
         <div className="flex flex-row items-center justify-between space-y-0 pb-2">
           <div className="text-sm font-medium text-gray-600">
             Total Participantes
@@ -25,7 +27,7 @@ export const StatisticsCard = ({ activeTab }: StatisticsCardProps) => {
         </div>
         <div>
           <div className="text-2xl font-bold text-gray-900">
-            {data?.data[0]?.puntosPeriodo?.length ?? "0"}
+            {data?.data?.[0]?.puntosPeriodo?.length ?? "0"}
           </div>
           <p className="text-xs text-gray-600">participantes</p>
         </div>
@@ -43,38 +45,38 @@ export const StatisticsCard = ({ activeTab }: StatisticsCardProps) => {
         {true && (
           <div className="grid gap-1">
             <div className="text-2xl font-bold text-gray-900">
-              {activeTab === "weekly"
+              {activeTab === 0
                 ? Math.trunc(
-                    precisionData?.data[0].Dashboard_1[0].posicionPeriodo
-                      .pjeSemana
-                  ) ?? 0
+                    precisionData?.data?.[0]?.Dashboard_1[0]?.posicionPeriodo
+                      ?.pjeSemana,
+                  ) || 0
                 : Math.trunc(
-                    precisionData?.data[0].Dashboard_1[0].posicionTotal
-                      .pjeTemporada
-                  ) ?? 0}
+                    precisionData?.data?.[0]?.Dashboard_1[0]?.posicionTotal
+                      ?.pjeTemporada,
+                  ) || 0}
               %
             </div>
 
             <p className="text-xs text-gray-600">
-              {activeTab === "weekly"
-                ? precisionData?.data[0].Dashboard_1[0].posicionPeriodo
-                    .puntosPeriodo +
+              {activeTab === 0
+                ? (precisionData?.data?.[0]?.Dashboard_1[0]?.posicionPeriodo
+                    ?.puntosPeriodo || 0) +
                   "/" +
-                  precisionData?.data[0].Dashboard_1[0].posicionPeriodo
-                    .partidosPeriodo +
+                  (precisionData?.data?.[0]?.Dashboard_1?.[0]?.posicionPeriodo
+                    ?.partidosPeriodo || 0) +
                   " correctas"
-                : precisionData?.data[0].Dashboard_1[0].posicionTotal
-                    .puntosTemporada +
+                : (precisionData?.data?.[0]?.Dashboard_1[0]?.posicionTotal
+                    ?.puntosTemporada || 0) +
                   "/" +
-                  precisionData?.data[0].Dashboard_1[0].posicionTotal
-                    .partidosTemporada +
+                  (precisionData?.data?.[0]?.Dashboard_1[0]?.posicionTotal
+                    ?.partidosTemporada || 0) +
                   " correctas"}
             </p>
           </div>
         )}
       </Card>
 
-      <Card className="border-gray-200">
+      <Card>
         <div className="flex flex-row items-center justify-between space-y-0 pb-2">
           <div className="text-sm font-medium text-gray-600">Tu Posición</div>
           <Icon name="medal" className="text-blue-700" />
@@ -82,20 +84,20 @@ export const StatisticsCard = ({ activeTab }: StatisticsCardProps) => {
 
         <div>
           <div className="text-2xl font-bold text-gray-900">{`#${
-            activeTab === "weekly"
-              ? data?.data[0]?.puntosPeriodo?.find(
+            activeTab === 0
+              ? (data?.data?.[0]?.puntosPeriodo?.find(
                   (item: ParticipantStatistics) =>
-                    item.ID_PARTICIPANTE === dataUser?.idParticipante
-                )?.Posicion ?? "0"
-              : data?.data[0]?.puntosTotal?.find(
+                    item.ID_PARTICIPANTE === userInfo?.idParticipante,
+                )?.Posicion ?? "0")
+              : (data?.data?.[0]?.puntosTotal?.find(
                   (item: ParticipantStatistics) =>
-                    item.ID_PARTICIPANTE === dataUser?.idParticipante
-                )?.Posicion ?? "0"
+                    item.ID_PARTICIPANTE === userInfo?.idParticipante,
+                )?.Posicion ?? "0")
           }`}</div>
           <p className="text-xs text-gray-600">{`de ${
-            activeTab === "weekly"
-              ? data?.data[0]?.puntosPeriodo?.length ?? "0"
-              : data?.data[0]?.puntosTotal?.length ?? "0"
+            activeTab === 0
+              ? (data?.data?.[0]?.puntosPeriodo?.length ?? "0")
+              : (data?.data?.[0]?.puntosTotal?.length ?? "0")
           } participantes`}</p>
         </div>
       </Card>

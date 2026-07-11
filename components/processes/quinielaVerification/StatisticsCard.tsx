@@ -1,5 +1,5 @@
-import { useAlert } from "@/context/alertContext/AlertContext";
-import { useGetQuinielaVerification } from "@/hooks/quinielaVerification/queries/useGetQuinielaVerification";
+import { useAlert } from "@/context/alert/AlertContext";
+import { useGetQuinielaVerification } from "@/hooks/queries/useGetQuinielaVerification";
 import { Participant } from "@/app/processes/quinielaVerification/page";
 import { ParticipantCard } from "./ParticipantsCard";
 import { AlertState } from "@/types/alert/alert";
@@ -12,10 +12,10 @@ export const StatisticsCard = () => {
 
   const totalParticipants = data?.data?.length;
   const completedQuinielas = data?.data?.filter(
-    (p: Participant) => p.quiniela === 1
+    (p: Participant) => p.quiniela === 1,
   ).length;
   const correctQuinielas = data?.data?.filter(
-    (p: Participant) => p.resultados === 1
+    (p: Participant) => p.resultados === 1,
   ).length;
   const registeredSurvivors = data?.data
     ?.map((p: Participant) => p.survivor === !!p.existe)
@@ -28,13 +28,13 @@ export const StatisticsCard = () => {
           AlertState.ERROR,
           "Error en la Solicitud",
           "Tuvimos un problema al enviar la información de la quiniela: " +
-            error?.message
+            error?.message,
         ) && <StatisticsCardSkeleton />}
 
       {isPending && <StatisticsCardSkeleton />}
 
       {isSuccess && (
-        <div className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4">
+        <div className="grid lg:flex w-full gap-4">
           <ParticipantCard
             icon="list"
             title="Total Participantes"

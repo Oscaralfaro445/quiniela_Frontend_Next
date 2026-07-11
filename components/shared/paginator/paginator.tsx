@@ -1,4 +1,9 @@
-import { Icon } from "../icon/Icon";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+} from "lucide-react";
 
 interface PaginatorProps {
   currentPage: number;
@@ -28,24 +33,24 @@ export const Paginator = ({
   };
 
   return (
-    <div className="flex px-2 gap-2 items-center justify-end">
+    <div className="flex px-2 py-4 gap-2 items-center justify-end">
       <div className="flex items-center">
-        <div className="cursor-pointer" onClick={goToFirstPage}>
-          <Icon name="chevrons-left" />
+        <div onClick={goToFirstPage} className="cursor-pointer">
+          <ChevronsLeft className="text-blue-600 hover:text-blue-700" />
         </div>
 
-        <div className="cursor-pointer" onClick={goToPreviousPage}>
-          <Icon name="chevron-left" />
+        <div onClick={goToPreviousPage} className="cursor-pointer">
+          <ChevronLeft className="text-blue-600 hover:text-blue-700" />
         </div>
 
-        <p className="flex justify-center w-20">{`${currentPage} - ${totalPages}`}</p>
-
-        <div className="cursor-pointer" onClick={goToNextPage}>
-          <Icon name="chevron-right" />
+        {/* <p className="flex px-2 justify-center">{`${currentPage} - ${totalPages}`}</p>
+         */}
+        <div onClick={goToNextPage} className="cursor-pointer">
+          <ChevronRight className="text-blue-600 hover:text-blue-700" />
         </div>
 
-        <div className="cursor-pointer" onClick={goToLastPage}>
-          <Icon name="chevrons-right" />
+        <div onClick={goToLastPage} className="cursor-pointer">
+          <ChevronsRight className="text-blue-600 hover:text-blue-700" />
         </div>
       </div>
     </div>

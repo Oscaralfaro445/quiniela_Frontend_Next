@@ -20,14 +20,14 @@ export const StatisticsCard = ({ gameResults, week }: StatisticsCardProps) => {
   const totalGames = gameResults?.length;
 
   const completedGames = gameResults?.filter(
-    (game) => game.marcVisita !== 0 && game.marLocal !== 0
+    (game) => game.marcVisita !== 0 && game.marLocal !== 0,
   ).length;
 
   const highestScoringGame = gameResults?.length
     ? gameResults.reduce((max, game) =>
         game.marcVisita + game.marLocal > max.marcVisita + max.marLocal
           ? game
-          : max
+          : max,
       )
     : 0;
 
@@ -56,7 +56,7 @@ export const StatisticsCard = ({ gameResults, week }: StatisticsCardProps) => {
         Equipo2: 0,
         nomEquipo2: "",
         marLocal: 0,
-      }
+      },
     );
 
     return { maxDifference, biggestGame };
@@ -80,7 +80,7 @@ export const StatisticsCard = ({ gameResults, week }: StatisticsCardProps) => {
       description: `${
         highestScoringGame
           ? `${getTeamAbbr(highestScoringGame.nomEquipo1)} vs ${getTeamAbbr(
-              highestScoringGame.nomEquipo2
+              highestScoringGame.nomEquipo2,
             )}`
           : ""
       }`,
@@ -89,10 +89,10 @@ export const StatisticsCard = ({ gameResults, week }: StatisticsCardProps) => {
       title: "Promedio de puntos",
       icon: "clock",
       infomation: ` ${Math.round(
-        gameResults.reduce(
+        gameResults?.reduce(
           (sum, game) => sum + game.marcVisita + game.marLocal,
-          0
-        ) / totalGames
+          0,
+        ) / totalGames,
       )}`,
       description: "Por juego",
     },
@@ -101,7 +101,7 @@ export const StatisticsCard = ({ gameResults, week }: StatisticsCardProps) => {
   return (
     <>
       {gameResults && (
-        <div className="grid lg:flex max-w-[1280px] mx-auto px-10 py-8 gap-4">
+        <div className="grid lg:flex gap-4">
           {infoCards.map((card, index) => (
             <Card key={index}>
               <div className="flex items justify-between">

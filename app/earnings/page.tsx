@@ -1,23 +1,21 @@
+import Link from "next/link";
 import { AccumulatedEarningsCard } from "@/components/dashboard/AccumulatedEarningsCard";
 import { Button } from "@/components/shared/button/Button";
-import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
-import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
-import Link from "next/link";
+import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
+import { MainContainer } from "@/components/ui/containers/MainContainer";
 
 export default function EarningsPage() {
   return (
-    <ProtectedRoute>
-      <div className="grid pt-18">
+    <MainContainer>
+      <div className="grid gap-4">
         <PageHeader
           title={`Consulta las ganancias de la temporada.`}
           text="Aquí tienes un resumen de las ganancias obtenidas por cada participante."
         />
 
-        <div className="grid w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 ">
-          <AccumulatedEarningsCard />
-        </div>
+        <AccumulatedEarningsCard />
 
-        <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
+        <div className="flex w-full gap-4 justify-center items-center">
           <Link href="/dashboard">
             <Button type="button" title="Volver al Dashboard" theme="normal" />
           </Link>
@@ -27,6 +25,6 @@ export default function EarningsPage() {
           </Link>
         </div>
       </div>
-    </ProtectedRoute>
+    </MainContainer>
   );
 }

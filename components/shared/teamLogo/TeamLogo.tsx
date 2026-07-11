@@ -15,7 +15,7 @@ export const TeamLogo = ({ teamName, className }: TeamLogoProps) => {
 
   return (
     <div className={className}>
-      <figure className="relative w-14 h-14 md:w-20 md:h-20">
+      <figure className="relative w-14 h-14 md:w-14 md:h-14">
         <Image
           src={`/images/logos/${src}.png`}
           fill

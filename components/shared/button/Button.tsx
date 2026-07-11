@@ -6,7 +6,7 @@ interface ButtonProps {
   theme?: string;
   title?: string;
   icon?: IconName;
-  flow?: string;
+  flow?: "" | "reverse";
   loading?: boolean;
   disabled?: boolean;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -24,10 +24,10 @@ export const Button = ({
 }: ButtonProps) => {
   const themes: { [key: string]: string } = {
     primary:
-      "inline-flex items-center px-3 py-2 border rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700",
+      "inline-flex items-center px-3 py-2 border border-gray-800 rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700",
     // secondary: "py-2 px-4 rounded-lg bg-indigo-200 text-indigo-700 font-medium",
     normal:
-      "inline-flex items-center px-3 py-2 border rounded-md shadow-sm text-sm border-blue-800 font-medium text-blue-800 bg-white hover:bg-neutral-100",
+      "inline-flex items-center px-3 py-2 border border-gray-800 rounded-md shadow-sm text-sm font-medium text-blue-800 bg-white hover:bg-neutral-100",
     pill: "py-1 px-2 rounded-full bg bg-indigo-200 text-indigo-700 text-sm font-medium",
     success:
       "inline-flex text-gray-800 items-center px-3  border-gray-300 mr-2 py-1 border rounded-md shadow-sm text-xs font-medium text-gray-500 bg-gray-50",
@@ -37,7 +37,7 @@ export const Button = ({
 
   return (
     <button
-      className={`flex h-10 gap-2 justify-between ${themes[theme]} cursor-pointer`}
+      className={`flex h-10 gap-2 justify-between transition duration-500 ease-in-out ${themes[theme]} ${disabled ? "opacity-30 cursor-not-allowed grayscale-100" : "cursor-pointer"}`}
       type={type}
       onClick={onClick}
       disabled={disabled}
@@ -49,7 +49,7 @@ export const Button = ({
       >
         {icon && <Icon name={icon} size={15} />}
 
-        {title && <span>{title}</span>}
+        {title && <p>{title}</p>}
       </div>
     </button>
   );

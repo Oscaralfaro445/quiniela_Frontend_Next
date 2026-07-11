@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetGainsPayments } from "@/hooks/gainsPayments/queries/useGetGainsPayments";
+import { useGetGainsPayments } from "@/hooks/queries/useGetGainsPayments";
 import { Card } from "../shared/card/Card";
 
 interface Participant {
@@ -15,20 +15,20 @@ export const AccumulatedEarningsCard = () => {
   const gainsPayments = data?.data;
 
   return (
-    <>
-      <Card className="lg:col-span-2">
-        <div className="flex flex-col">
-          <p className="text-lg text-blue-700 font-semibold">Ganancias</p>
-          <p className=" text-sm text-neutral-600">
-            Ganancias por participante en la temporada actual
-          </p>
-        </div>
+    <Card>
+      <div className="flex flex-col">
+        <p className="text-lg text-blue-700 font-semibold">Ganancias</p>
+        <p className=" text-sm text-neutral-600">
+          Ganancias por participante en la temporada actual
+        </p>
+      </div>
 
-        {isPending && <span>Cargando...</span>}
+      {isPending && <span>Cargando...</span>}
 
-        {isError && <span>Error al cargar los datos...</span>}
+      {isError && <span>Error al cargar los datos...</span>}
 
-        {isSuccess && gainsPayments ? (
+      {isSuccess && gainsPayments ? (
+        <div className="grid overflow-auto">
           <table className="table-auto">
             <thead className="">
               <tr className="border bg-blue-600 text-white shadow rounded-lg">
@@ -61,10 +61,10 @@ export const AccumulatedEarningsCard = () => {
               ))}
             </tbody>
           </table>
-        ) : (
-          <p className="text-neutral-600">No hay informacion que mostrar...</p>
-        )}
-      </Card>
-    </>
+        </div>
+      ) : (
+        <p className="text-neutral-600">No hay informacion que mostrar...</p>
+      )}
+    </Card>
   );
 };

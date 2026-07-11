@@ -1,13 +1,13 @@
 "use client";
 
-import { useGetQuinielaVerification } from "@/hooks/quinielaVerification/queries/useGetQuinielaVerification";
+import { useGetQuinielaVerification } from "@/hooks/queries/useGetQuinielaVerification";
 import { Card } from "@/components/shared/card/Card";
-import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
 import { StatisticsCard } from "@/components/processes/quinielaVerification/StatisticsCard";
 import Link from "next/link";
 import { Button } from "@/components/shared/button/Button";
-import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
+import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
 import { Icon } from "@/components/shared/icon/Icon";
+import { MainContainer } from "@/components/ui/containers/MainContainer";
 
 export interface Participant {
   iD: number;
@@ -32,8 +32,8 @@ export default function QuinielaVerificationPage() {
   };
 
   return (
-    <ProtectedRoute>
-      <div className="min-h-screen pt-18">
+    <MainContainer>
+      <div className="grid gap-4 content-start">
         <PageHeader
           title="Proceso de verificación de información"
           text="Gestiona la carga y procesamiento de datos de participantes y quinielas"
@@ -42,8 +42,8 @@ export default function QuinielaVerificationPage() {
         <StatisticsCard />
 
         {isSuccess && (
-          <div className="w-full max-w-[1280px] mx-auto px-10 py-8">
-            <Card>
+          <Card>
+            <div className="grid gap-4">
               <div className="grid">
                 <p className="text-lg text-neutral-700 font-semibold">
                   Lista de participantes
@@ -84,7 +84,7 @@ export default function QuinielaVerificationPage() {
                           </td>
                           <td className="">
                             {getIcon(
-                              participant.survivor === !!participant.existe
+                              participant.survivor === !!participant.existe,
                             )}
                           </td>
                         </tr>
@@ -93,11 +93,11 @@ export default function QuinielaVerificationPage() {
                   </table>
                 </div>
               )}
-            </Card>
-          </div>
+            </div>
+          </Card>
         )}
 
-        <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
+        <div className="flex w-full gap-4 justify-center">
           <Link href="/dashboard">
             <Button type="button" title="Volver al Dashboard" theme="normal" />
           </Link>
@@ -105,6 +105,6 @@ export default function QuinielaVerificationPage() {
           <Button type="submit" title="Enviar Quiniela" onClick={() => {}} />
         </div>
       </div>
-    </ProtectedRoute>
+    </MainContainer>
   );
 }

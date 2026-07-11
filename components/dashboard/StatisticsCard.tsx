@@ -1,15 +1,16 @@
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
 import { Card } from "../shared/card/Card";
 import { Icon } from "../shared/icon/Icon";
 import { PrescisionCard } from "./statistics/PrecisionCard";
 import { RankingCard } from "./statistics/RankingCard";
 
-interface StatisticsCard {
-  currentWeek: string;
-}
+export const StatisticsCard = () => {
+  const { data } = useGetMe();
+  const user = data?.data?.[0];
+  const week = user?.idPeriodo;
 
-export const StatisticsCard = ({ currentWeek }: StatisticsCard) => {
   return (
-    <section className="grid lg:flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4">
+    <section className="grid lg:flex gap-4">
       <PrescisionCard />
 
       <RankingCard />
@@ -21,12 +22,10 @@ export const StatisticsCard = ({ currentWeek }: StatisticsCard) => {
         </div>
 
         <div className="grid gap-1">
-          <p className="text-2xl font-bold text-neutral-700">
-            Semana {currentWeek}
-          </p>
+          <p className="text-2xl font-bold text-neutral-700">Semana {week}</p>
 
           <p className="text-xs text-blue-600">{`${
-            18 - Number(currentWeek)
+            18 - Number(week)
           } semanas restantes`}</p>
         </div>
       </Card>

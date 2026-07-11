@@ -16,8 +16,8 @@ export const GroupRadioSimulator = ({
   handleChangeQuiniela,
 }: GroupRadioSimulatorProps) => {
   return (
-    <>
-      <Card className="hover:shadow-lg transition-shadow bg-blue-50">
+    <Card>
+      <div className="grid gap-4">
         <div className="grid lg:flex w-full gap-4 justify-start items-center">
           <div className="flex gap-2">
             <Icon name="clock" size={18} />
@@ -30,7 +30,7 @@ export const GroupRadioSimulator = ({
           </div>
         </div>
 
-        <Card className="bg-white">
+        <Card>
           <div className="flex w-full justify-between items-center">
             <div className="flex w-full justify-start items-center gap-2">
               <input
@@ -68,7 +68,7 @@ export const GroupRadioSimulator = ({
           </div>
         </Card>
 
-        <Card className="bg-white">
+        <Card>
           <div className="flex w-full justify-between items-center">
             <div className="flex w-full justify-start items-center gap-2">
               <input
@@ -105,7 +105,7 @@ export const GroupRadioSimulator = ({
             </div>
           </div>
         </Card>
-      </Card>
-    </>
+      </div>
+    </Card>
   );
 };

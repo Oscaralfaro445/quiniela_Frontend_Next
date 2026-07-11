@@ -1,52 +1,58 @@
 import { useState } from "react";
-import { FormikValues, useFormikContext } from "formik";
-import { InputProps } from "@/types/input/input";
+import { InputV2Props } from "@/types/input/input";
 import { Icon } from "../../icon/Icon";
 
 export const InputPassword = ({
-  // type,
+  id,
   name,
+  value,
+  label,
   placeholder,
   disabled,
-}: InputProps) => {
-  const [showPassword, setShowPassword] = useState(false);
-  const { values, touched, errors, handleChange, handleBlur } =
-    useFormikContext<FormikValues>();
-  const error = touched[name] && errors[name];
+  hasError,
+  error,
+  onChange,
+  onBlur,
+}: InputV2Props) => {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   return (
-    <div className="flex flex-col w-full gap-2 items-start">
+    <div className="grid w-full gap-1">
+      {label && (
+        <label className="text-md text-neutral-600" htmlFor={id}>
+          {label}
+        </label>
+      )}
+
       <div className="relative flex w-full">
         <input
-          type={showPassword ? "text" : "password"}
+          className={`w-full p-2 text-neutral-600 shadow-xs border border-neutral-300 rounded-md transition duration-200 hover:border-blue-600 focus:outline-none focus:ring focus:ring-blue-600 ${hasError ? "border-red-500 focus:ring-red-500 hover:border-red-500" : ""}`}
+          id={id}
           name={name}
-          id={name}
-          value={values[name]}
-          disabled={disabled}
+          type={showPassword ? "text" : "password"}
+          value={value}
           placeholder={placeholder}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          className={`w-full px-2 py-2 text-neutral-600 shadow-xs border border-neutral-300 rounded-md hover:border-blue-600 focus:outline-none focus:ring focus:ring-blue-600 transition-colors duration-200 ${
-            error
-              ? "border-red-500 focus:ring-red-500 hover:border-red-500"
-              : ""
-          }`}
+          disabled={disabled}
+          onChange={onChange}
+          onBlur={onBlur}
         />
 
         <button
-          className="absolute right-2 top-2 cursor-pointer"
           type="button"
-          onClick={() => setShowPassword(!showPassword)}
+          className="absolute right-2 top-2 cursor-pointer"
+          onClick={() => setShowPassword((prev) => !prev)}
         >
           {showPassword ? (
-            <Icon name="eye-off" className="text-gray-500" />
+            <Icon name="eye-off" color="gray" />
           ) : (
-            <Icon name="eye" className="text-gray-500" />
+            <Icon name="eye" color="gray" />
           )}
         </button>
       </div>
 
-      {error && <p className="text-red-500 text-sm">{error as string}</p>}
+      {hasError && error && (
+        <p className="text-red-500 text-sm font-medium">{error}</p>
+      )}
     </div>
   );
 };

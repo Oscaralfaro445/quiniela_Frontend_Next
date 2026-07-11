@@ -1,72 +1,88 @@
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface GridProps {
-  children?: ReactNode;
-  gridData: { [key: string]: string | number }[];
+  gridData: {
+    gridColumns: { [key: string]: string }[];
+    gridRows: { [key: string]: string | number | boolean }[];
+  };
+  selectedRow: {
+    index: number;
+    row: { [key: string]: string | number | boolean };
+  } | null;
+  handleSelectedRow: (
+    index: number,
+    row: { [key: string]: string | number | boolean },
+  ) => void;
 }
 
 const initialState = {
-  columns: [] as string[],
-  rows: [] as { [key: string]: string | number }[],
+  gridColumns: [] as { [key: string]: string }[],
+  gridRows: [] as { [key: string]: string | number }[],
 };
 
-export const Grid = ({ children, gridData }: GridProps) => {
-  const [table, setTable] = useState(initialState);
+export const Grid = ({
+  gridData,
+  selectedRow,
+  handleSelectedRow,
+}: GridProps) => {
+  const [table, setTable] = useState<{
+    gridColumns: { [key: string]: string }[];
+    gridRows: { [key: string]: string | number | boolean }[];
+  }>(initialState);
 
   useEffect(() => {
-    if (gridData && gridData.length > 0) {
-      setTable({
-        columns: Object.keys(gridData[0]),
-        rows: gridData,
-      });
+    if (gridData) {
+      setTable(gridData);
     } else {
-      console.log("No data or gridData received in Grid component");
       setTable(initialState);
     }
   }, [gridData]);
 
-  // console.log("Table state in Grid component:", table);
-
   return (
-    <div className="p-4 align-middle inline-block min-w-full">
-      <div className="overflow-x-auto sm:rounded-lg">
+    <div className="align-middle inline-block min-w-full">
+      <div className="overflow-x-auto rounded-md">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-blue-600 text-white">
             <tr>
-              {table.columns?.map((column) => (
-                <th
-                  scope="col"
-                  key={`col-${column}`}
-                  className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider whitespace-nowrap"
-                >
-                  {column}
-                </th>
-              ))}
+              {table.gridColumns?.map((column, index) => {
+                const key = Object.keys(column)[0];
+                const value = Object.values(column)[0];
+                console.log("column", column, key, value);
+                return (
+                  <th
+                    scope="col"
+                    key={index}
+                    className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider whitespace-nowrap"
+                  >
+                    {value}
+                  </th>
+                );
+              })}
             </tr>
           </thead>
 
           <tbody className="bg-white divide-y divide-gray-200">
-            {children
-              ? children
-              : table.rows?.map((row, index) => (
-                  <tr
-                    key={index}
-                    /* className={`cursor-pointer ${
-                  selectedRow === index ? "bg-indigo-50 text-white" : ""
-                } `}
+            {table.gridRows?.map((row, index) => (
+              <tr
+                key={index}
+                className={`hover:cursor-pointer ${selectedRow?.index === index ? "bg-blue-100" : ""}`}
                 onClick={() => {
                   handleSelectedRow(index, row);
-                }} */
-                  >
-                    {Object.values(row).map((value, i) => (
-                      <td key={i} className="px-6 py-3 text-center">
-                        <div className="text-xs text-gray-500">
-                          {String(value)}
-                        </div>
-                      </td>
-                    ))}
-                  </tr>
-                ))}
+                }}
+              >
+                {table.gridColumns?.map((column, colIndex) => {
+                  const key = Object.keys(column)[0];
+
+                  return (
+                    <td key={`${colIndex}`} className="px-6 py-3 text-center">
+                      <div className="text-xs text-gray-500">
+                        {String(row[key])}
+                      </div>
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

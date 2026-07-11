@@ -1,4 +1,4 @@
-import { useGetMatchPrediction } from "@/hooks/matchPrediction/queries/useGetMatchPrediction";
+import { useGetMatchPrediction } from "@/hooks/queries/useGetMatchPrediction";
 import { TeamLogo } from "../shared/teamLogo/TeamLogo";
 import { Icon } from "../shared/icon/Icon";
 
@@ -16,24 +16,27 @@ interface MatchPrediction {
 }
 
 export const MatchPredictionCard = ({ gameId }: MatchPredictionCardProps) => {
-  const { isPending, isError, isSuccess, error, data } =
-    useGetMatchPrediction(gameId);
+  const { isPending, isError, data } = useGetMatchPrediction(gameId);
+
+  if (isPending) {
+    return <p>Cargando...</p>;
+  }
+
+  if (isError) {
+    return <p>Error al cargar los datos...</p>;
+  }
 
   return (
     <div className="grid gap-4">
       <div className="text-center">
         <h2 className="text-2xl font-bold text-gray-800 mb-2">
-          Pronostico de partido
+          Pronóstico de partido
         </h2>
-        <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
+        <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full" />
       </div>
 
-      {isPending && <div>Cargando...</div>}
-
-      {isError && <div>Error: {error?.message}</div>}
-
-      {isSuccess && (
-        <div className="w-full max-h-[70vh] overflow-auto">
+      {data?.data ? (
+        <div className="w-full max-h-[70vh] overflow-auto rounded-lg">
           <table className="w-full">
             <thead className="bg-blue-600 text-white text-sm font-semibold sticky top-0 z-10">
               <tr>
@@ -50,16 +53,20 @@ export const MatchPredictionCard = ({ gameId }: MatchPredictionCardProps) => {
             </thead>
 
             <tbody className="text-gray-700 text-sm">
-              {data.data.map((prediction: MatchPrediction, index: number) => (
+              {data?.data?.map((prediction: MatchPrediction, index: number) => (
                 <tr key={index} className="hover:bg-gray-50 transition-colors">
                   <td className="p-2 border-b border-gray-200 font-medium">
-                    {prediction.nomParticipante}
+                    {prediction?.nomParticipante}
                   </td>
                   <td className="p-2 border-b border-gray-200">
-                    <TeamLogo teamName={prediction.nomEquipoPronost} />
+                    {prediction?.pronostico !== " " && (
+                      <TeamLogo teamName={prediction?.nomEquipoPronost} />
+                    )}
                   </td>
                   <td className="p-2 border-b border-gray-200 font-bold text-blue-600">
-                    {prediction.acerto === "si" ? (
+                    {prediction?.acerto === "Pendiente" ? (
+                      <Icon name="calendar-clock" />
+                    ) : prediction?.acerto === "si" ? (
                       <Icon name="check" color="green" />
                     ) : (
                       <Icon name="x" color="red" />
@@ -70,6 +77,8 @@ export const MatchPredictionCard = ({ gameId }: MatchPredictionCardProps) => {
             </tbody>
           </table>
         </div>
+      ) : (
+        <p>No hay datos disponibles.</p>
       )}
     </div>
   );

@@ -1,35 +1,20 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/context/authContext/AuthContext";
-import { useGetParticipantPositions } from "@/hooks/participantPositions/queries/useGetParticipantPositions";
-import { ParticipantStatistics } from "@/types/participantStatistics/participantStatistics";
+import { useState } from "react";
+import { MainContainer } from "@/components/ui/containers/MainContainer";
 import { Button } from "@/components/shared/button/Button";
-import { ProtectedRoute } from "@/components/shared/protectedRoute/ProtectedRoute";
 import { StatisticsCard } from "@/components/standings/StatisticsCard";
-import { PageHeader } from "@/components/ui/pageHeader/PageHeader";
-import { PeriodTabs } from "@/components/standings/PeriodTabs";
+import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
 import { StandingsCard } from "@/components/standings/StandingsCard";
-
-export type TabType = "weekly" | "global";
+import { TabSelector, TabType } from "@/components/shared/tabs/TabSelector";
 
 export default function StandingsPage() {
-  const router = useRouter();
-  const { dataUser } = useAuth();
-  const { isPending, isError, isSuccess, data } = useGetParticipantPositions();
-  const participantData = data?.data[0];
-  const currentWeek = dataUser?.idPeriodo;
-  const weeklyLeaderboard: ParticipantStatistics[] =
-    participantData?.puntosPeriodo;
-  const globalLeaderboard: ParticipantStatistics[] =
-    participantData?.puntosTotal;
-  const [activeTab, setActiveTab] = useState<TabType>("weekly");
+  const [activeTab, setActiveTab] = useState<TabType>(0);
 
   return (
-    <ProtectedRoute>
-      <div className="pt-18">
+    <MainContainer>
+      <div className="grid gap-4">
         <PageHeader
           title="Clasificación"
           text="Consulta las posiciones semanales y globales de todos los participantes"
@@ -37,48 +22,24 @@ export default function StandingsPage() {
 
         <StatisticsCard activeTab={activeTab} />
 
-        <div className="grid max-w-[1280px] mx-auto px-10 py-8 gap-4">
-          <PeriodTabs
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-            currentWeek={currentWeek}
-          />
+        <TabSelector
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          text={["Semanal", "Global"]}
+        />
 
-          {activeTab === "weekly" && (
-            <StandingsCard
-              period={`semana ${currentWeek}`}
-              isPending={isPending}
-              isError={isError}
-              isSuccess={isSuccess}
-              leaderboard={weeklyLeaderboard}
-            />
-          )}
+        <StandingsCard activeTab={activeTab} />
 
-          {activeTab === "global" && (
-            <div className="">
-              <StandingsCard
-                period="global"
-                isPending={isPending}
-                isError={isError}
-                isSuccess={isSuccess}
-                leaderboard={globalLeaderboard}
-              />
-            </div>
-          )}
-        </div>
-
-        <div className="flex w-full max-w-[1280px] mx-auto px-10 py-8 gap-4 justify-center">
+        <div className="flex w-full gap-4 justify-center">
           <Link href="/dashboard">
             <Button type="button" title="Volver al Dashboard" theme="normal" />
           </Link>
 
-          <Button
-            type="button"
-            title="Ver Quiniela"
-            onClick={() => router.push("/quiniela")}
-          />
+          <Link href="/quiniela">
+            <Button type="button" title="Ver Quiniela" theme="primary" />
+          </Link>
         </div>
       </div>
-    </ProtectedRoute>
+    </MainContainer>
   );
 }

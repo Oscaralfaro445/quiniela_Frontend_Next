@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import useGetMenu from "@/hooks/menu/queries/useGetMenu";
+import { useGetMenu } from "@/hooks/queries/useGetMenu";
 import { Menu } from "@/components/ui/menu/Menu";
 
 interface SidebarProps {
@@ -11,8 +11,8 @@ interface SidebarProps {
 
 export const Sidebar = ({ toggleSidebar, isSidebarOpen }: SidebarProps) => {
   const currentRoute = usePathname();
-  const menu = useGetMenu();
-  const menuData = menu?.data?.data[0];
+  const { data } = useGetMenu();
+  const menuData = data?.data?.[0];
 
   return (
     <div
