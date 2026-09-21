@@ -26,7 +26,6 @@ export const InputPassword = ({
 
       <div className="relative flex w-full">
         <input
-          className={`w-full p-2 text-neutral-600 shadow-xs border border-neutral-300 rounded-md transition duration-200 hover:border-blue-600 focus:outline-none focus:ring focus:ring-blue-600 ${hasError ? "border-red-500 focus:ring-red-500 hover:border-red-500" : ""}`}
           id={id}
           name={name}
           type={showPassword ? "text" : "password"}
@@ -35,6 +34,7 @@ export const InputPassword = ({
           disabled={disabled}
           onChange={onChange}
           onBlur={onBlur}
+          className={`w-full p-2 text-neutral-600 shadow-xs border border-neutral-300 rounded-md transition duration-200 hover:border-blue-600 focus:outline-none focus:ring focus:ring-blue-600 ${hasError ? "border-red-500 focus:ring-red-500 hover:border-red-500" : ""}`}
         />
 
         <button

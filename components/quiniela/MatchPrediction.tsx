@@ -218,7 +218,12 @@ export const MatchPrediction = () => {
           <Button type="button" title="Volver al Dashboard" theme="normal" />
         </Link>
 
-        <Button type="submit" title="Enviar Quiniela" onClick={handleSubmit} />
+        <Button
+          type="submit"
+          title="Enviar Quiniela"
+          disabled={quinielaAlta.isPending || survivorAlta.isPending}
+          onClick={handleSubmit}
+        />
       </div>
     </div>
   );

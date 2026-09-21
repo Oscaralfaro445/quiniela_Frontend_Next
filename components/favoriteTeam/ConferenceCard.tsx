@@ -7,6 +7,7 @@ import { TeamLogo } from "../shared/teamLogo/TeamLogo";
 export const ConferenceCard = () => {
   const { isPending, isError, isSuccess, data } = useGetFavoriteTeam();
   const conference = data?.data?.[0]?.infPosicion;
+  console.log("conference", conference);
 
   return (
     <div className="items-start">
@@ -38,7 +39,7 @@ export const ConferenceCard = () => {
                 </thead>
 
                 <tbody>
-                  {conference?.infPosicion?.map(
+                  {conference?.map(
                     (equipo: {
                       nomEquipo: string;
                       division: string;

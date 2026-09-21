@@ -37,7 +37,7 @@ export default function SurvivorPaymentPage() {
   };
 
   const handleSubmit = () => {
-    const participantsDataUpdated = participantsData.map((participant) => ({
+    const participantsDataUpdated = participantsData?.map((participant) => ({
       ID_QUINIELA: user!.idQuiniela,
       ID_PARTICIPANTE: participant.ID_PARTICIPANTE,
       ID_PERIODO: user!.idPeriodo,
@@ -70,6 +70,7 @@ export default function SurvivorPaymentPage() {
           <Button
             type="button"
             title="Actualizar pagos"
+            disabled={survivorPayment.isPending}
             onClick={handleSubmit}
           />
         </div>

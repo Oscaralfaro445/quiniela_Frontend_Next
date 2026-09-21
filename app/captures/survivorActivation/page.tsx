@@ -74,6 +74,7 @@ export default function SurvivorActivationPage() {
                     type="button"
                     title={data?.data?.[0]?.bResucita ? "Cancelar" : "Activar"}
                     theme={data?.data?.[0]?.bResucita ? "danger" : "primary"}
+                    disabled={survivorActivation.isPending}
                     onClick={handleSurvivorActivation}
                   />
                 </div>

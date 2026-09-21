@@ -6,7 +6,7 @@ const fetchScores = async (payload: {
   idQuery: string;
   parmRemp: { $1: number };
 }) => {
-  const response = await axiosInstance.post("/Query/Consult", payload);
+  const response = await axiosInstance.post("/Query/Consulta", payload);
   return response.data;
 };
 

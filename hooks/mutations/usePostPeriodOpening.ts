@@ -32,7 +32,7 @@ export const usePostPeriodOpening = () => {
       showAlert(
         AlertState.ERROR,
         "Error al procesar la solicitud",
-        "Tuvimos un problema al iniciar sesión",
+        "Tuvimos un problema al procesar la solicitud. Por favor, inténtalo de nuevo más tarde.",
       );
     },
     onSuccess: (data) => {
@@ -40,7 +40,7 @@ export const usePostPeriodOpening = () => {
         estatus: data.estatus,
         errorUs: data.errorUs,
         errorNeg: data.errorNeg,
-        mensajeExito: "Inicio de sesión exitoso",
+        mensajeExito: "Proceso ejecutado correctamente",
       });
     },
   });

@@ -101,8 +101,6 @@ export default function QuinielaVerificationPage() {
           <Link href="/dashboard">
             <Button type="button" title="Volver al Dashboard" theme="normal" />
           </Link>
-
-          <Button type="submit" title="Enviar Quiniela" onClick={() => {}} />
         </div>
       </div>
     </MainContainer>
