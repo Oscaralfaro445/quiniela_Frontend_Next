@@ -60,8 +60,8 @@ export default function PeriodOpeningPage() {
                 mutation.isSuccess ? "Reiniciar Proceso" : "Iniciar Proceso"
               }
               icon="play"
-              onClick={handleExecuteProcess}
               disabled={mutation.isPending}
+              onClick={handleExecuteProcess}
             />
 
             {mutation.isSuccess && (

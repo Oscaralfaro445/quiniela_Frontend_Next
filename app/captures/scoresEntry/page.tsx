@@ -88,6 +88,7 @@ export default function ScoresEntryPage() {
           <Button
             type="submit"
             title="Actualizar Marcadores"
+            disabled={markersUpdate.isPending}
             onClick={handleSubmitScores}
           />
         </div>
