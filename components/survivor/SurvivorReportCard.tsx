@@ -12,10 +12,15 @@ export const SurvivorReportCard = () => {
   const { data: userData } = useGetMe();
   const user = userData?.data?.[0];
   const survivorData = data?.data;
+  console.log(survivorData);
   const semanas = Object.keys(survivorData?.[0] ?? {})
     .filter((key) => key.startsWith("NOM_EQ_"))
     .map((key) => parseInt(key.split("_")[2]))
     .slice(0, parseInt(user?.idPeriodo ?? ""));
+
+  console.log(semanas);
+  console.log(semanas.length);
+  console.log(semanas.length - 4);
 
   const [rango, setRango] = useState({
     inicio: 0,
@@ -25,7 +30,7 @@ export const SurvivorReportCard = () => {
   useEffect(() => {
     if (semanas.length > 0) {
       setRango({
-        inicio: semanas.length - 4,
+        inicio: semanas.length - 4 >= 0 ? semanas.length - 4 : 0,
         fin: semanas.length,
       });
     }
