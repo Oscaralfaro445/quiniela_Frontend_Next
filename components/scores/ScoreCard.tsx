@@ -2,6 +2,8 @@ import { GameResult } from "@/types/gameResult/gameResult";
 import { Card } from "../shared/card/Card";
 import { TeamLogo } from "../shared/teamLogo/TeamLogo";
 import { Button } from "../shared/button/Button";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
+import { useEffect, useState } from "react";
 
 interface ScoreCardProps {
   game: GameResult;
@@ -14,11 +16,35 @@ export const ScoreCard = ({
   getWinner,
   handlePredictionClick,
 }: ScoreCardProps) => {
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const { data: userData } = useGetMe();
+  const userInfo = userData?.data?.[0];
   const partidoPendiente = game.marcVisita === 0 && game.marLocal === 0;
+
+  useEffect(() => {
+    if (!userInfo?.fLimite || !userInfo?.horaLimite) {
+      return;
+    }
+
+    const limitDate = new Date(`${userInfo.fLimite}T${userInfo.horaLimite}`);
+
+    const remainingTime = limitDate.getTime() - Date.now();
+
+    if (remainingTime <= 0) {
+      setIsDisabled(false);
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setIsDisabled(false);
+    }, remainingTime);
+
+    return () => clearTimeout(timeout);
+  }, [userInfo?.fLimite, userInfo?.horaLimite]);
 
   return (
     <Card>
-      <div className="hover:shadow-md transition-shadow space-y-4">
+      <div className="transition-shadow space-y-4">
         <div className="flex gap-4 items-center justify-between">
           <div className="grid w-full items-center gap-4">
             <div
@@ -97,6 +123,7 @@ export const ScoreCard = ({
         <Button
           type="button"
           title="Ver Predicción"
+          disabled={isDisabled}
           onClick={() => handlePredictionClick(game.partido)}
         />
       </div>
