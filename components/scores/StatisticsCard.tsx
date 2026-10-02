@@ -89,10 +89,10 @@ export const StatisticsCard = ({ gameResults, week }: StatisticsCardProps) => {
       title: "Promedio de puntos",
       icon: "clock",
       infomation: ` ${Math.round(
-        gameResults?.reduce(
-          (sum, game) => sum + game.marcVisita + game.marLocal,
-          0,
-        ) / totalGames,
+        gameResults
+          ?.filter((game) => game.marcVisita !== 0 && game.marLocal !== 0)
+          .reduce((sum, game) => sum + game.marcVisita + game.marLocal, 0) /
+          totalGames,
       )}`,
       description: "Por juego",
     },

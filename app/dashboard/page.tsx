@@ -12,11 +12,25 @@ import { PageHeader } from "@/components/shared/pageHeader/PageHeader";
 import { MainContainer } from "@/components/ui/containers/MainContainer";
 import { ConferenceCard } from "@/components/dashboard/ConferenceCard";
 import { MatchVotesCard } from "@/components/dashboard/MatchVotesCard";
+import { Modal } from "@/components/shared/modal/Modal";
+import { MatchPredictionCard } from "@/components/scores/MatchPredictionCard";
+import { useState } from "react";
 // import { TeamLogo } from "@/components/shared/teamLogo/TeamLogo";
 
 export default function DashboardPage() {
+  const [selectedGame, setSelectedGame] = useState<number>(0);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { data } = useGetMe();
   const userInfo = data?.data?.[0];
+
+  const handleModalOpen = () => {
+    setIsModalOpen((prev) => !prev);
+  };
+
+  const handlePredictionClick = (gameId: number) => {
+    setSelectedGame(gameId);
+    handleModalOpen();
+  };
 
   return (
     <MainContainer>
@@ -34,13 +48,17 @@ export default function DashboardPage() {
         <div className="grid w-full gap-4 ">
           <SwiftActionsCard />
           <AccumulatedBagCard />
-          <MatchVotesCard />
+          <MatchVotesCard handlePredictionClick={handlePredictionClick} />
           <ConferenceCard />
           <SeasonProgressCard />
           <SurvivorCard />
           <UpcomingGamesCard />
         </div>
       </div>
+
+      <Modal isModalOpen={isModalOpen} closeModal={handleModalOpen}>
+        <MatchPredictionCard gameId={selectedGame} />
+      </Modal>
     </MainContainer>
   );
 }

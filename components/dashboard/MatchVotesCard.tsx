@@ -1,10 +1,42 @@
+import { useEffect, useState } from "react";
 import { useGetMatchVotes } from "@/hooks/queries/useGetMatchVotes";
 import { Card } from "../shared/card/Card";
 import { TeamLogo } from "../shared/teamLogo/TeamLogo";
+import { Button } from "../shared/button/Button";
+import { useGetMe } from "@/hooks/queries/user/useGetMe";
 
-export const MatchVotesCard = () => {
+export const MatchVotesCard = ({
+  handlePredictionClick,
+}: {
+  handlePredictionClick: (gameId: number) => void;
+}) => {
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
   const { isPending, isError, data } = useGetMatchVotes();
+  const { data: userData } = useGetMe();
+  const userInfo = userData?.data?.[0];
   const matchVotes = data?.data;
+
+  useEffect(() => {
+    if (!userInfo?.fLimite || !userInfo?.horaLimite) {
+      return;
+    }
+
+    const limitDate = new Date(`${userInfo.fLimite}T${userInfo.horaLimite}`);
+
+    const remainingTime = limitDate.getTime() - Date.now();
+
+    if (remainingTime <= 0) {
+      setIsDisabled(false);
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setIsDisabled(false);
+    }, remainingTime);
+
+    return () => clearTimeout(timeout);
+  }, [userInfo?.fLimite, userInfo?.horaLimite]);
+
   const normalizePercentage = (value: number | string | undefined): number => {
     const numeric = Number(value);
     if (Number.isNaN(numeric)) {
@@ -48,6 +80,7 @@ export const MatchVotesCard = () => {
                   <th className="px-4 py-3 text-center rounded-tr-lg">
                     Distribucion
                   </th>
+                  <th>{"  "}</th>
                 </tr>
               </thead>
               <tbody className="rounded-b-lg bg-white shadow-sm">
@@ -130,6 +163,16 @@ export const MatchVotesCard = () => {
                             />
                           </div>
                         </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="flex justify-center">
+                        <Button
+                          type="button"
+                          title="Ver Predicción"
+                          disabled={isDisabled}
+                          onClick={() => handlePredictionClick(idPartido)}
+                        />
                       </div>
                     </td>
                   </tr>
