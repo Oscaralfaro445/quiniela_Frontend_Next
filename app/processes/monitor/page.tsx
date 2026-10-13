@@ -38,6 +38,7 @@ interface CierreData {
   bSurvivor: CierreFlag;
   bExiste: CierreFlag;
   bPago: CierreFlag;
+  bPuntos: CierreFlag;
 }
 
 interface AperturaData {
@@ -102,6 +103,7 @@ const CierreSection = ({
     { label: "Survivor", key: "bSurvivor", data: cierre.bSurvivor },
     { label: "Existe", key: "bExiste", data: cierre.bExiste },
     { label: "Surv. Pagado", key: "bPago", data: cierre.bPago },
+    { label: "Puntos", key: "bPuntos", data: cierre.bPuntos },
   ];
 
   const toggle = (key: string) =>
