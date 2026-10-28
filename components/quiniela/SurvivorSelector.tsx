@@ -15,6 +15,7 @@ export const SurvivorSelector = ({
   handleSelectedSurvivor,
 }: SurvivorSelectorProps) => {
   const { isPending, isError, data, error } = useGetSurvivorTeams();
+  console.log("SurvivorSelector data:", data?.data);
 
   return (
     <Card>
